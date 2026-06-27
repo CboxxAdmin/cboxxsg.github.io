@@ -1,445 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>CBOXX East Area Pilot — 8 Malls, 1,260+ Merchants</title>
-<meta name="description" content="CBOXX Phase 1 pilot covers 8 malls across Singapore's East Area — Tampines, Bedok, Paya Lebar, and Changi.">
+<meta name="description" content="CBOXX Phase 1 pilot covers 8 malls across Singapore's East Area.">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root { --red:#8B0015; --navy:#0D1B2A; --cream:#F2EDE5; --yellow:#C9963A; --green:#165C32; --mid:#7A7A7A; --white:#FFFFFF; --light:#F4F1EC; }
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;}
-  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:80px;border-bottom:1px solid rgba(139,0,21,0.4);}
-  .nav-back{color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.85rem;}
-  .nav-back:hover{color:white;}
-  .nav-links{display:flex;gap:1.2rem;list-style:none;align-items:center;}
-  .nav-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.78rem;font-weight:500;}
-  .nav-links a:hover{color:var(--yellow);}
-  .nav-cta{background:var(--red);color:white!important;padding:0.5rem 1.25rem;border-radius:4px;}
+:root{--red:#8B0015;--navy:#0D1B2A;--cream:#F2EDE5;--yellow:#C9963A;--green:#165C32;--mid:#7A7A7A;--white:#FFFFFF;--light:#F4F1EC;--black:#060C14;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:#000000;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:72px;border-bottom:1px solid rgba(139,0,21,0.3);}
+.nav-logo img{height:36px;width:auto;display:block;}
+.nav-links{display:flex;gap:1.1rem;list-style:none;align-items:center;}
+.nav-links a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.78rem;font-weight:500;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:#C9963A;}
+.nav-cta{background:#8B0015!important;color:white!important;padding:0.42rem 1.05rem;border-radius:4px;font-weight:600!important;}
+.nav-cta:hover{background:#7A0012!important;}
+.nav-burger{display:none;background:none;border:none;cursor:pointer;padding:0.5rem;flex-direction:column;gap:5px;}
+.nav-burger span{display:block;width:22px;height:2px;background:white;border-radius:2px;transition:all 0.3s;}
+.mobile-nav{display:none;position:fixed;top:72px;left:0;right:0;background:#000000;backdrop-filter:blur(16px);z-index:199;padding:1.5rem 5vw 2rem;border-bottom:1px solid rgba(139,0,21,0.3);}
+.mobile-nav.open{display:block;animation:slideDown 0.22s ease;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.mobile-nav ul{list-style:none;display:flex;flex-direction:column;gap:0.9rem;}
+.mobile-nav a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:1rem;font-weight:600;display:block;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.mobile-nav a.cta-m{color:#8B0015;border:none;margin-top:0.5rem;}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.from-left{transform:translateX(-28px);}
+.reveal.from-right{transform:translateX(28px);}
+.reveal.from-scale{transform:scale(0.92);}
+.reveal.visible{opacity:1!important;transform:none!important;}
+.d1{transition-delay:.06s}.d2{transition-delay:.13s}.d3{transition-delay:.20s}.d4{transition-delay:.27s}.d5{transition-delay:.34s}.d6{transition-delay:.41s}
+.eyebrow{font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;display:block;margin-bottom:0.85rem;}
+.section-headline{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;text-transform:uppercase;line-height:1;margin-bottom:1rem;}
+.section-sub{font-size:0.98rem;line-height:1.75;max-width:540px;margin-bottom:3rem;}
+.btn-red{display:inline-flex;align-items:center;gap:0.5rem;background:#8B0015;color:white;padding:0.9rem 1.8rem;border-radius:4px;font-weight:700;font-size:0.9rem;text-decoration:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s,transform 0.15s;}
+.btn-red:hover{background:#7A0012;transform:translateY(-1px);}
+.btn-ghost{display:inline-flex;align-items:center;gap:0.5rem;border:1.5px solid rgba(255,255,255,0.25);color:white;padding:0.9rem 1.8rem;border-radius:4px;font-weight:600;font-size:0.9rem;text-decoration:none;transition:border-color 0.2s,color 0.2s;}
+.btn-ghost:hover{border-color:#C9963A;color:#C9963A;}
+footer{background:#060C14;padding:3rem 5vw;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+.footer-logo img{height:30px;}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.footer-links a{color:rgba(255,255,255,0.28);text-decoration:none;font-size:0.78rem;transition:color 0.2s;}
+.footer-links a:hover{color:rgba(255,255,255,0.65);}
+.footer-copy{font-size:0.7rem;color:rgba(255,255,255,0.18);}
+@media(max-width:768px){nav{padding:0 4vw;height:64px;}.nav-links{display:none;}.nav-burger{display:flex;}.nav-logo img{height:30px;}footer{flex-direction:column;text-align:center;}.footer-links{justify-content:center;}}
 
-  .hero{padding:120px 5vw 60px;}
-  .eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--yellow);display:block;margin-bottom:1rem;}
-  .headline{font-family:'Barlow Condensed',sans-serif;font-size:clamp(3rem,7vw,5rem);font-weight:900;line-height:0.95;text-transform:uppercase;color:white;margin-bottom:1.5rem;}
-  .sub{font-size:1.05rem;line-height:1.7;color:rgba(255,255,255,0.55);max-width:560px;margin-bottom:3rem;}
-
-  /* STAT ROW */
-  .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:4rem;}
-  .stat-box{padding:1.5rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;}
-  .stat-num{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;color:var(--yellow);line-height:1;display:block;margin-bottom:0.3rem;}
-  .stat-label{font-size:0.78rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;}
-
-  /* MALL GRID */
-  .malls{padding:0 5vw 5rem;}
-  .mall-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
-  .mall-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:2rem;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;}
-  .mall-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:rgba(139,0,21,0.4);transition:background 0.2s;}
-  .mall-card:hover{background:rgba(255,255,255,0.07);border-color:rgba(139,0,21,0.4);transform:translateY(-2px);}
-  .mall-card:hover::before{background:var(--red);}
-  .mall-card.priority::before{background:var(--red);}
-  .mall-card.govt::before{background:var(--green);}
-  .mall-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;}
-  .mall-name{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:white;text-transform:uppercase;line-height:1;}
-  .mall-count{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;color:var(--yellow);line-height:1;}
-  .mall-operator{font-size:0.78rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;}
-  .mall-area{font-size:0.8rem;color:rgba(255,255,255,0.3);margin-bottom:1rem;}
-  .mall-industries{display:flex;flex-wrap:wrap;gap:0.4rem;}
-  .mall-tag{font-size:0.65rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:100px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.45);border:1px solid rgba(255,255,255,0.1);}
-  .mall-detail{display:none;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.08);}
-  .mall-card.expanded .mall-detail{display:block;}
-  .mall-detail p{font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.65;}
-
-  /* DISTRICT MAP */
-  .districts{padding:0 5vw 5rem;}
-  .district-tabs{display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap;}
-  .district-tab{padding:0.5rem 1.25rem;border-radius:100px;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);font-size:0.82rem;font-weight:600;cursor:pointer;background:transparent;font-family:'Inter',sans-serif;transition:all 0.2s;}
-  .district-tab.active{background:var(--red);border-color:var(--red);color:white;}
-  .district-panel{display:none;}
-  .district-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
-  .district-info{padding:2rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;}
-  .district-name{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:white;text-transform:uppercase;margin-bottom:0.5rem;}
-  .district-sub{font-size:0.85rem;color:rgba(255,255,255,0.45);line-height:1.65;margin-bottom:1.25rem;}
-  .district-malls{display:flex;flex-direction:column;gap:0.5rem;}
-  .district-mall-row{display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0.75rem;background:rgba(255,255,255,0.04);border-radius:4px;}
-  .district-mall-name{font-size:0.85rem;color:rgba(255,255,255,0.7);font-weight:500;}
-  .district-mall-count{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:var(--yellow);}
-
-  /* TIMELINE */
-  .timeline{padding:0 5vw 5rem;}
-  .tl-line{position:relative;padding-left:2.5rem;}
-  .tl-line::before{content:'';position:absolute;left:0.65rem;top:0;bottom:0;width:2px;background:rgba(139,0,21,0.3);}
-  .tl-item{position:relative;padding-bottom:2.5rem;}
-  .tl-dot{position:absolute;left:-2.5rem;width:14px;height:14px;border-radius:50%;background:var(--red);border:2px solid var(--navy);top:4px;}
-  .tl-item.upcoming .tl-dot{background:rgba(255,255,255,0.15);}
-  .tl-phase{font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--yellow);margin-bottom:0.25rem;}
-  .tl-title{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:white;text-transform:uppercase;margin-bottom:0.4rem;}
-  .tl-body{font-size:0.85rem;color:rgba(255,255,255,0.45);line-height:1.65;}
-
-  /* CTA */
-  .cta{padding:5rem 5vw;background:rgba(255,255,255,0.03);border-top:1px solid rgba(255,255,255,0.06);text-align:center;}
-  .cta h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;text-transform:uppercase;color:white;margin-bottom:1rem;}
-  .cta p{font-size:1rem;color:rgba(255,255,255,0.5);max-width:460px;margin:0 auto 2.5rem;line-height:1.6;}
-  .btn{background:var(--red);color:white;padding:1rem 2rem;border-radius:4px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;}
-  .btn:hover{background:#7A0012;}
-
-  footer{background:var(--navy);color:rgba(255,255,255,0.4);padding:2.5rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(255,255,255,0.06);}
-  .footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
-  .footer-links a{color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.8rem;}
-  .footer-links a:hover{color:white;}
-
-  .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
-  .reveal.visible{opacity:1;transform:translateY(0);}
-
-  @media(max-width:768px){.stat-row,.mall-grid,.district-panel.active{grid-template-columns:1fr;}}
-
-  /* ── MOBILE FIXES ── */
-  @media (max-width: 768px) {
-    nav { padding: 0 4vw; height: 70px; }
-    .nav-links { display: none; }
-    .nav-back { font-size: 0.8rem; }
-    .nav-cta { padding: 0.4rem 0.9rem; font-size: 0.75rem; }
-
-    .hero, .gov-hero { padding: 100px 5vw 50px; }
-    .headline, .gov-headline { font-size: clamp(2.5rem, 12vw, 4rem) !important; }
-    .sub, .gov-sub { font-size: 0.95rem; }
-
-    .stat-row { grid-template-columns: repeat(2, 1fr) !important; }
-    .pain-grid { grid-template-columns: 1fr !important; }
-    .steps { grid-template-columns: 1fr !important; }
-    .demo-wrap { grid-template-columns: 1fr !important; gap: 2rem; }
-    .roi-wrap { grid-template-columns: 1fr !important; gap: 2rem; }
-    .loyalty-panel.active { grid-template-columns: 1fr !important; }
-    .plans { grid-template-columns: 1fr !important; }
-    .story-grid { grid-template-columns: 1fr !important; gap: 2rem; }
-    .team-grid { grid-template-columns: 1fr !important; }
-    .values-grid { grid-template-columns: 1fr !important; }
-    .public-grid { grid-template-columns: 1fr !important; }
-    .mall-grid { grid-template-columns: 1fr !important; }
-    .agency-grid { grid-template-columns: 1fr !important; }
-    .data-grid { grid-template-columns: 1fr !important; }
-    .district-panel.active { grid-template-columns: 1fr !important; }
-
-    .loyalty-tabs { flex-wrap: wrap; width: 100%; }
-    .loyalty-tab { flex: 1; text-align: center; min-width: 80px; }
-
-    .district-tabs { gap: 0.4rem; }
-    .district-tab { padding: 0.4rem 0.85rem; font-size: 0.78rem; }
-
-    .onboarding-bar { flex-direction: column !important; gap: 0.75rem !important; }
-
-    .cta h2 { font-size: clamp(1.8rem, 8vw, 3rem) !important; }
-    .btn, .btn-outline { width: 100%; justify-content: center; margin-left: 0 !important; margin-top: 0.75rem; }
-
-    .demo-phone-wrap { margin-bottom: 1rem; }
-
-    section, .hero, .pain, .how, .demo, .roi, .loyalty, .pricing, .public, .values, .team, .story, .malls, .districts, .cta, .gov-hero { padding-left: 5vw !important; padding-right: 5vw !important; }
-
-    footer { flex-direction: column; text-align: center; }
-    .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
-
-    .nav-tag { font-size: 0.55rem; padding: 0.25rem 0.6rem; }
-  }
+body{background:#060C14;}
+.ea-hero{background:#060C14;padding:120px 5vw 70px;position:relative;overflow:hidden;}
+.ea-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 40% 50% at 90% 60%,rgba(201,150,58,0.06) 0%,transparent 70%);}
+.ea-h{font-family:'Barlow Condensed',sans-serif;font-size:clamp(3rem,8vw,6rem);font-weight:900;line-height:0.9;text-transform:uppercase;color:white;margin-bottom:1.5rem;position:relative;z-index:1;}
+.ea-h em{color:#C9963A;font-style:normal;}
+.ea-sub{font-size:1rem;line-height:1.75;color:rgba(255,255,255,0.5);max-width:540px;margin-bottom:2.5rem;position:relative;z-index:1;}
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:3rem;position:relative;z-index:1;}
+.ss{padding:1.5rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;}
+.ssn{font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:900;color:#C9963A;line-height:1;display:block;margin-bottom:0.3rem;}
+.ssl{font-size:0.72rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;}
+.mall-grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;padding:0 5vw 5rem;}
+.mcard2{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:1.75rem;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;}
+.mcard2::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:rgba(139,0,21,0.3);transition:background 0.2s;}
+.mcard2:hover,.mcard2.open{background:rgba(255,255,255,0.06);border-color:rgba(139,0,21,0.35);}
+.mcard2:hover::before,.mcard2.open::before{background:#8B0015;}
+.mcard2.govt::before{background:#165C32;}
+.mcard2.govt:hover::before,.mcard2.govt.open::before{background:#165C32;}
+.mheader2{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;}
+.mname2{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:white;text-transform:uppercase;line-height:1;}
+.mcount2{font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:900;color:#C9963A;line-height:1;}
+.mop2{font-size:0.72rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.65rem;}
+.mtags2{display:flex;flex-wrap:wrap;gap:0.35rem;}
+.mtag2{font-size:0.6rem;font-weight:600;padding:0.2rem 0.55rem;border-radius:100px;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.08);}
+.mdetail2{display:none;margin-top:1.1rem;padding-top:1.1rem;border-top:1px solid rgba(255,255,255,0.07);font-size:0.84rem;color:rgba(255,255,255,0.45);line-height:1.65;animation:fadeIn 0.25s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
+.mcard2.open .mdetail2{display:block;}
+.dtabs{display:flex;gap:0.45rem;flex-wrap:wrap;margin-bottom:2rem;}
+.dtab{padding:0.45rem 1.1rem;border-radius:100px;border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.45);font-size:0.8rem;font-weight:600;cursor:pointer;background:transparent;font-family:'Inter',sans-serif;transition:all 0.2s;}
+.dtab.active{background:#8B0015;border-color:#8B0015;color:white;}
+.dpanel{display:none;}
+.dpanel.active{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.dinfo{padding:2rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;}
+.dname{font-family:'Barlow Condensed',sans-serif;font-size:1.7rem;font-weight:900;color:white;text-transform:uppercase;margin-bottom:0.5rem;}
+.dsub{font-size:0.84rem;color:rgba(255,255,255,0.42);line-height:1.65;margin-bottom:1.2rem;}
+.dmrow{display:flex;justify-content:space-between;align-items:center;padding:0.55rem 0.7rem;background:rgba(255,255,255,0.04);border-radius:4px;margin-bottom:0.4rem;}
+.dmname{font-size:0.82rem;color:rgba(255,255,255,0.65);font-weight:500;}
+.dmcount{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:900;color:#C9963A;}
+@media(max-width:768px){
+  .stat-strip{grid-template-columns:repeat(2,1fr);}
+  .mall-grid2{grid-template-columns:1fr;}
+  .dpanel.active{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
-
 <nav>
-  <a href="index.html" class="nav-back">← CBOXX</a>
-  <ul class="nav-links">
-    <li><a href="merchants.html">For Merchants</a></li>
-    <li><a href="about.html">Team</a></li>
-    <li><a href="merchants.html#contact" class="nav-cta">Join Pilot</a></li>
-  </ul>
+  <div class="nav-logo"><a href="index.html"><img src="data:image/png;base64,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" alt="CBOXX"></a></div>
+  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="merchants.html">For Merchants</a></li><li><a href="eastarea.html" class="active">East Area</a></li><li><a href="about.html">Team</a></li><li><a href="government.html">Government</a></li><li><a href="merchants.html#contact" class="nav-cta">Join Pilot</a></li></ul>
+  <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
 </nav>
+<div class="mobile-nav" id="mobileNav"><ul><li><a href="index.html">Home</a></li><li><a href="merchants.html">For Merchants</a></li><li><a href="eastarea.html">East Area</a></li><li><a href="about.html">Team</a></li><li><a href="government.html">Government</a></li><li><a href="merchants.html#contact" class="cta-m">Join Pilot</a></li></ul></div>
 
-<!-- HERO -->
-<div class="hero">
-  <span class="eyebrow">Phase 1 · East Area Pilot</span>
-  <h1 class="headline">8 malls.<br>1,260+ merchants.<br>One network.</h1>
-  <p class="sub">CBOXX is launching its first pilot across Singapore's East Area — Tampines, Bedok, Paya Lebar, and Changi. Every consumer-facing industry. One NFC tap.</p>
-  <div class="stat-row">
-    <div class="stat-box reveal"><span class="stat-num">1,260+</span><span class="stat-label">Merchants targeted</span></div>
-    <div class="stat-box reveal"><span class="stat-num">8</span><span class="stat-label">Malls in pilot</span></div>
-    <div class="stat-box reveal"><span class="stat-num">4</span><span class="stat-label">Districts covered</span></div>
-    <div class="stat-box reveal"><span class="stat-num">8</span><span class="stat-label">Consumer industries</span></div>
+<div class="ea-hero">
+  <span class="eyebrow reveal" style="color:#C9963A">Phase 1 Pilot</span>
+  <h1 class="ea-h reveal">8 malls.<br>1,260+ merchants.<br><em>One network.</em></h1>
+  <p class="ea-sub reveal">CBOXX is launching its first pilot across Singapore's East Area — Tampines, Bedok, Paya Lebar, and Changi. Every consumer-facing industry. One NFC tap.</p>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap" class="reveal">
+    <a href="merchants.html#contact" class="btn-red">Join as a Merchant &rarr;</a>
+    <a href="merchants.html" class="btn-ghost">See Pricing</a>
+  </div>
+  <div class="stat-strip">
+    <div class="ss reveal d1"><span class="ssn" data-count="1260" data-suffix="+">1,260+</span><span class="ssl">Merchants targeted</span></div>
+    <div class="ss reveal d2"><span class="ssn" data-count="8">8</span><span class="ssl">Malls in pilot</span></div>
+    <div class="ss reveal d3"><span class="ssn" data-count="4">4</span><span class="ssl">Districts covered</span></div>
+    <div class="ss reveal d4"><span class="ssn" data-count="8">8</span><span class="ssl">Consumer industries</span></div>
   </div>
 </div>
 
-<!-- MALL GRID -->
-<div class="malls">
-  <span class="eyebrow">The 8 Pilot Malls</span>
-  <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;color:white;margin-bottom:0.75rem;line-height:1;">Click a mall to learn more.</h2>
-  <p style="font-size:0.95rem;color:rgba(255,255,255,0.4);margin-bottom:2rem;">Priority 1 malls have red left borders. Government-linked malls have green.</p>
-  <div class="mall-grid">
+<div style="padding:4rem 5vw 1rem;">
+  <span class="eyebrow reveal" style="color:#C9963A">The 8 Pilot Malls</span>
+  <h2 class="section-headline reveal" style="color:white;margin-bottom:0.6rem">Click a mall to explore.</h2>
+  <p style="font-size:0.88rem;color:rgba(255,255,255,0.3);margin-bottom:2rem" class="reveal">Red border = priority. Green border = government-linked.</p>
+</div>
 
-    <div class="mall-card priority reveal" onclick="toggleMall(this)">
-      <div class="mall-header">
-        <div><div class="mall-name">Tampines Mall</div><div class="mall-operator">CapitaLand · Tampines</div></div>
-        <div class="mall-count">200</div>
-      </div>
-      <div class="mall-area">📍 Tampines Central</div>
-      <div class="mall-industries">
-        <span class="mall-tag">F&B</span><span class="mall-tag">Fashion</span><span class="mall-tag">Beauty</span><span class="mall-tag">Healthcare</span><span class="mall-tag">Services</span>
-      </div>
-      <div class="mall-detail">
-        <p>One of Singapore's largest suburban malls with strong repeat footfall from Tampines residents. High F&B density makes it ideal for the stamp card loyalty model. CapitaLand anchor — a win here opens doors across their portfolio.</p>
-      </div>
-    </div>
-
-    <div class="mall-card priority reveal" onclick="toggleMall(this)">
-      <div class="mall-header">
-        <div><div class="mall-name">Bedok Mall</div><div class="mall-operator">CapitaLand · Bedok</div></div>
-        <div class="mall-count">200</div>
-      </div>
-      <div class="mall-area">📍 Bedok Town Centre</div>
-      <div class="mall-industries">
-        <span class="mall-tag">F&B</span><span class="mall-tag">Retail</span><span class="mall-tag">Beauty</span><span class="mall-tag">Fitness</span><span class="mall-tag">Entertainment</span>
-      </div>
-      <div class="mall-detail">
-        <p>Integrated with Bedok MRT and bus interchange — exceptionally high daily footfall. Diverse merchant mix across all consumer categories. Strong residential catchment from Bedok and Tampines estates.</p>
-      </div>
-    </div>
-
-    <div class="mall-card reveal" onclick="toggleMall(this)">
-      <div class="mall-header">
-        <div><div class="mall-name">Paya Lebar Quarter</div><div class="mall-operator">Lendlease · Paya Lebar</div></div>
-        <div class="mall-count">200</div>
-      </div>
-      <div class="mall-area">📍 Paya Lebar MRT</div>
-      <div class="mall-industries">
-        <span class="mall-tag">F&B</span><span class="mall-tag">Fashion</span><span class="mall-tag">Beauty</span><span class="mall-tag">Services</span><span class="mall-tag">Healthcare</span>
-      </div>
-      <div class="mall-detail">
-        <p>Mixed-use development with office, retail, and residential. Strong weekday lunch crowd from the office towers above. Premium merchant mix with higher average spend — suited for tiered membership model.</p>
-      </div>
-    </div>
-
-    <div class="mall-card reveal" onclick="toggleMall(this)">
-      <div class="mall-header">
-        <div><div class="mall-name">Parkway Parade</div><div class="mall-operator">AEW Capital · Marine Parade</div></div>
-        <div class="mall-count">180</div>
-      </div>
-      <div class="mall-area">📍 Marine Parade</div>
-      <div class="mall-industries">
-        <span class="mall-tag">F&B</span><span class="mall-tag">Fashion</span><span class="mall-tag">Healthcare</span><span class="mall-tag">Beauty</span><span class="mall-tag">Entertainment</span>
-      </div>
-      <div class="mall-detail">
-        <p>Established east coast mall with loyal customer base from Marine Parade and Katong. Strong tourist exposure from East Coast Park proximity. Healthcare cluster includes GP, dental, and specialist clinics.</p>
-      </div>
-    </div>
-
-    <div class="mall-card reveal" onclick="toggleMall(this)">
-      <div class="mall-header">
-        <div><div class="mall-name">Century Square</div><div class="mall-operator">Frasers · Tampines</div></div>
-        <div class="mall-count">140</div>
-      </div>
-      <div class="mall-area">📍 Tampines Central</div>
-      <div class="mall-industries">
-        <span class="mall-tag">F&B</span><span class="mall-tag">Retail</span><span class="mall-tag">Beauty</span><span class="mall-tag">Fitness</span>
-      </div>
-      <div class="mall-detail">
-        <p>Recently renovated with a refreshed tenant mix. Strong F&B and entertainment focus. Frasers Centrepoint anchor — aligns with CBOXX's broader mall operator partnership strategy.</p>
-      </div>
-    </div>
-
-    <div class="mall-card govt reveal" onclick="toggleMall(this)">
-      <div class="mall-header">
-        <div><div class="mall-name">Our Tampines Hub</div><div class="mall-operator">People's Association · Tampines</div></div>
-        <div class="mall-count">120</div>
-      </div>
-      <div class="mall-area">📍 Tampines Hub</div>
-      <div class="mall-industries">
-        <span class="mall-tag">F&B</span><span class="mall-tag">Services</span><span class="mall-tag">Fitness</span><span class="mall-tag">Healthcare</span>
-      </div>
-      <div class="mall-detail">
-        <p>Government-linked community hub run by People's Association. Supports CBOXX's Smart Nation positioning and opens doors to government partnership conversations. Community-oriented merchant mix with high repeat footfall from residents.</p>
-      </div>
-    </div>
-
-    <div class="mall-card reveal" onclick="toggleMall(this)">
-      <div class="mall-header">
-        <div><div class="mall-name">White Sands</div><div class="mall-operator">CapitaLand · Pasir Ris</div></div>
-        <div class="mall-count">100</div>
-      </div>
-      <div class="mall-area">📍 Pasir Ris Town</div>
-      <div class="mall-industries">
-        <span class="mall-tag">F&B</span><span class="mall-tag">Retail</span><span class="mall-tag">Services</span><span class="mall-tag">Healthcare</span>
-      </div>
-      <div class="mall-detail">
-        <p>Neighbourhood mall serving Pasir Ris residents. Strong community feel with high repeat customer rates — ideal for demonstrating loyalty network value. Third CapitaLand mall in the pilot, reinforcing the portfolio partnership case.</p>
-      </div>
-    </div>
-
-    <div class="mall-card reveal" onclick="toggleMall(this)">
-      <div class="mall-header">
-        <div><div class="mall-name">Changi City Point</div><div class="mall-operator">Frasers · Changi</div></div>
-        <div class="mall-count">120</div>
-      </div>
-      <div class="mall-area">📍 Changi Business Park</div>
-      <div class="mall-industries">
-        <span class="mall-tag">F&B</span><span class="mall-tag">Retail</span><span class="mall-tag">Services</span><span class="mall-tag">Fitness</span>
-      </div>
-      <div class="mall-detail">
-        <p>Serves Changi Business Park professionals and Changi Airport staff. Unique tourist exposure from proximity to airport. STB tourism data opportunity — visitor vs local spend splits in real time.</p>
-      </div>
-    </div>
-
+<div class="mall-grid2">
+  <div class="mcard2 reveal d1" onclick="toggleM(this)">
+    <div class="mheader2"><div><div class="mname2">Tampines Mall</div><div class="mop2">CapitaLand &middot; Priority</div></div><div class="mcount2">200</div></div>
+    <div class="mtags2"><span class="mtag2">F&amp;B</span><span class="mtag2">Fashion</span><span class="mtag2">Beauty</span><span class="mtag2">Healthcare</span><span class="mtag2">Services</span></div>
+    <div class="mdetail2">One of Singapore's largest suburban malls with strong repeat footfall from Tampines residents. High F&amp;B density makes it ideal for stamp card loyalty. CapitaLand anchor — a win here opens doors across their portfolio.</div>
+  </div>
+  <div class="mcard2 reveal d2" onclick="toggleM(this)">
+    <div class="mheader2"><div><div class="mname2">Bedok Mall</div><div class="mop2">CapitaLand &middot; Priority</div></div><div class="mcount2">200</div></div>
+    <div class="mtags2"><span class="mtag2">F&amp;B</span><span class="mtag2">Retail</span><span class="mtag2">Beauty</span><span class="mtag2">Fitness</span><span class="mtag2">Entertainment</span></div>
+    <div class="mdetail2">Integrated with Bedok MRT and bus interchange — exceptionally high daily footfall. Diverse merchant mix. Strong residential catchment from Bedok and Tampines estates.</div>
+  </div>
+  <div class="mcard2 reveal d3" onclick="toggleM(this)">
+    <div class="mheader2"><div><div class="mname2">Paya Lebar Quarter</div><div class="mop2">Lendlease</div></div><div class="mcount2">200</div></div>
+    <div class="mtags2"><span class="mtag2">F&amp;B</span><span class="mtag2">Fashion</span><span class="mtag2">Beauty</span><span class="mtag2">Services</span><span class="mtag2">Healthcare</span></div>
+    <div class="mdetail2">Mixed-use development with office, retail, and residential. Strong weekday lunch crowd from office towers above. Premium merchant mix with higher average spend — suited for tiered membership.</div>
+  </div>
+  <div class="mcard2 reveal d4" onclick="toggleM(this)">
+    <div class="mheader2"><div><div class="mname2">Parkway Parade</div><div class="mop2">AEW Capital &middot; Marine Parade</div></div><div class="mcount2">180</div></div>
+    <div class="mtags2"><span class="mtag2">F&amp;B</span><span class="mtag2">Fashion</span><span class="mtag2">Healthcare</span><span class="mtag2">Beauty</span></div>
+    <div class="mdetail2">Established east coast mall with loyal customer base from Marine Parade and Katong. Strong tourist exposure from East Coast Park. Healthcare cluster includes GP, dental, and specialists.</div>
+  </div>
+  <div class="mcard2 reveal d1" onclick="toggleM(this)">
+    <div class="mheader2"><div><div class="mname2">Century Square</div><div class="mop2">Frasers &middot; Tampines</div></div><div class="mcount2">140</div></div>
+    <div class="mtags2"><span class="mtag2">F&amp;B</span><span class="mtag2">Retail</span><span class="mtag2">Beauty</span><span class="mtag2">Fitness</span></div>
+    <div class="mdetail2">Recently renovated with refreshed tenant mix. Strong F&amp;B and entertainment focus. Frasers anchor — aligns with CBOXX's broader mall operator partnership strategy.</div>
+  </div>
+  <div class="mcard2 govt reveal d2" onclick="toggleM(this)">
+    <div class="mheader2"><div><div class="mname2">Our Tampines Hub</div><div class="mop2">People's Association</div></div><div class="mcount2">120</div></div>
+    <div class="mtags2"><span class="mtag2">F&amp;B</span><span class="mtag2">Services</span><span class="mtag2">Fitness</span><span class="mtag2">Healthcare</span></div>
+    <div class="mdetail2">Government-linked community hub run by People's Association. Supports CBOXX's Smart Nation positioning and opens doors to government partnership conversations.</div>
+  </div>
+  <div class="mcard2 reveal d3" onclick="toggleM(this)">
+    <div class="mheader2"><div><div class="mname2">White Sands</div><div class="mop2">CapitaLand &middot; Pasir Ris</div></div><div class="mcount2">100</div></div>
+    <div class="mtags2"><span class="mtag2">F&amp;B</span><span class="mtag2">Retail</span><span class="mtag2">Services</span><span class="mtag2">Healthcare</span></div>
+    <div class="mdetail2">Neighbourhood mall serving Pasir Ris residents. Strong community feel with high repeat customer rates. Third CapitaLand mall in the pilot, reinforcing the portfolio partnership case.</div>
+  </div>
+  <div class="mcard2 reveal d4" onclick="toggleM(this)">
+    <div class="mheader2"><div><div class="mname2">Changi City Point</div><div class="mop2">Frasers &middot; Changi</div></div><div class="mcount2">120</div></div>
+    <div class="mtags2"><span class="mtag2">F&amp;B</span><span class="mtag2">Retail</span><span class="mtag2">Services</span><span class="mtag2">Fitness</span></div>
+    <div class="mdetail2">Serves Changi Business Park professionals and Changi Airport staff. Unique tourist exposure from proximity to airport. Tourism data opportunity — visitor vs local spend splits in real time.</div>
   </div>
 </div>
 
-<!-- DISTRICTS -->
-<div class="districts">
-  <span class="eyebrow">By District</span>
-  <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;color:white;margin-bottom:1rem;line-height:1;">Four districts.<br>One network.</h2>
-  <p style="font-size:0.95rem;color:rgba(255,255,255,0.4);margin-bottom:2rem;max-width:500px;line-height:1.65;">Each district has a distinct consumer profile. CBOXX captures cross-district movement data no other platform can access.</p>
-  <div class="district-tabs">
-    <button class="district-tab active" onclick="showDistrict('tampines', this)">Tampines</button>
-    <button class="district-tab" onclick="showDistrict('bedok', this)">Bedok</button>
-    <button class="district-tab" onclick="showDistrict('payalebar', this)">Paya Lebar</button>
-    <button class="district-tab" onclick="showDistrict('changi', this)">Changi</button>
+<div style="padding:3rem 5vw 5rem;">
+  <span class="eyebrow reveal" style="color:#C9963A">By District</span>
+  <h2 class="section-headline reveal" style="color:white;margin-bottom:1rem">Four districts.<br>One network.</h2>
+  <p style="font-size:0.9rem;color:rgba(255,255,255,0.38);max-width:480px;line-height:1.65;margin-bottom:2rem" class="reveal">Each district has a distinct consumer profile. CBOXX captures cross-district movement data no other platform can access.</p>
+  <div class="dtabs">
+    <button class="dtab active" onclick="showD('tampines',this)">Tampines</button>
+    <button class="dtab" onclick="showD('bedok',this)">Bedok</button>
+    <button class="dtab" onclick="showD('payalebar',this)">Paya Lebar</button>
+    <button class="dtab" onclick="showD('changi',this)">Changi</button>
   </div>
-  <div class="district-panel active" id="d-tampines">
-    <div class="district-info">
-      <div class="district-name">Tampines</div>
-      <p class="district-sub">Singapore's largest new town with 260,000+ residents. High residential density means exceptional repeat visit potential. Three CBOXX pilot malls in one district creates a true network effect.</p>
-      <div class="district-malls">
-        <div class="district-mall-row"><span class="district-mall-name">Tampines Mall</span><span class="district-mall-count">200</span></div>
-        <div class="district-mall-row"><span class="district-mall-name">Century Square</span><span class="district-mall-count">140</span></div>
-        <div class="district-mall-row"><span class="district-mall-name">Our Tampines Hub</span><span class="district-mall-count">120</span></div>
-      </div>
-    </div>
-    <div class="district-info">
-      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--yellow);margin-bottom:1rem;">District profile</div>
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Population</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:white;">260,000+</div></div>
-        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Pilot merchants</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:var(--yellow);">460</div></div>
-        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Key opportunity</div><div style="font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.5;">3 malls in one town — consumers visit multiple malls. Cross-mall loyalty data unique to CBOXX.</div></div>
-      </div>
-    </div>
+  <div class="dpanel active" id="d-tampines">
+    <div class="dinfo"><div class="dname">Tampines</div><p class="dsub">Singapore's largest new town with 260,000+ residents. Three CBOXX pilot malls in one district creates a true network effect — consumers visit multiple malls, cross-mall loyalty data unique to CBOXX.</p><div class="dmrow"><span class="dmname">Tampines Mall</span><span class="dmcount">200</span></div><div class="dmrow"><span class="dmname">Century Square</span><span class="dmcount">140</span></div><div class="dmrow"><span class="dmname">Our Tampines Hub</span><span class="dmcount">120</span></div></div>
+    <div class="dinfo"><div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C9963A;margin-bottom:1rem">District Stats</div><div style="display:flex;flex-direction:column;gap:1rem"><div><div style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem">Population</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:white">260,000+</div></div><div><div style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem">Pilot merchants</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#C9963A">460</div></div><div><div style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem">Key opportunity</div><div style="font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.5">3 malls in one town. Consumers visit multiple malls — cross-mall loyalty data unique to CBOXX.</div></div></div></div>
   </div>
-  <div class="district-panel" id="d-bedok">
-    <div class="district-info">
-      <div class="district-name">Bedok</div>
-      <p class="district-sub">Mature estate with strong community identity. Bedok Mall's MRT integration drives exceptional daily footfall. High F&B density with loyal local customer base.</p>
-      <div class="district-malls">
-        <div class="district-mall-row"><span class="district-mall-name">Bedok Mall</span><span class="district-mall-count">200</span></div>
-      </div>
-    </div>
-    <div class="district-info">
-      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--yellow);margin-bottom:1rem;">District profile</div>
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Est. daily footfall</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:white;">50,000+</div></div>
-        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Pilot merchants</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:var(--yellow);">200</div></div>
-        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Key opportunity</div><div style="font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.5;">Transport hub location means diverse consumer profile — residents, workers, and through-traffic all captured.</div></div>
-      </div>
-    </div>
+  <div class="dpanel" id="d-bedok">
+    <div class="dinfo"><div class="dname">Bedok</div><p class="dsub">Mature estate with strong community identity. Bedok Mall's MRT integration drives exceptional daily footfall. High F&amp;B density with loyal local customer base.</p><div class="dmrow"><span class="dmname">Bedok Mall</span><span class="dmcount">200</span></div></div>
+    <div class="dinfo"><div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C9963A;margin-bottom:1rem">District Stats</div><div style="display:flex;flex-direction:column;gap:1rem"><div><div style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem">Est. daily footfall</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:white">50,000+</div></div><div><div style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem">Pilot merchants</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#C9963A">200</div></div><div><div style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem">Key opportunity</div><div style="font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.5">Transport hub — diverse consumer profile captures residents, workers, and through-traffic.</div></div></div></div>
   </div>
-  <div class="district-panel" id="d-payalebar">
-    <div class="district-info">
-      <div class="district-name">Paya Lebar</div>
-      <p class="district-sub">Emerging CBD-adjacent district with office, retail, and residential mix. PLQ's premium positioning attracts higher-spend consumers with strong weekday lunch traffic.</p>
-      <div class="district-malls">
-        <div class="district-mall-row"><span class="district-mall-name">Paya Lebar Quarter</span><span class="district-mall-count">200</span></div>
-        <div class="district-mall-row"><span class="district-mall-name">Parkway Parade</span><span class="district-mall-count">180</span></div>
-      </div>
-    </div>
-    <div class="district-info">
-      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--yellow);margin-bottom:1rem;">District profile</div>
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Avg spend index</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:white;">Premium</div></div>
-        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Pilot merchants</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:var(--yellow);">380</div></div>
-        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Key opportunity</div><div style="font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.5;">Office worker spending patterns — weekday vs weekend data split is uniquely valuable for PLQ merchants.</div></div>
-      </div>
-    </div>
+  <div class="dpanel" id="d-payalebar">
+    <div class="dinfo"><div class="dname">Paya Lebar</div><p class="dsub">Emerging CBD-adjacent district with office, retail, and residential mix. PLQ attracts higher-spend consumers with strong weekday lunch traffic.</p><div class="dmrow"><span class="dmname">Paya Lebar Quarter</span><span class="dmcount">200</span></div><div class="dmrow"><span class="dmname">Parkway Parade</span><span class="dmcount">180</span></div></div>
+    <div class="dinfo"><div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C9963A;margin-bottom:1rem">District Stats</div><div style="display:flex;flex-direction:column;gap:1rem"><div><div style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem">Spend index</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:white">Premium</div></div><div><div style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem">Pilot merchants</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#C9963A">380</div></div><div><div style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem">Key opportunity</div><div style="font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.5">Office worker patterns — weekday vs weekend data split uniquely valuable for PLQ merchants.</div></div></div></div>
   </div>
-  <div class="district-panel" id="d-changi">
-    <div class="district-info">
-      <div class="district-name">Changi</div>
-      <p class="district-sub">Airport proximity creates unique tourist vs local spending data. Changi City Point serves business park professionals and airport staff — a commercially distinct consumer profile.</p>
-      <div class="district-malls">
-        <div class="district-mall-row"><span class="district-mall-name">Changi City Point</span><span class="district-mall-count">120</span></div>
-        <div class="district-mall-row"><span class="district-mall-name">White Sands</span><span class="district-mall-count">100</span></div>
-      </div>
-    </div>
-    <div class="district-info">
-      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--yellow);margin-bottom:1rem;">District profile</div>
-      <div style="display:flex;flex-direction:column;gap:1rem;">
-        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Tourist exposure</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:white;">High</div></div>
-        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Pilot merchants</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:var(--yellow);">220</div></div>
-        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Key opportunity</div><div style="font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.5;">STB tourism data — real-time tourist vs local spend splits. Unique data that no other platform captures at this granularity.</div></div>
-      </div>
-    </div>
+  <div class="dpanel" id="d-changi">
+    <div class="dinfo"><div class="dname">Changi</div><p class="dsub">Airport proximity creates unique tourist vs local data. Changi City Point serves business park professionals and airport staff — a commercially distinct profile.</p><div class="dmrow"><span class="dmname">Changi City Point</span><span class="dmcount">120</span></div><div class="dmrow"><span class="dmname">White Sands</span><span class="dmcount">100</span></div></div>
+    <div class="dinfo"><div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C9963A;margin-bottom:1rem">District Stats</div><div style="display:flex;flex-direction:column;gap:1rem"><div><div style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem">Tourist exposure</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:white">High</div></div><div><div style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem">Pilot merchants</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#C9963A">220</div></div><div><div style="font-size:0.7rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.2rem">Key opportunity</div><div style="font-size:0.82rem;color:rgba(255,255,255,0.45);line-height:1.5">STB tourism data — real-time tourist vs local spend splits at granularity no other platform captures.</div></div></div></div>
   </div>
 </div>
 
-<!-- TIMELINE -->
-<div class="timeline" style="display:none;">
-  <span class="eyebrow">Rollout Timeline</span>
-  <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;color:white;margin-bottom:2.5rem;line-height:1;">How we're building<br>the network.</h2>
-  <div class="tl-line">
-    <div class="tl-item reveal">
-      <div class="tl-dot"></div>
-      <div class="tl-phase">Now · 2026</div>
-      <div class="tl-title">East Area Pilot Launch</div>
-      <p class="tl-body">Onboarding first merchants across Tampines Mall and Bedok Mall. NFC tags installed, dashboards live, first LOIs signed. Building proof of concept and merchant case studies.</p>
-    </div>
-    <div class="tl-item reveal upcoming">
-      <div class="tl-dot"></div>
-      <div class="tl-phase">Q3 2026</div>
-      <div class="tl-title">Full East Area Coverage</div>
-      <p class="tl-body">Expanding across all 8 pilot malls. Target 300+ active merchants. First cross-sector data insights available. PSG pre-approval secured.</p>
-    </div>
-    <div class="tl-item reveal upcoming">
-      <div class="tl-dot"></div>
-      <div class="tl-phase">Q1 2027</div>
-      <div class="tl-title">Singapore-wide Expansion</div>
-      <p class="tl-body">Expanding beyond East Area to Central, West, and North districts. Target 5,000+ merchants. First government data contracts signed.</p>
-    </div>
-    <div class="tl-item reveal upcoming">
-      <div class="tl-dot"></div>
-      <div class="tl-phase">2028</div>
-      <div class="tl-title">SEA Expansion</div>
-      <p class="tl-body">Malaysia market entry (Year 3), Indonesia and Thailand (Year 4). Replicating the district loyalty network model across Southeast Asia.</p>
-    </div>
-  </div>
-</div>
-
-<!-- CTA -->
-<div class="cta">
-  <h2>Join the pilot.</h2>
-  <p>Be one of the first merchants in Singapore's East Area NFC loyalty network. SGD 100 to get started.</p>
-  <a href="merchants.html#contact" class="btn">Apply as a merchant →</a>
-</div>
-
-<footer>
-  <div style="font-size:0.75rem;color:rgba(255,255,255,0.25)">© 2026 CBOXX Pte. Ltd. · UEN: 202613969N</div>
-  <div class="footer-links">
-    <a href="index.html">Home</a>
-    <a href="merchants.html">For Merchants</a>
-    <a href="about.html">Team</a>
-    <a href="government.html">Government</a>
-  </div>
-</footer>
+<section style="background:#0D1B2A;text-align:center;padding:5rem 5vw;">
+  <h2 class="section-headline reveal" style="color:white;font-size:clamp(2.5rem,5vw,4rem)">Join the pilot.</h2>
+  <p class="reveal" style="font-size:1rem;color:rgba(255,255,255,0.45);max-width:440px;margin:0 auto 2.5rem;line-height:1.65">SGD 100 to get started. Live within a week. Non-binding letter of intent.</p>
+  <a href="merchants.html#contact" class="btn-red reveal">Apply as a merchant &rarr;</a>
+</section>
 
 <script>
-var reveals = document.querySelectorAll('.reveal');
-var obs = new IntersectionObserver(function(e){ e.forEach(function(el){ if(el.isIntersecting){el.target.classList.add('visible');obs.unobserve(el.target);}}); },{threshold:0.1});
-reveals.forEach(function(el){obs.observe(el);});
-
-function toggleMall(card) {
-  var wasExpanded = card.classList.contains('expanded');
-  document.querySelectorAll('.mall-card').forEach(function(c){ c.classList.remove('expanded'); });
-  if (!wasExpanded) card.classList.add('expanded');
+function toggleM(card){
+  var open=card.classList.contains('open');
+  document.querySelectorAll('.mcard2').forEach(function(c){c.classList.remove('open');});
+  if(!open)card.classList.add('open');
 }
-
-function showDistrict(id, btn) {
-  document.querySelectorAll('.district-tab').forEach(function(t){ t.classList.remove('active'); });
-  document.querySelectorAll('.district-panel').forEach(function(p){ p.classList.remove('active'); });
+function showD(id,btn){
+  document.querySelectorAll('.dtab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.dpanel').forEach(function(p){p.classList.remove('active');});
   btn.classList.add('active');
-  document.getElementById('d-' + id).classList.add('active');
+  document.getElementById('d-'+id).classList.add('active');
 }
+</script>
+
+<footer>
+  <div class="footer-logo"><a href="index.html"><img src="data:image/png;base64,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" alt="CBOXX"></a></div>
+  <div class="footer-links"><a href="index.html">Home</a><a href="merchants.html">Merchants</a><a href="eastarea.html">East Area</a><a href="about.html">Team</a><a href="government.html">Government</a><a href="mailto:info@cboxxsg.com">Contact</a></div>
+  <div class="footer-copy">2026 CBOXX Pte. Ltd. UEN: 202613969N</div>
+</footer>
+<script>
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e,i){if(e.isIntersecting){setTimeout(function(){e.target.classList.add('visible');},i*65);obs.unobserve(e.target);}});
+  },{threshold:0.08});
+  els.forEach(function(el){obs.observe(el);});
+  var b=document.getElementById('burger'),mn=document.getElementById('mobileNav');
+  if(b&&mn){b.addEventListener('click',function(){mn.classList.toggle('open');});mn.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mn.classList.remove('open');});});}
+  var counted=false,ces=document.querySelectorAll('[data-count]');
+  if(ces.length){var co=new IntersectionObserver(function(entries){if(entries[0].isIntersecting&&!counted){counted=true;ces.forEach(function(el){var t=parseFloat(el.dataset.count),sf=el.dataset.suffix||'',s=0,st=t/85;var tm=setInterval(function(){s=Math.min(s+st,t);el.textContent=Math.round(s).toLocaleString()+sf;if(s>=t)clearInterval(tm);},16);});}},{threshold:0.3});co.observe(ces[0].closest('section')||ces[0].parentElement);}
+})();
 </script>
 </body>
 </html>
