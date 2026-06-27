@@ -731,6 +731,40 @@
       padding: 4rem 5vw !important;
     }
   }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal-scale.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .delay-3 { transition-delay: 0.3s; }
+  .delay-4 { transition-delay: 0.4s; }
+  .delay-5 { transition-delay: 0.5s; }
 </style>
 </head>
 <body>
@@ -745,11 +779,11 @@
   </button>
   <ul class="nav-links" id="navDesktop">
     <li><a href="#how">How It Works</a></li>
-    <li><a href="#merchants">For Merchants</a></li>
-    <li><a href="#eastarea">East Area</a></li>
-    <li><a href="#team">Team</a></li>
-    
-    <li><a href="#cta" class="nav-cta">Join Pilot</a></li>
+    <li><a href="merchants.html">For Merchants</a></li>
+    <li><a href="eastarea.html">East Area</a></li>
+    <li><a href="about.html">Team</a></li>
+    <li><a href="government.html">Government</a></li>
+    <li><a href="#contact" class="nav-cta">Join Pilot</a></li>
   </ul>
 </nav>
 
@@ -757,7 +791,7 @@
 <div id="navMobile" style="display:none;position:fixed;top:100px;left:0;right:0;background:var(--navy);z-index:99;padding:1.5rem 5vw;border-bottom:2px solid var(--red);">
   <ul style="list-style:none;display:flex;flex-direction:column;gap:1.25rem;">
     <li><a href="#how" onclick="document.getElementById('navMobile').classList.remove('open')" style="color:rgba(255,255,255,0.8);text-decoration:none;font-size:1.1rem;font-weight:600;">How It Works</a></li>
-    <li><a href="#merchants" onclick="document.getElementById('navMobile').classList.remove('open')" style="color:rgba(255,255,255,0.8);text-decoration:none;font-size:1.1rem;font-weight:600;">For Merchants</a></li>
+    <li><a href="merchants.html" style="color:rgba(255,255,255,0.8);text-decoration:none;font-size:1.1rem;font-weight:600;">For Merchants</a></li>
     <li><a href="#eastarea" onclick="document.getElementById('navMobile').classList.remove('open')" style="color:rgba(255,255,255,0.8);text-decoration:none;font-size:1.1rem;font-weight:600;">East Area</a></li>
     <li><a href="#team" onclick="document.getElementById('navMobile').classList.remove('open')" style="color:rgba(255,255,255,0.8);text-decoration:none;font-size:1.1rem;font-weight:600;">Team</a></li>
     
@@ -834,19 +868,19 @@
 
 <!-- STATS BAR -->
 <div class="stats-bar">
-  <div class="stat-item">
-    <span class="stat-num">1,260+</span>
+  <div class="stat-item reveal">
+    <span class="stat-num" data-count="1260" data-suffix="+">1,260+</span>
     <span class="stat-label">East Area merchants</span>
   </div>
-  <div class="stat-item">
-    <span class="stat-num">8</span>
+  <div class="stat-item reveal">
+    <span class="stat-num" data-count="8">8</span>
     <span class="stat-label">Malls in pilot</span>
   </div>
-  <div class="stat-item">
-    <span class="stat-num">86.9%</span>
+  <div class="stat-item reveal">
+    <span class="stat-num" data-count="86.9" data-suffix="%">86.9%</span>
     <span class="stat-label">SG retail is physical</span>
   </div>
-  <div class="stat-item">
+  <div class="stat-item reveal">
     <span class="stat-num">SGD 100</span>
     <span class="stat-label">To get started</span>
   </div>
@@ -857,22 +891,22 @@
   <span class="section-eyebrow">How It Works</span>
   <h2 class="section-headline">One tap. Four outcomes.</h2>
   <div class="steps">
-    <div class="step">
+    <div class="step reveal">
       <div class="step-num">01</div>
       <div class="step-title">Consumer Taps</div>
       <p class="step-body">Any NFC tag at any shop. Any industry. Any mall. Works on every modern smartphone: no app download required.</p>
     </div>
-    <div class="step">
+    <div class="step reveal">
       <div class="step-num">02</div>
       <div class="step-title">Consent Captured</div>
       <p class="step-body">Consumer sees a clear consent screen. PDPA-compliant. They choose what to share: and get district-wide rewards in return.</p>
     </div>
-    <div class="step">
+    <div class="step reveal">
       <div class="step-num">03</div>
       <div class="step-title">Merchant Gets Data</div>
       <p class="step-body">Real-time dashboard: tap volume, repeat rate, peak hours, loyalty tiers. Pro merchants get cross-sector benchmarking vs their mall peers.</p>
     </div>
-    <div class="step">
+    <div class="step reveal">
       <div class="step-num">04</div>
       <div class="step-title">Loyalty Grows</div>
       <p class="step-body">Every tap builds your customer database. See who's loyal, who's at risk of churning, and run campaigns that bring people back.</p>
@@ -908,14 +942,14 @@
   <span class="section-eyebrow">Every Consumer Industry</span>
   <h2 class="section-headline light">Every shop in the mall.<br>One network.</h2>
   <div class="industry-grid">
-    <div class="industry-tile"><div class="industry-icon">🍜</div><span class="industry-name">F&amp;B</span></div>
-    <div class="industry-tile"><div class="industry-icon">👗</div><span class="industry-name">Fashion &amp; Apparel</span></div>
-    <div class="industry-tile"><div class="industry-icon">💆</div><span class="industry-name">Beauty &amp; Wellness</span></div>
-    <div class="industry-tile"><div class="industry-icon">🏥</div><span class="industry-name">Healthcare</span></div>
-    <div class="industry-tile"><div class="industry-icon">🎬</div><span class="industry-name">Entertainment</span></div>
-    <div class="industry-tile"><div class="industry-icon">🛍️</div><span class="industry-name">Specialty Retail</span></div>
-    <div class="industry-tile"><div class="industry-icon">🧺</div><span class="industry-name">Services</span></div>
-    <div class="industry-tile"><div class="industry-icon">💪</div><span class="industry-name">Sports &amp; Fitness</span></div>
+    <div class="industry-tile reveal-scale"><div class="industry-icon">🍜</div><span class="industry-name">F&amp;B</span></div>
+    <div class="industry-tile reveal-scale"><div class="industry-icon">👗</div><span class="industry-name">Fashion &amp; Apparel</span></div>
+    <div class="industry-tile reveal-scale"><div class="industry-icon">💆</div><span class="industry-name">Beauty &amp; Wellness</span></div>
+    <div class="industry-tile reveal-scale"><div class="industry-icon">🏥</div><span class="industry-name">Healthcare</span></div>
+    <div class="industry-tile reveal-scale"><div class="industry-icon">🎬</div><span class="industry-name">Entertainment</span></div>
+    <div class="industry-tile reveal-scale"><div class="industry-icon">🛍️</div><span class="industry-name">Specialty Retail</span></div>
+    <div class="industry-tile reveal-scale"><div class="industry-icon">🧺</div><span class="industry-name">Services</span></div>
+    <div class="industry-tile reveal-scale"><div class="industry-icon">💪</div><span class="industry-name">Sports &amp; Fitness</span></div>
   </div>
 </section>
 
@@ -944,7 +978,7 @@
   </div>
 
   <div class="plans">
-    <div class="plan">
+    <div class="plan reveal">
       <span class="plan-badge basic">Basic</span>
       <div class="plan-price">SGD 150<span style="font-size:1.2rem;font-weight:400">/mo</span></div>
       <div class="plan-psg">SGD 75/month with PSG grant</div>
@@ -986,6 +1020,10 @@
   </div>
 </section>
 
+<div style="text-align:center;padding:2rem 0 0;">
+  <a href="merchants.html" style="display:inline-flex;align-items:center;gap:0.5rem;color:var(--red);font-weight:700;font-size:0.95rem;text-decoration:none;border-bottom:2px solid var(--red);padding-bottom:2px;">Explore full merchant plans & ROI calculator →</a>
+</div>
+
 <!-- EAST AREA -->
 <section id="eastarea">
   <span class="section-eyebrow">Phase 1 Pilot</span>
@@ -997,22 +1035,22 @@
       <div class="mall-meta">CapitaLand</div>
       <div class="mall-count">200</div>
     </div>
-    <div class="mall-card">
+    <div class="mall-card reveal">
       <div class="mall-name">Bedok Mall</div>
       <div class="mall-meta">CapitaLand</div>
       <div class="mall-count">200</div>
     </div>
-    <div class="mall-card">
+    <div class="mall-card reveal">
       <div class="mall-name">Paya Lebar Quarter</div>
       <div class="mall-meta">Lendlease</div>
       <div class="mall-count">200</div>
     </div>
-    <div class="mall-card">
+    <div class="mall-card reveal">
       <div class="mall-name">Parkway Parade</div>
       <div class="mall-meta">AEW Capital</div>
       <div class="mall-count">180</div>
     </div>
-    <div class="mall-card">
+    <div class="mall-card reveal">
       <div class="mall-name">Century Square</div>
       <div class="mall-meta">Frasers</div>
       <div class="mall-count">140</div>
@@ -1022,18 +1060,22 @@
       <div class="mall-meta">People's Association</div>
       <div class="mall-count">120</div>
     </div>
-    <div class="mall-card">
+    <div class="mall-card reveal">
       <div class="mall-name">White Sands</div>
       <div class="mall-meta">CapitaLand</div>
       <div class="mall-count">100</div>
     </div>
-    <div class="mall-card">
+    <div class="mall-card reveal">
       <div class="mall-name">Changi City Point</div>
       <div class="mall-meta">Frasers</div>
       <div class="mall-count">120</div>
     </div>
   </div>
 </section>
+
+<div style="text-align:center;padding:2rem 0 0;">
+  <a href="eastarea.html" style="display:inline-flex;align-items:center;gap:0.5rem;color:var(--navy);font-weight:700;font-size:0.95rem;text-decoration:none;border-bottom:2px solid var(--navy);padding-bottom:2px;">View full East Area pilot map →</a>
+</div>
 
 <!-- GOVERNMENT -->
 <section id="govt" style="display:none">
@@ -1076,25 +1118,25 @@
       <p class="team-bio">Leads commercial strategy, investor relations, and product vision. Finance student and content creator turned founder. Building CBOXX from the ground up while documenting the journey publicly.</p>
       <a href="https://linkedin.com/in/hakimosmansg" class="team-linkedin" target="_blank">LinkedIn →</a>
     </div>
-    <div class="team-card">
+    <div class="team-card reveal">
       <div class="team-initials" style="background:#0D1B2A">DY</div>
       <div class="team-name">Dylan</div>
       <div class="team-role">Co-founder &amp; CTO</div>
       <p class="team-bio">Owns the entire tech stack: NFC architecture, backend infrastructure, loyalty platform, and the data pipeline that powers CBOXX's cross-sector intelligence layer.</p>
     </div>
-    <div class="team-card">
+    <div class="team-card reveal">
       <div class="team-initials" style="background:#165C32">ME</div>
       <div class="team-name">Melissa</div>
       <div class="team-role">Co-founder &amp; COO</div>
       <p class="team-bio">Runs finance, operations, and company governance. Originated the district loyalty concept that became the core of CBOXX's network strategy. Also serves as Data Protection Officer.</p>
     </div>
-    <div class="team-card">
+    <div class="team-card reveal">
       <div class="team-initials" style="background:#7C3AED">JA</div>
       <div class="team-name">Jason</div>
       <div class="team-role">Co-founder &amp; HR/People</div>
       <p class="team-bio">Oversees people operations and supports merchant sales. Focused on building the culture and team infrastructure that scales with CBOXX as the network grows.</p>
     </div>
-    <div class="team-card">
+    <div class="team-card reveal">
       <div class="team-initials" style="background:#CC6600">YC</div>
       <div class="team-name">Yao Cong</div>
       <div class="team-role">Creative Lead</div>
@@ -1322,5 +1364,51 @@ document.addEventListener('DOMContentLoaded', function() {
 </style>
 </footer>
 
+
+<script>
+// ── SCROLL REVEAL ──
+(function() {
+  var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-scale');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry, i) {
+      if (entry.isIntersecting) {
+        setTimeout(function() {
+          entry.target.classList.add('visible');
+        }, i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(function(el) { observer.observe(el); });
+})();
+
+// ── COUNT UP ON SCROLL ──
+(function() {
+  function countUp(el, target, duration) {
+    var start = 0;
+    var step = target / (duration / 16);
+    var timer = setInterval(function() {
+      start = Math.min(start + step, target);
+      var val = Math.round(start);
+      el.textContent = val.toLocaleString() + (el.dataset.suffix || '');
+      if (start >= target) clearInterval(timer);
+    }, 16);
+  }
+  var counted = false;
+  var statNums = document.querySelectorAll('.stat-num[data-count]');
+  var statsBar = document.querySelector('.stats-bar');
+  if (statsBar) {
+    var statsObserver = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting && !counted) {
+        counted = true;
+        statNums.forEach(function(el) {
+          countUp(el, parseFloat(el.dataset.count), 1400);
+        });
+      }
+    }, { threshold: 0.3 });
+    statsObserver.observe(statsBar);
+  }
+})();
+</script>
 </body>
 </html>
