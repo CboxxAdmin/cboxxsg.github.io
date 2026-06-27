@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBOXX East Area Pilot — 8 Malls, 1,260+ Merchants</title>
+<meta name="description" content="CBOXX Phase 1 pilot covers 8 malls across Singapore's East Area — Tampines, Bedok, Paya Lebar, and Changi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --red:#8B0015; --navy:#0D1B2A; --cream:#F2EDE5; --yellow:#C9963A; --green:#165C32; --mid:#7A7A7A; --white:#FFFFFF; --light:#F4F1EC; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:80px;border-bottom:1px solid rgba(139,0,21,0.4);}
+  .nav-back{color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.85rem;}
+  .nav-back:hover{color:white;}
+  .nav-links{display:flex;gap:1.2rem;list-style:none;align-items:center;}
+  .nav-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.78rem;font-weight:500;}
+  .nav-links a:hover{color:var(--yellow);}
+  .nav-cta{background:var(--red);color:white!important;padding:0.5rem 1.25rem;border-radius:4px;}
+
+  .hero{padding:120px 5vw 60px;}
+  .eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--yellow);display:block;margin-bottom:1rem;}
+  .headline{font-family:'Barlow Condensed',sans-serif;font-size:clamp(3rem,7vw,5rem);font-weight:900;line-height:0.95;text-transform:uppercase;color:white;margin-bottom:1.5rem;}
+  .sub{font-size:1.05rem;line-height:1.7;color:rgba(255,255,255,0.55);max-width:560px;margin-bottom:3rem;}
+
+  /* STAT ROW */
+  .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:4rem;}
+  .stat-box{padding:1.5rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:6px;}
+  .stat-num{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;color:var(--yellow);line-height:1;display:block;margin-bottom:0.3rem;}
+  .stat-label{font-size:0.78rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.05em;}
+
+  /* MALL GRID */
+  .malls{padding:0 5vw 5rem;}
+  .mall-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+  .mall-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:2rem;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden;}
+  .mall-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:rgba(139,0,21,0.4);transition:background 0.2s;}
+  .mall-card:hover{background:rgba(255,255,255,0.07);border-color:rgba(139,0,21,0.4);transform:translateY(-2px);}
+  .mall-card:hover::before{background:var(--red);}
+  .mall-card.priority::before{background:var(--red);}
+  .mall-card.govt::before{background:var(--green);}
+  .mall-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;}
+  .mall-name{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:white;text-transform:uppercase;line-height:1;}
+  .mall-count{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;color:var(--yellow);line-height:1;}
+  .mall-operator{font-size:0.78rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;}
+  .mall-area{font-size:0.8rem;color:rgba(255,255,255,0.3);margin-bottom:1rem;}
+  .mall-industries{display:flex;flex-wrap:wrap;gap:0.4rem;}
+  .mall-tag{font-size:0.65rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:100px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.45);border:1px solid rgba(255,255,255,0.1);}
+  .mall-detail{display:none;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.08);}
+  .mall-card.expanded .mall-detail{display:block;}
+  .mall-detail p{font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.65;}
+
+  /* DISTRICT MAP */
+  .districts{padding:0 5vw 5rem;}
+  .district-tabs{display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap;}
+  .district-tab{padding:0.5rem 1.25rem;border-radius:100px;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);font-size:0.82rem;font-weight:600;cursor:pointer;background:transparent;font-family:'Inter',sans-serif;transition:all 0.2s;}
+  .district-tab.active{background:var(--red);border-color:var(--red);color:white;}
+  .district-panel{display:none;}
+  .district-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+  .district-info{padding:2rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;}
+  .district-name{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:white;text-transform:uppercase;margin-bottom:0.5rem;}
+  .district-sub{font-size:0.85rem;color:rgba(255,255,255,0.45);line-height:1.65;margin-bottom:1.25rem;}
+  .district-malls{display:flex;flex-direction:column;gap:0.5rem;}
+  .district-mall-row{display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0.75rem;background:rgba(255,255,255,0.04);border-radius:4px;}
+  .district-mall-name{font-size:0.85rem;color:rgba(255,255,255,0.7);font-weight:500;}
+  .district-mall-count{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:var(--yellow);}
+
+  /* TIMELINE */
+  .timeline{padding:0 5vw 5rem;}
+  .tl-line{position:relative;padding-left:2.5rem;}
+  .tl-line::before{content:'';position:absolute;left:0.65rem;top:0;bottom:0;width:2px;background:rgba(139,0,21,0.3);}
+  .tl-item{position:relative;padding-bottom:2.5rem;}
+  .tl-dot{position:absolute;left:-2.5rem;width:14px;height:14px;border-radius:50%;background:var(--red);border:2px solid var(--navy);top:4px;}
+  .tl-item.upcoming .tl-dot{background:rgba(255,255,255,0.15);}
+  .tl-phase{font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--yellow);margin-bottom:0.25rem;}
+  .tl-title{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:white;text-transform:uppercase;margin-bottom:0.4rem;}
+  .tl-body{font-size:0.85rem;color:rgba(255,255,255,0.45);line-height:1.65;}
+
+  /* CTA */
+  .cta{padding:5rem 5vw;background:rgba(255,255,255,0.03);border-top:1px solid rgba(255,255,255,0.06);text-align:center;}
+  .cta h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;text-transform:uppercase;color:white;margin-bottom:1rem;}
+  .cta p{font-size:1rem;color:rgba(255,255,255,0.5);max-width:460px;margin:0 auto 2.5rem;line-height:1.6;}
+  .btn{background:var(--red);color:white;padding:1rem 2rem;border-radius:4px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;}
+  .btn:hover{background:#7A0012;}
+
+  footer{background:var(--navy);color:rgba(255,255,255,0.4);padding:2.5rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(255,255,255,0.06);}
+  .footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+  .footer-links a{color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.8rem;}
+  .footer-links a:hover{color:white;}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  @media(max-width:768px){.stat-row,.mall-grid,.district-panel.active{grid-template-columns:1fr;}}
+
+  /* ── MOBILE FIXES ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 4vw; height: 70px; }
+    .nav-links { display: none; }
+    .nav-back { font-size: 0.8rem; }
+    .nav-cta { padding: 0.4rem 0.9rem; font-size: 0.75rem; }
+
+    .hero, .gov-hero { padding: 100px 5vw 50px; }
+    .headline, .gov-headline { font-size: clamp(2.5rem, 12vw, 4rem) !important; }
+    .sub, .gov-sub { font-size: 0.95rem; }
+
+    .stat-row { grid-template-columns: repeat(2, 1fr) !important; }
+    .pain-grid { grid-template-columns: 1fr !important; }
+    .steps { grid-template-columns: 1fr !important; }
+    .demo-wrap { grid-template-columns: 1fr !important; gap: 2rem; }
+    .roi-wrap { grid-template-columns: 1fr !important; gap: 2rem; }
+    .loyalty-panel.active { grid-template-columns: 1fr !important; }
+    .plans { grid-template-columns: 1fr !important; }
+    .story-grid { grid-template-columns: 1fr !important; gap: 2rem; }
+    .team-grid { grid-template-columns: 1fr !important; }
+    .values-grid { grid-template-columns: 1fr !important; }
+    .public-grid { grid-template-columns: 1fr !important; }
+    .mall-grid { grid-template-columns: 1fr !important; }
+    .agency-grid { grid-template-columns: 1fr !important; }
+    .data-grid { grid-template-columns: 1fr !important; }
+    .district-panel.active { grid-template-columns: 1fr !important; }
+
+    .loyalty-tabs { flex-wrap: wrap; width: 100%; }
+    .loyalty-tab { flex: 1; text-align: center; min-width: 80px; }
+
+    .district-tabs { gap: 0.4rem; }
+    .district-tab { padding: 0.4rem 0.85rem; font-size: 0.78rem; }
+
+    .onboarding-bar { flex-direction: column !important; gap: 0.75rem !important; }
+
+    .cta h2 { font-size: clamp(1.8rem, 8vw, 3rem) !important; }
+    .btn, .btn-outline { width: 100%; justify-content: center; margin-left: 0 !important; margin-top: 0.75rem; }
+
+    .demo-phone-wrap { margin-bottom: 1rem; }
+
+    section, .hero, .pain, .how, .demo, .roi, .loyalty, .pricing, .public, .values, .team, .story, .malls, .districts, .cta, .gov-hero { padding-left: 5vw !important; padding-right: 5vw !important; }
+
+    footer { flex-direction: column; text-align: center; }
+    .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+
+    .nav-tag { font-size: 0.55rem; padding: 0.25rem 0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">← CBOXX</a>
+  <ul class="nav-links">
+    <li><a href="merchants.html">For Merchants</a></li>
+    <li><a href="about.html">Team</a></li>
+    <li><a href="merchants.html#contact" class="nav-cta">Join Pilot</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="eyebrow">Phase 1 · East Area Pilot</span>
+  <h1 class="headline">8 malls.<br>1,260+ merchants.<br>One network.</h1>
+  <p class="sub">CBOXX is launching its first pilot across Singapore's East Area — Tampines, Bedok, Paya Lebar, and Changi. Every consumer-facing industry. One NFC tap.</p>
+  <div class="stat-row">
+    <div class="stat-box reveal"><span class="stat-num">1,260+</span><span class="stat-label">Merchants targeted</span></div>
+    <div class="stat-box reveal"><span class="stat-num">8</span><span class="stat-label">Malls in pilot</span></div>
+    <div class="stat-box reveal"><span class="stat-num">4</span><span class="stat-label">Districts covered</span></div>
+    <div class="stat-box reveal"><span class="stat-num">8</span><span class="stat-label">Consumer industries</span></div>
+  </div>
+</div>
+
+<!-- MALL GRID -->
+<div class="malls">
+  <span class="eyebrow">The 8 Pilot Malls</span>
+  <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;color:white;margin-bottom:0.75rem;line-height:1;">Click a mall to learn more.</h2>
+  <p style="font-size:0.95rem;color:rgba(255,255,255,0.4);margin-bottom:2rem;">Priority 1 malls have red left borders. Government-linked malls have green.</p>
+  <div class="mall-grid">
+
+    <div class="mall-card priority reveal" onclick="toggleMall(this)">
+      <div class="mall-header">
+        <div><div class="mall-name">Tampines Mall</div><div class="mall-operator">CapitaLand · Tampines</div></div>
+        <div class="mall-count">200</div>
+      </div>
+      <div class="mall-area">📍 Tampines Central</div>
+      <div class="mall-industries">
+        <span class="mall-tag">F&B</span><span class="mall-tag">Fashion</span><span class="mall-tag">Beauty</span><span class="mall-tag">Healthcare</span><span class="mall-tag">Services</span>
+      </div>
+      <div class="mall-detail">
+        <p>One of Singapore's largest suburban malls with strong repeat footfall from Tampines residents. High F&B density makes it ideal for the stamp card loyalty model. CapitaLand anchor — a win here opens doors across their portfolio.</p>
+      </div>
+    </div>
+
+    <div class="mall-card priority reveal" onclick="toggleMall(this)">
+      <div class="mall-header">
+        <div><div class="mall-name">Bedok Mall</div><div class="mall-operator">CapitaLand · Bedok</div></div>
+        <div class="mall-count">200</div>
+      </div>
+      <div class="mall-area">📍 Bedok Town Centre</div>
+      <div class="mall-industries">
+        <span class="mall-tag">F&B</span><span class="mall-tag">Retail</span><span class="mall-tag">Beauty</span><span class="mall-tag">Fitness</span><span class="mall-tag">Entertainment</span>
+      </div>
+      <div class="mall-detail">
+        <p>Integrated with Bedok MRT and bus interchange — exceptionally high daily footfall. Diverse merchant mix across all consumer categories. Strong residential catchment from Bedok and Tampines estates.</p>
+      </div>
+    </div>
+
+    <div class="mall-card reveal" onclick="toggleMall(this)">
+      <div class="mall-header">
+        <div><div class="mall-name">Paya Lebar Quarter</div><div class="mall-operator">Lendlease · Paya Lebar</div></div>
+        <div class="mall-count">200</div>
+      </div>
+      <div class="mall-area">📍 Paya Lebar MRT</div>
+      <div class="mall-industries">
+        <span class="mall-tag">F&B</span><span class="mall-tag">Fashion</span><span class="mall-tag">Beauty</span><span class="mall-tag">Services</span><span class="mall-tag">Healthcare</span>
+      </div>
+      <div class="mall-detail">
+        <p>Mixed-use development with office, retail, and residential. Strong weekday lunch crowd from the office towers above. Premium merchant mix with higher average spend — suited for tiered membership model.</p>
+      </div>
+    </div>
+
+    <div class="mall-card reveal" onclick="toggleMall(this)">
+      <div class="mall-header">
+        <div><div class="mall-name">Parkway Parade</div><div class="mall-operator">AEW Capital · Marine Parade</div></div>
+        <div class="mall-count">180</div>
+      </div>
+      <div class="mall-area">📍 Marine Parade</div>
+      <div class="mall-industries">
+        <span class="mall-tag">F&B</span><span class="mall-tag">Fashion</span><span class="mall-tag">Healthcare</span><span class="mall-tag">Beauty</span><span class="mall-tag">Entertainment</span>
+      </div>
+      <div class="mall-detail">
+        <p>Established east coast mall with loyal customer base from Marine Parade and Katong. Strong tourist exposure from East Coast Park proximity. Healthcare cluster includes GP, dental, and specialist clinics.</p>
+      </div>
+    </div>
+
+    <div class="mall-card reveal" onclick="toggleMall(this)">
+      <div class="mall-header">
+        <div><div class="mall-name">Century Square</div><div class="mall-operator">Frasers · Tampines</div></div>
+        <div class="mall-count">140</div>
+      </div>
+      <div class="mall-area">📍 Tampines Central</div>
+      <div class="mall-industries">
+        <span class="mall-tag">F&B</span><span class="mall-tag">Retail</span><span class="mall-tag">Beauty</span><span class="mall-tag">Fitness</span>
+      </div>
+      <div class="mall-detail">
+        <p>Recently renovated with a refreshed tenant mix. Strong F&B and entertainment focus. Frasers Centrepoint anchor — aligns with CBOXX's broader mall operator partnership strategy.</p>
+      </div>
+    </div>
+
+    <div class="mall-card govt reveal" onclick="toggleMall(this)">
+      <div class="mall-header">
+        <div><div class="mall-name">Our Tampines Hub</div><div class="mall-operator">People's Association · Tampines</div></div>
+        <div class="mall-count">120</div>
+      </div>
+      <div class="mall-area">📍 Tampines Hub</div>
+      <div class="mall-industries">
+        <span class="mall-tag">F&B</span><span class="mall-tag">Services</span><span class="mall-tag">Fitness</span><span class="mall-tag">Healthcare</span>
+      </div>
+      <div class="mall-detail">
+        <p>Government-linked community hub run by People's Association. Supports CBOXX's Smart Nation positioning and opens doors to government partnership conversations. Community-oriented merchant mix with high repeat footfall from residents.</p>
+      </div>
+    </div>
+
+    <div class="mall-card reveal" onclick="toggleMall(this)">
+      <div class="mall-header">
+        <div><div class="mall-name">White Sands</div><div class="mall-operator">CapitaLand · Pasir Ris</div></div>
+        <div class="mall-count">100</div>
+      </div>
+      <div class="mall-area">📍 Pasir Ris Town</div>
+      <div class="mall-industries">
+        <span class="mall-tag">F&B</span><span class="mall-tag">Retail</span><span class="mall-tag">Services</span><span class="mall-tag">Healthcare</span>
+      </div>
+      <div class="mall-detail">
+        <p>Neighbourhood mall serving Pasir Ris residents. Strong community feel with high repeat customer rates — ideal for demonstrating loyalty network value. Third CapitaLand mall in the pilot, reinforcing the portfolio partnership case.</p>
+      </div>
+    </div>
+
+    <div class="mall-card reveal" onclick="toggleMall(this)">
+      <div class="mall-header">
+        <div><div class="mall-name">Changi City Point</div><div class="mall-operator">Frasers · Changi</div></div>
+        <div class="mall-count">120</div>
+      </div>
+      <div class="mall-area">📍 Changi Business Park</div>
+      <div class="mall-industries">
+        <span class="mall-tag">F&B</span><span class="mall-tag">Retail</span><span class="mall-tag">Services</span><span class="mall-tag">Fitness</span>
+      </div>
+      <div class="mall-detail">
+        <p>Serves Changi Business Park professionals and Changi Airport staff. Unique tourist exposure from proximity to airport. STB tourism data opportunity — visitor vs local spend splits in real time.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DISTRICTS -->
+<div class="districts">
+  <span class="eyebrow">By District</span>
+  <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;color:white;margin-bottom:1rem;line-height:1;">Four districts.<br>One network.</h2>
+  <p style="font-size:0.95rem;color:rgba(255,255,255,0.4);margin-bottom:2rem;max-width:500px;line-height:1.65;">Each district has a distinct consumer profile. CBOXX captures cross-district movement data no other platform can access.</p>
+  <div class="district-tabs">
+    <button class="district-tab active" onclick="showDistrict('tampines', this)">Tampines</button>
+    <button class="district-tab" onclick="showDistrict('bedok', this)">Bedok</button>
+    <button class="district-tab" onclick="showDistrict('payalebar', this)">Paya Lebar</button>
+    <button class="district-tab" onclick="showDistrict('changi', this)">Changi</button>
+  </div>
+  <div class="district-panel active" id="d-tampines">
+    <div class="district-info">
+      <div class="district-name">Tampines</div>
+      <p class="district-sub">Singapore's largest new town with 260,000+ residents. High residential density means exceptional repeat visit potential. Three CBOXX pilot malls in one district creates a true network effect.</p>
+      <div class="district-malls">
+        <div class="district-mall-row"><span class="district-mall-name">Tampines Mall</span><span class="district-mall-count">200</span></div>
+        <div class="district-mall-row"><span class="district-mall-name">Century Square</span><span class="district-mall-count">140</span></div>
+        <div class="district-mall-row"><span class="district-mall-name">Our Tampines Hub</span><span class="district-mall-count">120</span></div>
+      </div>
+    </div>
+    <div class="district-info">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--yellow);margin-bottom:1rem;">District profile</div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Population</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:white;">260,000+</div></div>
+        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Pilot merchants</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:var(--yellow);">460</div></div>
+        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Key opportunity</div><div style="font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.5;">3 malls in one town — consumers visit multiple malls. Cross-mall loyalty data unique to CBOXX.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="district-panel" id="d-bedok">
+    <div class="district-info">
+      <div class="district-name">Bedok</div>
+      <p class="district-sub">Mature estate with strong community identity. Bedok Mall's MRT integration drives exceptional daily footfall. High F&B density with loyal local customer base.</p>
+      <div class="district-malls">
+        <div class="district-mall-row"><span class="district-mall-name">Bedok Mall</span><span class="district-mall-count">200</span></div>
+      </div>
+    </div>
+    <div class="district-info">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--yellow);margin-bottom:1rem;">District profile</div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Est. daily footfall</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:white;">50,000+</div></div>
+        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Pilot merchants</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:var(--yellow);">200</div></div>
+        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Key opportunity</div><div style="font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.5;">Transport hub location means diverse consumer profile — residents, workers, and through-traffic all captured.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="district-panel" id="d-payalebar">
+    <div class="district-info">
+      <div class="district-name">Paya Lebar</div>
+      <p class="district-sub">Emerging CBD-adjacent district with office, retail, and residential mix. PLQ's premium positioning attracts higher-spend consumers with strong weekday lunch traffic.</p>
+      <div class="district-malls">
+        <div class="district-mall-row"><span class="district-mall-name">Paya Lebar Quarter</span><span class="district-mall-count">200</span></div>
+        <div class="district-mall-row"><span class="district-mall-name">Parkway Parade</span><span class="district-mall-count">180</span></div>
+      </div>
+    </div>
+    <div class="district-info">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--yellow);margin-bottom:1rem;">District profile</div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Avg spend index</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:white;">Premium</div></div>
+        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Pilot merchants</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:var(--yellow);">380</div></div>
+        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Key opportunity</div><div style="font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.5;">Office worker spending patterns — weekday vs weekend data split is uniquely valuable for PLQ merchants.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="district-panel" id="d-changi">
+    <div class="district-info">
+      <div class="district-name">Changi</div>
+      <p class="district-sub">Airport proximity creates unique tourist vs local spending data. Changi City Point serves business park professionals and airport staff — a commercially distinct consumer profile.</p>
+      <div class="district-malls">
+        <div class="district-mall-row"><span class="district-mall-name">Changi City Point</span><span class="district-mall-count">120</span></div>
+        <div class="district-mall-row"><span class="district-mall-name">White Sands</span><span class="district-mall-count">100</span></div>
+      </div>
+    </div>
+    <div class="district-info">
+      <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--yellow);margin-bottom:1rem;">District profile</div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Tourist exposure</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:white;">High</div></div>
+        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Pilot merchants</div><div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:var(--yellow);">220</div></div>
+        <div><div style="font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;">Key opportunity</div><div style="font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.5;">STB tourism data — real-time tourist vs local spend splits. Unique data that no other platform captures at this granularity.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline" style="display:none;">
+  <span class="eyebrow">Rollout Timeline</span>
+  <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;color:white;margin-bottom:2.5rem;line-height:1;">How we're building<br>the network.</h2>
+  <div class="tl-line">
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-phase">Now · 2026</div>
+      <div class="tl-title">East Area Pilot Launch</div>
+      <p class="tl-body">Onboarding first merchants across Tampines Mall and Bedok Mall. NFC tags installed, dashboards live, first LOIs signed. Building proof of concept and merchant case studies.</p>
+    </div>
+    <div class="tl-item reveal upcoming">
+      <div class="tl-dot"></div>
+      <div class="tl-phase">Q3 2026</div>
+      <div class="tl-title">Full East Area Coverage</div>
+      <p class="tl-body">Expanding across all 8 pilot malls. Target 300+ active merchants. First cross-sector data insights available. PSG pre-approval secured.</p>
+    </div>
+    <div class="tl-item reveal upcoming">
+      <div class="tl-dot"></div>
+      <div class="tl-phase">Q1 2027</div>
+      <div class="tl-title">Singapore-wide Expansion</div>
+      <p class="tl-body">Expanding beyond East Area to Central, West, and North districts. Target 5,000+ merchants. First government data contracts signed.</p>
+    </div>
+    <div class="tl-item reveal upcoming">
+      <div class="tl-dot"></div>
+      <div class="tl-phase">2028</div>
+      <div class="tl-title">SEA Expansion</div>
+      <p class="tl-body">Malaysia market entry (Year 3), Indonesia and Thailand (Year 4). Replicating the district loyalty network model across Southeast Asia.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>Join the pilot.</h2>
+  <p>Be one of the first merchants in Singapore's East Area NFC loyalty network. SGD 100 to get started.</p>
+  <a href="merchants.html#contact" class="btn">Apply as a merchant →</a>
+</div>
+
+<footer>
+  <div style="font-size:0.75rem;color:rgba(255,255,255,0.25)">© 2026 CBOXX Pte. Ltd. · UEN: 202613969N</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="merchants.html">For Merchants</a>
+    <a href="about.html">Team</a>
+    <a href="government.html">Government</a>
+  </div>
+</footer>
+
+<script>
+var reveals = document.querySelectorAll('.reveal');
+var obs = new IntersectionObserver(function(e){ e.forEach(function(el){ if(el.isIntersecting){el.target.classList.add('visible');obs.unobserve(el.target);}}); },{threshold:0.1});
+reveals.forEach(function(el){obs.observe(el);});
+
+function toggleMall(card) {
+  var wasExpanded = card.classList.contains('expanded');
+  document.querySelectorAll('.mall-card').forEach(function(c){ c.classList.remove('expanded'); });
+  if (!wasExpanded) card.classList.add('expanded');
+}
+
+function showDistrict(id, btn) {
+  document.querySelectorAll('.district-tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.district-panel').forEach(function(p){ p.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('d-' + id).classList.add('active');
+}
+</script>
+</body>
+</html>
