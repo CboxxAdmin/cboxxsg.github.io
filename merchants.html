@@ -40,12 +40,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:#000000;backdrop-
 .btn-red:hover{background:#7A0012;transform:translateY(-1px);}
 .btn-ghost{display:inline-flex;align-items:center;gap:0.5rem;border:1.5px solid rgba(255,255,255,0.25);color:white;padding:0.9rem 1.8rem;border-radius:4px;font-weight:600;font-size:0.9rem;text-decoration:none;transition:border-color 0.2s,color 0.2s;}
 .btn-ghost:hover{border-color:#C9963A;color:#C9963A;}
-footer{background:#060C14;padding:3rem 5vw;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+footer{background:#0a1018;padding:3rem 5vw;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
 .footer-logo img{height:30px;}
 .footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
-.footer-links a{color:rgba(255,255,255,0.28);text-decoration:none;font-size:0.78rem;transition:color 0.2s;}
-.footer-links a:hover{color:rgba(255,255,255,0.65);}
-.footer-copy{font-size:0.7rem;color:rgba(255,255,255,0.18);}
+.footer-links a{color:rgba(255,255,255,0.55);text-decoration:none;font-size:0.78rem;transition:color 0.2s;}
+.footer-links a:hover{color:white;}
+.footer-copy{font-size:0.7rem;color:rgba(255,255,255,0.4);}
 @media(max-width:768px){nav{padding:0 4vw;height:64px;}.nav-links{display:none;}.nav-burger{display:flex;}.nav-logo img{height:30px;}footer{flex-direction:column;text-align:center;}.footer-links{justify-content:center;}}
 
 body{background:white;}
@@ -97,9 +97,9 @@ body{background:white;}
 .pfeat{list-style:none;display:flex;flex-direction:column;gap:0.65rem;}
 .pfeat li{display:flex;gap:0.65rem;align-items:flex-start;font-size:0.88rem;color:#0D1B2A;}
 .plan.pro .pfeat li{color:rgba(255,255,255,0.78);}
-.pfeat li::before{content:"&#10003;";color:#165C32;font-weight:700;flex-shrink:0;margin-top:1px;}
+.pfeat li::before{content:"✓";color:#165C32;font-weight:700;flex-shrink:0;margin-top:1px;}
 .plan.pro .pfeat li::before{color:#3ab86a;}
-.pfeat li.locked::before{content:"&mdash;";color:#7A7A7A;}
+.pfeat li.locked::before{content:"—";color:#7A7A7A;}
 .pfeat li.locked{color:#7A7A7A!important;}
 .onboarding{margin-top:1.75rem;background:#8B0015;border-radius:8px;padding:1.2rem 1.6rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
 .roi-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;}
@@ -145,22 +145,22 @@ body{background:white;}
       <h1 class="mhero-h reveal">Your loyalty OS.<br><em>Zero friction.</em><br>One tap.</h1>
       <p class="mhero-sub reveal">No app to build. No QR codes. No complex setup. Customers tap once and they're in your loyalty programme. You get real-time data on every visit.</p>
       <div style="display:flex;gap:1rem;flex-wrap:wrap" class="reveal">
-        <a href="#pricing" class="btn-red">See Pricing &rarr;</a>
+        <a href="#pricing" class="btn-red">See Pricing →</a>
         <a href="#contact" class="btn-ghost">Join Pilot</a>
       </div>
     </div>
     <div class="reveal">
       <div class="demo-phone">
         <div class="dscreen">
-          <div class="dstatus">CBOXX &middot; Your Shop</div>
+          <div class="dstatus">CBOXX · Your Shop</div>
           <div class="dnfc" id="dnfc" onclick="demoTap()">
             <div class="dring"></div><div class="dring"></div><div class="dring"></div>
             <div class="ddot">TAP</div>
           </div>
           <div class="dsucc" id="dsucc">
-            <div class="dtick">&#10003;</div>
+            <div class="dtick">✓</div>
             <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:900;color:white;text-transform:uppercase;">Enrolled!</div>
-            <div style="font-size:0.46rem;color:rgba(255,255,255,0.35);text-align:center">Loyalty active &middot; No app needed</div>
+            <div style="font-size:0.46rem;color:rgba(255,255,255,0.35);text-align:center">Loyalty active · No app needed</div>
           </div>
           <div class="dcard" id="dcard">
             <div class="dcrow"><span class="dclabel">Member</span><span class="dcval">New</span></div>
@@ -189,7 +189,7 @@ body{background:white;}
   </div>
   <div class="mpanel" id="panel-stamp">
     <div class="mpvisual reveal"><div class="mpicon">&#127919;</div><div class="mpname">Stamp Card</div><p class="mpdesc">Digital stamp card. Tap 8 times, get a reward. Zero learning curve for customers.</p></div>
-    <div class="mpinfo reveal"><h3>Stamp card</h3><p>The simplest loyalty model. Set how many taps earn a reward and what the reward is. Replaces every physical stamp card in your customer's wallet.</p><p>No lost cards. No fake stamps. No hassle.</p><span class="mpbest">Best for: F&amp;B, coffee, desserts, hawkers</span></div>
+    <div class="mpinfo reveal"><h3>Stamp card</h3><p>The simplest loyalty model. Set how many taps earn a reward and what the reward is. Replaces every physical stamp card in your customer's wallet.</p><p>No lost cards. No fake stamps. No hassle.</p><span class="mpbest">Best for: F&B, coffee, desserts, hawkers</span></div>
   </div>
   <div class="mpanel" id="panel-tier">
     <div class="mpvisual reveal"><div class="mpicon">&#127942;</div><div class="mpname">Tiered</div><p class="mpdesc">Bronze, Silver, Gold. Customers level up by visit frequency. Your best customers get your best perks.</p></div>
@@ -207,8 +207,8 @@ body{background:white;}
       <div class="ppsg">SGD 75/month with PSG grant</div>
       <ul class="pfeat">
         <li>Points, Stamp, or Tiered loyalty</li>
-        <li>Tap volume &amp; unique visitor tracking</li>
-        <li>Repeat rate &amp; peak hours dashboard</li>
+        <li>Tap volume & unique visitor tracking</li>
+        <li>Repeat rate & peak hours dashboard</li>
         <li>New vs returning customer split</li>
         <li>Campaign push to all members</li>
         <li class="locked">Cross-sector benchmarking</li>
@@ -222,7 +222,7 @@ body{background:white;}
       <div class="ppsg">SGD 175/month with PSG grant</div>
       <ul class="pfeat">
         <li>Everything in Basic</li>
-        <li>Churn risk alerts &amp; at-risk flagging</li>
+        <li>Churn risk alerts & at-risk flagging</li>
         <li>Cross-sector benchmarking vs mall peers</li>
         <li>Mall district rank among similar shops</li>
         <li>Consumer profile segments</li>
@@ -275,17 +275,17 @@ body{background:white;}
   <form class="mcform reveal" action="https://formspree.io/f/mykqwlpo" method="POST">
     <input type="text" name="name" placeholder="Your name" required>
     <input type="email" name="email" placeholder="Email address" required>
-    <input type="text" name="shop" placeholder="Shop name &amp; mall" required>
+    <input type="text" name="shop" placeholder="Shop name & mall" required>
     <select name="plan" required>
       <option value="" disabled selected>Which plan interests you?</option>
-      <option value="Basic">Basic &mdash; SGD 150/month</option>
-      <option value="Pro">Pro &mdash; SGD 350/month</option>
+      <option value="Basic">Basic — SGD 150/month</option>
+      <option value="Pro">Pro — SGD 350/month</option>
       <option value="Unsure">Not sure yet</option>
     </select>
     <textarea name="message" placeholder="Tell us about your business" rows="3"></textarea>
-    <button type="submit">Sign Letter of Intent &rarr;</button>
+    <button type="submit">Sign Letter of Intent →</button>
   </form>
-  <p style="margin-top:1rem;font-size:0.8rem;color:rgba(255,255,255,0.25)">Non-binding. No payment until you're ready. &nbsp; <a href="mailto:info@cboxxsg.com" style="color:rgba(255,255,255,0.35)">info@cboxxsg.com</a></p>
+  <p style="margin-top:1rem;font-size:0.8rem;color:rgba(255,255,255,0.25)">Non-binding. No payment until you're ready.   <a href="mailto:info@cboxxsg.com" style="color:rgba(255,255,255,0.35)">info@cboxxsg.com</a></p>
 </section>
 
 <script>
