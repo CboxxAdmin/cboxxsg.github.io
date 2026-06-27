@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBOXX: Smart Nation Partner — Government & Agency Overview</title>
+<meta name="description" content="CBOXX builds Singapore's physical commerce intelligence layer. Real-time retail data for URA, STB, MTI, and IMDA.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #8B0015;
+    --navy: #0D1B2A;
+    --cream: #F2EDE5;
+    --yellow: #C9963A;
+    --green: #165C32;
+    --mid: #7A7A7A;
+    --white: #FFFFFF;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw; height: 80px;
+    border-bottom: 1px solid rgba(139,0,21,0.4);
+  }
+  .nav-back { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  .nav-back:hover { color: var(--white); }
+  .nav-tag {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; padding: 0.3rem 0.85rem;
+    border-radius: 4px; background: rgba(139,0,21,0.2);
+    border: 1px solid rgba(139,0,21,0.4); color: rgba(255,255,255,0.6);
+  }
+
+  /* HERO */
+  .gov-hero {
+    padding: 140px 5vw 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .eyebrow {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--yellow);
+    margin-bottom: 1rem; display: block;
+  }
+  .gov-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 900; line-height: 0.95;
+    text-transform: uppercase; color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+  .gov-headline em { color: var(--yellow); font-style: normal; display: block; }
+  .gov-sub {
+    font-size: 1.1rem; line-height: 1.75;
+    color: rgba(255,255,255,0.6); max-width: 640px;
+    margin-bottom: 2.5rem;
+  }
+  .confidential-note {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.75rem; color: rgba(255,255,255,0.35);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.4rem 1rem; border-radius: 4px;
+  }
+
+  /* SECTIONS */
+  section { padding: 5rem 5vw; border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+  .section-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900; text-transform: uppercase;
+    color: var(--white); margin-bottom: 1rem; line-height: 1;
+  }
+  .section-sub { font-size: 1rem; color: rgba(255,255,255,0.5); max-width: 580px; margin-bottom: 3rem; line-height: 1.7; }
+
+  /* STAT ROW */
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 4rem; }
+  .stat-box { padding: 1.5rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; }
+  .stat-num { font-family: 'Barlow Condensed', sans-serif; font-size: 2.5rem; font-weight: 900; color: var(--yellow); line-height: 1; display: block; margin-bottom: 0.4rem; }
+  .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* AGENCY CARDS */
+  .agency-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .agency-card { padding: 2rem; border-radius: 6px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); }
+  .agency-tag {
+    display: inline-block; font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.3rem 0.75rem; border-radius: 4px; margin-bottom: 1rem;
+  }
+  .agency-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--white); text-transform: uppercase; margin-bottom: 0.75rem; }
+  .agency-body { font-size: 0.9rem; line-height: 1.65; color: rgba(255,255,255,0.55); margin-bottom: 1rem; }
+  .agency-data { font-size: 0.8rem; color: var(--yellow); font-weight: 600; }
+
+  /* DATA LAYER */
+  .data-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .data-card { padding: 1.75rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; border-top: 3px solid var(--red); }
+  .data-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); text-transform: uppercase; margin-bottom: 0.6rem; }
+  .data-body { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  /* CONTACT */
+  .contact-box { max-width: 560px; }
+  .contact-box input, .contact-box select, .contact-box textarea {
+    width: 100%; padding: 0.9rem 1.2rem; margin-bottom: 1rem;
+    border: 1px solid rgba(255,255,255,0.12); border-radius: 6px;
+    background: rgba(255,255,255,0.04); color: var(--white);
+    font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none;
+  }
+  .contact-box input::placeholder, .contact-box textarea::placeholder { color: rgba(255,255,255,0.3); }
+  .contact-box select option { background: var(--navy); }
+  .contact-box button {
+    background: var(--red); color: var(--white);
+    padding: 1rem 2rem; border: none; border-radius: 6px;
+    font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .contact-box button:hover { background: #7A0012; }
+
+  /* FOOTER */
+  footer {
+    padding: 2.5rem 5vw; border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+  .footer-back { font-size: 0.8rem; color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+  .footer-back:hover { color: var(--white); }
+
+  @media (max-width: 768px) {
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .agency-grid { grid-template-columns: 1fr; }
+    .data-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-back">← Back to merchant site</a>
+  <span class="nav-tag">Government & Agency Overview</span>
+</nav>
+
+<!-- HERO -->
+<div class="gov-hero">
+  <span class="eyebrow">CBOXX · Smart Nation Partner Brief</span>
+  <h1 class="gov-headline">
+    Singapore's physical<br>
+    commerce intelligence<br>
+    <em>layer.</em>
+  </h1>
+  <p class="gov-sub">
+    CBOXX is building the data infrastructure that sits beneath Singapore's physical retail economy. Every NFC tap generates anonymised, cross-sector behavioural data that no survey, consultant report, or digital platform can produce.
+  </p>
+  <span class="confidential-note">🔒 Not for public distribution · For agency and partner review only</span>
+</div>
+
+<!-- STATS -->
+<section>
+  <span class="eyebrow">Phase 1 · East Area Pilot</span>
+  <h2 class="section-headline">The network we're building.</h2>
+  <div class="stat-row">
+    <div class="stat-box">
+      <span class="stat-num">1,260+</span>
+      <span class="stat-label">Merchants in pilot</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">8</span>
+      <span class="stat-label">Malls · East Area</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">8</span>
+      <span class="stat-label">Consumer industries</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">86.9%</span>
+      <span class="stat-label">SG retail is physical</span>
+    </div>
+  </div>
+
+  <!-- DATA LAYER -->
+  <h2 class="section-headline" style="margin-bottom:0.75rem;">What the data layer captures.</h2>
+  <p class="section-sub">Every tap generates a cross-sector data point. Anonymised and aggregated by district, mall, industry, time, and consumer segment.</p>
+  <div class="data-grid">
+    <div class="data-card">
+      <div class="data-title">Footfall Intelligence</div>
+      <p class="data-body">Real-time tap volume by merchant, mall, and district. Peak hour mapping. Day-of-week and seasonal patterns. Repeat visit frequency per consumer segment.</p>
+    </div>
+    <div class="data-card">
+      <div class="data-title">Cross-Sector Spend Flows</div>
+      <p class="data-body">How consumers move between F&B, retail, beauty, healthcare, and services within the same district. Cross-industry loyalty patterns nobody else has.</p>
+    </div>
+    <div class="data-card">
+      <div class="data-title">District Retail Health Index</div>
+      <p class="data-body">A live merchant tap index per district. Leading economic indicator for Singapore's physical retail sector — updated daily, not quarterly.</p>
+    </div>
+    <div class="data-card">
+      <div class="data-title">Consumer Segment Profiles</div>
+      <p class="data-body">Anonymised demographic and behavioural segments built from consent-based tap data. PDPA-compliant. No individual-level data ever shared.</p>
+    </div>
+    <div class="data-card">
+      <div class="data-title">Tourist vs Local Splits</div>
+      <p class="data-body">Visitor spending patterns at Changi, Parkway Parade, and East Coast malls. Real-time tourist vs local spend splits by industry and time.</p>
+    </div>
+    <div class="data-card">
+      <div class="data-title">Urban Planning Signals</div>
+      <p class="data-body">Retail vitality by postal district. Mall catchment area mapping. Cross-district consumer mobility. Data for planning decisions that currently rely on manual surveys.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AGENCY SECTION -->
+<section>
+  <span class="eyebrow">Government Partners</span>
+  <h2 class="section-headline">Built for Singapore's agencies.</h2>
+  <p class="section-sub">CBOXX data is structurally aligned with the mandates of four key agencies. Each gets a live data layer they currently cannot access.</p>
+  <div class="agency-grid">
+    <div class="agency-card">
+      <span class="agency-tag" style="background:rgba(139,0,21,0.2);color:rgba(255,100,100,0.9)">IMDA</span>
+      <div class="agency-title">PSG Pre-Approved Vendor</div>
+      <p class="agency-body">CBOXX is pursuing PSG pre-approval for its Loyalty OS product. Once approved, every merchant onboards at 50% government subsidy — accelerating digital adoption across Singapore's physical retail base.</p>
+      <div class="agency-data">→ Supports SME digitalisation mandate</div>
+    </div>
+    <div class="agency-card">
+      <span class="agency-tag" style="background:rgba(124,58,237,0.15);color:#a78bfa">URA</span>
+      <div class="agency-title">Urban Planning Intelligence</div>
+      <p class="agency-body">Real-time retail intelligence across districts. CBOXX produces what SGD 200K consultant reports currently attempt — but live, cross-sector, and updated daily. Retail vitality as a planning input.</p>
+      <div class="agency-data">→ Supports URA Master Plan retail strategy</div>
+    </div>
+    <div class="agency-card">
+      <span class="agency-tag" style="background:rgba(22,92,50,0.2);color:#4ade80">STB</span>
+      <div class="agency-title">Tourism Spend Intelligence</div>
+      <p class="agency-body">Singapore Tourism Board gains visitor spending patterns at Changi, Parkway Parade, and East Coast malls in real time. Tourist vs local spending splits by industry, time of day, and consumer segment.</p>
+      <div class="agency-data">→ Supports STB tourism recovery and spend targets</div>
+    </div>
+    <div class="agency-card">
+      <span class="agency-tag" style="background:rgba(201,150,58,0.15);color:var(--yellow)">MTI</span>
+      <div class="agency-title">Retail Economic Indicator</div>
+      <p class="agency-body">A live CBOXX merchant tap index becomes a leading indicator for Singapore's retail sector — informing policy before quarterly surveys catch up. Think of it as a real-time PMI for physical commerce.</p>
+      <div class="agency-data">→ Supports MTI economic monitoring and retail policy</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section>
+  <span class="eyebrow">Get In Touch</span>
+  <h2 class="section-headline">Request a briefing.</h2>
+  <p class="section-sub">For agency partnerships, data licensing discussions, or PSG pre-approval inquiries. We respond within 24 hours.</p>
+  <div class="contact-box">
+    <form action="https://formspree.io/f/mykqwlpo" method="POST">
+      <input type="text" name="name" placeholder="Your name" required>
+      <input type="email" name="email" placeholder="Agency email" required>
+      <input type="text" name="agency" placeholder="Agency / organisation" required>
+      <select name="type" required>
+        <option value="" disabled selected>Enquiry type</option>
+        <option value="PSG">IMDA · PSG pre-approval</option>
+        <option value="URA">URA · Urban planning data</option>
+        <option value="STB">STB · Tourism intelligence</option>
+        <option value="MTI">MTI · Retail economic data</option>
+        <option value="Other Gov">Other government partnership</option>
+        <option value="Investor">Investor enquiry</option>
+      </select>
+      <textarea name="message" placeholder="Your message" rows="4" required></textarea>
+      <input type="hidden" name="_subject" value="CBOXX Government Enquiry">
+      <button type="submit">Send Enquiry →</button>
+    </form>
+    <p style="margin-top:1.25rem;font-size:0.85rem;color:rgba(255,255,255,0.3)">Or email directly: <a href="mailto:kim@cboxxsg.com" style="color:rgba(255,255,255,0.5)">kim@cboxxsg.com</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 CBOXX Pte. Ltd. UEN: 202613969N · Not for public distribution</div>
+  <a href="index.html" class="footer-back">← Merchant site</a>
+</footer>
+
+</body>
+</html>
