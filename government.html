@@ -136,6 +136,54 @@
     .agency-grid { grid-template-columns: 1fr; }
     .data-grid { grid-template-columns: 1fr; }
   }
+
+  /* ── MOBILE FIXES ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 4vw; height: 70px; }
+    .nav-links { display: none; }
+    .nav-back { font-size: 0.8rem; }
+    .nav-cta { padding: 0.4rem 0.9rem; font-size: 0.75rem; }
+
+    .hero, .gov-hero { padding: 100px 5vw 50px; }
+    .headline, .gov-headline { font-size: clamp(2.5rem, 12vw, 4rem) !important; }
+    .sub, .gov-sub { font-size: 0.95rem; }
+
+    .stat-row { grid-template-columns: repeat(2, 1fr) !important; }
+    .pain-grid { grid-template-columns: 1fr !important; }
+    .steps { grid-template-columns: 1fr !important; }
+    .demo-wrap { grid-template-columns: 1fr !important; gap: 2rem; }
+    .roi-wrap { grid-template-columns: 1fr !important; gap: 2rem; }
+    .loyalty-panel.active { grid-template-columns: 1fr !important; }
+    .plans { grid-template-columns: 1fr !important; }
+    .story-grid { grid-template-columns: 1fr !important; gap: 2rem; }
+    .team-grid { grid-template-columns: 1fr !important; }
+    .values-grid { grid-template-columns: 1fr !important; }
+    .public-grid { grid-template-columns: 1fr !important; }
+    .mall-grid { grid-template-columns: 1fr !important; }
+    .agency-grid { grid-template-columns: 1fr !important; }
+    .data-grid { grid-template-columns: 1fr !important; }
+    .district-panel.active { grid-template-columns: 1fr !important; }
+
+    .loyalty-tabs { flex-wrap: wrap; width: 100%; }
+    .loyalty-tab { flex: 1; text-align: center; min-width: 80px; }
+
+    .district-tabs { gap: 0.4rem; }
+    .district-tab { padding: 0.4rem 0.85rem; font-size: 0.78rem; }
+
+    .onboarding-bar { flex-direction: column !important; gap: 0.75rem !important; }
+
+    .cta h2 { font-size: clamp(1.8rem, 8vw, 3rem) !important; }
+    .btn, .btn-outline { width: 100%; justify-content: center; margin-left: 0 !important; margin-top: 0.75rem; }
+
+    .demo-phone-wrap { margin-bottom: 1rem; }
+
+    section, .hero, .pain, .how, .demo, .roi, .loyalty, .pricing, .public, .values, .team, .story, .malls, .districts, .cta, .gov-hero { padding-left: 5vw !important; padding-right: 5vw !important; }
+
+    footer { flex-direction: column; text-align: center; }
+    .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+
+    .nav-tag { font-size: 0.55rem; padding: 0.25rem 0.6rem; }
+  }
 </style>
 </head>
 <body>
