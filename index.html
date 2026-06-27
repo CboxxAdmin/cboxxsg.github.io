@@ -617,6 +617,120 @@
     .team-grid { grid-template-columns: 1fr; }
     footer { flex-direction: column; text-align: center; }
   }
+
+  /* ── COMPREHENSIVE MOBILE FIXES ── */
+  @media (max-width: 768px) {
+    * { box-sizing: border-box; }
+    body { overflow-x: hidden; }
+
+    /* Nav */
+    .nav-burger { display: block !important; }
+    #navDesktop { display: none !important; }
+
+    /* Hero */
+    #hero { padding: 120px 4vw 60px; min-height: auto; }
+    .hero-headline { font-size: clamp(3rem, 14vw, 5rem); }
+    .hero-visual { display: none; }
+    .hero-btns { flex-direction: column; gap: 0.75rem; }
+    .btn-primary, .btn-outline { width: 100%; justify-content: center; }
+
+    /* Stats bar */
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .stat-item { border-right: none; border-bottom: 1px solid var(--cream); }
+
+    /* How it works */
+    .steps { grid-template-columns: 1fr; }
+
+    /* Industries */
+    .industry-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Why It Matters — inline grids */
+    section > div[style*="grid-template-columns: repeat(3"] {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1rem !important;
+    }
+
+    /* Loyalty model cards */
+    section > div[style*="repeat(3,1fr)"] {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 1rem !important;
+    }
+
+    /* Pricing plans */
+    .plans { grid-template-columns: 1fr; }
+
+    /* Mall grid */
+    .mall-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Govt grid */
+    .govt-grid { grid-template-columns: 1fr; }
+
+    /* Team grid */
+    .team-grid { grid-template-columns: 1fr; }
+
+    /* Section headlines */
+    .section-headline { font-size: clamp(1.8rem, 8vw, 2.5rem); }
+
+    /* Prevent any element from overflowing */
+    section, div, nav, footer { max-width: 100vw; }
+
+    /* SGD 100 box */
+    div[style*="justify-content:space-between;flex-wrap:wrap"] {
+      flex-direction: column !important;
+      gap: 0.75rem !important;
+    }
+
+    /* Contact form */
+    form { width: 100% !important; max-width: 100% !important; }
+
+    /* Footer */
+    footer { flex-direction: column; text-align: center; gap: 1rem; }
+    .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+  }
+  /* Mobile fixes */
+  @media (max-width: 768px) {
+    .three-col-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .steps {
+      grid-template-columns: 1fr !important;
+    }
+    .plans {
+      grid-template-columns: 1fr !important;
+    }
+    .mall-grid {
+      grid-template-columns: 1fr 1fr !important;
+    }
+    .govt-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .team-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .industry-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .stats-bar {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    #hero {
+      padding: 120px 5vw 60px !important;
+    }
+    .hero-headline {
+      font-size: clamp(3rem, 15vw, 6rem) !important;
+    }
+    .section-headline {
+      font-size: clamp(1.8rem, 8vw, 3rem) !important;
+    }
+    nav {
+      padding: 0 4vw !important;
+    }
+    section {
+      padding: 4rem 5vw !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -770,7 +884,7 @@
 <section style="background:var(--white);padding:5rem 5vw;">
   <span class="section-eyebrow">Why It Matters</span>
   <h2 class="section-headline">The problem nobody fixed.</h2>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;" class="three-col-grid">
     <div style="padding:2.5rem;background:var(--cream);border-radius:8px;border-left:4px solid var(--red);">
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;color:var(--red);line-height:1;margin-bottom:0.75rem;">55%</div>
       <div style="font-weight:700;color:var(--navy);margin-bottom:0.5rem;font-size:1rem;">of F&amp;B customers never return</div>
@@ -811,7 +925,7 @@
   <h2 class="section-headline">Your loyalty OS.<br>Your data. Your dashboard.</h2>
   <p class="section-sub">Three loyalty models, full analytics, and cross-sector benchmarking. All from SGD 100 to start.</p>
   <!-- Loyalty Models -->
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:3rem;">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:3rem;" class="three-col-grid">
     <div style="padding:2rem;border-radius:8px;border:2px solid var(--navy);background:var(--cream);">
       <div style="font-size:2rem;margin-bottom:0.75rem;">⭐</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;color:var(--navy);text-transform:uppercase;margin-bottom:0.5rem;">Points</div>
