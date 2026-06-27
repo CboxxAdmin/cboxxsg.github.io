@@ -1,349 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>CBOXX Team — Built by Founders Who Move Fast</title>
-<meta name="description" content="Meet the CBOXX team — five co-founders building Singapore's first NFC-powered district loyalty network for physical retail.">
+<meta name="description" content="Meet the five co-founders building Singapore's first NFC-powered district loyalty network.">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{--red:#8B0015;--navy:#0D1B2A;--cream:#F2EDE5;--yellow:#C9963A;--green:#165C32;--mid:#7A7A7A;--white:#FFFFFF;--light:#F4F1EC;}
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--navy);overflow-x:hidden;}
-  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:80px;border-bottom:1px solid rgba(139,0,21,0.4);}
-  .nav-back{color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.85rem;}
-  .nav-back:hover{color:white;}
-  .nav-links{display:flex;gap:1.2rem;list-style:none;align-items:center;}
-  .nav-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.78rem;font-weight:500;}
-  .nav-links a:hover{color:var(--yellow);}
-  .nav-cta{background:var(--red);color:white!important;padding:0.5rem 1.25rem;border-radius:4px;}
+:root{--red:#8B0015;--navy:#0D1B2A;--cream:#F2EDE5;--yellow:#C9963A;--green:#165C32;--mid:#7A7A7A;--white:#FFFFFF;--light:#F4F1EC;--black:#060C14;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:#000000;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:72px;border-bottom:1px solid rgba(139,0,21,0.3);}
+.nav-logo img{height:36px;width:auto;display:block;}
+.nav-links{display:flex;gap:1.1rem;list-style:none;align-items:center;}
+.nav-links a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.78rem;font-weight:500;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:#C9963A;}
+.nav-cta{background:#8B0015!important;color:white!important;padding:0.42rem 1.05rem;border-radius:4px;font-weight:600!important;}
+.nav-cta:hover{background:#7A0012!important;}
+.nav-burger{display:none;background:none;border:none;cursor:pointer;padding:0.5rem;flex-direction:column;gap:5px;}
+.nav-burger span{display:block;width:22px;height:2px;background:white;border-radius:2px;transition:all 0.3s;}
+.mobile-nav{display:none;position:fixed;top:72px;left:0;right:0;background:#000000;backdrop-filter:blur(16px);z-index:199;padding:1.5rem 5vw 2rem;border-bottom:1px solid rgba(139,0,21,0.3);}
+.mobile-nav.open{display:block;animation:slideDown 0.22s ease;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.mobile-nav ul{list-style:none;display:flex;flex-direction:column;gap:0.9rem;}
+.mobile-nav a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:1rem;font-weight:600;display:block;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.mobile-nav a.cta-m{color:#8B0015;border:none;margin-top:0.5rem;}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.from-left{transform:translateX(-28px);}
+.reveal.from-right{transform:translateX(28px);}
+.reveal.from-scale{transform:scale(0.92);}
+.reveal.visible{opacity:1!important;transform:none!important;}
+.d1{transition-delay:.06s}.d2{transition-delay:.13s}.d3{transition-delay:.20s}.d4{transition-delay:.27s}.d5{transition-delay:.34s}.d6{transition-delay:.41s}
+.eyebrow{font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;display:block;margin-bottom:0.85rem;}
+.section-headline{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;text-transform:uppercase;line-height:1;margin-bottom:1rem;}
+.section-sub{font-size:0.98rem;line-height:1.75;max-width:540px;margin-bottom:3rem;}
+.btn-red{display:inline-flex;align-items:center;gap:0.5rem;background:#8B0015;color:white;padding:0.9rem 1.8rem;border-radius:4px;font-weight:700;font-size:0.9rem;text-decoration:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s,transform 0.15s;}
+.btn-red:hover{background:#7A0012;transform:translateY(-1px);}
+.btn-ghost{display:inline-flex;align-items:center;gap:0.5rem;border:1.5px solid rgba(255,255,255,0.25);color:white;padding:0.9rem 1.8rem;border-radius:4px;font-weight:600;font-size:0.9rem;text-decoration:none;transition:border-color 0.2s,color 0.2s;}
+.btn-ghost:hover{border-color:#C9963A;color:#C9963A;}
+footer{background:#060C14;padding:3rem 5vw;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+.footer-logo img{height:30px;}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.footer-links a{color:rgba(255,255,255,0.28);text-decoration:none;font-size:0.78rem;transition:color 0.2s;}
+.footer-links a:hover{color:rgba(255,255,255,0.65);}
+.footer-copy{font-size:0.7rem;color:rgba(255,255,255,0.18);}
+@media(max-width:768px){nav{padding:0 4vw;height:64px;}.nav-links{display:none;}.nav-burger{display:flex;}.nav-logo img{height:30px;}footer{flex-direction:column;text-align:center;}.footer-links{justify-content:center;}}
 
-  .hero{background:var(--navy);padding:120px 5vw 80px;}
-  .eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:1rem;}
-  .headline{font-family:'Barlow Condensed',sans-serif;font-size:clamp(3rem,7vw,5rem);font-weight:900;line-height:0.95;text-transform:uppercase;color:white;margin-bottom:1.5rem;}
-  .sub{font-size:1.05rem;line-height:1.7;color:rgba(255,255,255,0.55);max-width:560px;}
-
-  /* FOUNDER STORY */
-  .story{padding:5rem 5vw;background:white;}
-  .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
-  .story h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;color:var(--navy);margin-bottom:1.5rem;line-height:1;}
-  .story p{font-size:0.95rem;color:var(--mid);line-height:1.75;margin-bottom:1rem;}
-  .story-stat{padding:1.5rem;background:var(--cream);border-radius:8px;border-left:4px solid var(--red);margin-bottom:1rem;}
-  .story-stat-num{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;color:var(--red);line-height:1;margin-bottom:0.25rem;}
-  .story-stat-label{font-size:0.8rem;color:var(--mid);font-weight:500;}
-
-  /* TEAM */
-  .team{padding:5rem 5vw;background:var(--cream);}
-  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
-  .team-card{background:white;border-radius:10px;border:2px solid var(--navy);padding:2rem;transition:transform 0.2s,box-shadow 0.2s;}
-  .team-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(13,27,42,0.1);}
-  .team-card.featured{border-color:var(--red);}
-  .team-initials{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:white;margin-bottom:1.25rem;}
-  .team-name{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:var(--navy);text-transform:uppercase;margin-bottom:0.2rem;}
-  .team-role{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;}
-  .team-bio{font-size:0.875rem;line-height:1.65;color:var(--mid);margin-bottom:1.25rem;}
-  .team-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;}
-  .team-tag{font-size:0.65rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:100px;background:rgba(13,27,42,0.06);color:var(--navy);}
-  .team-linkedin{font-size:0.8rem;font-weight:600;color:var(--navy);text-decoration:none;letter-spacing:0.05em;}
-  .team-linkedin:hover{color:var(--red);}
-
-  /* VALUES */
-  .values{padding:5rem 5vw;background:var(--navy);}
-  .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
-  .value-card{padding:2rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;border-top:3px solid var(--red);}
-  .value-icon{font-size:1.8rem;margin-bottom:0.75rem;}
-  .value-title{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;color:white;text-transform:uppercase;margin-bottom:0.5rem;}
-  .value-body{font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.65;}
-
-  /* BUILDING IN PUBLIC */
-  .public{padding:5rem 5vw;background:white;}
-  .public-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.5rem;}
-  .public-card{padding:1.75rem;border-radius:8px;background:var(--cream);border-left:4px solid var(--navy);}
-  .public-platform{font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--red);margin-bottom:0.5rem;}
-  .public-title{font-weight:700;color:var(--navy);margin-bottom:0.4rem;font-size:0.95rem;}
-  .public-body{font-size:0.85rem;color:var(--mid);line-height:1.6;}
-
-  /* CTA */
-  .cta{background:var(--navy);text-align:center;padding:5rem 5vw;}
-  .cta h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;text-transform:uppercase;color:white;margin-bottom:1rem;}
-  .cta p{font-size:1rem;color:rgba(255,255,255,0.5);max-width:460px;margin:0 auto 2.5rem;line-height:1.6;}
-  .btn{background:var(--red);color:white;padding:1rem 2rem;border-radius:4px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;}
-  .btn:hover{background:#7A0012;}
-  .btn-outline{border:1.5px solid rgba(255,255,255,0.3);color:white;padding:1rem 2rem;border-radius:4px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;margin-left:1rem;}
-  .btn-outline:hover{border-color:var(--yellow);color:var(--yellow);}
-
-  footer{background:var(--navy);color:rgba(255,255,255,0.4);padding:2.5rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(255,255,255,0.06);}
-  .footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
-  .footer-links a{color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.8rem;}
-  .footer-links a:hover{color:white;}
-
-  .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
-  .reveal.visible{opacity:1;transform:translateY(0);}
-  .delay-1{transition-delay:0.1s;}.delay-2{transition-delay:0.2s;}.delay-3{transition-delay:0.3s;}
-
-  @media(max-width:768px){.story-grid,.team-grid,.values-grid,.public-grid{grid-template-columns:1fr;}}
-
-  /* ── MOBILE FIXES ── */
-  @media (max-width: 768px) {
-    nav { padding: 0 4vw; height: 70px; }
-    .nav-links { display: none; }
-    .nav-back { font-size: 0.8rem; }
-    .nav-cta { padding: 0.4rem 0.9rem; font-size: 0.75rem; }
-
-    .hero, .gov-hero { padding: 100px 5vw 50px; }
-    .headline, .gov-headline { font-size: clamp(2.5rem, 12vw, 4rem) !important; }
-    .sub, .gov-sub { font-size: 0.95rem; }
-
-    .stat-row { grid-template-columns: repeat(2, 1fr) !important; }
-    .pain-grid { grid-template-columns: 1fr !important; }
-    .steps { grid-template-columns: 1fr !important; }
-    .demo-wrap { grid-template-columns: 1fr !important; gap: 2rem; }
-    .roi-wrap { grid-template-columns: 1fr !important; gap: 2rem; }
-    .loyalty-panel.active { grid-template-columns: 1fr !important; }
-    .plans { grid-template-columns: 1fr !important; }
-    .story-grid { grid-template-columns: 1fr !important; gap: 2rem; }
-    .team-grid { grid-template-columns: 1fr !important; }
-    .values-grid { grid-template-columns: 1fr !important; }
-    .public-grid { grid-template-columns: 1fr !important; }
-    .mall-grid { grid-template-columns: 1fr !important; }
-    .agency-grid { grid-template-columns: 1fr !important; }
-    .data-grid { grid-template-columns: 1fr !important; }
-    .district-panel.active { grid-template-columns: 1fr !important; }
-
-    .loyalty-tabs { flex-wrap: wrap; width: 100%; }
-    .loyalty-tab { flex: 1; text-align: center; min-width: 80px; }
-
-    .district-tabs { gap: 0.4rem; }
-    .district-tab { padding: 0.4rem 0.85rem; font-size: 0.78rem; }
-
-    .onboarding-bar { flex-direction: column !important; gap: 0.75rem !important; }
-
-    .cta h2 { font-size: clamp(1.8rem, 8vw, 3rem) !important; }
-    .btn, .btn-outline { width: 100%; justify-content: center; margin-left: 0 !important; margin-top: 0.75rem; }
-
-    .demo-phone-wrap { margin-bottom: 1rem; }
-
-    section, .hero, .pain, .how, .demo, .roi, .loyalty, .pricing, .public, .values, .team, .story, .malls, .districts, .cta, .gov-hero { padding-left: 5vw !important; padding-right: 5vw !important; }
-
-    footer { flex-direction: column; text-align: center; }
-    .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
-
-    .nav-tag { font-size: 0.55rem; padding: 0.25rem 0.6rem; }
-  }
+body{background:#F2EDE5;}
+.about-hero{background:#0D1B2A;padding:120px 5vw 80px;position:relative;overflow:hidden;}
+.about-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 40% 50% at 15% 70%,rgba(139,0,21,0.08) 0%,transparent 65%);}
+.ah{font-family:'Barlow Condensed',sans-serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:900;line-height:0.92;text-transform:uppercase;color:white;margin-bottom:1.5rem;position:relative;z-index:1;}
+.ah em{color:#8B0015;font-style:normal;}
+.asub{font-size:1rem;line-height:1.75;color:rgba(255,255,255,0.5);max-width:520px;position:relative;z-index:1;}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.sstat{padding:1.5rem;background:#F2EDE5;border-radius:8px;border-left:4px solid #8B0015;margin-bottom:1rem;}
+.sstat-num{font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:900;color:#8B0015;line-height:1;margin-bottom:0.2rem;}
+.sstat-label{font-size:0.78rem;color:#7A7A7A;font-weight:500;}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.tc{background:white;border-radius:10px;border:2px solid #0D1B2A;padding:1.75rem;transition:transform 0.2s,box-shadow 0.2s;}
+.tc:hover{transform:translateY(-4px);box-shadow:0 10px 35px rgba(13,27,42,0.1);}
+.tc.feat{border-color:#8B0015;}
+.ti{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:900;color:white;margin-bottom:1.1rem;}
+.tn{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#0D1B2A;text-transform:uppercase;margin-bottom:0.15rem;}
+.tr{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#8B0015;margin-bottom:0.85rem;}
+.tb{font-size:0.855rem;line-height:1.65;color:#7A7A7A;margin-bottom:1rem;}
+.ttags{display:flex;flex-wrap:wrap;gap:0.35rem;}
+.ttag{font-size:0.62rem;font-weight:600;padding:0.22rem 0.55rem;border-radius:100px;background:rgba(13,27,42,0.06);color:#0D1B2A;}
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem;}
+.vc{padding:1.75rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;border-top:3px solid #8B0015;}
+.vicon{font-size:1.6rem;margin-bottom:0.65rem;}
+.vtitle{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:white;text-transform:uppercase;margin-bottom:0.45rem;}
+.vbody{font-size:0.84rem;color:rgba(255,255,255,0.45);line-height:1.65;}
+@media(max-width:768px){.story-grid{grid-template-columns:1fr;}.team-grid{grid-template-columns:1fr;}.val-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
-
 <nav>
-  <a href="index.html" class="nav-back">← CBOXX</a>
-  <ul class="nav-links">
-    <li><a href="merchants.html">For Merchants</a></li>
-    <li><a href="eastarea.html">East Area</a></li>
-    <li><a href="merchants.html#contact" class="nav-cta">Join Pilot</a></li>
-  </ul>
+  <div class="nav-logo"><a href="index.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMQAAABQCAIAAADJM01pAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAcpElEQVR4nO19e3RURdbvrjqP7nQn3Z1nk4BAOh2CwDcGUcBRFw8BdRAYiTKjgmtglLkjsgadbxxB8GMYGRBBkOfyAzMqhGH5AFEZ4eMlzADXEFDHRECJgIRo3u/uPs+6f2z63KZfeSE4957fOiur02fXrjpVv7N31a59TgOYMGHChAkTJkyYMGHChAkTJkyYMGHChAkTJkyYiAPSncK0Y2KsYzWxoKQJEyb+f0fXLZNAyH1Op50SjcXUwgCslJ70+Z0c9VhESWdRJQkhAV3/n5aWFk0jpn36twXf5ZIMYKDVksnzMrBY/k4HsBGaQEm5JN9ut7XoOhdDLJFSibEPm5pMMv37ootkogAqY8d9/nsdSW16TDIBQAC0noJwrM1XqagiIVGJwgAUXRtktexuJiozufTvig7OocOBA14WCCiMcQA09sEAHJSm8twFWUmglEST4QA0ADfP51gsXW/TDwxKKcdFNawmLqNbZKqU5UpFiWVvEARAZcwrWr6RZRrbhTEASkh+grVr7fmhwXGcruuapl3vhvyo0XUrQAF0gLKAJLRHJomxPqLQommNmhbLrRIASdf7W6wJlOrdjFhcbVBKNU3zer2FhYVz5swBANNERUXXyYQEKvX7AyzenAmC8+sUnjsnyxZKozKPAKgALp7Ls1rQFZLYB8Q9S64qF9EmzZo169NPP50+fXqvXr0AgJAfFdt/LOgWmQjAd4pSIXfc0ymxFmuozUbIMJuNAWjBGGbUA+KevYrBT47jNE2bNWvW2rVrExISVFWVZfkq6f5/EF0PDQAAuezpAl6LGGDRY0gQ9HS9RaHY72vUNCsh+pUCDIAnRGNsZ3MzT2iGIMRa0+mM2Sl3SZETKWeh0RlMAPy67tP1aCc7AfRuvXv3XrFiha7rqqpaLBbTJsVBt8h02dMFAuOSEtv1dEmUpnL8N7I8OCHBp+sk5JRIiMZYUUPjnYmJI+yJjyQnR9WmMpbO8283NpUG/E+lp7OgPQuDxpiF0he+//6Ez0eB6F21U5RSXdd//vOfWywWVVXNeVK76C6ZCECVolxUFI8oSnGNk8qYVxTLJGlwQoJBAh3AQojEWFFD4wSHc7wjqSnGikkFyOL5d5qavgj4n3O7MdAVhUkANo5r0LRqVSUArNsez+PxMDP01TF0N6aDw1kaCPAdWNP1FoU2XTfWdDqAlRCfrm9uaHzQ5brXkVSjqjqAFnHIjKVw3LbGpmNtvvluNwCTGGNXyugAMmNWQr5X1f+8dOmiLMPVmDwRQkzX1kF0l0yXo5f+gE/X2/V0dkpTuctrOpWxBEKaNG1rQ9OjySkjExPrVJUnBCLWZTpj6Tz/VmPTCb/vv3q4GTCFXW53qJjGWBLHXVLUZy5Vfhs3pmXiB8JVIBMBqFHVbxXF0pE1nUU8J8s6YzZKazXtrabmmWmpw222+iCTwqAxlsbz2xobP/X7n3e7tRAmhUJlLInjyiX5mcpL3ykyxsBMXGNcha0LpMAX/gDXAU93gyC0aLoCUK2qO5qan0xLu8lqbdDiMWlrY+Pn/sDz7gyVMTUGk1wc92Ug8MfKS7WqajLpeqFbE3AEEujLQKBNT2rX09ko7SOKe1taGjV9Tnp6jig2alocJhU1NJYGAgvcGQpjajTuI5NO+P0Lv/uuTddNJl1HXAXLhJ6uTlXPy7IlIoYUJmkhYKfkVEB+Kj09WxSa4zJpc0NjWSDwfA93HCYlc9xRn2++yaQfAa7ODv1lTxcIcLEXPhqAk9KT/sApSV7ZMyuV41p1FlUemfRmQ8NpKbCgh1vWdS1aQzXGUjhuf2vbwu++k0wm/QhwFdwcBD3dqUCgRdf5aMsoDcBFabHf/2VAmpuRkUipj7GoQUBk0usNDWclaYHbHdD1qPu+GmPJPL+ruXl5VRUEY/HXAIwxM1IQC1eNTASgQdXOy/IAi8V/5dYvMumIz3dOVua73SIhgVhMAkjj+b/WN5TL0vw4TAKWzPPvNjatqakmwQZ0ASQEAMAY03U9fogyLS2NMYa7v6EFsWxnq6b0cj9FrZoQwnEc0tc4FaeFRowe5fFvVPbHUhLaJAMdv7SrQyYAwB3cL/yB/7BaIaShOoCL0gOtbTWqNt/txjVdVOeqAUvj+ML6+m9kORaTcAvFxfFFDQ0ba2tpV7d1cZxUVY3sUxy/yO7D7++7776UlJT6+vqoOnEHJj4dQ6sOq4VSSggxsqYYY6qqRmrAWsJ0AkCn0q2iKmGMdSdn66qRyfB0zZoukMv/6gBOSne3tPp09pw7Q2FMiTFN0xik8fym+voLsrLA7fbHZpKT0sK6+s31dV1mEuYC4HZb//79PR6P0+mUJKmiouL06dMNDQ0oE3ZDE0J0Xc/MzNy/f//SpUu/+uoru93udrsppTU1NWfPnq2oqMCRiBynyKpFURwwYEBOTk5ycrIkSRcvXvzyyy+rq6uxOADouu71evPz81VVpZQiQSVJOnLkSFNTE+oxGoZnhw4d2rNnz8t9xRgAtLS01NfX9+3bV9d1Q0lLS8vhw4cVRQltp6HkzjvvTE1NNa6XEFJfX3/48OFQ6xgLV5NMBKBJ076R5Z9YLT7GCICD0p3NLRwhc90ZyI8YNgnSeO6/6+ovKsr8oGQkkwAgidL1dXVvNzRwAHo3mJSZmfnb3/72gQce6N+/fyhpqqur9+3bt379+iNHjkBE3hKOR35+/rZt28LUtra2lpSUvP7661u2bNE0LXSww6ru1avXrFmzCgoKcnNzQ882NDQcPHhww4YN+/btQ2Gbzfb222+HKblw4cKjjz56+PBh1Ibu0m63b9myZdKkSWHCCxcuPHTo0Pbt28O+P3HixEMPPfT1118jn/Bvr169tm3bdvvtt4cJ/+Y3vzl8+DDmUMTo1B8ASJRbbbbVvXouycpc26vniKTEn7uSD3i973s8Oz2e9yOOnR7PDo/nH7m5U1NSRyU59nu9H0ST3JGd/YHHs8/rneB0AUCXt+9xVvHrX/+6urqaBaGqqqIoqqqih0Js2LAhMTERANasWcMYUxTFOIWmxfigqqqmacbZ4uLiW2+9FSKyMdHezJw5s7a2NqxqRVFCNRQVFaWkpGCphx56iDEWCASwImxGW1tbfn4+VsHzPAC89dZbqA0hSZKmaf/4xz/wZli0aFGkkvPnz2dkZKDP5ThOEITi4mK8UhQLBAKMsTfeeCPyWq4F8C5OpNyCHu4XszJvsdkeTE7e7/XuyM7ekZ39nsfznsfznic7+Dd7R3b2hx7Px7m5v0xOGZXk+B+v9z2PZ3v2/xVA4Q88nv1e766cnLEOBwBwXV1LYY8sX74cxwyHEDO7kRC6ruu6bgzt0aNH09PTV6xYEUYmY7qtBYEFjXHy+/2TJ0+GkDHADy+//HL8qnEUGWNlZWW9e/fGsps3bw5tAH44e/as0+kUBAEA5syZwxiTJMlomKqqbW1teXl5AMDzPKX02LFjyDaUkWWZMXbgwAFCiMViAYB169YZ3+N9ouv6xYsXXS4XzuS6wYuuAuvMsVjGOhxPZbiP5+Ud8HoP5uZGPT7OzX0nO/uXySkzUtM+ycv7ODf3gDdcZr/Xu8Pjeb5HptdihW6ExXA4Fy5ciF2GdAmzRsZ9qSiKz+djjD3xxBPPP/98JJnCrBGOn3EK/44cORLrxar/9Kc/YdVYI7IwTGfoSJeVlTmdTkqpw+H45ptvsEgon3bu3AkAt912G1LQuBA8+8QTT0CQSQDg9XpbWloixZYvXw4AU6dODbtG/Dxu3Di4vgnvBMBK6a12+90OxxCbbXCMIz/Blp9gc3KchdI7ExMH22z5ETI322z9rVZrcLHaTSaNGDECu8kYTuy406dPHzx48OTJk8bNjXjzzTdFUVy1ahWLcHP4obKysqysrKKiIux7pMWlS5dSUlJwLGNV/e233xYXF5eVlSGBjJHGf9HFAMAdd9yhaZpR3KjiL3/5S2lpaWTVf//73wEAPaDx4Ve/+lXUC5k3b15dXR2axlAmvfLKK6FKrj/SeOEnCQmRTLopwTbMbr/ZZgeAPqKYb7NFPZBzt9kT73E486zWLptafOTtxIkToZaDMbZ3797bbrvN6K/c3NwFCxbs3r1769atEydOxC9Xr14dOgZY8OOPPx47dqzD4SCEJCYmjhgx4qOPPgq1Lij/4osvAgDP8yUlJcZZHMLi4uJ77rnHbrcDACEkLy8PJ2foXwzhYcOGoYuJNJAGgQwSoLWrra3NysoKixjhNRYVFYUpCTPMhtrS0lKr1Rq5pL2mMJ4MGZWUtKbXDX/PyTnoDXdt+7zeY/36fZiTc4/T+Qe3e3dOTiw/uN/r/Wduv33e3Mmu5LEOh4PjoPNPnqBZGj16tNFTOE5vvvmmIRMZqQMAURQB4JVXXjEGAIv/9a9/jVoRSqIM3ugNDQ2iKN5xxx1hVX/00Uc4U4ErF4wzZswwJLHGLVu2AADOjQ4ePBjKVxbhprFIQUEBRPgm5FakxwxTYsz8hgwZEqmkXVzNp2eDvUKeynA/7+7RzyKqjDXpWpOmBg+tVlU1xr6SpD9UVt5pt09wOCTGGlW1SdNCDrVJ0+pVVWLse1X5Q2UlA32iI2mC09GVVhECAAUFBcYYcxx39uzZxx9/nBCCtyyGWyilOMnAiU5YrAiX0KWlpY899hgWNKLnWOp3v/vdsWPHcAmNQRqXyzV8+PBx48YZNoBSWlVV9fDDD0uSJAiCEbyhlIqiWFhYuHHjRkqpkXI+duzYxMREVPjoo4/W19ejZmxSqOVQVZXn+Y0bN7777rs8z4ct4xljhJDm5uapU6caHi1SCQY15s2bd+LEiUgl7eKqkYkGn8p9rod7ktPRqKl+7CYACgQPxsDJcVWqurS6+tcpKbfb7bWqSgA4Qq58YJwwBkmUtmj6C1VV+QmWMUmJbbo+0Gp1clzUhwjiAHtkyJAhOPA4EuvWrZMkief50BAz3pfGMi1MDxZcsWIF9niYhUDbtmzZMkMeT911112DBw/GqpEThYWFDQ0NgiCgITGUa5pGKV2+fLmiKMgkxlhGRkZeXp6u64IgXLx48bHHHotqRHVd53n+9OnTc+bMiRriwn7gef7o0aPPPfccz/ORYVUU2LNnz0svvdQFJsHVIhPu2FsoXdgj867ExHpVRX5c0VbGEjlaqShLqqsfS0m9xZYQJ7sykaPVqvZCVdVwm21IQkKjpmPW741WK3SGTHjri6LYo0cPCG5lAMDRo0dDb/F2wRjD/j127FjUgtj1x48f9/v9xoYaIWTgwIEYlTY28jCaHFWDruvl5eXnz5/HZqMMFseR3rFjx/Lly0O3XCAY7K6rq3vkkUd8Pp/xTSRQydKlS7dv3x5metHulpeXz5gxA5sXS0kcXAUy0WDW258zM++w2xqipShpjCVyXKWiLK2ufjw19eYEa70aM5PJwXEXZWVpddXoRPtAq6Up+CIenbH/SLBC5wPfPM/jtAOCXq+trQ0tR6f0YPwmTimfz+f3+0O/sdvtOPcKqzqWBk3TWltbQ7/B4sbe7euvv44WzhBAHnzxxRcnT56Mb1GMejdv3gxXcg53Tvbt21dZWRnp4juI7pIJmeTguCVZWbckJMRiUhLHXVKUpdXVv0lNHWy1RhUDAJUxJ8d9JUkraqrvTUryWMTmIJMogMxYX1FM7rynCwQCxghhX/fs2bNTsTjDwmHUOLIgfpmWluZwXDGxq6qqampqws84Qr17946jwW63G/trKGMUBwCO4woLC3meD+UB+rWRI0dOmzYt/vN9uG2SkpKCS9TQNiCBZsyYMXz48C4/JNgtMiGTUnn+xayeg6zWqAm4yKSLivJidfX/Sk29KS6TkjnuX4HAmtraSQ5HT1FovfLlYBpAEqUDEjrh6VgwXQRXMYY1evDBB3EmHiaPq56oJEN7MGnSJNQZdhYHePz48TgPM9I/jh8//vXXX+NnVDtlyhQWLS0ENYwaNSojIwPropQqinL27FkIPl68aNGioUOH4qQtrNmMsVWrVmVlZaGhitobSKZXX331hhtuCBPD9giCsGnTJlxpdiEo0HUy4VZrD0F4Kaun1yJGTcBFJn0rK8uqq3+bmvaT9phU7PdvrKt70OlI5zlftNfMaYwNsiZAZzwddgpuHeDUR9f1adOmDR06VJZlQRA4jsMVHA6nsewKGxKcCc2ePbtv376yLIuiaBQUBEGW5YyMjGeeeQbLQjCfZN++ff/85z+xaqT1hAkTfvaznymKIggCz/PG1piiKFardcmSJSwkFenUqVMXLlzgeV6W5dGjR8+dO9eY7ENwjg8hJufVV181GhAGZPnjjz/+wAMPGLYn9AbDVeTAgQMXL14cydeOoItkwtdz9RbFl7J69hL4Vk2LTMBFJl2QleU11bPS0gZZLXGYlMrz/9vne7O+/pcup5Pj/NFyniiAxFhfUUjl+Y57OnQub731liRJRhqGxWJ57733fvrTn4Ztk1kslgEDBuD9Lcty2L3LGEtOTt61a9eNN96IezJYUFGU7OzsXbt2ZWZm4liiaTl16tSZM2d2797t9/uxamT23/72t/Hjx+PWDa4cFUXp0aPHzp07Bw0ahBpwErNlyxZsf0pKyhtvvIGnSDAjDz0jXhEuMO+7776ZM2dimOCKrqNUVdUbb7xx1apVoUQxohuhSn7/+9+PGjWqC86uK2TiCNEAvBbLsqysDJ5rY1FSuXEefV6WV9RUz0pLG2CxxHkKJZXn97a0LKuu/qXLaac0zjt6cE03sDNrOnRnFy5cKCwsxD7Fcc3MzDx06NBrr702adKkIUOG3HXXXYsXLy4tLS0tLT116tTWrVsxDSi0Q3GMBwwY8Mknn6xcufLuu++++eabx4wZs3Tp0pKSkltuucXwHUiFxYsXA0BFRYURPUIeOByODz/88N133506deqIESPGjx+/ZMmSzz77bNy4cUZCCEakNm3ahAU3bdrUq1cvIy0JyfqLX/xi7969xuIOJ08vv/xyv379Qg0Y0kUUxaKiIpvNBsEbQ9d1SZImTpxYXl5OgtlLqL+wsNDpdEZ1x3HQab/IAdGADUhI+HOPHnZK/dEScJFJ38jyypqaJ9PS+rfHpO1NTZ/4fAKBm6zWvqIox35nAQOwEHJWltfX1MZ6O08ksDddLtenn37au3dvvHHb7anKysqJEydOmTLlmWeeMWI/xkhHyhvfowvbvXv3vffei87R4XCcPHkyOzvbqBqiTUoMrqiqKgjClClTMJ9p9uzZq1evNuwNfli2bNkf//jH7OzskpISl8sFwXkVx3GffPIJpiWhy0YHt2bNmieffDJMycyZMzdu3DhixIj9+/ejI0ZqchxXVFQ0derUsFBcfHTOMnEENGCDbbYlmZkJMZikMubguHJZXllTMzs+kwBSeX5bY+Oh1tZpya5+ouWUJLX7qieZsd6CkN4ZT4eDV19fX1BQ0NzczPO8oigQzIs1NkCMjQVN0yRJysrKuummmwKBAI4xAk2CsQsBwVAnOiDc0xAE4dSpU9OmTTPcR2Nj4+TJkxsbG42qccxCPazhHxljgiC88MILyKQhQ4YYkVIIkuDAgQPPPvusKIrnzp2bPn26kS6MfmrYsGGLFi3CIvhNQUFBJJM2bdq0ceNGq9V66NChZ5991ggrYJFHHnkEl4cd3+vtBJk4IBqD4fbEP2dm8gTkGExyctxZSV5VU/u7tPR+MZjEAHSAFI57o76hxOd7NNnVpus3iEKjprd24J0FNkoHJSRAZ+wqOqySkpKxY8eeO3cOtzKMTEXDVBj7LRaLZf78+Wjtcag+//zzCxcuGPcu2hXDNSClCCGCIBw5cmTMmDG1tbWhCj/77LMxY8aUl5dj1Xi7oxIjPo6SlNJ58+YtWLCA4zi73V5UVGQMJw5tZWXlww8/bPz7/vvvL126FGmKjFQUZe7cuaNHj8ZbpU+fPhs3bsQIO9Kd5/kTJ048+eSTHMfJsszz/PLly3fs2IEzfYPWa9euzcnJCfWY8dFRMnEAGrCRSUn/1cMNLOYD/y6O+1qSXqmtmZOe5rWITTGYBAAujvvvurovJf8jyS6JMZmxZI5LpPRbuUPvLBhktUAno5d4pxYXFw8dOnTDhg1+vx8XU4bVwQUdx3HHjx8fO3bs4sWLCSEOh6O8vHzYsGH5+fkDBgyYNWtWRUVFaEEkE5atr69fuHDhqFGjKisrQzOsseoTJ04MGzZs3bp1Pp8vatWU0iNHjowaNWrJkiWCIGia9tprr+Xl5WHgnhDC83xbW1tBQUFVVRXqx6D2vHnz9u7dK4oiNgb5unXr1oyMDErp22+/nZycjNUh3SsqKgoKCjDlBulOKZ0+ffqZM2cMJRzHORyObdu2WXGG2oHJU4fubYwnjXM4/jM9I8Aup3KHDiQJ2qQzkrSmtvap9HSPeDlYECaG/zooXVdXV60oD7qcbbqOXyZQ+i+//6KiTHA42rVPBGBlTe33Ssz3Gsa8luAYe73e+++/f+TIkR6PJykpSVGU77///uTJkx988MGePXswRCnL8tNPP71r164zZ84YBV0u1+TJk8ePHz9w4MDU1FRCSGNj45kzZ/bs2fPOO+9UVlaG1hK16pycHKw6JycHq66srCwpKdm5c+eBAwcAAKu+//77t27divszAKBpWllZ2dNPP338+PGwBwoAIDExce3atffcc4/FYsE5u9VqXbduXXl5+erVq9va2nCupqrq0aNHZ8+efe7cudBG4uc+ffqsX79++PDhhvm02Wzz589/6aWXYm35hQ1Ke70PoAPc7XDMdbtbNC1qGXwF6mlJWl9b93R6erYoNOl6VE/LESISsrKm1qdrk52OFl03FOJTUDubmgtczo68cfX9puZ9LS1deJAX77zQwbBarZqmhb6vMqzvjLV6aEFM6iCEtLa24kwIgqHkWBsmnara5XLhLpDhUmtrayEaUw1P7XA40JBAyG5JaMBdVdW6urr4SlJSUozdJ4xC1dTUtNOnqKFdCRytmWlpExyONp1FpmAzAJGQi7Kyoa52VlpadjSbhNAYUwHeqK+nABMdSU1Xmh+kyPam5v4WMc9iifOSTFzTXZCV1TU10NUnMNG/oJHHb0jwoccwNpArn/IxxMLYZkyfO1h1qIaoOiOBtIi6cRZG0/i1QzD81vFTHUEnQgMujov10hwOoF7TREKSOc6n65Fi6IzcPH+j1SoQcofd1hLhyBhAAiX/8kvfKvIkhyNSILxSQlZW11R23tOFwbhrO7vvGzqN6MIee7tVR05T2q2lIzObLijp4NV1IsO3sT3W+xnzxyW1zPRfpSQnUBqVKARA0lm2KHzu9+NP9sS5Ah3ARsigBGv3ydQ1HnSnYAc1dEF/95vUHSWdCA2Q9o74MhxAq6Z/HghocRIwAJwch6Hzdtd0CmMDrVbz5Sc/HnSCTKwD73FvV+BzfyCOKSYAOjCPKJZLMu1A9LKnIPTEdJ+OX4aJHwzX7heU0H58HQjUqKoQwzEZnq5R02L9OJ0BnPgP6mTupYkfDtf057gwwe3LgCTG+AUVANAAHJ3xdAOsVhr3dXUmrhmuw2+7feb345ts9GgHA1AZyxaFs5JMCNFiiKFkgDG3wPcUhOtzJSauxDV9XhPfbXJBlqtUta8oSNH2ZACAAAy0WssCksSYI+4vhmkASZQMs9kumr+P8yPAdXj4V2fs3camn9rtWowVPQOwEtKsaftaWjN5Xom98MfoZSWmAPxQ7TVhwsQ1x/VZBpEOVNyJdCXTLJkwYcKECRMmTJgwYcKECRMmTJgwYcKECRMmTJj4N8D/AR3ccZFA9dutAAAAAElFTkSuQmCC" alt="CBOXX"></a></div>
+  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="merchants.html">For Merchants</a></li><li><a href="eastarea.html">East Area</a></li><li><a href="about.html" class="active">Team</a></li><li><a href="government.html">Government</a></li><li><a href="merchants.html#contact" class="nav-cta">Join Pilot</a></li></ul>
+  <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
 </nav>
+<div class="mobile-nav" id="mobileNav"><ul><li><a href="index.html">Home</a></li><li><a href="merchants.html">For Merchants</a></li><li><a href="eastarea.html">East Area</a></li><li><a href="about.html">Team</a></li><li><a href="government.html">Government</a></li><li><a href="merchants.html#contact" class="cta-m">Join Pilot</a></li></ul></div>
 
-<!-- HERO -->
-<div class="hero">
-  <span class="eyebrow">The Team</span>
-  <h1 class="headline">Built by founders<br>who move fast.</h1>
-  <p class="sub">Five co-founders across commercial, tech, ops, people, and creative. Singapore-based. Building in public.</p>
+<div class="about-hero">
+  <span class="eyebrow reveal" style="color:#8B0015">The Team</span>
+  <h1 class="ah reveal">Built by founders<br>who move <em>fast.</em></h1>
+  <p class="asub reveal">Five co-founders across commercial, tech, ops, people, and creative. Singapore-based. Building Singapore's first NFC-powered district loyalty network.</p>
 </div>
 
-<!-- FOUNDER STORY -->
-<section class="story">
+<section style="background:white;padding:6rem 5vw;">
   <div class="story-grid">
-    <div class="reveal">
-      <h2>Why we're building CBOXX.</h2>
-      <p>86.9% of Singapore's retail happens in physical stores. But the entire digital loyalty infrastructure — apps, CRMs, data platforms — was built for e-commerce. Physical merchants have been left behind.</p>
-      <p>We asked a simple question: what if every merchant in a mall could have the same loyalty and data capabilities as a major e-commerce brand, for SGD 100 to start?</p>
-      <p>The answer is CBOXX. One NFC tap. No app. No friction. Real data. And because we sit across every industry in a mall — F&B, retail, beauty, healthcare, fitness — we see cross-sector consumer behaviour that nobody else can.</p>
-      <p style="font-weight:600;color:var(--navy);">That data is the real asset. The loyalty OS is how we earn the right to collect it.</p>
+    <div class="reveal from-left">
+      <span class="eyebrow" style="color:#8B0015">Why We're Building This</span>
+      <h2 class="section-headline" style="color:#0D1B2A">The infrastructure physical retail never had.</h2>
+      <p style="font-size:0.92rem;color:#7A7A7A;line-height:1.75;margin-bottom:1rem">86.9% of Singapore's retail happens in physical stores. But the entire loyalty and data infrastructure was built for e-commerce. Physical merchants have been left behind.</p>
+      <p style="font-size:0.92rem;color:#7A7A7A;line-height:1.75;margin-bottom:1rem">We asked: what if every merchant in a mall could have the same loyalty and data capabilities as a major e-commerce brand, for SGD 100 to start?</p>
+      <p style="font-size:0.92rem;font-weight:600;color:#0D1B2A;line-height:1.75">The data is the real asset. The loyalty OS is how we earn the right to collect it.</p>
     </div>
     <div>
-      <div class="story-stat reveal delay-1">
-        <div class="story-stat-num">Apr 2026</div>
-        <div class="story-stat-label">CBOXX Pte. Ltd. incorporated · UEN: 202613969N</div>
-      </div>
-      <div class="story-stat reveal delay-2">
-        <div class="story-stat-num">1,260+</div>
-        <div class="story-stat-label">Target merchants in East Area pilot</div>
-      </div>
-      <div class="story-stat reveal delay-3">
-        <div class="story-stat-num">5</div>
-        <div class="story-stat-label">Co-founders across commercial, tech, ops, people, and creative</div>
-      </div>
-      <div class="story-stat reveal">
-        <div class="story-stat-num">SGD 100</div>
-        <div class="story-stat-label">What it costs a merchant to get started — no app, no complexity</div>
-      </div>
+      <div class="sstat reveal d1"><div class="sstat-num">Apr 2026</div><div class="sstat-label">CBOXX Pte. Ltd. incorporated &middot; UEN: 202613969N</div></div>
+      <div class="sstat reveal d2"><div class="sstat-num">1,260+</div><div class="sstat-label">Target merchants in East Area pilot</div></div>
+      <div class="sstat reveal d3"><div class="sstat-num">5</div><div class="sstat-label">Co-founders across commercial, tech, ops, people, and creative</div></div>
+      <div class="sstat reveal d4"><div class="sstat-num">SGD 100</div><div class="sstat-label">What it costs a merchant to get started</div></div>
     </div>
   </div>
 </section>
 
-<!-- TEAM -->
-<section class="team">
-  <span class="eyebrow">Co-Founders</span>
-  <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;color:var(--navy);line-height:1;">The people<br>building this.</h2>
+<section style="background:#F2EDE5;padding:6rem 5vw;">
+  <span class="eyebrow reveal" style="color:#8B0015">Co-Founders</span>
+  <h2 class="section-headline reveal" style="color:#0D1B2A">The people<br>building this.</h2>
   <div class="team-grid">
-
-    <div class="team-card featured reveal delay-1">
-      <div class="team-initials" style="background:#8B0015;">HO</div>
-      <div class="team-name">Hakim Osman</div>
-      <div class="team-role">Founder & CEO</div>
-      <p class="team-bio">Leads commercial strategy, investor relations, and product vision. Finance student at Kaplan Business School turned founder. Built an international audience across TikTok and Lemon8 before building CBOXX — now documenting the founder journey publicly.</p>
-      <div class="team-tags">
-        <span class="team-tag">Commercial</span>
-        <span class="team-tag">Fundraising</span>
-        <span class="team-tag">Brand</span>
-        <span class="team-tag">Finance</span>
-      </div>
-
+    <div class="tc feat reveal d1">
+      <div class="ti" style="background:#8B0015">HO</div>
+      <div class="tn">Hakim Osman</div>
+      <div class="tr">Founder &amp; CEO</div>
+      <p class="tb">Leads commercial strategy, investor relations, and product vision. Finance student turned founder. Building CBOXX from zero while documenting the journey publicly.</p>
+      <div class="ttags"><span class="ttag">Commercial</span><span class="ttag">Fundraising</span><span class="ttag">Brand</span><span class="ttag">Finance</span></div>
     </div>
-
-    <div class="team-card reveal delay-2">
-      <div class="team-initials" style="background:#0D1B2A;">DY</div>
-      <div class="team-name">Dylan</div>
-      <div class="team-role">Co-founder & CTO</div>
-      <p class="team-bio">Owns the entire tech stack — NFC architecture, backend infrastructure, loyalty platform, and the data pipeline that powers CBOXX's cross-sector intelligence layer. Also serves as Company Secretary.</p>
-      <div class="team-tags">
-        <span class="team-tag">NFC Architecture</span>
-        <span class="team-tag">Backend</span>
-        <span class="team-tag">Data Pipeline</span>
-      </div>
+    <div class="tc reveal d2">
+      <div class="ti" style="background:#0D1B2A">DY</div>
+      <div class="tn">Dylan</div>
+      <div class="tr">Co-founder &amp; CTO</div>
+      <p class="tb">Owns the entire tech stack — NFC architecture, backend infrastructure, loyalty platform, and the data pipeline. Also serves as Company Secretary.</p>
+      <div class="ttags"><span class="ttag">NFC Architecture</span><span class="ttag">Backend</span><span class="ttag">Data</span></div>
     </div>
-
-    <div class="team-card reveal delay-3">
-      <div class="team-initials" style="background:#165C32;">ME</div>
-      <div class="team-name">Melissa</div>
-      <div class="team-role">Co-founder & COO</div>
-      <p class="team-bio">Runs finance, operations, and company governance. Originated the district loyalty concept that became the core of CBOXX's network strategy. Also serves as Data Protection Officer — ensuring PDPA compliance across all consumer data.</p>
-      <div class="team-tags">
-        <span class="team-tag">Operations</span>
-        <span class="team-tag">Finance</span>
-        <span class="team-tag">PDPA / DPO</span>
-      </div>
+    <div class="tc reveal d3">
+      <div class="ti" style="background:#165C32">ME</div>
+      <div class="tn">Melissa</div>
+      <div class="tr">Co-founder &amp; COO</div>
+      <p class="tb">Runs finance, operations, and governance. Originated the district loyalty concept at the core of CBOXX's network strategy. Also Data Protection Officer.</p>
+      <div class="ttags"><span class="ttag">Operations</span><span class="ttag">Finance</span><span class="ttag">PDPA / DPO</span></div>
     </div>
-
-    <div class="team-card reveal delay-1">
-      <div class="team-initials" style="background:#4C1D95;">JA</div>
-      <div class="team-name">Jason</div>
-      <div class="team-role">Co-founder & HR/People</div>
-      <p class="team-bio">Oversees people operations and supports merchant sales. Focused on building the culture and team infrastructure that scales with CBOXX as the network grows across Singapore and Southeast Asia.</p>
-      <div class="team-tags">
-        <span class="team-tag">People Ops</span>
-        <span class="team-tag">Merchant Sales</span>
-        <span class="team-tag">Culture</span>
-      </div>
+    <div class="tc reveal d1">
+      <div class="ti" style="background:#4C1D95">JA</div>
+      <div class="tn">Jason</div>
+      <div class="tr">Co-founder &amp; People</div>
+      <p class="tb">Oversees people operations and supports merchant sales. Building the culture and team infrastructure that scales with CBOXX as the network grows.</p>
+      <div class="ttags"><span class="ttag">People Ops</span><span class="ttag">Sales Support</span><span class="ttag">Culture</span></div>
     </div>
-
-    <div class="team-card reveal delay-2">
-      <div class="team-initials" style="background:#C9963A;">YC</div>
-      <div class="team-name">Yao Cong</div>
-      <div class="team-role">Creative Lead</div>
-      <p class="team-bio">Shapes the CBOXX brand, NFC product design, and all visual communication. Responsible for making the physical product something consumers actually want to tap — and making CBOXX look as premium as it performs.</p>
-      <div class="team-tags">
-        <span class="team-tag">Brand Design</span>
-        <span class="team-tag">Product Design</span>
-        <span class="team-tag">Visual Identity</span>
-      </div>
+    <div class="tc reveal d2">
+      <div class="ti" style="background:#C9963A">YC</div>
+      <div class="tn">Yao Cong</div>
+      <div class="tr">Creative Lead</div>
+      <p class="tb">Shapes the CBOXX brand, NFC product design, and all visual communication. Making the physical product something consumers actually want to tap.</p>
+      <div class="ttags"><span class="ttag">Brand Design</span><span class="ttag">Product Design</span><span class="ttag">Visual Identity</span></div>
     </div>
-
-    <div class="team-card reveal delay-3" style="border-style:dashed;border-color:rgba(13,27,42,0.2);background:var(--light);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;min-height:260px;">
-      <div style="font-size:2rem;margin-bottom:1rem;">🤝</div>
-      <div class="team-name" style="font-size:1.2rem;">We're hiring</div>
-      <div class="team-role" style="margin-bottom:0.75rem;">Join the founding team</div>
-      <p class="team-bio" style="font-size:0.82rem;">Looking for advisors, early team members, and merchant partners who believe in what we're building.</p>
-      <a href="mailto:info@cboxxsg.com" style="font-size:0.8rem;font-weight:600;color:var(--red);text-decoration:none;margin-top:0.75rem;">info@cboxxsg.com →</a>
-    </div>
-
-  </div>
-</section>
-
-<!-- VALUES -->
-<section class="values">
-  <span class="eyebrow" style="color:var(--yellow)">How We Build</span>
-  <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;color:white;line-height:1;margin-bottom:0.5rem;">What we believe.</h2>
-  <div class="values-grid">
-    <div class="value-card reveal delay-1">
-      <div class="value-icon">⚡</div>
-      <div class="value-title">Move fast, learn faster</div>
-      <p class="value-body">We'd rather ship something imperfect and learn from real merchants than spend months building in isolation. Speed is our competitive advantage as a small team.</p>
-    </div>
-    <div class="value-card reveal delay-2">
-      <div class="value-icon">🔍</div>
-      <div class="value-title">Data over opinions</div>
-      <p class="value-body">Every product decision is grounded in what merchants actually need and what consumers actually do. We build from merchant pain points, not assumptions.</p>
-    </div>
-    <div class="value-card reveal delay-3">
-      <div class="value-icon">🤝</div>
-      <div class="value-title">Merchant-first</div>
-      <p class="value-body">The network is only as strong as its merchants. If merchants don't win, we don't win. Every feature, every price point, every decision runs through that filter.</p>
-    </div>
-    <div class="value-card reveal delay-1">
-      <div class="value-icon">🌏</div>
-      <div class="value-title">Built for Southeast Asia</div>
-      <p class="value-body">Physical retail dominates Southeast Asia. We're starting in Singapore because of its infrastructure and data regulatory clarity — but this is a regional play from day one.</p>
-    </div>
-    <div class="value-card reveal delay-2">
-      <div class="value-icon">🔒</div>
-      <div class="value-title">Privacy by design</div>
-      <p class="value-body">PDPA compliance isn't a checkbox — it's a competitive advantage. Consumer consent is explicit. Data is anonymised. Trust is our moat.</p>
-    </div>
-    <div class="value-card reveal delay-3">
-      <div class="value-icon">📢</div>
-      <div class="value-title">Build in public</div>
-      <p class="value-body">We document the journey — the wins, the setbacks, the lessons. Building in public keeps us accountable and attracts the right people to what we're creating.</p>
+    <div class="tc reveal d3" style="border-style:dashed;border-color:rgba(13,27,42,0.2);background:#F4F1EC;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
+      <div style="font-size:1.8rem;margin-bottom:0.75rem">&#129309;</div>
+      <div class="tn" style="font-size:1.1rem">We're hiring</div>
+      <div class="tr" style="margin-bottom:0.65rem">Join the founding team</div>
+      <p class="tb" style="font-size:0.82rem">Advisors, early team members, and merchant partners who believe in what we're building.</p>
+      <a href="mailto:info@cboxxsg.com" style="font-size:0.78rem;font-weight:600;color:#8B0015;text-decoration:none;margin-top:0.65rem">info@cboxxsg.com &rarr;</a>
     </div>
   </div>
 </section>
 
-<!-- BUILDING IN PUBLIC -->
-<section class="public">
-  <span class="eyebrow">Building in Public</span>
-  <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;color:var(--navy);line-height:1;margin-bottom:0.75rem;">Follow the journey.</h2>
-  <p style="font-size:0.95rem;color:var(--mid);max-width:520px;line-height:1.7;margin-bottom:0;">Hakim documents the CBOXX founder journey publicly — the fundraising, the merchant conversations, the product decisions, and everything in between.</p>
-  <div class="public-grid">
-    <div class="public-card reveal delay-1">
-      <div class="public-platform">LinkedIn</div>
-      <div class="public-title">Company updates & pilot news</div>
-      <p class="public-body">Follow CBOXX on LinkedIn for East Area pilot updates, merchant stories, product developments, and insights from building Singapore's first NFC loyalty network.</p>
-      <a href="https://linkedin.com/company/cboxx" target="_blank" style="display:inline-block;margin-top:0.75rem;font-size:0.8rem;font-weight:700;color:var(--navy);text-decoration:none;">Follow CBOXX →</a>
-    </div>
-    <div class="public-card reveal delay-2">
-      <div class="public-platform">CBOXX Updates</div>
-      <div class="public-title">Company news & pilot progress</div>
-      <p class="public-body">Follow CBOXX's East Area pilot progress, merchant onboarding updates, and product launches. Stay updated as we build Singapore's physical commerce intelligence network.</p>
-      <a href="https://linkedin.com/company/cboxx" target="_blank" style="display:inline-block;margin-top:0.75rem;font-size:0.8rem;font-weight:700;color:var(--navy);text-decoration:none;">Follow CBOXX on LinkedIn →</a>
-    </div>
+<section style="background:#0D1B2A;padding:6rem 5vw;">
+  <span class="eyebrow reveal" style="color:#C9963A">How We Build</span>
+  <h2 class="section-headline reveal" style="color:white">What we believe.</h2>
+  <div class="val-grid">
+    <div class="vc reveal d1"><div class="vicon">&#9889;</div><div class="vtitle">Move fast, learn faster</div><p class="vbody">We'd rather ship something imperfect and learn from real merchants than spend months building in isolation.</p></div>
+    <div class="vc reveal d2"><div class="vicon">&#128269;</div><div class="vtitle">Data over opinions</div><p class="vbody">Every product decision is grounded in what merchants actually need and what consumers actually do.</p></div>
+    <div class="vc reveal d3"><div class="vicon">&#129309;</div><div class="vtitle">Merchant-first</div><p class="vbody">If merchants don't win, we don't win. Every feature and price point runs through that filter.</p></div>
+    <div class="vc reveal d4"><div class="vicon">&#127759;</div><div class="vtitle">Built for Southeast Asia</div><p class="vbody">Starting in Singapore for infrastructure clarity — but this is a regional play from day one.</p></div>
+    <div class="vc reveal d5"><div class="vicon">&#128274;</div><div class="vtitle">Privacy by design</div><p class="vbody">PDPA compliance is a competitive advantage. Consumer consent is explicit. Trust is our moat.</p></div>
+    <div class="vc reveal d6"><div class="vicon">&#128226;</div><div class="vtitle">Build in public</div><p class="vbody">We document the journey — the wins, the setbacks, the lessons. Building in public keeps us accountable.</p></div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta">
-  <h2>Work with us.</h2>
-  <p>Merchant, investor, advisor, or just someone who believes physical retail deserves better tools.</p>
-  <a href="merchants.html#contact" class="btn">Join the pilot →</a>
-  <a href="mailto:info@cboxxsg.com" class="btn-outline">Get in touch →</a>
+<section style="background:#0D1B2A;text-align:center;padding:5rem 5vw;border-top:1px solid rgba(255,255,255,0.05);">
+  <h2 class="section-headline reveal" style="color:white;font-size:clamp(2.5rem,5vw,4rem)">Work with us.</h2>
+  <p class="reveal" style="font-size:1rem;color:rgba(255,255,255,0.42);max-width:420px;margin:0 auto 2.5rem;line-height:1.65">Merchant, investor, advisor, or someone who believes physical retail deserves better tools.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap" class="reveal">
+    <a href="merchants.html#contact" class="btn-red">Join the pilot &rarr;</a>
+    <a href="mailto:info@cboxxsg.com" class="btn-ghost">Email us</a>
+  </div>
 </section>
 
 <footer>
-  <div style="font-size:0.75rem;color:rgba(255,255,255,0.25)">© 2026 CBOXX Pte. Ltd. · UEN: 202613969N</div>
-  <div class="footer-links">
-    <a href="index.html">Home</a>
-    <a href="merchants.html">For Merchants</a>
-    <a href="eastarea.html">East Area</a>
-    <a href="government.html">Government</a>
-    <a href="mailto:info@cboxxsg.com">Contact</a>
-  </div>
+  <div class="footer-logo"><a href="index.html"><img src="data:image/png;base64,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" alt="CBOXX"></a></div>
+  <div class="footer-links"><a href="index.html">Home</a><a href="merchants.html">Merchants</a><a href="eastarea.html">East Area</a><a href="about.html">Team</a><a href="government.html">Government</a><a href="mailto:info@cboxxsg.com">Contact</a></div>
+  <div class="footer-copy">2026 CBOXX Pte. Ltd. UEN: 202613969N</div>
 </footer>
-
 <script>
-var reveals = document.querySelectorAll('.reveal');
-var obs = new IntersectionObserver(function(e){ e.forEach(function(el,i){ if(el.isIntersecting){setTimeout(function(){el.target.classList.add('visible');},i*80);obs.unobserve(el.target);}}); },{threshold:0.1});
-reveals.forEach(function(el){obs.observe(el);});
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e,i){if(e.isIntersecting){setTimeout(function(){e.target.classList.add('visible');},i*65);obs.unobserve(e.target);}});
+  },{threshold:0.08});
+  els.forEach(function(el){obs.observe(el);});
+  var b=document.getElementById('burger'),mn=document.getElementById('mobileNav');
+  if(b&&mn){b.addEventListener('click',function(){mn.classList.toggle('open');});mn.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mn.classList.remove('open');});});}
+  var counted=false,ces=document.querySelectorAll('[data-count]');
+  if(ces.length){var co=new IntersectionObserver(function(entries){if(entries[0].isIntersecting&&!counted){counted=true;ces.forEach(function(el){var t=parseFloat(el.dataset.count),sf=el.dataset.suffix||'',s=0,st=t/85;var tm=setInterval(function(){s=Math.min(s+st,t);el.textContent=Math.round(s).toLocaleString()+sf;if(s>=t)clearInterval(tm);},16);});}},{threshold:0.3});co.observe(ces[0].closest('section')||ces[0].parentElement);}
+})();
 </script>
 </body>
 </html>
