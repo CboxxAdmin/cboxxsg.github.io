@@ -77,6 +77,11 @@ body{background:#0D1B2A;}
 .gform button{background:#8B0015;color:white;padding:0.95rem 2rem;border:none;border-radius:6px;font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;}
 .gform button:hover{background:#7A0012;}
 @media(max-width:768px){.stat-strip2{grid-template-columns:repeat(2,1fr);}.data-grid{grid-template-columns:1fr;}.agency-grid{grid-template-columns:1fr;}}
+
+  /* Copy protection */
+  body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+  input, textarea, select { -webkit-user-select: text; -moz-user-select: text; user-select: text; }
+
 </style>
 </head>
 <body>
@@ -146,6 +151,44 @@ body{background:#0D1B2A;}
   </div>
 </section>
 
+
+<section style="padding:5rem 5vw;border-bottom:1px solid rgba(255,255,255,0.05);">
+  <span class="eyebrow reveal" style="color:#C9963A">Mall Operator Intelligence</span>
+  <h2 class="section-headline reveal" style="color:white">Built for the operators<br>who run the malls.</h2>
+  <p class="reveal" style="font-size:0.95rem;color:rgba(255,255,255,0.42);max-width:540px;line-height:1.75;margin-bottom:3rem">Mall operators currently have limited visibility into how consumers move across their tenants. CBOXX's network sits across every merchant in a mall — generating district-level intelligence that REIT operators and mall management teams can act on in real time.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:3rem;">
+
+    <div class="reveal d1" style="padding:1.75rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;border-top:3px solid #C9963A;">
+      <div style="font-size:1.4rem;margin-bottom:0.65rem;">📊</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:white;text-transform:uppercase;margin-bottom:0.5rem;">Tenant Performance Index</div>
+      <p style="font-size:0.84rem;color:rgba(255,255,255,0.42);line-height:1.65">Real-time tap data across every tenant reveals which merchants drive repeat footfall — and which are underperforming relative to their category peers in the same mall.</p>
+    </div>
+
+    <div class="reveal d2" style="padding:1.75rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;border-top:3px solid #C9963A;">
+      <div style="font-size:1.4rem;margin-bottom:0.65rem;">🔄</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:white;text-transform:uppercase;margin-bottom:0.5rem;">Cross-Tenant Flow Data</div>
+      <p style="font-size:0.84rem;color:rgba(255,255,255,0.42);line-height:1.65">How consumers move between F&B, retail, beauty, and services within a single mall visit. Informs tenancy mix decisions and anchor tenant placement strategy.</p>
+    </div>
+
+    <div class="reveal d3" style="padding:1.75rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;border-top:3px solid #C9963A;">
+      <div style="font-size:1.4rem;margin-bottom:0.65rem;">📍</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;color:white;text-transform:uppercase;margin-bottom:0.5rem;">Catchment Intelligence</div>
+      <p style="font-size:0.84rem;color:rgba(255,255,255,0.42);line-height:1.65">Anonymised consumer loyalty patterns reveal true catchment areas — which residential districts your shoppers come from, and how frequently they return across your portfolio.</p>
+    </div>
+
+  </div>
+
+  <div class="reveal" style="background:rgba(201,150,58,0.06);border:1px solid rgba(201,150,58,0.2);border-radius:8px;padding:1.75rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+    <div>
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C9963A;margin-bottom:0.3rem;">Mall Operator Partnership</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:900;color:white;text-transform:uppercase;line-height:1;margin-bottom:0.2rem;">CapitaLand · Frasers · Lendlease · AEW · People's Association</div>
+      <div style="font-size:0.78rem;color:rgba(255,255,255,0.3);max-width:480px">CBOXX's East Area pilot spans operators across Singapore's major mall groups. Data partnerships available under NDA.</div>
+    </div>
+    <a href="#contact" style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(201,150,58,0.15);border:1px solid rgba(201,150,58,0.35);color:#C9963A;padding:0.65rem 1.3rem;border-radius:4px;font-size:0.82rem;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all 0.2s;" onmouseover="this.style.background='rgba(201,150,58,0.25)'" onmouseout="this.style.background='rgba(201,150,58,0.15)'">Request NDA briefing →</a>
+  </div>
+</section>
+
 <section style="padding:6rem 5vw;">
   <span class="eyebrow reveal" style="color:#C9963A">Request a Briefing</span>
   <h2 class="section-headline reveal" style="color:white">Get in touch.</h2>
@@ -189,5 +232,60 @@ body{background:#0D1B2A;}
   if(ces.length){var co=new IntersectionObserver(function(entries){if(entries[0].isIntersecting&&!counted){counted=true;ces.forEach(function(el){var t=parseFloat(el.dataset.count),sf=el.dataset.suffix||'',s=0,st=t/85;var tm=setInterval(function(){s=Math.min(s+st,t);el.textContent=Math.round(s).toLocaleString()+sf;if(s>=t)clearInterval(tm);},16);});}},{threshold:0.3});co.observe(ces[0].closest('section')||ces[0].parentElement);}
 })();
 </script>
+
+<script>
+// ── COPY PROTECTION ──
+(function(){
+  // Disable right click
+  document.addEventListener('contextmenu', function(e){ e.preventDefault(); return false; });
+  
+  // Disable common keyboard shortcuts
+  document.addEventListener('keydown', function(e){
+    // Ctrl+U (view source), Ctrl+S (save), Ctrl+Shift+I (devtools), Ctrl+Shift+J, F12
+    if(
+      (e.ctrlKey && e.key === 'u') ||
+      (e.ctrlKey && e.key === 's') ||
+      (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+      (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+      (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+      (e.key === 'F12')
+    ){
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  // Disable text selection
+  document.addEventListener('selectstart', function(e){
+    // Allow selection in form inputs
+    if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+    e.preventDefault();
+    return false;
+  });
+
+  // Disable drag
+  document.addEventListener('dragstart', function(e){ e.preventDefault(); return false; });
+
+  // Devtools detection — redirect or warn if opened
+  var devtools = { open: false };
+  var threshold = 160;
+  setInterval(function(){
+    if(window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold){
+      if(!devtools.open){
+        devtools.open = true;
+        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#060C14;font-family:Inter,sans-serif;color:rgba(255,255,255,0.5);font-size:1rem">This content is protected.</div>';
+      }
+    } else {
+      devtools.open = false;
+    }
+  }, 500);
+
+  // Console warning
+  console.clear();
+  console.log('%cSTOP', 'color:#8B0015;font-size:48px;font-weight:900;');
+  console.log('%cThis is CBOXX proprietary code. Unauthorised copying is prohibited.', 'color:white;font-size:14px;');
+})();
+</script>
+
 </body>
 </html>
