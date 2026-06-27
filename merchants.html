@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBOXX for Merchants — NFC Loyalty OS for Singapore Mall Merchants</title>
+<meta name="description" content="Give your business a loyalty system that works with one tap. No app download. Real-time analytics. SGD 100 to get started.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #8B0015; --navy: #0D1B2A; --cream: #F2EDE5;
+    --yellow: #C9963A; --green: #165C32; --mid: #7A7A7A;
+    --white: #FFFFFF; --light: #F4F1EC;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--navy); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--navy); display: flex; align-items: center;
+    justify-content: space-between; padding: 0 5vw; height: 80px;
+    border-bottom: 1px solid rgba(139,0,21,0.4);
+  }
+  .nav-back { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.85rem; }
+  .nav-back:hover { color: white; }
+  .nav-links { display: flex; gap: 1.2rem; list-style: none; align-items: center; }
+  .nav-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.78rem; font-weight: 500; }
+  .nav-links a:hover { color: var(--yellow); }
+  .nav-cta { background: var(--red); color: white !important; padding: 0.5rem 1.25rem; border-radius: 4px; }
+
+  /* HERO */
+  .hero { background: var(--navy); padding: 120px 5vw 80px; }
+  .eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); display: block; margin-bottom: 1rem; }
+  .headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(3rem, 7vw, 5rem); font-weight: 900; line-height: 0.95; text-transform: uppercase; color: white; margin-bottom: 1.5rem; }
+  .headline em { color: var(--red); font-style: normal; }
+  .sub { font-size: 1.1rem; line-height: 1.7; color: rgba(255,255,255,0.6); max-width: 560px; margin-bottom: 2.5rem; }
+
+  /* PAIN POINTS */
+  .pain { background: white; padding: 5rem 5vw; }
+  .section-headline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; text-transform: uppercase; color: var(--navy); margin-bottom: 1rem; line-height: 1; }
+  .section-sub { font-size: 1rem; color: var(--mid); max-width: 560px; margin-bottom: 3rem; line-height: 1.7; }
+  .pain-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+  .pain-card { padding: 2rem; border-radius: 8px; border-left: 4px solid var(--red); background: var(--cream); }
+  .pain-num { font-family: 'Barlow Condensed', sans-serif; font-size: 3rem; font-weight: 900; color: var(--red); line-height: 1; margin-bottom: 0.5rem; }
+  .pain-title { font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+  .pain-body { font-size: 0.875rem; color: var(--mid); line-height: 1.6; }
+
+  /* HOW IT WORKS */
+  .how { background: var(--navy); padding: 5rem 5vw; }
+  .steps { display: grid; grid-template-columns: repeat(4,1fr); }
+  .step { padding: 2.5rem 2rem; }
+  .step:nth-child(1) { background: #111827; }
+  .step:nth-child(2) { background: var(--red); }
+  .step:nth-child(3) { background: #1a1a2e; }
+  .step:nth-child(4) { background: var(--green); }
+  .step-num { font-family: 'Barlow Condensed', sans-serif; font-size: 3.5rem; font-weight: 900; color: rgba(255,255,255,0.12); margin-bottom: 0.75rem; }
+  .step-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; color: white; text-transform: uppercase; margin-bottom: 0.6rem; }
+  .step-body { font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+  /* NFC DEMO */
+  .demo { background: var(--cream); padding: 5rem 5vw; }
+  .demo-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .demo-phone-wrap { display: flex; justify-content: center; }
+  .demo-phone {
+    width: 200px; height: 360px; background: #111827; border-radius: 32px;
+    border: 2px solid rgba(255,255,255,0.1); padding: 16px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.25); position: relative; overflow: hidden;
+  }
+  .demo-phone::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:60px; height:6px; background:rgba(255,255,255,0.1); border-radius:0 0 6px 6px; }
+  .demo-screen { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; padding-top:20px; }
+  .demo-status { font-size:0.55rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--red); margin-bottom:20px; }
+  .demo-state { display:flex; flex-direction:column; align-items:center; gap:10px; width:100%; }
+  .demo-nfc-dot { width:56px; height:56px; background:var(--red); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; font-weight:900; color:white; letter-spacing:0.1em; cursor:pointer; transition:transform 0.2s; position:relative; z-index:2; }
+  .demo-nfc-dot:hover { transform:scale(1.05); }
+  .demo-ring { position:absolute; border-radius:50%; border:1.5px solid rgba(139,0,21,0.4); transition:all 0.5s; }
+  .demo-label { font-size:0.6rem; color:rgba(255,255,255,0.4); text-align:center; }
+  .demo-success { display:none; flex-direction:column; align-items:center; gap:8px; width:100%; }
+  .demo-tick { width:52px; height:52px; background:#165C32; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.4rem; }
+  .demo-enrolled { font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:900; color:white; text-transform:uppercase; }
+  .demo-enrolled-sub { font-size:0.55rem; color:rgba(255,255,255,0.4); text-align:center; }
+  .demo-card { width:100%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:10px; margin-top:8px; display:none; }
+  .demo-card-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+  .demo-card-label { font-size:0.5rem; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em; }
+  .demo-card-val { font-size:0.65rem; color:rgba(255,255,255,0.7); font-weight:600; }
+  .demo-pts { font-family:'Barlow Condensed',sans-serif; font-size:1.6rem; font-weight:900; color:var(--yellow); }
+
+  .demo-text h3 { font-family:'Barlow Condensed',sans-serif; font-size:2rem; font-weight:900; text-transform:uppercase; color:var(--navy); margin-bottom:1rem; line-height:1; }
+  .demo-text p { font-size:0.95rem; color:var(--mid); line-height:1.7; margin-bottom:1rem; }
+  .demo-btn { display:inline-flex; align-items:center; gap:0.5rem; background:var(--red); color:white; padding:0.85rem 1.75rem; border-radius:4px; font-weight:700; font-size:0.9rem; text-decoration:none; cursor:pointer; border:none; font-family:'Inter',sans-serif; transition:background 0.2s; }
+  .demo-btn:hover { background:#7A0012; }
+
+  /* ROI CALCULATOR */
+  .roi { background: white; padding: 5rem 5vw; }
+  .roi-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .roi-inputs { display: flex; flex-direction: column; gap: 1.5rem; }
+  .roi-input-group label { display:block; font-size:0.8rem; font-weight:700; color:var(--navy); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem; }
+  .roi-input-group input[type=range] { width:100%; accent-color:var(--red); }
+  .roi-input-group .val { font-family:'Barlow Condensed',sans-serif; font-size:1.8rem; font-weight:900; color:var(--red); }
+  .roi-results { background:var(--navy); border-radius:8px; padding:2.5rem; display:flex; flex-direction:column; gap:1.5rem; }
+  .roi-result-row { display:flex; justify-content:space-between; align-items:center; padding-bottom:1rem; border-bottom:1px solid rgba(255,255,255,0.06); }
+  .roi-result-row:last-child { border-bottom:none; padding-bottom:0; }
+  .roi-result-label { font-size:0.85rem; color:rgba(255,255,255,0.5); }
+  .roi-result-val { font-family:'Barlow Condensed',sans-serif; font-size:1.8rem; font-weight:900; color:var(--yellow); }
+  .roi-result-val.big { font-size:2.5rem; color:#3ab86a; }
+
+  /* LOYALTY MODELS */
+  .loyalty { background: var(--cream); padding: 5rem 5vw; }
+  .loyalty-tabs { display: flex; gap: 0; margin-bottom: 2.5rem; border-radius: 8px; overflow: hidden; border: 2px solid var(--navy); width: fit-content; }
+  .loyalty-tab { padding: 0.75rem 1.75rem; font-weight: 700; font-size: 0.9rem; cursor: pointer; background: transparent; border: none; color: var(--mid); font-family: 'Inter', sans-serif; transition: all 0.2s; }
+  .loyalty-tab.active { background: var(--navy); color: white; }
+  .loyalty-panel { display: none; }
+  .loyalty-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .loyalty-visual { background: var(--navy); border-radius: 12px; padding: 2.5rem; text-align: center; }
+  .loyalty-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .loyalty-name { font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 900; color: white; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .loyalty-desc { font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+  .loyalty-info h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.8rem; font-weight: 900; color: var(--navy); text-transform: uppercase; margin-bottom: 1rem; }
+  .loyalty-info p { font-size: 0.95rem; color: var(--mid); line-height: 1.7; margin-bottom: 1rem; }
+  .loyalty-best { display: inline-block; font-size: 0.75rem; font-weight: 700; background: rgba(139,0,21,0.1); color: var(--red); padding: 0.3rem 0.75rem; border-radius: 4px; letter-spacing: 0.05em; }
+
+  /* PRICING */
+  .pricing { background: white; padding: 5rem 5vw; }
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+  .plan { padding: 2.5rem; border-radius: 8px; background: var(--cream); border: 3px solid var(--navy); }
+  .plan.pro { background: var(--navy); border-color: var(--red); }
+  .plan-badge { display:inline-block; font-size:0.65rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; padding:0.3rem 0.75rem; border-radius:100px; margin-bottom:1rem; }
+  .plan-badge.basic { background: var(--light); color: var(--mid); }
+  .plan-badge.pro-badge { background: var(--red); color: white; }
+  .plan-price { font-family:'Barlow Condensed',sans-serif; font-size:3rem; font-weight:900; color:var(--navy); line-height:1; margin-bottom:0.25rem; }
+  .plan.pro .plan-price { color: white; }
+  .plan-psg { font-size:0.85rem; color:var(--green); font-weight:600; margin-bottom:2rem; }
+  .plan.pro .plan-psg { color: #3ab86a; }
+  .plan-features { list-style:none; display:flex; flex-direction:column; gap:0.75rem; }
+  .plan-features li { display:flex; gap:0.75rem; align-items:flex-start; font-size:0.9rem; color:var(--navy); }
+  .plan.pro .plan-features li { color: rgba(255,255,255,0.8); }
+  .plan-features li::before { content:"✓"; color:var(--green); font-weight:700; flex-shrink:0; margin-top:1px; }
+  .plan.pro .plan-features li::before { color: #3ab86a; }
+  .plan-features li.locked::before { content:"—"; color:var(--mid); }
+  .plan-features li.locked { color:var(--mid) !important; }
+  .onboarding-bar { margin-top:2rem; background:var(--red); border-radius:8px; padding:1.25rem 1.75rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+
+  /* CTA */
+  .cta { background: var(--navy); text-align: center; padding: 5rem 5vw; }
+  .cta h2 { font-family:'Barlow Condensed',sans-serif; font-size:clamp(2.5rem,6vw,4rem); font-weight:900; text-transform:uppercase; color:white; margin-bottom:1rem; }
+  .cta p { font-size:1.05rem; color:rgba(255,255,255,0.6); max-width:480px; margin:0 auto 2.5rem; line-height:1.6; }
+  .btn-primary { background:var(--red); color:white; padding:1rem 2rem; border-radius:4px; font-weight:700; font-size:0.95rem; text-decoration:none; display:inline-flex; align-items:center; gap:0.5rem; transition:background 0.2s; }
+  .btn-primary:hover { background:#7A0012; }
+
+  /* FOOTER */
+  footer { background:var(--navy); color:rgba(255,255,255,0.4); padding:2.5rem 5vw; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; border-top:1px solid rgba(255,255,255,0.06); }
+  .footer-links { display:flex; gap:1.5rem; flex-wrap:wrap; }
+  .footer-links a { color:rgba(255,255,255,0.4); text-decoration:none; font-size:0.8rem; }
+  .footer-links a:hover { color:white; }
+
+  /* REVEAL */
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .delay-1 { transition-delay:0.1s; } .delay-2 { transition-delay:0.2s; } .delay-3 { transition-delay:0.3s; }
+
+  @media(max-width:768px) {
+    .pain-grid,.demo-wrap,.roi-wrap,.loyalty-panel.active,.plans { grid-template-columns:1fr; }
+    .steps { grid-template-columns:1fr; }
+  }
+
+  /* ── MOBILE FIXES ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 4vw; height: 70px; }
+    .nav-links { display: none; }
+    .nav-back { font-size: 0.8rem; }
+    .nav-cta { padding: 0.4rem 0.9rem; font-size: 0.75rem; }
+
+    .hero, .gov-hero { padding: 100px 5vw 50px; }
+    .headline, .gov-headline { font-size: clamp(2.5rem, 12vw, 4rem) !important; }
+    .sub, .gov-sub { font-size: 0.95rem; }
+
+    .stat-row { grid-template-columns: repeat(2, 1fr) !important; }
+    .pain-grid { grid-template-columns: 1fr !important; }
+    .steps { grid-template-columns: 1fr !important; }
+    .demo-wrap { grid-template-columns: 1fr !important; gap: 2rem; }
+    .roi-wrap { grid-template-columns: 1fr !important; gap: 2rem; }
+    .loyalty-panel.active { grid-template-columns: 1fr !important; }
+    .plans { grid-template-columns: 1fr !important; }
+    .story-grid { grid-template-columns: 1fr !important; gap: 2rem; }
+    .team-grid { grid-template-columns: 1fr !important; }
+    .values-grid { grid-template-columns: 1fr !important; }
+    .public-grid { grid-template-columns: 1fr !important; }
+    .mall-grid { grid-template-columns: 1fr !important; }
+    .agency-grid { grid-template-columns: 1fr !important; }
+    .data-grid { grid-template-columns: 1fr !important; }
+    .district-panel.active { grid-template-columns: 1fr !important; }
+
+    .loyalty-tabs { flex-wrap: wrap; width: 100%; }
+    .loyalty-tab { flex: 1; text-align: center; min-width: 80px; }
+
+    .district-tabs { gap: 0.4rem; }
+    .district-tab { padding: 0.4rem 0.85rem; font-size: 0.78rem; }
+
+    .onboarding-bar { flex-direction: column !important; gap: 0.75rem !important; }
+
+    .cta h2 { font-size: clamp(1.8rem, 8vw, 3rem) !important; }
+    .btn, .btn-outline { width: 100%; justify-content: center; margin-left: 0 !important; margin-top: 0.75rem; }
+
+    .demo-phone-wrap { margin-bottom: 1rem; }
+
+    section, .hero, .pain, .how, .demo, .roi, .loyalty, .pricing, .public, .values, .team, .story, .malls, .districts, .cta, .gov-hero { padding-left: 5vw !important; padding-right: 5vw !important; }
+
+    footer { flex-direction: column; text-align: center; }
+    .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+
+    .nav-tag { font-size: 0.55rem; padding: 0.25rem 0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">← CBOXX</a>
+  <ul class="nav-links">
+    <li><a href="eastarea.html">East Area</a></li>
+    <li><a href="about.html">Team</a></li>
+    <li><a href="government.html">Government</a></li>
+    <li><a href="#contact" class="nav-cta">Join Pilot</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="eyebrow">For Singapore Mall Merchants</span>
+  <h1 class="headline">Your loyalty OS.<br><em>One tap.</em><br>Zero friction.</h1>
+  <p class="sub">No app to build. No QR codes. No complex setup. Customers tap once and they're in your loyalty programme — while you get real-time data on every visit.</p>
+  <a href="#pricing" class="btn-primary">See Pricing →</a>
+</div>
+
+<!-- PAIN POINTS -->
+<section class="pain">
+  <span class="eyebrow">The Problem</span>
+  <h2 class="section-headline">Why most merchants<br>lose customers.</h2>
+  <p class="section-sub">It's not the product. It's the follow-through.</p>
+  <div class="pain-grid">
+    <div class="pain-card reveal delay-1">
+      <div class="pain-num">55%</div>
+      <div class="pain-title">of F&B customers never return</div>
+      <p class="pain-body">Not because the food was bad. Because nobody gave them a reason to come back — no loyalty programme, no follow-up, no data.</p>
+    </div>
+    <div class="pain-card reveal delay-2">
+      <div class="pain-num">0</div>
+      <div class="pain-title">visibility on who your repeat customers are</div>
+      <p class="pain-body">Without data, you can't identify your best customers, predict churn, or run targeted campaigns to bring people back.</p>
+    </div>
+    <div class="pain-card reveal delay-3">
+      <div class="pain-num">SGD 0</div>
+      <div class="pain-title">needed for app development</div>
+      <p class="pain-body">Traditional loyalty systems cost tens of thousands. CBOXX gives you the same capability for SGD 100 to start — and works on every smartphone already.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <span class="eyebrow" style="color:var(--yellow)">How CBOXX Works</span>
+  <h2 class="section-headline" style="color:white;margin-bottom:3rem;">Four steps.<br>One tap.</h2>
+  <div class="steps">
+    <div class="step reveal delay-1">
+      <div class="step-num">01</div>
+      <div class="step-title">You get an NFC tag</div>
+      <p class="step-body">We install a small NFC tag at your counter. Takes 30 minutes. Works forever. No power, no maintenance.</p>
+    </div>
+    <div class="step reveal delay-2">
+      <div class="step-num">02</div>
+      <div class="step-title">Customer taps</div>
+      <p class="step-body">Any iPhone or Android. No app download. They tap and see a consent screen — they choose what to share and get enrolled instantly.</p>
+    </div>
+    <div class="step reveal delay-3">
+      <div class="step-num">03</div>
+      <div class="step-title">You get data</div>
+      <p class="step-body">Real-time dashboard shows tap volume, repeat rate, peak hours, loyalty tiers, and who's at risk of churning.</p>
+    </div>
+    <div class="step reveal delay-4" style="background:#165C32;">
+      <div class="step-num">04</div>
+      <div class="step-title">Loyalty grows</div>
+      <p class="step-body">Run campaigns to your loyalty members. Reward your best customers. Bring back the ones drifting away.</p>
+    </div>
+  </div>
+</section>
+
+<!-- NFC DEMO -->
+<section class="demo">
+  <span class="eyebrow">See It In Action</span>
+  <h2 class="section-headline" style="margin-bottom:3rem;">What your customer sees.</h2>
+  <div class="demo-wrap">
+    <div class="demo-phone-wrap reveal">
+      <div class="demo-phone">
+        <div class="demo-screen">
+          <div class="demo-status">CBOXX · Your Shop</div>
+          <div class="demo-state" id="demoState">
+            <div style="position:relative;width:80px;height:80px;display:flex;align-items:center;justify-content:center;">
+              <div class="demo-ring" id="r1" style="width:0;height:0;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+              <div class="demo-ring" id="r2" style="width:0;height:0;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+              <div class="demo-nfc-dot" id="demoBtn" onclick="runDemo()">TAP</div>
+            </div>
+            <div class="demo-label">Tap to simulate NFC</div>
+          </div>
+          <div class="demo-success" id="demoSuccess">
+            <div class="demo-tick">✓</div>
+            <div class="demo-enrolled">Enrolled!</div>
+            <div class="demo-enrolled-sub">Loyalty active · No app needed</div>
+            <div class="demo-card" id="demoCard">
+              <div class="demo-card-row"><span class="demo-card-label">Member</span><span class="demo-card-val">New Member</span></div>
+              <div class="demo-card-row"><span class="demo-card-label">Points</span><span class="demo-pts" id="demoPts">0</span></div>
+              <div class="demo-card-row"><span class="demo-card-label">Tier</span><span class="demo-card-val">🥉 Bronze</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-text reveal">
+      <h3>Zero friction.<br>Maximum loyalty.</h3>
+      <p>This is what your customer sees when they tap your NFC tag. No app store. No signup form. No password. Just tap — and they're in.</p>
+      <p>You see them appear in your dashboard instantly. Their visit is logged, their loyalty points are earned, and you know they've been to your shop.</p>
+      <p style="font-weight:600;color:var(--navy);">Every return visit builds their profile. You see who's loyal, who's drifting, and who to target.</p>
+      <button class="demo-btn" onclick="runDemo()" style="margin-top:0.5rem;">Try the tap →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ROI CALCULATOR -->
+<section class="roi">
+  <span class="eyebrow">ROI Calculator</span>
+  <h2 class="section-headline">What CBOXX is worth<br>to your business.</h2>
+  <p class="section-sub" style="margin-bottom:2.5rem;">Adjust the sliders to your business profile and see the estimated impact.</p>
+  <div class="roi-wrap">
+    <div class="roi-inputs">
+      <div class="roi-input-group">
+        <label>Daily customers</label>
+        <input type="range" min="20" max="500" value="80" id="roiCustomers" oninput="calcROI()">
+        <div class="val" id="valCustomers">80 customers/day</div>
+      </div>
+      <div class="roi-input-group">
+        <label>Average spend per visit (SGD)</label>
+        <input type="range" min="5" max="200" value="25" id="roiSpend" oninput="calcROI()">
+        <div class="val" id="valSpend">SGD 25</div>
+      </div>
+      <div class="roi-input-group">
+        <label>Current repeat visit rate (%)</label>
+        <input type="range" min="5" max="60" value="20" id="roiRepeat" oninput="calcROI()">
+        <div class="val" id="valRepeat">20%</div>
+      </div>
+      <div class="roi-input-group">
+        <label>Expected repeat rate improvement (%)</label>
+        <input type="range" min="5" max="40" value="15" id="roiImprove" oninput="calcROI()">
+        <div class="val" id="valImprove">+15%</div>
+      </div>
+    </div>
+    <div class="roi-results">
+      <div class="roi-result-row">
+        <span class="roi-result-label">Additional repeat visits/month</span>
+        <span class="roi-result-val" id="roiVisits">0</span>
+      </div>
+      <div class="roi-result-row">
+        <span class="roi-result-label">Additional revenue/month</span>
+        <span class="roi-result-val" id="roiRevenue">SGD 0</span>
+      </div>
+      <div class="roi-result-row">
+        <span class="roi-result-label">CBOXX Basic cost/month</span>
+        <span class="roi-result-val">SGD 150</span>
+      </div>
+      <div class="roi-result-row">
+        <span class="roi-result-label">Net monthly gain</span>
+        <span class="roi-result-val big" id="roiNet">SGD 0</span>
+      </div>
+      <div class="roi-result-row">
+        <span class="roi-result-label" style="color:rgba(255,255,255,0.3);font-size:0.75rem;">Estimate only. Actual results vary by business type, location, and campaign activity.</span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOYALTY MODELS -->
+<section class="loyalty">
+  <span class="eyebrow">Loyalty Models</span>
+  <h2 class="section-headline">Choose how you<br>reward customers.</h2>
+  <p class="section-sub">Three loyalty models included in every plan. Switch anytime.</p>
+  <div class="loyalty-tabs">
+    <button class="loyalty-tab active" onclick="showLoyalty('points')">⭐ Points</button>
+    <button class="loyalty-tab" onclick="showLoyalty('stamp')">🎯 Stamp Card</button>
+    <button class="loyalty-tab" onclick="showLoyalty('tier')">🏆 Tiered</button>
+  </div>
+  <div class="loyalty-panel active" id="panel-points">
+    <div class="loyalty-visual">
+      <div class="loyalty-icon">⭐</div>
+      <div class="loyalty-name">Points</div>
+      <div class="loyalty-desc">Earn points per tap. Redeem for rewards you set. Customer sees their balance grow every visit.</div>
+    </div>
+    <div class="loyalty-info">
+      <h3>Points loyalty</h3>
+      <p>Set how many points customers earn per tap. Set what they can redeem points for — free item, discount, exclusive offer. You control the rewards.</p>
+      <p>Best for high-frequency visits where customers come back weekly. Keeps them engaged between visits because they can see their points growing.</p>
+      <span class="loyalty-best">Best for: Cafes, bubble tea, nail bars, salons</span>
+    </div>
+  </div>
+  <div class="loyalty-panel" id="panel-stamp">
+    <div class="loyalty-visual">
+      <div class="loyalty-icon">🎯</div>
+      <div class="loyalty-name">Stamp Card</div>
+      <div class="loyalty-desc">Digital version of the classic stamp card. Tap 8 times, get a reward. Zero learning curve for customers.</div>
+    </div>
+    <div class="loyalty-info">
+      <h3>Stamp card</h3>
+      <p>The simplest loyalty model. You set how many taps to earn a reward and what the reward is. Customers understand it instantly — no explanation needed.</p>
+      <p>Replaces every physical stamp card in your customer's wallet with one digital tap. No lost cards, no fake stamps, no hassle.</p>
+      <span class="loyalty-best">Best for: F&B, coffee shops, dessert stalls, hawkers</span>
+    </div>
+  </div>
+  <div class="loyalty-panel" id="panel-tier">
+    <div class="loyalty-visual">
+      <div class="loyalty-icon">🏆</div>
+      <div class="loyalty-name">Tiered</div>
+      <div class="loyalty-desc">Bronze, Silver, Gold. Customers level up by visit frequency. Your best customers get your best perks.</div>
+    </div>
+    <div class="loyalty-info">
+      <h3>Tiered membership</h3>
+      <p>Create a VIP experience for your most loyal customers. The more they visit, the higher their tier — and the better their perks.</p>
+      <p>Customers are motivated to visit more to reach the next tier. Your Gold members become brand advocates who tell others about your shop.</p>
+      <span class="loyalty-best">Best for: Retail, beauty, healthcare, fitness studios</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <span class="eyebrow">Pricing</span>
+  <h2 class="section-headline">Simple pricing.<br>No hidden fees.</h2>
+  <div class="plans">
+    <div class="plan reveal delay-1">
+      <span class="plan-badge basic">Basic</span>
+      <div class="plan-price">SGD 150<span style="font-size:1.1rem;font-weight:400">/mo</span></div>
+      <div class="plan-psg">SGD 75/month with PSG grant</div>
+      <ul class="plan-features">
+        <li>Choose your loyalty model (Points, Stamp, or Tiered)</li>
+        <li>Tap volume and unique visitor tracking</li>
+        <li>Repeat visit rate and peak hours</li>
+        <li>New vs returning customer split</li>
+        <li>Campaign push to all loyalty members</li>
+        <li class="locked">Cross-sector benchmarking</li>
+        <li class="locked">Consumer profile insights</li>
+        <li class="locked">Churn risk alerts</li>
+      </ul>
+    </div>
+    <div class="plan pro reveal delay-2">
+      <span class="plan-badge pro-badge">Pro</span>
+      <div class="plan-price" style="color:var(--yellow)">SGD 350<span style="font-size:1.1rem;font-weight:400;color:rgba(255,255,255,0.5)">/mo</span></div>
+      <div class="plan-psg">SGD 175/month with PSG grant</div>
+      <ul class="plan-features">
+        <li>Everything in Basic</li>
+        <li>Churn risk alerts — at-risk member flagging</li>
+        <li>Cross-sector benchmarking vs mall peers</li>
+        <li>Mall district rank among similar shops</li>
+        <li>Consumer profile segments</li>
+        <li>Cross-industry customer patterns</li>
+        <li>Targeted campaigns by segment</li>
+        <li>A/B campaign testing</li>
+      </ul>
+    </div>
+  </div>
+  <div class="onboarding-bar">
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:white">SGD 100 <span style="font-size:1rem;font-weight:400;opacity:0.7">one-time</span></div>
+      <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:2px;">One-time onboarding fee</div>
+    </div>
+    <div style="font-size:0.875rem;color:rgba(255,255,255,0.6);max-width:400px;line-height:1.6;">NFC tag production, installation at your location, staff onboarding, and 30-day support. Live within a week.</div>
+  </div>
+</section>
+
+<!-- CONTACT / CTA -->
+<section id="contact" class="cta">
+  <h2>Ready to get started?</h2>
+  <p>Join the East Area pilot. SGD 100 to get started. Live within a week.</p>
+  <div style="max-width:520px;margin:0 auto;text-align:left;">
+    <form action="https://formspree.io/f/mykqwlpo" method="POST" style="display:flex;flex-direction:column;gap:1rem;">
+      <input type="text" name="name" placeholder="Your name" required style="padding:0.9rem 1.2rem;border:1px solid rgba(255,255,255,0.12);border-radius:6px;background:rgba(255,255,255,0.06);color:white;font-family:Inter,sans-serif;font-size:0.95rem;outline:none;">
+      <input type="email" name="email" placeholder="Email address" required style="padding:0.9rem 1.2rem;border:1px solid rgba(255,255,255,0.12);border-radius:6px;background:rgba(255,255,255,0.06);color:white;font-family:Inter,sans-serif;font-size:0.95rem;outline:none;">
+      <input type="text" name="shop" placeholder="Shop name & mall" required style="padding:0.9rem 1.2rem;border:1px solid rgba(255,255,255,0.12);border-radius:6px;background:rgba(255,255,255,0.06);color:white;font-family:Inter,sans-serif;font-size:0.95rem;outline:none;">
+      <select name="plan" required style="padding:0.9rem 1.2rem;border:1px solid rgba(255,255,255,0.12);border-radius:6px;background:rgba(255,255,255,0.06);color:white;font-family:Inter,sans-serif;font-size:0.95rem;outline:none;">
+        <option value="" disabled selected>Which plan interests you?</option>
+        <option value="Basic">Basic — SGD 150/month</option>
+        <option value="Pro">Pro — SGD 350/month</option>
+        <option value="Unsure">Not sure yet</option>
+      </select>
+      <button type="submit" style="background:var(--red);color:white;padding:1rem 2rem;border:none;border-radius:6px;font-family:Inter,sans-serif;font-size:1rem;font-weight:700;cursor:pointer;">Sign Letter of Intent →</button>
+    </form>
+    <p style="margin-top:1rem;font-size:0.82rem;color:rgba(255,255,255,0.3)">Non-binding LOI. No payment until you're ready. Email: <a href="mailto:kim@cboxxsg.com" style="color:rgba(255,255,255,0.45)">kim@cboxxsg.com</a></p>
+  </div>
+</section>
+
+<footer>
+  <div style="font-size:0.75rem;color:rgba(255,255,255,0.25)">© 2026 CBOXX Pte. Ltd. · UEN: 202613969N</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="eastarea.html">East Area</a>
+    <a href="about.html">Team</a>
+    <a href="government.html">Government</a>
+    <a href="mailto:info@cboxxsg.com">Contact</a>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+var reveals = document.querySelectorAll('.reveal');
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e, i) {
+    if (e.isIntersecting) { setTimeout(function(){ e.target.classList.add('visible'); }, i*80); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(function(el){ obs.observe(el); });
+
+// NFC Demo
+function runDemo() {
+  var state = document.getElementById('demoState');
+  var success = document.getElementById('demoSuccess');
+  var card = document.getElementById('demoCard');
+  var r1 = document.getElementById('r1');
+  var r2 = document.getElementById('r2');
+  // Rings
+  r1.style.cssText += 'width:80px;height:80px;opacity:0;transition:all 0.8s ease;';
+  setTimeout(function(){ r2.style.cssText += 'width:80px;height:80px;opacity:0;transition:all 0.8s ease 0.2s;'; }, 100);
+  setTimeout(function() {
+    state.style.display = 'none';
+    success.style.display = 'flex';
+    setTimeout(function(){
+      card.style.display = 'block';
+      var pts = 0;
+      var t = setInterval(function(){ pts+=5; document.getElementById('demoPts').textContent = pts; if(pts>=50) clearInterval(t); }, 60);
+    }, 500);
+  }, 900);
+}
+
+// ROI Calculator
+function calcROI() {
+  var customers = parseInt(document.getElementById('roiCustomers').value);
+  var spend = parseInt(document.getElementById('roiSpend').value);
+  var repeat = parseInt(document.getElementById('roiRepeat').value);
+  var improve = parseInt(document.getElementById('roiImprove').value);
+  document.getElementById('valCustomers').textContent = customers + ' customers/day';
+  document.getElementById('valSpend').textContent = 'SGD ' + spend;
+  document.getElementById('valRepeat').textContent = repeat + '%';
+  document.getElementById('valImprove').textContent = '+' + improve + '%';
+  var monthlyCustomers = customers * 26;
+  var additionalRepeats = Math.round(monthlyCustomers * (improve / 100));
+  var additionalRevenue = additionalRepeats * spend;
+  var net = additionalRevenue - 150;
+  document.getElementById('roiVisits').textContent = additionalRepeats.toLocaleString();
+  document.getElementById('roiRevenue').textContent = 'SGD ' + additionalRevenue.toLocaleString();
+  document.getElementById('roiNet').textContent = (net > 0 ? '+' : '') + 'SGD ' + net.toLocaleString();
+  document.getElementById('roiNet').style.color = net > 0 ? '#3ab86a' : '#ff6b6b';
+}
+calcROI();
+
+// Loyalty tabs
+function showLoyalty(type) {
+  document.querySelectorAll('.loyalty-tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.loyalty-panel').forEach(function(p){ p.classList.remove('active'); });
+  event.target.classList.add('active');
+  document.getElementById('panel-' + type).classList.add('active');
+}
+</script>
+</body>
+</html>
