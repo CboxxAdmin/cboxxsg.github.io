@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBOXX Team — Built by Founders Who Move Fast</title>
+<meta name="description" content="Meet the CBOXX team — five co-founders building Singapore's first NFC-powered district loyalty network for physical retail.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#8B0015;--navy:#0D1B2A;--cream:#F2EDE5;--yellow:#C9963A;--green:#165C32;--mid:#7A7A7A;--white:#FFFFFF;--light:#F4F1EC;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--navy);overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:80px;border-bottom:1px solid rgba(139,0,21,0.4);}
+  .nav-back{color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.85rem;}
+  .nav-back:hover{color:white;}
+  .nav-links{display:flex;gap:1.2rem;list-style:none;align-items:center;}
+  .nav-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.78rem;font-weight:500;}
+  .nav-links a:hover{color:var(--yellow);}
+  .nav-cta{background:var(--red);color:white!important;padding:0.5rem 1.25rem;border-radius:4px;}
+
+  .hero{background:var(--navy);padding:120px 5vw 80px;}
+  .eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:1rem;}
+  .headline{font-family:'Barlow Condensed',sans-serif;font-size:clamp(3rem,7vw,5rem);font-weight:900;line-height:0.95;text-transform:uppercase;color:white;margin-bottom:1.5rem;}
+  .sub{font-size:1.05rem;line-height:1.7;color:rgba(255,255,255,0.55);max-width:560px;}
+
+  /* FOUNDER STORY */
+  .story{padding:5rem 5vw;background:white;}
+  .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+  .story h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;color:var(--navy);margin-bottom:1.5rem;line-height:1;}
+  .story p{font-size:0.95rem;color:var(--mid);line-height:1.75;margin-bottom:1rem;}
+  .story-stat{padding:1.5rem;background:var(--cream);border-radius:8px;border-left:4px solid var(--red);margin-bottom:1rem;}
+  .story-stat-num{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;color:var(--red);line-height:1;margin-bottom:0.25rem;}
+  .story-stat-label{font-size:0.8rem;color:var(--mid);font-weight:500;}
+
+  /* TEAM */
+  .team{padding:5rem 5vw;background:var(--cream);}
+  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+  .team-card{background:white;border-radius:10px;border:2px solid var(--navy);padding:2rem;transition:transform 0.2s,box-shadow 0.2s;}
+  .team-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(13,27,42,0.1);}
+  .team-card.featured{border-color:var(--red);}
+  .team-initials{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:white;margin-bottom:1.25rem;}
+  .team-name{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:var(--navy);text-transform:uppercase;margin-bottom:0.2rem;}
+  .team-role{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:1rem;}
+  .team-bio{font-size:0.875rem;line-height:1.65;color:var(--mid);margin-bottom:1.25rem;}
+  .team-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;}
+  .team-tag{font-size:0.65rem;font-weight:600;padding:0.25rem 0.6rem;border-radius:100px;background:rgba(13,27,42,0.06);color:var(--navy);}
+  .team-linkedin{font-size:0.8rem;font-weight:600;color:var(--navy);text-decoration:none;letter-spacing:0.05em;}
+  .team-linkedin:hover{color:var(--red);}
+
+  /* VALUES */
+  .values{padding:5rem 5vw;background:var(--navy);}
+  .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+  .value-card{padding:2rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;border-top:3px solid var(--red);}
+  .value-icon{font-size:1.8rem;margin-bottom:0.75rem;}
+  .value-title{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:700;color:white;text-transform:uppercase;margin-bottom:0.5rem;}
+  .value-body{font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.65;}
+
+  /* BUILDING IN PUBLIC */
+  .public{padding:5rem 5vw;background:white;}
+  .public-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.5rem;}
+  .public-card{padding:1.75rem;border-radius:8px;background:var(--cream);border-left:4px solid var(--navy);}
+  .public-platform{font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--red);margin-bottom:0.5rem;}
+  .public-title{font-weight:700;color:var(--navy);margin-bottom:0.4rem;font-size:0.95rem;}
+  .public-body{font-size:0.85rem;color:var(--mid);line-height:1.6;}
+
+  /* CTA */
+  .cta{background:var(--navy);text-align:center;padding:5rem 5vw;}
+  .cta h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;text-transform:uppercase;color:white;margin-bottom:1rem;}
+  .cta p{font-size:1rem;color:rgba(255,255,255,0.5);max-width:460px;margin:0 auto 2.5rem;line-height:1.6;}
+  .btn{background:var(--red);color:white;padding:1rem 2rem;border-radius:4px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;}
+  .btn:hover{background:#7A0012;}
+  .btn-outline{border:1.5px solid rgba(255,255,255,0.3);color:white;padding:1rem 2rem;border-radius:4px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;margin-left:1rem;}
+  .btn-outline:hover{border-color:var(--yellow);color:var(--yellow);}
+
+  footer{background:var(--navy);color:rgba(255,255,255,0.4);padding:2.5rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(255,255,255,0.06);}
+  .footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+  .footer-links a{color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.8rem;}
+  .footer-links a:hover{color:white;}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .delay-1{transition-delay:0.1s;}.delay-2{transition-delay:0.2s;}.delay-3{transition-delay:0.3s;}
+
+  @media(max-width:768px){.story-grid,.team-grid,.values-grid,.public-grid{grid-template-columns:1fr;}}
+
+  /* ── MOBILE FIXES ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 4vw; height: 70px; }
+    .nav-links { display: none; }
+    .nav-back { font-size: 0.8rem; }
+    .nav-cta { padding: 0.4rem 0.9rem; font-size: 0.75rem; }
+
+    .hero, .gov-hero { padding: 100px 5vw 50px; }
+    .headline, .gov-headline { font-size: clamp(2.5rem, 12vw, 4rem) !important; }
+    .sub, .gov-sub { font-size: 0.95rem; }
+
+    .stat-row { grid-template-columns: repeat(2, 1fr) !important; }
+    .pain-grid { grid-template-columns: 1fr !important; }
+    .steps { grid-template-columns: 1fr !important; }
+    .demo-wrap { grid-template-columns: 1fr !important; gap: 2rem; }
+    .roi-wrap { grid-template-columns: 1fr !important; gap: 2rem; }
+    .loyalty-panel.active { grid-template-columns: 1fr !important; }
+    .plans { grid-template-columns: 1fr !important; }
+    .story-grid { grid-template-columns: 1fr !important; gap: 2rem; }
+    .team-grid { grid-template-columns: 1fr !important; }
+    .values-grid { grid-template-columns: 1fr !important; }
+    .public-grid { grid-template-columns: 1fr !important; }
+    .mall-grid { grid-template-columns: 1fr !important; }
+    .agency-grid { grid-template-columns: 1fr !important; }
+    .data-grid { grid-template-columns: 1fr !important; }
+    .district-panel.active { grid-template-columns: 1fr !important; }
+
+    .loyalty-tabs { flex-wrap: wrap; width: 100%; }
+    .loyalty-tab { flex: 1; text-align: center; min-width: 80px; }
+
+    .district-tabs { gap: 0.4rem; }
+    .district-tab { padding: 0.4rem 0.85rem; font-size: 0.78rem; }
+
+    .onboarding-bar { flex-direction: column !important; gap: 0.75rem !important; }
+
+    .cta h2 { font-size: clamp(1.8rem, 8vw, 3rem) !important; }
+    .btn, .btn-outline { width: 100%; justify-content: center; margin-left: 0 !important; margin-top: 0.75rem; }
+
+    .demo-phone-wrap { margin-bottom: 1rem; }
+
+    section, .hero, .pain, .how, .demo, .roi, .loyalty, .pricing, .public, .values, .team, .story, .malls, .districts, .cta, .gov-hero { padding-left: 5vw !important; padding-right: 5vw !important; }
+
+    footer { flex-direction: column; text-align: center; }
+    .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
+
+    .nav-tag { font-size: 0.55rem; padding: 0.25rem 0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-back">← CBOXX</a>
+  <ul class="nav-links">
+    <li><a href="merchants.html">For Merchants</a></li>
+    <li><a href="eastarea.html">East Area</a></li>
+    <li><a href="merchants.html#contact" class="nav-cta">Join Pilot</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="eyebrow">The Team</span>
+  <h1 class="headline">Built by founders<br>who move fast.</h1>
+  <p class="sub">Five co-founders across commercial, tech, ops, people, and creative. Singapore-based. Building in public.</p>
+</div>
+
+<!-- FOUNDER STORY -->
+<section class="story">
+  <div class="story-grid">
+    <div class="reveal">
+      <h2>Why we're building CBOXX.</h2>
+      <p>86.9% of Singapore's retail happens in physical stores. But the entire digital loyalty infrastructure — apps, CRMs, data platforms — was built for e-commerce. Physical merchants have been left behind.</p>
+      <p>We asked a simple question: what if every merchant in a mall could have the same loyalty and data capabilities as a major e-commerce brand, for SGD 100 to start?</p>
+      <p>The answer is CBOXX. One NFC tap. No app. No friction. Real data. And because we sit across every industry in a mall — F&B, retail, beauty, healthcare, fitness — we see cross-sector consumer behaviour that nobody else can.</p>
+      <p style="font-weight:600;color:var(--navy);">That data is the real asset. The loyalty OS is how we earn the right to collect it.</p>
+    </div>
+    <div>
+      <div class="story-stat reveal delay-1">
+        <div class="story-stat-num">Apr 2026</div>
+        <div class="story-stat-label">CBOXX Pte. Ltd. incorporated · UEN: 202613969N</div>
+      </div>
+      <div class="story-stat reveal delay-2">
+        <div class="story-stat-num">1,260+</div>
+        <div class="story-stat-label">Target merchants in East Area pilot</div>
+      </div>
+      <div class="story-stat reveal delay-3">
+        <div class="story-stat-num">5</div>
+        <div class="story-stat-label">Co-founders across commercial, tech, ops, people, and creative</div>
+      </div>
+      <div class="story-stat reveal">
+        <div class="story-stat-num">SGD 100</div>
+        <div class="story-stat-label">What it costs a merchant to get started — no app, no complexity</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team">
+  <span class="eyebrow">Co-Founders</span>
+  <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;color:var(--navy);line-height:1;">The people<br>building this.</h2>
+  <div class="team-grid">
+
+    <div class="team-card featured reveal delay-1">
+      <div class="team-initials" style="background:#8B0015;">HO</div>
+      <div class="team-name">Hakim Osman</div>
+      <div class="team-role">Founder & CEO</div>
+      <p class="team-bio">Leads commercial strategy, investor relations, and product vision. Finance student at Kaplan Business School turned founder. Built an international audience across TikTok and Lemon8 before building CBOXX — now documenting the founder journey publicly.</p>
+      <div class="team-tags">
+        <span class="team-tag">Commercial</span>
+        <span class="team-tag">Fundraising</span>
+        <span class="team-tag">Brand</span>
+        <span class="team-tag">Finance</span>
+      </div>
+
+    </div>
+
+    <div class="team-card reveal delay-2">
+      <div class="team-initials" style="background:#0D1B2A;">DY</div>
+      <div class="team-name">Dylan</div>
+      <div class="team-role">Co-founder & CTO</div>
+      <p class="team-bio">Owns the entire tech stack — NFC architecture, backend infrastructure, loyalty platform, and the data pipeline that powers CBOXX's cross-sector intelligence layer. Also serves as Company Secretary.</p>
+      <div class="team-tags">
+        <span class="team-tag">NFC Architecture</span>
+        <span class="team-tag">Backend</span>
+        <span class="team-tag">Data Pipeline</span>
+      </div>
+    </div>
+
+    <div class="team-card reveal delay-3">
+      <div class="team-initials" style="background:#165C32;">ME</div>
+      <div class="team-name">Melissa</div>
+      <div class="team-role">Co-founder & COO</div>
+      <p class="team-bio">Runs finance, operations, and company governance. Originated the district loyalty concept that became the core of CBOXX's network strategy. Also serves as Data Protection Officer — ensuring PDPA compliance across all consumer data.</p>
+      <div class="team-tags">
+        <span class="team-tag">Operations</span>
+        <span class="team-tag">Finance</span>
+        <span class="team-tag">PDPA / DPO</span>
+      </div>
+    </div>
+
+    <div class="team-card reveal delay-1">
+      <div class="team-initials" style="background:#4C1D95;">JA</div>
+      <div class="team-name">Jason</div>
+      <div class="team-role">Co-founder & HR/People</div>
+      <p class="team-bio">Oversees people operations and supports merchant sales. Focused on building the culture and team infrastructure that scales with CBOXX as the network grows across Singapore and Southeast Asia.</p>
+      <div class="team-tags">
+        <span class="team-tag">People Ops</span>
+        <span class="team-tag">Merchant Sales</span>
+        <span class="team-tag">Culture</span>
+      </div>
+    </div>
+
+    <div class="team-card reveal delay-2">
+      <div class="team-initials" style="background:#C9963A;">YC</div>
+      <div class="team-name">Yao Cong</div>
+      <div class="team-role">Creative Lead</div>
+      <p class="team-bio">Shapes the CBOXX brand, NFC product design, and all visual communication. Responsible for making the physical product something consumers actually want to tap — and making CBOXX look as premium as it performs.</p>
+      <div class="team-tags">
+        <span class="team-tag">Brand Design</span>
+        <span class="team-tag">Product Design</span>
+        <span class="team-tag">Visual Identity</span>
+      </div>
+    </div>
+
+    <div class="team-card reveal delay-3" style="border-style:dashed;border-color:rgba(13,27,42,0.2);background:var(--light);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;min-height:260px;">
+      <div style="font-size:2rem;margin-bottom:1rem;">🤝</div>
+      <div class="team-name" style="font-size:1.2rem;">We're hiring</div>
+      <div class="team-role" style="margin-bottom:0.75rem;">Join the founding team</div>
+      <p class="team-bio" style="font-size:0.82rem;">Looking for advisors, early team members, and merchant partners who believe in what we're building.</p>
+      <a href="mailto:info@cboxxsg.com" style="font-size:0.8rem;font-weight:600;color:var(--red);text-decoration:none;margin-top:0.75rem;">info@cboxxsg.com →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <span class="eyebrow" style="color:var(--yellow)">How We Build</span>
+  <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;color:white;line-height:1;margin-bottom:0.5rem;">What we believe.</h2>
+  <div class="values-grid">
+    <div class="value-card reveal delay-1">
+      <div class="value-icon">⚡</div>
+      <div class="value-title">Move fast, learn faster</div>
+      <p class="value-body">We'd rather ship something imperfect and learn from real merchants than spend months building in isolation. Speed is our competitive advantage as a small team.</p>
+    </div>
+    <div class="value-card reveal delay-2">
+      <div class="value-icon">🔍</div>
+      <div class="value-title">Data over opinions</div>
+      <p class="value-body">Every product decision is grounded in what merchants actually need and what consumers actually do. We build from merchant pain points, not assumptions.</p>
+    </div>
+    <div class="value-card reveal delay-3">
+      <div class="value-icon">🤝</div>
+      <div class="value-title">Merchant-first</div>
+      <p class="value-body">The network is only as strong as its merchants. If merchants don't win, we don't win. Every feature, every price point, every decision runs through that filter.</p>
+    </div>
+    <div class="value-card reveal delay-1">
+      <div class="value-icon">🌏</div>
+      <div class="value-title">Built for Southeast Asia</div>
+      <p class="value-body">Physical retail dominates Southeast Asia. We're starting in Singapore because of its infrastructure and data regulatory clarity — but this is a regional play from day one.</p>
+    </div>
+    <div class="value-card reveal delay-2">
+      <div class="value-icon">🔒</div>
+      <div class="value-title">Privacy by design</div>
+      <p class="value-body">PDPA compliance isn't a checkbox — it's a competitive advantage. Consumer consent is explicit. Data is anonymised. Trust is our moat.</p>
+    </div>
+    <div class="value-card reveal delay-3">
+      <div class="value-icon">📢</div>
+      <div class="value-title">Build in public</div>
+      <p class="value-body">We document the journey — the wins, the setbacks, the lessons. Building in public keeps us accountable and attracts the right people to what we're creating.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BUILDING IN PUBLIC -->
+<section class="public">
+  <span class="eyebrow">Building in Public</span>
+  <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;text-transform:uppercase;color:var(--navy);line-height:1;margin-bottom:0.75rem;">Follow the journey.</h2>
+  <p style="font-size:0.95rem;color:var(--mid);max-width:520px;line-height:1.7;margin-bottom:0;">Hakim documents the CBOXX founder journey publicly — the fundraising, the merchant conversations, the product decisions, and everything in between.</p>
+  <div class="public-grid">
+    <div class="public-card reveal delay-1">
+      <div class="public-platform">LinkedIn</div>
+      <div class="public-title">Company updates & pilot news</div>
+      <p class="public-body">Follow CBOXX on LinkedIn for East Area pilot updates, merchant stories, product developments, and insights from building Singapore's first NFC loyalty network.</p>
+      <a href="https://linkedin.com/company/cboxx" target="_blank" style="display:inline-block;margin-top:0.75rem;font-size:0.8rem;font-weight:700;color:var(--navy);text-decoration:none;">Follow CBOXX →</a>
+    </div>
+    <div class="public-card reveal delay-2">
+      <div class="public-platform">CBOXX Updates</div>
+      <div class="public-title">Company news & pilot progress</div>
+      <p class="public-body">Follow CBOXX's East Area pilot progress, merchant onboarding updates, and product launches. Stay updated as we build Singapore's physical commerce intelligence network.</p>
+      <a href="https://linkedin.com/company/cboxx" target="_blank" style="display:inline-block;margin-top:0.75rem;font-size:0.8rem;font-weight:700;color:var(--navy);text-decoration:none;">Follow CBOXX on LinkedIn →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Work with us.</h2>
+  <p>Merchant, investor, advisor, or just someone who believes physical retail deserves better tools.</p>
+  <a href="merchants.html#contact" class="btn">Join the pilot →</a>
+  <a href="mailto:info@cboxxsg.com" class="btn-outline">Get in touch →</a>
+</section>
+
+<footer>
+  <div style="font-size:0.75rem;color:rgba(255,255,255,0.25)">© 2026 CBOXX Pte. Ltd. · UEN: 202613969N</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="merchants.html">For Merchants</a>
+    <a href="eastarea.html">East Area</a>
+    <a href="government.html">Government</a>
+    <a href="mailto:info@cboxxsg.com">Contact</a>
+  </div>
+</footer>
+
+<script>
+var reveals = document.querySelectorAll('.reveal');
+var obs = new IntersectionObserver(function(e){ e.forEach(function(el,i){ if(el.isIntersecting){setTimeout(function(){el.target.classList.add('visible');},i*80);obs.unobserve(el.target);}}); },{threshold:0.1});
+reveals.forEach(function(el){obs.observe(el);});
+</script>
+</body>
+</html>
