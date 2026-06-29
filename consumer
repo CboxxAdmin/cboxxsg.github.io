@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>CBOXX — Join Loyalty</title>
+<meta name="theme-color" content="#000000">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Inter',sans-serif;background:#111;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:2rem 1rem;}
+.shell{width:100%;max-width:390px;background:#000;min-height:100vh;position:relative;overflow:hidden;}
+@media(min-width:500px){body{align-items:center;background:#0a0a0a;}.shell{border-radius:40px;min-height:auto;box-shadow:0 30px 80px rgba(0,0,0,0.8),0 0 0 1px rgba(255,255,255,0.06);}}
+.screen{display:none;flex-direction:column;width:100%;}
+.screen.active{display:flex;animation:sIn 0.42s cubic-bezier(0.25,0.46,0.45,0.94) both;}
+@keyframes sIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes tickPop{0%{opacity:0;transform:scale(0.3)}60%{transform:scale(1.15)}80%{transform:scale(0.95)}100%{opacity:1;transform:scale(1)}}
+@keyframes cardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes nfcRing{0%{width:0;height:0;opacity:0.7}100%{width:32px;height:32px;opacity:0}}
+:root{--red:#8B0015;--yellow:#C9963A;--green:#165C32;--off:#E8E4DF;--dim:rgba(255,255,255,0.38);--card:#0D1520;--border:rgba(255,255,255,0.08);}
+.pad{padding:2rem 1.5rem;}
+.gap{display:flex;flex-direction:column;gap:1.1rem;}
+.eyebrow{font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.28);}
+.headline{font-family:'Barlow Condensed',sans-serif;font-size:2.8rem;font-weight:900;text-transform:uppercase;color:var(--off);line-height:1;}
+.headline em{color:var(--red);font-style:normal;display:block;}
+.sub{font-size:0.88rem;line-height:1.65;color:var(--dim);}
+.divider{height:1px;background:rgba(255,255,255,0.07);}
+.pill-red{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:100px;background:rgba(139,0,21,0.2);border:1px solid rgba(139,0,21,0.35);color:#ff8c8c;}
+.pill-amber{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:100px;background:rgba(201,150,58,0.15);border:1px solid rgba(201,150,58,0.3);color:var(--yellow);}
+.btn{width:100%;padding:1rem;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem;transition:all 0.2s;}
+.btn-red{background:var(--red);color:white;box-shadow:0 4px 20px rgba(139,0,21,0.35);}
+.btn-red:active{background:#7A0012;transform:scale(0.97);}
+.btn-red:disabled{opacity:0.4;cursor:default;transform:none;}
+.btn-ghost{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.08);}
+.btn-sub{text-align:center;font-size:0.62rem;color:rgba(255,255,255,0.2);margin-top:0.4rem;}
+.back-btn{background:none;border:none;font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(255,255,255,0.3);cursor:pointer;padding:0;display:inline-flex;align-items:center;gap:0.3rem;}
+
+/* Phone input */
+.phone-wrap{position:relative;}
+.phone-flag{position:absolute;left:1rem;top:50%;transform:translateY(-50%);font-size:1rem;pointer-events:none;display:flex;align-items:center;gap:0.4rem;}
+.phone-flag span{font-size:0.78rem;color:rgba(255,255,255,0.4);font-weight:600;}
+.phone-input{width:100%;padding:1rem 1rem 1rem 3.8rem;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;color:var(--off);font-family:'Inter',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:0.05em;outline:none;transition:border-color 0.2s;}
+.phone-input:focus{border-color:var(--red);}
+.phone-input.valid{border-color:#3ab86a;}
+.phone-input.error{border-color:#ff6b6b;}
+.input-hint{font-size:0.65rem;color:rgba(255,255,255,0.25);margin-top:0.4rem;}
+.input-hint.err{color:#ff6b6b;}
+
+/* Loyalty card */
+.loyalty-card{background:linear-gradient(135deg,#0D1520,#111827);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:1.25rem;animation:cardFloat 4s ease-in-out infinite;}
+.lc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;}
+.lc-ml{font-size:0.52rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:0.18rem;}
+.lc-mn{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:900;color:var(--off);text-transform:uppercase;}
+.lc-stats{display:flex;gap:1.5rem;margin-bottom:0.85rem;}
+.lc-sl{font-size:0.52rem;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.1rem;}
+.lc-sv{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;color:var(--yellow);}
+.nfc-ring{position:absolute;border-radius:50%;border:1.5px solid rgba(139,0,21,0.5);animation:nfcRing 2.8s ease infinite;}
+.nfc-ring:nth-child(2){animation-delay:0.7s}
+.nfc-sm{position:relative;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nfc-core{width:18px;height:18px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.5rem;z-index:2;}
+.live-strip{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:0.7rem 1.1rem;}
+.ls-num{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:900;color:var(--off);line-height:1;}
+.ls-label{font-size:0.55rem;color:rgba(255,255,255,0.26);margin-top:0.12rem;}
+.ls-div{width:1px;height:24px;background:rgba(255,255,255,0.08);}
+.perks{display:grid;grid-template-columns:repeat(3,1fr);gap:0.55rem;}
+.perk{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;padding:0.7rem 0.4rem;text-align:center;}
+.perk-icon{font-size:1.1rem;display:block;margin-bottom:0.2rem;}
+.perk-label{font-size:0.58rem;color:rgba(255,255,255,0.38);line-height:1.3;}
+
+/* Consent */
+.consent-item{display:flex;align-items:flex-start;gap:0.8rem;padding:0.85rem;background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.07);border-radius:10px;cursor:pointer;transition:border-color 0.2s,background 0.2s;}
+.consent-item.selected{border-color:var(--red);background:rgba(139,0,21,0.06);}
+.ccheck{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:all 0.2s;}
+.consent-item.selected .ccheck{background:var(--red);border-color:var(--red);}
+.ccheck-dot{width:8px;height:8px;border-radius:50%;background:white;opacity:0;transition:opacity 0.2s;}
+.consent-item.selected .ccheck-dot{opacity:1;}
+.ctitle{font-size:0.82rem;font-weight:600;color:var(--off);margin-bottom:0.18rem;}
+.cdesc{font-size:0.68rem;color:rgba(255,255,255,0.32);line-height:1.45;}
+.pdpa{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:0.85rem;display:flex;gap:0.55rem;font-size:0.63rem;color:rgba(255,255,255,0.22);line-height:1.55;}
+
+/* Enrolled + member card */
+.enrolled-tick{width:80px;height:80px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;box-shadow:0 0 40px rgba(22,92,50,0.4);animation:tickPop 0.55s cubic-bezier(0.175,0.885,0.32,1.275) both;}
+.member-card{background:linear-gradient(135deg,#0D1520,#111827);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:1.25rem;}
+.mc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem;}
+.mc-ml{font-size:0.52rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:0.2rem;}
+.mc-mn{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:900;color:var(--off);text-transform:uppercase;}
+.mc-pts{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;color:var(--yellow);line-height:1;margin-bottom:0.15rem;}
+.mc-pts-sub{font-size:0.68rem;color:rgba(255,255,255,0.28);margin-bottom:1rem;}
+.prog-track{height:5px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--yellow));border-radius:3px;width:0;transition:width 1.2s cubic-bezier(0.4,0,0.2,1) 0.8s;box-shadow:0 0 6px rgba(201,150,58,0.3);}
+.prog-row{display:flex;justify-content:space-between;margin-bottom:0.35rem;font-size:0.6rem;color:rgba(255,255,255,0.28);}
+.rp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;}
+.rp{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:8px;padding:0.65rem 0.4rem;text-align:center;}
+.rp-icon{font-size:1rem;display:block;margin-bottom:0.2rem;}
+.rp-label{font-size:0.56rem;color:rgba(255,255,255,0.35);line-height:1.3;}
+
+/* Bottom nav */
+.bottom-nav{background:#000;border-top:1px solid rgba(255,255,255,0.06);display:flex;padding:0.75rem 0 1rem;}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:0.25rem;cursor:pointer;padding:0.25rem;}
+.bn-icon{font-size:1.1rem;}
+.bn-label{font-size:0.55rem;color:rgba(255,255,255,0.3);font-weight:500;transition:color 0.2s;}
+.bn-item.active .bn-label{color:var(--red);}
+
+/* Home page */
+.pts-hero{background:linear-gradient(135deg,#0D1520,#111827);border:1px solid var(--border);border-radius:14px;padding:1.4rem;}
+.pts-big{font-family:'Barlow Condensed',sans-serif;font-size:4rem;font-weight:900;color:var(--yellow);line-height:1;}
+.tb{flex:1;padding:0.45rem 0.3rem;border-radius:6px;text-align:center;font-size:0.6rem;font-weight:700;}
+.tb-bronze{background:rgba(139,0,21,0.15);border:1px solid rgba(139,0,21,0.3);color:#ff8c8c;}
+.tb-silver{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);}
+.tb-gold{background:rgba(201,150,58,0.1);border:1px solid rgba(201,150,58,0.2);color:rgba(201,150,58,0.5);}
+.visit-row{display:flex;align-items:center;gap:0.85rem;padding:0.65rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.visit-row:last-child{border-bottom:none;}
+.vi-icon{width:32px;height:32px;border-radius:8px;background:rgba(139,0,21,0.12);display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}
+.vi-title{font-size:0.8rem;font-weight:600;color:var(--off);}
+.vi-date{font-size:0.62rem;color:rgba(255,255,255,0.28);margin-top:0.1rem;}
+.vi-pts{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:900;color:var(--yellow);}
+
+/* Rewards */
+.rl{display:flex;align-items:center;gap:0.85rem;padding:0.85rem;background:var(--card);border:1px solid var(--border);border-radius:10px;}
+.rl-icon{font-size:1.4rem;flex-shrink:0;}
+.rl-name{font-size:0.82rem;font-weight:600;color:var(--off);margin-bottom:0.15rem;}
+.rl-desc{font-size:0.65rem;color:rgba(255,255,255,0.3);}
+.rl-pts-num{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:900;color:var(--yellow);}
+.rl-pts-label{font-size:0.52rem;color:rgba(255,255,255,0.25);}
+
+/* Returning */
+.ret-pts-box{background:rgba(201,150,58,0.08);border:1px solid rgba(201,150,58,0.2);border-radius:12px;padding:1.1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;}
+.ret-big{font-family:'Barlow Condensed',sans-serif;font-size:2.8rem;font-weight:900;color:var(--yellow);line-height:1;}
+.sk{flex:1;border-radius:6px;padding:0.6rem 0.4rem;text-align:center;}
+.sk-num{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;line-height:1;}
+.sk-label{font-size:0.52rem;text-transform:uppercase;letter-spacing:0.08em;opacity:0.55;margin-top:0.1rem;}
+
+/* Toggle */
+.toggle{width:40px;height:22px;background:rgba(255,255,255,0.12);border-radius:11px;position:relative;cursor:pointer;transition:background 0.25s;flex-shrink:0;}
+.toggle.on{background:var(--red);}
+.toggle-knob{position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:white;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);}
+.toggle.on .toggle-knob{transform:translateX(18px);}
+.s-row{display:flex;justify-content:space-between;align-items:center;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.s-row:last-child{border-bottom:none;}
+
+.shop-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:0.85rem; cursor:pointer; transition:border-color 0.2s; overflow:hidden; }
+.shop-card:hover { border-color:rgba(139,0,21,0.35); }
+.shop-detail { display:none; margin-top:0.85rem; padding-top:0.85rem; border-top:1px solid rgba(255,255,255,0.06); animation:fadeUp 0.25s ease both; }
+.shop-detail.open { display:block; }
+.tier-bar { display:flex; align-items:center; gap:0.35rem; margin-bottom:0.85rem; }
+.tier-seg { flex:1; text-align:center; padding:0.5rem 0.3rem; border-radius:6px; font-size:0.6rem; font-weight:700; line-height:1.3; }
+.tier-sub { font-size:0.5rem; font-weight:400; opacity:0.7; margin-top:0.15rem; }
+.active-tier { background:rgba(139,0,21,0.1); border:1px solid rgba(139,0,21,0.2); color:#ff8c8c; }
+.current-tier { background:rgba(201,150,58,0.2); border:1px solid rgba(201,150,58,0.4); color:var(--yellow); }
+.locked-tier { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); color:rgba(255,255,255,0.3); }
+.tier-arrow { font-size:0.6rem; color:rgba(255,255,255,0.2); flex-shrink:0; }
+.shop-rewards { display:flex; flex-direction:column; gap:0.5rem; }
+.sr-title { font-size:0.6rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.25); margin-bottom:0.35rem; }
+.sr-row { display:flex; align-items:center; gap:0.65rem; padding:0.6rem 0.75rem; border-radius:8px; }
+.sr-row.unlocked { background:rgba(22,92,50,0.1); border:1px solid rgba(22,92,50,0.2); }
+.sr-row.locked { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); opacity:0.65; }
+.sr-icon { font-size:1rem; flex-shrink:0; }
+.sr-info { flex:1; }
+.sr-name { font-size:0.78rem; font-weight:600; color:var(--off); }
+.sr-desc { font-size:0.62rem; color:rgba(255,255,255,0.3); margin-top:0.1rem; }
+.sr-status { font-size:0.6rem; font-weight:700; padding:0.2rem 0.5rem; border-radius:100px; white-space:nowrap; }
+.unlocked-badge { background:rgba(22,92,50,0.2); border:1px solid rgba(22,92,50,0.35); color:#3ab86a; }
+.locked-badge { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); color:rgba(255,255,255,0.35); }
+
+
+/* Post-tap survey */
+.star-row { display:flex; gap:0.75rem; justify-content:center; margin:1.25rem 0; }
+.star-btn { font-size:2.2rem; cursor:pointer; transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1); opacity:0.35; border:none; background:none; padding:0.25rem; }
+.star-btn.lit { opacity:1; transform:scale(1.15); }
+.star-btn:active { transform:scale(0.9); }
+.survey-opts { display:grid; grid-template-columns:1fr 1fr; gap:0.55rem; margin-bottom:0.5rem; }
+.survey-opt { padding:0.75rem 0.85rem; background:rgba(255,255,255,0.04); border:1.5px solid rgba(255,255,255,0.07); border-radius:10px; font-size:0.78rem; font-weight:600; color:rgba(255,255,255,0.55); cursor:pointer; text-align:center; transition:all 0.18s; font-family:'Inter',sans-serif; }
+.survey-opt:active,.survey-opt.picked { background:rgba(139,0,21,0.1); border-color:rgba(139,0,21,0.4); color:var(--off); }
+.survey-opt.full-width { grid-column:1/-1; }
+.survey-msg { width:100%; padding:0.85rem 1rem; background:rgba(255,255,255,0.04); border:1.5px solid rgba(255,255,255,0.08); border-radius:10px; color:var(--off); font-family:'Inter',sans-serif; font-size:0.88rem; outline:none; resize:none; transition:border-color 0.2s; }
+.survey-msg:focus { border-color:var(--red); }
+.survey-msg::placeholder { color:rgba(255,255,255,0.2); }
+.survey-step { display:none; animation:fadeUp 0.35s ease both; }
+.survey-step.active { display:block; }
+.survey-progress { display:flex; gap:4px; margin-bottom:1.5rem; }
+.sp-dot { flex:1; height:3px; border-radius:2px; background:rgba(255,255,255,0.1); transition:background 0.3s; }
+.sp-dot.done { background:var(--red); }
+.survey-thanks { display:flex; flex-direction:column; align-items:center; gap:0.85rem; text-align:center; animation:fadeUp 0.5s ease both; }
+.survey-thanks-icon { width:64px; height:64px; background:var(--green); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.8rem; animation:tickPop 0.55s cubic-bezier(0.175,0.885,0.32,1.275) both; box-shadow:0 0 30px rgba(22,92,50,0.3); }
+
+
+.dtab { padding:0.4rem 1rem; border-radius:100px; border:1px solid rgba(255,255,255,0.12); color:rgba(255,255,255,0.4); font-size:0.75rem; font-weight:600; cursor:pointer; background:transparent; font-family:'Inter',sans-serif; transition:all 0.2s; white-space:nowrap; flex-shrink:0; }
+.dtab.active { background:var(--red); border-color:var(--red); color:white; }
+.district-panel { display:none; }
+.district-panel.active { display:flex; flex-direction:column; gap:0.65rem; }
+.mall-group { background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; cursor:pointer; transition:border-color 0.2s; }
+.mall-group:hover { border-color:rgba(139,0,21,0.3); }
+.mall-group-header { display:flex; align-items:center; justify-content:space-between; padding:0.9rem 1rem; }
+.mall-shops { display:none; padding:0 0.75rem 0.75rem; display:flex; flex-direction:column; gap:0.5rem; }
+.mall-shops.open { display:flex; }
+
+
+.area-group { background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+.area-header { display:flex;align-items:center;justify-content:space-between;padding:1rem 1.1rem;cursor:pointer;transition:background 0.15s; }
+.area-header:hover { background:rgba(255,255,255,0.04); }
+.area-content { display:none;padding:0 0.75rem 0.75rem;display:flex;flex-direction:column;gap:0.5rem; }
+.area-content.open { display:flex; }
+.district-group { background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;overflow:hidden; }
+.district-header { display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0.85rem;cursor:pointer;transition:background 0.15s; }
+.district-header:hover { background:rgba(255,255,255,0.04); }
+.district-content { display:none;padding:0 0.65rem 0.65rem;display:flex;flex-direction:column;gap:0.45rem; }
+.district-content.open { display:flex; }
+.mall-item { background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;overflow:hidden;cursor:pointer;transition:border-color 0.2s; }
+.mall-item:hover { border-color:rgba(139,0,21,0.25); }
+.mall-item-header { display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0.85rem; }
+.mall-shops { display:none;padding:0 0.65rem 0.65rem;display:flex;flex-direction:column;gap:0.4rem; }
+.mall-shops.open { display:flex; }
+.shop-row { background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:7px;padding:0.65rem 0.75rem;cursor:pointer;transition:border-color 0.2s; }
+.shop-row:hover { border-color:rgba(139,0,21,0.25); }
+
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- S1: WELCOME -->
+<div class="screen active" id="s1">
+  <div class="pad gap" style="background:#000;gap:1.25rem">
+    <div style="background:#000;display:inline-block;border-radius:6px;padding:2px 0"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAAAkCAIAAACCF2rZAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAlT0lEQVR4AQFEJbvaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAP8AAAEAAAAAAAAAAAAAAP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAACAICAAAAAAAAAAAAAQAA/gAA//8AAwEA/wAAAAAAAQAA+f///f//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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Av39/SoqKjk5OQEBAejo6AsLCwsLC/39/bW1tezs7AAAABEREU1NTQQEBP7+/qWlpfv7+wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAABQEA+GGhl5GBjCJSXBJSW9JCTAJSW5IyN9GBmtISHGJia8JCTCJSWrISEpCAgAAAADAQEAAAAAAAAAAAAAAAAAAAACAgIAAABxcXHr6+v////////////V1dVCQkKsrKz////////////////////+/v6ysrIXFxcBAQEAAAAuLi7Jycn////////////29vaOjo4FBQXBwcH///////+mpqYAAAArKyvy8vL///////9HR0d2dnb////////V1dULCwsBAQHMzMz///////+SkpIBAQEDAwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAQAADgMDPgwNdBYXdBYXcRYWcxYWdxcXQA0NYhMTehcYcBYWchYWYRMTFQQEAAAAAwAAAAAAAAAAAAAAAAAAAAAAAwMDAAAAbW1t////////8PDw2tra/Pz8////oqKiqamp/////f39////5eXl7+/v////////z8/PBAQEGhoa6urq////////39/f7e3t////////jIyMAwMD5OTk+/v7////e3t7xsbG////////ioqKAAAAAAAAtLS0/v7+////paWllJSU/////Pz8xsbGAAAAAQEBAQEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAEENDXAWFnIWFnIWFnkXGEINDl4SEnoXGHAWFnAWFnoYGFoSEiEHBwEAAAEAAAAAAAAAAAAAAAAAAAEBAQAAABYWFvHx8f///7S0tB8fHwcHBzQ0NEtLSwAAAK+vr/////b29mBgYA0NDRoaGpycnP7+/v///2BgYIiIiP///+7u7lNTUwoKChkZGaCgoP///////yMjIz8/P/////v7+////////////9LS0gcHBwQEBAEBARkZGerq6v////////////39/ff39ykpKQAAAAICAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAABAAABAAB0FhfC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7Pz8AQAA/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkCAgAAAAAAAAAAAAAAAP3//wQBAf8AAAAAAAAAAAEAAPv///v//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA/wAAAQAAAAAAAAAAAAAAAAAA/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5Ghy02liZNwAAAAASUVORK5CYII=" alt="CBOXX" style="height:36px;width:auto;display:block"></div>
+    <div style="display:inline-flex;align-items:center;gap:0.4rem;font-size:0.62rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.15);padding:0.3rem 0.85rem;border-radius:100px;width:fit-content;background:rgba(255,255,255,0.04);">
+      <span style="width:5px;height:5px;border-radius:50%;background:#3ab86a;display:inline-block;flex-shrink:0"></span>
+      <span id="mallTag">Tampines Mall</span>
+    </div>
+    <div>
+      <div class="headline" style="font-size:clamp(2.8rem,10vw,3.5rem)">Welcome<br>to <em id="mName">Demo Store.</em></div>
+      <p class="sub" style="margin-top:0.6rem;font-size:0.92rem;color:rgba(255,255,255,0.48)">Earn points every visit. Unlock exclusive rewards. No app download — ever.</p>
+    </div>
+    <div class="loyalty-card">
+      <div class="lc-top">
+        <div><div class="lc-ml">Loyalty Member</div><div class="lc-mn" id="lpName">Demo Store</div></div>
+        <span class="pill-red">🥉 Bronze</span>
+      </div>
+      <div class="divider" style="margin-bottom:0.75rem"></div>
+      <div class="lc-stats">
+        <div><div class="lc-sl">Points</div><div class="lc-sv" id="lpPts">0</div></div>
+        <div><div class="lc-sl">Visits</div><div class="lc-sv">0</div></div>
+        <div><div class="lc-sl">Rewards</div><div class="lc-sv">3</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.6rem">
+        <div class="nfc-sm"><div class="nfc-ring"></div><div class="nfc-ring"></div><div class="nfc-core">📲</div></div>
+        <span style="font-size:0.65rem;color:rgba(255,255,255,0.28)">Enter your number to activate</span>
+      </div>
+    </div>
+    <div class="live-strip">
+      <div><div class="ls-num" id="lsM">0</div><div class="ls-label">members today</div></div>
+      <div class="ls-div"></div>
+      <div><div class="ls-num" id="lsT">0</div><div class="ls-label">taps this week</div></div>
+      <div class="ls-div"></div>
+      <div><div class="ls-num">Free</div><div class="ls-label">no app needed</div></div>
+    </div>
+    <div class="perks">
+      <div class="perk"><span class="perk-icon">⭐</span><span class="perk-label">Earn points every visit</span></div>
+      <div class="perk"><span class="perk-icon">🎁</span><span class="perk-label">Exclusive rewards</span></div>
+      <div class="perk"><span class="perk-icon">📲</span><span class="perk-label">No app download</span></div>
+    </div>
+    <div>
+      <button class="btn btn-red" onclick="goTo('s2');vibe(30)" style="font-size:1rem;padding:1.1rem;letter-spacing:0.02em">Join Loyalty Programme →</button>
+      <div class="btn-sub" style="font-size:0.65rem;margin-top:0.5rem;color:rgba(255,255,255,0.25)">Takes 10 seconds · PDPA compliant · Always free</div>
+    </div>
+    <div style="text-align:center">
+      <button onclick="goTo('s_ret_input');vibe(20)" style="background:none;border:none;font-family:'Inter',sans-serif;font-size:0.65rem;color:rgba(255,255,255,0.2);cursor:pointer;text-decoration:underline">Already a member? Tap to check in →</button>
+    </div>
+  </div>
+</div>
+
+<!-- S2: PHONE NUMBER -->
+<div class="screen" id="s2">
+  <div class="pad gap" style="background:#060C12;min-height:100vh">
+    <button class="back-btn" onclick="goTo('s1')">← Back</button>
+    <div>
+      <div class="eyebrow" style="margin-bottom:0.5rem">Step 1 of 2</div>
+      <div class="headline" style="font-size:2.2rem">Your phone<br>number.</div>
+      <p class="sub" style="margin-top:0.5rem">We use this to identify you on every visit. No password. No account needed.</p>
+    </div>
+    <div>
+      <div class="phone-wrap">
+        <div class="phone-flag">🇸🇬 <span>+65</span></div>
+        <input type="tel" class="phone-input" id="phoneInput" placeholder="8123 4567" maxlength="8" oninput="onPhone(this)" onkeydown="if(event.key==='Enter'&&!document.getElementById('phoneBtn').disabled)submitPhone()">
+      </div>
+      <div class="input-hint" id="phoneHint">Enter your 8-digit Singapore mobile number</div>
+    </div>
+    <div style="background:rgba(29,78,216,0.08);border:1px solid rgba(29,78,216,0.2);border-radius:10px;padding:1rem">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#60a5fa;margin-bottom:0.5rem">How we use your number</div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem">
+        <div style="display:flex;gap:0.6rem"><span style="color:#3ab86a;font-size:0.8rem;flex-shrink:0">✓</span><span style="font-size:0.75rem;color:rgba(255,255,255,0.45);line-height:1.5">Identifies you as a returning member next visit</span></div>
+        <div style="display:flex;gap:0.6rem"><span style="color:#3ab86a;font-size:0.8rem;flex-shrink:0">✓</span><span style="font-size:0.75rem;color:rgba(255,255,255,0.45);line-height:1.5">Links your points across CBOXX merchants in this mall</span></div>
+        <div style="display:flex;gap:0.6rem"><span style="color:#3ab86a;font-size:0.8rem;flex-shrink:0">✓</span><span style="font-size:0.75rem;color:rgba(255,255,255,0.45);line-height:1.5">Never shared · PDPA protected</span></div>
+        <div style="display:flex;gap:0.6rem"><span style="color:#ff8c8c;font-size:0.8rem;flex-shrink:0">✗</span><span style="font-size:0.75rem;color:rgba(255,255,255,0.45);line-height:1.5">No spam calls or messages without consent</span></div>
+      </div>
+    </div>
+    <button class="btn btn-red" id="phoneBtn" onclick="submitPhone()" disabled>Continue →</button>
+    <div class="pdpa"><span>🔒</span><span>Protected under Singapore's PDPA · CBOXX Pte. Ltd. (UEN: 202613969N)</span></div>
+  </div>
+</div>
+
+<!-- S2B: OTP -->
+<div class="screen" id="s2b">
+  <div class="pad gap" style="background:#060C12;min-height:100vh">
+    <button class="back-btn" onclick="goTo('s2')">← Back</button>
+    <div>
+      <div class="eyebrow" style="margin-bottom:0.5rem">Step 1B · Verify</div>
+      <div class="headline" style="font-size:2.2rem">Check your<br>SMS.</div>
+      <p class="sub" style="margin-top:0.5rem">Sent a 6-digit code to <strong id="phoneDisplay" style="color:var(--off)">+65 ···· ····</strong></p>
+    </div>
+    <div>
+      <input type="text" class="phone-input" id="otpInput" maxlength="6" placeholder="· · · · · ·" style="text-align:center;letter-spacing:0.3em;font-size:1.5rem;padding-left:1rem" oninput="onOtp(this)">
+      <div class="input-hint" id="otpHint" style="text-align:center">Enter the 6-digit code</div>
+    </div>
+    <div style="background:rgba(201,150,58,0.06);border:1px solid rgba(201,150,58,0.15);border-radius:8px;padding:0.85rem;text-align:center">
+      <div style="font-size:0.65rem;font-weight:700;color:var(--yellow);margin-bottom:0.2rem">DEMO MODE</div>
+      <div style="font-size:0.72rem;color:rgba(255,255,255,0.4)">Enter <strong style="color:var(--off)">123456</strong> → new member &nbsp;|&nbsp; <strong style="color:var(--off)">654321</strong> → returning member</div>
+    </div>
+    <button class="btn btn-red" id="otpBtn" onclick="submitOtp()" disabled>Verify →</button>
+    <div style="text-align:center"><button onclick="resend()" style="background:none;border:none;font-family:'Inter',sans-serif;font-size:0.78rem;color:var(--red);cursor:pointer;font-weight:600">Resend SMS →</button></div>
+  </div>
+</div>
+
+<!-- S2C: OPTIONAL PROFILE -->
+<div class="screen" id="s2c">
+  <div class="pad gap" style="background:#060C12;min-height:100vh">
+    <button class="back-btn" onclick="goTo('s2b')">← Back</button>
+    <div>
+      <div class="eyebrow" style="margin-bottom:0.5rem">Optional · Build your profile</div>
+      <div class="headline" style="font-size:2.2rem">A little more<br>about you.</div>
+      <p class="sub" style="margin-top:0.5rem">All optional. Skip anytime. Helps us personalise your rewards.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:0.75rem">
+      <!-- Name -->
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.4rem">Your name</div>
+        <input type="text" id="profileName" class="phone-input" placeholder="e.g. Sarah" style="padding:0.9rem 1rem;font-size:0.95rem;letter-spacing:0;font-weight:500">
+      </div>
+      <!-- Email -->
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.4rem">Email address</div>
+        <input type="email" id="profileEmail" class="phone-input" placeholder="e.g. sarah@email.com" style="padding:0.9rem 1rem;font-size:0.95rem;letter-spacing:0;font-weight:500">
+        <div class="input-hint">For campaign offers and reward notifications</div>
+      </div>
+      <!-- Birthday month -->
+      <div>
+        <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.4rem">Birthday month</div>
+        <select id="profileBday" style="width:100%;padding:0.9rem 1rem;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;color:rgba(255,255,255,0.6);font-family:Inter,sans-serif;font-size:0.95rem;outline:none;appearance:none;-webkit-appearance:none">
+          <option value="">Select month</option>
+          <option>January</option><option>February</option><option>March</option>
+          <option>April</option><option>May</option><option>June</option>
+          <option>July</option><option>August</option><option>September</option>
+          <option>October</option><option>November</option><option>December</option>
+        </select>
+        <div class="input-hint">Unlocks a birthday reward every year</div>
+      </div>
+    </div>
+
+    <!-- Why we ask -->
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:1rem">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:0.6rem">Why we ask</div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem">
+        <div style="display:flex;gap:0.6rem"><span style="color:#3ab86a;font-size:0.8rem;flex-shrink:0">✓</span><span style="font-size:0.75rem;color:rgba(255,255,255,0.42);line-height:1.5">Name helps us personalise your loyalty card and rewards</span></div>
+        <div style="display:flex;gap:0.6rem"><span style="color:#3ab86a;font-size:0.8rem;flex-shrink:0">✓</span><span style="font-size:0.75rem;color:rgba(255,255,255,0.42);line-height:1.5">Email lets us send you campaign offers and points updates</span></div>
+        <div style="display:flex;gap:0.6rem"><span style="color:#3ab86a;font-size:0.8rem;flex-shrink:0">✓</span><span style="font-size:0.75rem;color:rgba(255,255,255,0.42);line-height:1.5">Birthday month unlocks a free birthday reward every year</span></div>
+      </div>
+    </div>
+
+    <button class="btn btn-red" onclick="saveProfile()">Continue →</button>
+    <button class="btn btn-ghost" onclick="goTo('s3')">Skip for now →</button>
+    <div class="pdpa"><span>🔒</span><span>All fields optional · PDPA protected · Never sold · Delete anytime in Settings</span></div>
+  </div>
+</div>
+
+<!-- S3: CONSENT -->
+<div class="screen" id="s3">
+  <div class="pad gap" style="background:#060C12;min-height:100vh">
+    <button class="back-btn" onclick="goTo('s2c')">← Back</button>
+    <div>
+      <div class="eyebrow" style="margin-bottom:0.5rem">Step 3 of 3</div>
+      <div class="headline" style="font-size:2.2rem">What we'd<br>like to share.</div>
+      <p class="sub" style="margin-top:0.5rem">Choose what you're comfortable with. Change anytime in settings.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.65rem">
+      <div class="consent-item selected">
+        <div class="ccheck"><div class="ccheck-dot"></div></div>
+        <div><div class="ctitle">Loyalty membership <span style="font-size:0.58rem;color:rgba(255,255,255,0.3);font-weight:400">(required)</span></div><div class="cdesc">Track visits and points at this merchant.</div></div>
+      </div>
+      <div class="consent-item" onclick="tc(this)">
+        <div class="ccheck"><div class="ccheck-dot"></div></div>
+        <div><div class="ctitle">Personalised offers</div><div class="cdesc">Campaigns based on your visit history.</div></div>
+      </div>
+      <div class="consent-item" onclick="tc(this)">
+        <div class="ccheck"><div class="ccheck-dot"></div></div>
+        <div><div class="ctitle">District rewards</div><div class="cdesc">Earn points across all CBOXX merchants in this mall.</div></div>
+      </div>
+    </div>
+    <div class="pdpa"><span>🔒</span><span>PDPA compliant · CBOXX Pte. Ltd. (UEN: 202613969N) · Data never sold</span></div>
+    <button class="btn btn-red" onclick="goTo('s4');vibe([40,30,60])">Confirm & Join →</button>
+  </div>
+</div>
+
+<!-- S4: ENROLLED -->
+<div class="screen" id="s4">
+  <div class="pad gap" style="background:#000;align-items:center;text-align:center;min-height:100vh;justify-content:center">
+    <div class="enrolled-tick">✓</div>
+    <div style="animation:fadeUp 0.5s ease 0.3s both">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;text-transform:uppercase;color:var(--off);letter-spacing:0.02em">You're in!</div>
+      <div style="font-size:0.88rem;color:rgba(255,255,255,0.4);margin-top:0.25rem" id="enrolledSubText">Welcome to <span id="eName">Demo Store</span> loyalty</div>
+    </div>
+    <div class="member-card" style="width:100%;animation:fadeUp 0.5s ease 0.5s both">
+      <div class="mc-top">
+        <div><div class="mc-ml" id="eMall">Tampines Mall</div><div class="mc-mn" id="eMerchant">Demo Store</div></div>
+        <span class="pill-red">🥉 Bronze</span>
+      </div>
+      <div class="divider" style="margin-bottom:0.85rem"></div>
+      <div style="font-size:0.55rem;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.15rem">Points earned today</div>
+      <div class="mc-pts" id="ePts">0</div>
+      <div class="mc-pts-sub">50 pts · First visit bonus · Member: +65 <span id="ePhone">81234567</span></div>
+      <div class="prog-row"><span>Progress to Silver</span><span>50 / 500 pts</span></div>
+      <div class="prog-track"><div class="prog-fill" id="eFill"></div></div>
+    </div>
+    <div class="rp-grid" style="width:100%;animation:fadeUp 0.5s ease 0.6s both">
+      <div class="rp"><span class="rp-icon">🍜</span><span class="rp-label">Free item at 200 pts</span></div>
+      <div class="rp"><span class="rp-icon">🥢</span><span class="rp-label">10% off at 500 pts</span></div>
+      <div class="rp"><span class="rp-icon">👑</span><span class="rp-label">VIP at Gold</span></div>
+    </div>
+    <button onclick="goTo('s_home')" style="width:100%;padding:0.9rem;background:rgba(139,0,21,0.1);border:1px solid rgba(139,0,21,0.3);color:#ff8c8c;border-radius:10px;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;animation:fadeUp 0.5s ease 0.7s both">View my membership →</button>
+    <button class="btn btn-ghost" onclick="goTo('s1')" style="animation:fadeUp 0.5s ease 0.8s both">Done · Close</button>
+  </div>
+</div>
+
+<!-- HOME -->
+<div class="screen" id="s_home">
+  <div style="background:#000;padding:1.5rem 1.5rem 1rem;border-bottom:1px solid rgba(255,255,255,0.06)">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;color:var(--off);text-transform:uppercase">My Membership</div>
+        <div style="font-size:0.68rem;color:rgba(255,255,255,0.3);margin-top:0.15rem" id="homeSub">Tampines Mall · Demo Store</div>
+      </div>
+      <span class="pill-red">🥉 Bronze</span>
+    </div>
+  </div>
+  <div style="padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:1.1rem;overflow-y:auto">
+
+    <!-- Member ID chip -->
+    <div style="display:flex;align-items:center;gap:0.65rem;padding:0.7rem 1rem;background:rgba(29,78,216,0.08);border:1px solid rgba(29,78,216,0.2);border-radius:8px">
+      <span style="font-size:1rem">📱</span>
+      <div style="flex:1">
+        <div style="font-size:0.72rem;font-weight:600;color:#60a5fa">CBOXX District Member</div>
+        <div style="font-size:0.65rem;color:rgba(255,255,255,0.3);margin-top:0.1rem">+65 <span id="homePhone">81234567</span> · Tampines Mall · Active</div>
+      </div>
+      <span style="font-size:0.6rem;font-weight:700;padding:0.2rem 0.55rem;border-radius:100px;background:rgba(58,184,106,0.15);border:1px solid rgba(58,184,106,0.3);color:#3ab86a">Live</span>
+    </div>
+
+    <!-- District points hero -->
+    <div class="pts-hero">
+      <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.5rem">District Points · East Area</div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1rem">
+        <div>
+          <div class="pts-big" id="distPts">340</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.3);margin-top:0.15rem">across all shops</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:var(--off)">3</div>
+          <div style="font-size:0.62rem;color:rgba(255,255,255,0.3)">shops visited</div>
+        </div>
+      </div>
+      <div class="divider" style="margin-bottom:0.85rem"></div>
+      <div class="prog-row"><span>Gold tier at 1,000 pts</span><span>340 / 1,000</span></div>
+      <div class="prog-track"><div class="prog-fill" style="width:34%"></div></div>
+      <div style="display:flex;gap:0.5rem;margin-top:0.85rem">
+        <div class="tb tb-bronze">🥉 Bronze<br><span style="font-size:0.5rem;opacity:0.7">0 pts</span></div>
+        <div class="tb" style="background:rgba(201,150,58,0.2);border:1px solid rgba(201,150,58,0.4);color:var(--yellow);flex:1;padding:0.45rem 0.3rem;border-radius:6px;text-align:center;font-size:0.6rem;font-weight:700">🥈 Silver<br><span style="font-size:0.5rem;opacity:0.7">Current</span></div>
+        <div class="tb tb-gold">🥇 Gold<br><span style="font-size:0.5rem;opacity:0.7">1,000 pts</span></div>
+      </div>
+    </div>
+
+    <!-- District Loyalty Network -->
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem">
+        <div class="eyebrow">My District · East Area</div>
+        <span style="font-size:0.62rem;color:rgba(255,255,255,0.25)">Phase 1 Pilot</span>
+      </div>
+
+      <!-- East Area accordion -->
+      <div class="area-group">
+
+        <!-- EAST AREA header -->
+        <div class="area-header" onclick="toggleArea('east')">
+          <div style="display:flex;align-items:center;gap:0.75rem">
+            <div style="width:36px;height:36px;background:rgba(139,0,21,0.15);border:1px solid rgba(139,0,21,0.3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0">📍</div>
+            <div>
+              <div style="font-size:0.88rem;font-weight:700;color:var(--off)">East Area</div>
+              <div style="font-size:0.62rem;color:rgba(255,255,255,0.3)">Phase 1 Pilot · 8 malls · 1,260+ merchants</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:900;color:var(--yellow)">340 pts</span>
+            <span id="east-arrow" style="font-size:0.72rem;color:rgba(255,255,255,0.25)">▸</span>
+          </div>
+        </div>
+
+        <!-- EAST AREA content -->
+        <div class="area-content" id="east-content">
+
+          <!-- ── TAMPINES DISTRICT ── -->
+          <div class="district-group">
+            <div class="district-header" onclick="toggleDistrict('tampines')">
+              <div style="font-size:0.78rem;font-weight:700;color:var(--off)">Tampines</div>
+              <div style="display:flex;align-items:center;gap:0.5rem">
+                <span style="font-size:0.62rem;color:rgba(255,255,255,0.3)">3 malls</span>
+                <span id="tampines-arrow" style="font-size:0.65rem;color:rgba(255,255,255,0.2)">▸</span>
+              </div>
+            </div>
+            <div class="district-content" id="tampines-content">
+
+              <!-- Tampines Mall -->
+              <div class="mall-item" onclick="toggleMall('tm')">
+                <div class="mall-item-header">
+                  <div style="display:flex;align-items:center;gap:0.6rem">
+                    <span style="font-size:0.88rem">🏬</span>
+                    <div>
+                      <div style="font-size:0.82rem;font-weight:600;color:var(--off)">Tampines Mall</div>
+                      <div style="font-size:0.6rem;color:rgba(255,255,255,0.28)">CapitaLand · 42 merchants · 3 enrolled</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:0.4rem">
+                    <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:900;color:var(--yellow)">180 pts</span>
+                    <span id="tm-arrow" style="font-size:0.62rem;color:rgba(255,255,255,0.2)">▸</span>
+                  </div>
+                </div>
+                <div class="mall-shops" id="tm-shops">
+                  <div class="shop-row" onclick="event.stopPropagation();toggleShop('shopA')">
+                    <div style="display:flex;align-items:center;gap:0.7rem">
+                      <div style="width:30px;height:30px;background:rgba(139,0,21,0.18);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0">🏪</div>
+                      <div style="flex:1"><div style="font-size:0.8rem;font-weight:600;color:var(--off)">Shop A</div><div style="font-size:0.58rem;color:rgba(255,255,255,0.28)">F&B · L3 · 5 visits · 🥈 Silver</div></div>
+                      <div style="text-align:right;flex-shrink:0"><div style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:900;color:var(--yellow)">120 pts</div></div>
+                      <span id="shopAarrow" style="font-size:0.6rem;color:rgba(255,255,255,0.2);margin-left:0.2rem">▸</span>
+                    </div>
+                    <div class="shop-detail" id="shopA">
+                      <div class="tier-bar"><div class="tier-seg active-tier">🥉 Bronze<div class="tier-sub">0 pts</div></div><div class="tier-arrow">→</div><div class="tier-seg current-tier">🥈 Silver<div class="tier-sub">Current</div></div><div class="tier-arrow">→</div><div class="tier-seg locked-tier">🥇 Gold<div class="tier-sub">500 pts</div></div></div>
+                      <div class="shop-rewards">
+                        <div class="sr-title">Rewards at Shop A</div>
+                        <div class="sr-row unlocked"><span class="sr-icon">🎁</span><div class="sr-info"><div class="sr-name">Free item</div><div class="sr-desc">Bronze · unlocked</div></div><div class="sr-status unlocked-badge">Unlocked</div></div>
+                        <div class="sr-row unlocked"><span class="sr-icon">⭐</span><div class="sr-info"><div class="sr-name">10% discount</div><div class="sr-desc">Silver · unlocked</div></div><div class="sr-status unlocked-badge">Unlocked</div></div>
+                        <div class="sr-row locked"><span class="sr-icon">👑</span><div class="sr-info"><div class="sr-name">VIP access</div><div class="sr-desc">Gold · 380 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="shop-row" onclick="event.stopPropagation();toggleShop('shopB')">
+                    <div style="display:flex;align-items:center;gap:0.7rem">
+                      <div style="width:30px;height:30px;background:rgba(22,92,50,0.18);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0">👗</div>
+                      <div style="flex:1"><div style="font-size:0.8rem;font-weight:600;color:var(--off)">Shop B</div><div style="font-size:0.58rem;color:rgba(255,255,255,0.28)">Fashion · L2 · 3 visits · 🥉 Bronze</div></div>
+                      <div style="text-align:right;flex-shrink:0"><div style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:900;color:var(--yellow)">40 pts</div></div>
+                      <span id="shopBarrow" style="font-size:0.6rem;color:rgba(255,255,255,0.2);margin-left:0.2rem">▸</span>
+                    </div>
+                    <div class="shop-detail" id="shopB">
+                      <div class="tier-bar"><div class="tier-seg current-tier">🥉 Bronze<div class="tier-sub">Current</div></div><div class="tier-arrow">→</div><div class="tier-seg locked-tier">🥈 Silver<div class="tier-sub">150 pts</div></div><div class="tier-arrow">→</div><div class="tier-seg locked-tier">🥇 Gold<div class="tier-sub">500 pts</div></div></div>
+                      <div class="shop-rewards">
+                        <div class="sr-title">Rewards at Shop B</div>
+                        <div class="sr-row unlocked"><span class="sr-icon">🎁</span><div class="sr-info"><div class="sr-name">Free gift wrap</div><div class="sr-desc">Bronze · unlocked</div></div><div class="sr-status unlocked-badge">Unlocked</div></div>
+                        <div class="sr-row locked"><span class="sr-icon">✨</span><div class="sr-info"><div class="sr-name">15% off</div><div class="sr-desc">Silver · 110 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+                        <div class="sr-row locked"><span class="sr-icon">🎀</span><div class="sr-info"><div class="sr-name">Birthday gift</div><div class="sr-desc">Gold · 460 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="shop-row" onclick="event.stopPropagation();toggleShop('shopC')">
+                    <div style="display:flex;align-items:center;gap:0.7rem">
+                      <div style="width:30px;height:30px;background:rgba(29,78,216,0.18);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0">💆</div>
+                      <div style="flex:1"><div style="font-size:0.8rem;font-weight:600;color:var(--off)">Shop C</div><div style="font-size:0.58rem;color:rgba(255,255,255,0.28)">Beauty · B1 · 2 visits · 🥉 Bronze</div></div>
+                      <div style="text-align:right;flex-shrink:0"><div style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:900;color:var(--yellow)">20 pts</div></div>
+                      <span id="shopCarrow" style="font-size:0.6rem;color:rgba(255,255,255,0.2);margin-left:0.2rem">▸</span>
+                    </div>
+                    <div class="shop-detail" id="shopC">
+                      <div class="tier-bar"><div class="tier-seg current-tier">🥉 Bronze<div class="tier-sub">Current</div></div><div class="tier-arrow">→</div><div class="tier-seg locked-tier">🥈 Silver<div class="tier-sub">100 pts</div></div><div class="tier-arrow">→</div><div class="tier-seg locked-tier">🥇 Gold<div class="tier-sub">300 pts</div></div></div>
+                      <div class="shop-rewards">
+                        <div class="sr-title">Rewards at Shop C</div>
+                        <div class="sr-row unlocked"><span class="sr-icon">💆</span><div class="sr-info"><div class="sr-name">Free sample set</div><div class="sr-desc">Bronze · unlocked</div></div><div class="sr-status unlocked-badge">Unlocked</div></div>
+                        <div class="sr-row locked"><span class="sr-icon">🧴</span><div class="sr-info"><div class="sr-name">20% off skincare</div><div class="sr-desc">Silver · 80 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+                        <div class="sr-row locked"><span class="sr-icon">👑</span><div class="sr-info"><div class="sr-name">VIP beauty service</div><div class="sr-desc">Gold · 280 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Century Square -->
+              <div class="mall-item" onclick="toggleMall('cs')">
+                <div class="mall-item-header">
+                  <div style="display:flex;align-items:center;gap:0.6rem">
+                    <span style="font-size:0.88rem">🏬</span>
+                    <div>
+                      <div style="font-size:0.82rem;font-weight:600;color:var(--off)">Century Square</div>
+                      <div style="font-size:0.6rem;color:rgba(255,255,255,0.28)">Frasers · 28 merchants · 2 enrolled</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:0.4rem">
+                    <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:900;color:var(--yellow)">80 pts</span>
+                    <span id="cs-arrow" style="font-size:0.62rem;color:rgba(255,255,255,0.2)">▸</span>
+                  </div>
+                </div>
+                <div class="mall-shops" id="cs-shops">
+                  <div class="shop-row" onclick="event.stopPropagation();toggleShop('shopD')">
+                    <div style="display:flex;align-items:center;gap:0.7rem">
+                      <div style="width:30px;height:30px;background:rgba(139,0,21,0.18);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0">🍜</div>
+                      <div style="flex:1"><div style="font-size:0.8rem;font-weight:600;color:var(--off)">Shop D</div><div style="font-size:0.58rem;color:rgba(255,255,255,0.28)">F&B · L1 · 4 visits · 🥉 Bronze</div></div>
+                      <div style="text-align:right;flex-shrink:0"><div style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:900;color:var(--yellow)">50 pts</div></div>
+                      <span id="shopDarrow" style="font-size:0.6rem;color:rgba(255,255,255,0.2);margin-left:0.2rem">▸</span>
+                    </div>
+                    <div class="shop-detail" id="shopD">
+                      <div class="tier-bar"><div class="tier-seg current-tier">🥉 Bronze<div class="tier-sub">Current</div></div><div class="tier-arrow">→</div><div class="tier-seg locked-tier">🥈 Silver<div class="tier-sub">150 pts</div></div><div class="tier-arrow">→</div><div class="tier-seg locked-tier">🥇 Gold<div class="tier-sub">400 pts</div></div></div>
+                      <div class="shop-rewards">
+                        <div class="sr-title">Rewards at Shop D</div>
+                        <div class="sr-row unlocked"><span class="sr-icon">🍜</span><div class="sr-info"><div class="sr-name">Free add-on</div><div class="sr-desc">Bronze · unlocked</div></div><div class="sr-status unlocked-badge">Unlocked</div></div>
+                        <div class="sr-row locked"><span class="sr-icon">🥢</span><div class="sr-info"><div class="sr-name">10% off bill</div><div class="sr-desc">Silver · 100 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+                        <div class="sr-row locked"><span class="sr-icon">👑</span><div class="sr-info"><div class="sr-name">Priority seating</div><div class="sr-desc">Gold · 350 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="shop-row" onclick="event.stopPropagation();toggleShop('shopE')">
+                    <div style="display:flex;align-items:center;gap:0.7rem">
+                      <div style="width:30px;height:30px;background:rgba(22,92,50,0.18);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0">💊</div>
+                      <div style="flex:1"><div style="font-size:0.8rem;font-weight:600;color:var(--off)">Shop E</div><div style="font-size:0.58rem;color:rgba(255,255,255,0.28)">Health · L1 · 2 visits · 🥉 Bronze</div></div>
+                      <div style="text-align:right;flex-shrink:0"><div style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:900;color:var(--yellow)">30 pts</div></div>
+                      <span id="shopEarrow" style="font-size:0.6rem;color:rgba(255,255,255,0.2);margin-left:0.2rem">▸</span>
+                    </div>
+                    <div class="shop-detail" id="shopE">
+                      <div class="tier-bar"><div class="tier-seg current-tier">🥉 Bronze<div class="tier-sub">Current</div></div><div class="tier-arrow">→</div><div class="tier-seg locked-tier">🥈 Silver<div class="tier-sub">120 pts</div></div><div class="tier-arrow">→</div><div class="tier-seg locked-tier">🥇 Gold<div class="tier-sub">350 pts</div></div></div>
+                      <div class="shop-rewards">
+                        <div class="sr-title">Rewards at Shop E</div>
+                        <div class="sr-row unlocked"><span class="sr-icon">💊</span><div class="sr-info"><div class="sr-name">Free health sample</div><div class="sr-desc">Bronze · unlocked</div></div><div class="sr-status unlocked-badge">Unlocked</div></div>
+                        <div class="sr-row locked"><span class="sr-icon">🩺</span><div class="sr-info"><div class="sr-name">15% off vitamins</div><div class="sr-desc">Silver · 90 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+                        <div class="sr-row locked"><span class="sr-icon">👑</span><div class="sr-info"><div class="sr-name">VIP health consult</div><div class="sr-desc">Gold · 320 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Our Tampines Hub -->
+              <div class="mall-item" onclick="toggleMall('oth')">
+                <div class="mall-item-header">
+                  <div style="display:flex;align-items:center;gap:0.6rem">
+                    <span style="font-size:0.88rem">🏛️</span>
+                    <div>
+                      <div style="font-size:0.82rem;font-weight:600;color:var(--off)">Our Tampines Hub</div>
+                      <div style="font-size:0.6rem;color:rgba(255,255,255,0.28)">People's Association · 24 merchants · 1 enrolled</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:0.4rem">
+                    <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:900;color:var(--yellow)">30 pts</span>
+                    <span id="oth-arrow" style="font-size:0.62rem;color:rgba(255,255,255,0.2)">▸</span>
+                  </div>
+                </div>
+                <div class="mall-shops" id="oth-shops">
+                  <div class="shop-row" onclick="event.stopPropagation();toggleShop('shopF')">
+                    <div style="display:flex;align-items:center;gap:0.7rem">
+                      <div style="width:30px;height:30px;background:rgba(29,78,216,0.18);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0">🧋</div>
+                      <div style="flex:1"><div style="font-size:0.8rem;font-weight:600;color:var(--off)">Shop F</div><div style="font-size:0.58rem;color:rgba(255,255,255,0.28)">F&B · L2 · 2 visits · 🥉 Bronze</div></div>
+                      <div style="text-align:right;flex-shrink:0"><div style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:900;color:var(--yellow)">30 pts</div></div>
+                      <span id="shopFarrow" style="font-size:0.6rem;color:rgba(255,255,255,0.2);margin-left:0.2rem">▸</span>
+                    </div>
+                    <div class="shop-detail" id="shopF">
+                      <div class="tier-bar"><div class="tier-seg current-tier">🥉 Bronze<div class="tier-sub">Current</div></div><div class="tier-arrow">→</div><div class="tier-seg locked-tier">🥈 Silver<div class="tier-sub">100 pts</div></div><div class="tier-arrow">→</div><div class="tier-seg locked-tier">🥇 Gold<div class="tier-sub">300 pts</div></div></div>
+                      <div class="shop-rewards">
+                        <div class="sr-title">Rewards at Shop F</div>
+                        <div class="sr-row unlocked"><span class="sr-icon">🧋</span><div class="sr-info"><div class="sr-name">Free size upgrade</div><div class="sr-desc">Bronze · unlocked</div></div><div class="sr-status unlocked-badge">Unlocked</div></div>
+                        <div class="sr-row locked"><span class="sr-icon">☕</span><div class="sr-info"><div class="sr-name">Buy 5 get 1 free</div><div class="sr-desc">Silver · 70 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+                        <div class="sr-row locked"><span class="sr-icon">👑</span><div class="sr-info"><div class="sr-name">Monthly free drink</div><div class="sr-desc">Gold · 270 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- end tampines-content -->
+          </div>
+
+          <!-- ── BEDOK DISTRICT ── -->
+          <div class="district-group">
+            <div class="district-header" onclick="toggleDistrict('bedok')">
+              <div style="font-size:0.78rem;font-weight:700;color:var(--off)">Bedok</div>
+              <div style="display:flex;align-items:center;gap:0.5rem">
+                <span style="font-size:0.62rem;color:rgba(255,255,255,0.3)">1 mall · Coming soon</span>
+                <span id="bedok-arrow" style="font-size:0.65rem;color:rgba(255,255,255,0.2)">▸</span>
+              </div>
+            </div>
+            <div class="district-content" id="bedok-content">
+              <div style="padding:1.25rem;text-align:center;background:rgba(255,255,255,0.02);border:1.5px dashed rgba(255,255,255,0.07);border-radius:10px">
+                <div style="font-size:1.2rem;margin-bottom:0.4rem">🏬</div>
+                <div style="font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.35);margin-bottom:0.2rem">Bedok Mall</div>
+                <div style="font-size:0.65rem;color:rgba(255,255,255,0.22)">Pilot launching soon · Tap any CBOXX merchant in Bedok Mall to enrol</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── PAYA LEBAR DISTRICT ── -->
+          <div class="district-group">
+            <div class="district-header" onclick="toggleDistrict('payalebar')">
+              <div style="font-size:0.78rem;font-weight:700;color:var(--off)">Paya Lebar</div>
+              <div style="display:flex;align-items:center;gap:0.5rem">
+                <span style="font-size:0.62rem;color:rgba(255,255,255,0.3)">2 malls · Coming soon</span>
+                <span id="payalebar-arrow" style="font-size:0.65rem;color:rgba(255,255,255,0.2)">▸</span>
+              </div>
+            </div>
+            <div class="district-content" id="payalebar-content">
+              <div style="display:flex;flex-direction:column;gap:0.5rem">
+                <div style="padding:1rem;background:rgba(255,255,255,0.02);border:1.5px dashed rgba(255,255,255,0.07);border-radius:10px;display:flex;align-items:center;gap:0.6rem">
+                  <span style="font-size:0.88rem">🏬</span>
+                  <div><div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.35)">Paya Lebar Quarter</div><div style="font-size:0.6rem;color:rgba(255,255,255,0.2)">Lendlease · Coming soon</div></div>
+                </div>
+                <div style="padding:1rem;background:rgba(255,255,255,0.02);border:1.5px dashed rgba(255,255,255,0.07);border-radius:10px;display:flex;align-items:center;gap:0.6rem">
+                  <span style="font-size:0.88rem">🏬</span>
+                  <div><div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.35)">Parkway Parade</div><div style="font-size:0.6rem;color:rgba(255,255,255,0.2)">AEW Capital · Coming soon</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── CHANGI DISTRICT ── -->
+          <div class="district-group">
+            <div class="district-header" onclick="toggleDistrict('changi')">
+              <div style="font-size:0.78rem;font-weight:700;color:var(--off)">Changi</div>
+              <div style="display:flex;align-items:center;gap:0.5rem">
+                <span style="font-size:0.62rem;color:rgba(255,255,255,0.3)">2 malls · Coming soon</span>
+                <span id="changi-arrow" style="font-size:0.65rem;color:rgba(255,255,255,0.2)">▸</span>
+              </div>
+            </div>
+            <div class="district-content" id="changi-content">
+              <div style="display:flex;flex-direction:column;gap:0.5rem">
+                <div style="padding:1rem;background:rgba(255,255,255,0.02);border:1.5px dashed rgba(255,255,255,0.07);border-radius:10px;display:flex;align-items:center;gap:0.6rem">
+                  <span style="font-size:0.88rem">🏬</span>
+                  <div><div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.35)">Changi City Point</div><div style="font-size:0.6rem;color:rgba(255,255,255,0.2)">Frasers · Coming soon</div></div>
+                </div>
+                <div style="padding:1rem;background:rgba(255,255,255,0.02);border:1.5px dashed rgba(255,255,255,0.07);border-radius:10px;display:flex;align-items:center;gap:0.6rem">
+                  <span style="font-size:0.88rem">🏬</span>
+                  <div><div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.35)">White Sands</div><div style="font-size:0.6rem;color:rgba(255,255,255,0.2)">CapitaLand · Coming soon</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- end east-content -->
+      </div><!-- end area-group -->
+
+      <!-- Future areas teaser -->
+      <div style="display:flex;align-items:center;gap:0.75rem;padding:0.85rem;background:rgba(255,255,255,0.02);border:1.5px dashed rgba(255,255,255,0.06);border-radius:10px;margin-top:0.65rem">
+        <div style="width:34px;height:34px;background:rgba(255,255,255,0.04);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0">🌏</div>
+        <div><div style="font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.3)">More areas coming soon</div><div style="font-size:0.6rem;color:rgba(255,255,255,0.18);margin-top:0.1rem">West · Central · North · South · International</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.55rem">
+        <!-- Shop A -->
+        <div class="shop-card" onclick="toggleShop('shopA')">
+          <div style="display:flex;align-items:center;gap:0.85rem">
+            <div style="width:38px;height:38px;background:rgba(139,0,21,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">🏪</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:0.85rem;font-weight:700;color:var(--off);margin-bottom:0.1rem">Shop A</div>
+              <div style="font-size:0.62rem;color:rgba(255,255,255,0.3)">F&B · Level 3 · 5 visits</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:var(--yellow)">180 pts</div>
+              <div style="font-size:0.55rem;color:rgba(255,255,255,0.25);margin-top:0.1rem">🥈 Silver</div>
+            </div>
+            <div style="font-size:0.7rem;color:rgba(255,255,255,0.2);margin-left:0.25rem" id="shopAarrow">▸</div>
+          </div>
+          <div class="shop-detail" id="shopA">
+            <div class="tier-bar">
+              <div class="tier-seg active-tier">🥉 Bronze<div class="tier-sub">0 pts</div></div>
+              <div class="tier-arrow">→</div>
+              <div class="tier-seg current-tier">🥈 Silver<div class="tier-sub">Current</div></div>
+              <div class="tier-arrow">→</div>
+              <div class="tier-seg locked-tier">🥇 Gold<div class="tier-sub">500 pts</div></div>
+            </div>
+            <div class="shop-rewards">
+              <div class="sr-title">Rewards at Shop A</div>
+              <div class="sr-row unlocked"><span class="sr-icon">🎁</span><div class="sr-info"><div class="sr-name">Free item</div><div class="sr-desc">Bronze · 50 pts</div></div><div class="sr-status unlocked-badge">Unlocked</div></div>
+              <div class="sr-row unlocked"><span class="sr-icon">⭐</span><div class="sr-info"><div class="sr-name">10% discount</div><div class="sr-desc">Silver · 150 pts</div></div><div class="sr-status unlocked-badge">Unlocked</div></div>
+              <div class="sr-row locked"><span class="sr-icon">👑</span><div class="sr-info"><div class="sr-name">VIP access</div><div class="sr-desc">Gold · 500 pts needed</div></div><div class="sr-status locked-badge">320 more pts</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shop B -->
+        <div class="shop-card" onclick="toggleShop('shopB')">
+          <div style="display:flex;align-items:center;gap:0.85rem">
+            <div style="width:38px;height:38px;background:rgba(22,92,50,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">🏬</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:0.85rem;font-weight:700;color:var(--off);margin-bottom:0.1rem">Shop B</div>
+              <div style="font-size:0.62rem;color:rgba(255,255,255,0.3)">Retail · Basement 1 · 3 visits</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:var(--yellow)">90 pts</div>
+              <div style="font-size:0.55rem;color:rgba(255,255,255,0.25);margin-top:0.1rem">🥉 Bronze</div>
+            </div>
+            <div style="font-size:0.7rem;color:rgba(255,255,255,0.2);margin-left:0.25rem" id="shopBarrow">▸</div>
+          </div>
+          <div class="shop-detail" id="shopB">
+            <div class="tier-bar">
+              <div class="tier-seg current-tier">🥉 Bronze<div class="tier-sub">Current</div></div>
+              <div class="tier-arrow">→</div>
+              <div class="tier-seg locked-tier">🥈 Silver<div class="tier-sub">200 pts</div></div>
+              <div class="tier-arrow">→</div>
+              <div class="tier-seg locked-tier">🥇 Gold<div class="tier-sub">600 pts</div></div>
+            </div>
+            <div class="shop-rewards">
+              <div class="sr-title">Rewards at Shop B</div>
+              <div class="sr-row unlocked"><span class="sr-icon">🎁</span><div class="sr-info"><div class="sr-name">Free upgrade</div><div class="sr-desc">Bronze · 30 pts</div></div><div class="sr-status unlocked-badge">Unlocked</div></div>
+              <div class="sr-row locked"><span class="sr-icon">✨</span><div class="sr-info"><div class="sr-name">15% off</div><div class="sr-desc">Silver · Need 110 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+              <div class="sr-row locked"><span class="sr-icon">🎀</span><div class="sr-info"><div class="sr-name">Birthday gift</div><div class="sr-desc">Gold · Need 510 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shop C -->
+        <div class="shop-card" onclick="toggleShop('shopC')">
+          <div style="display:flex;align-items:center;gap:0.85rem">
+            <div style="width:38px;height:38px;background:rgba(29,78,216,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">🏥</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:0.85rem;font-weight:700;color:var(--off);margin-bottom:0.1rem">Shop C</div>
+              <div style="font-size:0.62rem;color:rgba(255,255,255,0.3)">Health & Beauty · Level 1 · 2 visits</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:var(--yellow)">70 pts</div>
+              <div style="font-size:0.55rem;color:rgba(255,255,255,0.25);margin-top:0.1rem">🥉 Bronze</div>
+            </div>
+            <div style="font-size:0.7rem;color:rgba(255,255,255,0.2);margin-left:0.25rem" id="shopCarrow">▸</div>
+          </div>
+          <div class="shop-detail" id="shopC">
+            <div class="tier-bar">
+              <div class="tier-seg current-tier">🥉 Bronze<div class="tier-sub">Current</div></div>
+              <div class="tier-arrow">→</div>
+              <div class="tier-seg locked-tier">🥈 Silver<div class="tier-sub">150 pts</div></div>
+              <div class="tier-arrow">→</div>
+              <div class="tier-seg locked-tier">🥇 Gold<div class="tier-sub">400 pts</div></div>
+            </div>
+            <div class="shop-rewards">
+              <div class="sr-title">Rewards at Shop C</div>
+              <div class="sr-row unlocked"><span class="sr-icon">💆</span><div class="sr-info"><div class="sr-name">Free sample set</div><div class="sr-desc">Bronze · 25 pts</div></div><div class="sr-status unlocked-badge">Unlocked</div></div>
+              <div class="sr-row locked"><span class="sr-icon">🧴</span><div class="sr-info"><div class="sr-name">20% off skincare</div><div class="sr-desc">Silver · Need 80 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+              <div class="sr-row locked"><span class="sr-icon">👑</span><div class="sr-info"><div class="sr-name">VIP beauty service</div><div class="sr-desc">Gold · Need 330 more pts</div></div><div class="sr-status locked-badge">Locked</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Discover more -->
+        <div style="display:flex;align-items:center;gap:0.85rem;padding:0.85rem;background:rgba(255,255,255,0.02);border:1.5px dashed rgba(255,255,255,0.08);border-radius:10px;cursor:pointer">
+          <div style="width:38px;height:38px;background:rgba(255,255,255,0.05);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">+</div>
+          <div style="flex:1">
+            <div style="font-size:0.85rem;font-weight:700;color:rgba(255,255,255,0.4);margin-bottom:0.1rem">Discover more shops</div>
+            <div style="font-size:0.62rem;color:rgba(255,255,255,0.22)">42 merchants in this mall use CBOXX</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent activity -->
+    <div>
+      <div class="eyebrow" style="margin-bottom:0.65rem">Recent Activity</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.2rem">
+        <div class="visit-row">
+          <div class="vi-icon">🍜</div>
+          <div><div class="vi-title">Shop A · Tampines Mall</div><div class="vi-date">Today · 7:32pm</div></div>
+          <div class="vi-pts">+60 pts</div>
+        </div>
+        <div class="visit-row">
+          <div class="vi-icon">🧋</div>
+          <div><div class="vi-title">Shop B · Century Square</div><div class="vi-date">Yesterday · 2:15pm</div></div>
+          <div class="vi-pts">+30 pts</div>
+        </div>
+        <div class="visit-row">
+          <div class="vi-icon">💊</div>
+          <div><div class="vi-title">Shop C · Our Tampines Hub</div><div class="vi-date">Mon · 11:40am</div></div>
+          <div class="vi-pts">+35 pts</div>
+        </div>
+        <div class="visit-row" style="border-bottom:none">
+          <div class="vi-icon">🍜</div>
+          <div><div class="vi-title">Shop A · Tampines Mall</div><div class="vi-date">Last Fri · 6:55pm</div></div>
+          <div class="vi-pts">+60 pts</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tap reminder -->
+    <div style="background:rgba(139,0,21,0.07);border:1px solid rgba(139,0,21,0.18);border-radius:12px;padding:1.15rem;display:flex;align-items:center;gap:1rem">
+      <div style="width:42px;height:42px;background:rgba(139,0,21,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">📲</div>
+      <div><div style="font-size:0.82rem;font-weight:700;color:var(--off);margin-bottom:0.2rem">Tap at any shop in the mall</div><div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.45;margin-bottom:0.6rem">Every CBOXX merchant adds to your district points. One membership, every shop.</div><button onclick="setSurveyShop(mName);goTo('s_survey');if(navigator.vibrate)navigator.vibrate(20)" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.09);border-radius:8px;padding:0.45rem 0.85rem;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.5);cursor:pointer">Rate your last visit →</button></div>
+    </div>
+    <div style="margin-bottom:0.5rem"></div>
+  </div>
+  <div class="bottom-nav">
+    <div class="bn-item active" onclick="tab('s_home',this)"><div class="bn-icon">🏠</div><div class="bn-label">Home</div></div>
+    <div class="bn-item" onclick="tab('s_rewards',this)"><div class="bn-icon">🎁</div><div class="bn-label">Rewards</div></div>
+    <div class="bn-item" onclick="tab('s_settings',this)"><div class="bn-icon">⚙️</div><div class="bn-label">Settings</div></div>
+  </div>
+</div>
+
+<!-- REWARDS -->
+<div class="screen" id="s_rewards">
+  <div style="background:#000;padding:1.5rem 1.5rem 1rem;border-bottom:1px solid rgba(255,255,255,0.06)">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;color:var(--off);text-transform:uppercase">Rewards</div>
+    <div style="font-size:0.68rem;color:rgba(255,255,255,0.3);margin-top:0.15rem">50 pts · 150 more to first reward</div>
+  </div>
+  <div style="padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:1.1rem;overflow-y:auto">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.2rem">
+      <div style="font-size:0.75rem;font-weight:700;color:var(--off);margin-bottom:0.75rem">Next reward at 200 pts</div>
+      <div class="prog-row"><span>Current: 50 pts</span><span>Goal: 200 pts</span></div>
+      <div class="prog-track"><div class="prog-fill" style="width:25%"></div></div>
+      <div style="font-size:0.65rem;color:rgba(255,255,255,0.25);margin-top:0.4rem">Visit ~3 more times to unlock</div>
+    </div>
+    <div>
+      <!-- District reward progress -->
+    <div style="background:rgba(201,150,58,0.06);border:1px solid rgba(201,150,58,0.15);border-radius:10px;padding:1rem;margin-bottom:0.1rem">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--yellow);margin-bottom:0.5rem">District Rewards · Tampines Mall</div>
+      <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);line-height:1.55;margin-bottom:0.75rem">Your 340 pts come from 3 shops. Spend at any CBOXX merchant in Tampines Mall — points pool together automatically.</div>
+      <div style="display:flex;gap:0.5rem">
+        <div style="flex:1;text-align:center;padding:0.5rem;background:rgba(255,255,255,0.04);border-radius:6px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:var(--yellow)">180</div>
+          <div style="font-size:0.52rem;color:rgba(255,255,255,0.28)">Shop A</div>
+        </div>
+        <div style="flex:1;text-align:center;padding:0.5rem;background:rgba(255,255,255,0.04);border-radius:6px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:var(--yellow)">90</div>
+          <div style="font-size:0.52rem;color:rgba(255,255,255,0.28)">Shop B</div>
+        </div>
+        <div style="flex:1;text-align:center;padding:0.5rem;background:rgba(255,255,255,0.04);border-radius:6px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;color:var(--yellow)">70</div>
+          <div style="font-size:0.52rem;color:rgba(255,255,255,0.28)">Shop C</div>
+        </div>
+      </div>
+    </div>
+    <div class="eyebrow" style="margin-bottom:0.65rem">Shop Rewards</div>
+      <div style="display:flex;flex-direction:column;gap:0.65rem">
+        <div class="rl" style="opacity:0.65"><div class="rl-icon">🍜</div><div style="flex:1"><div class="rl-name">Free Soup Base</div><div class="rl-desc">Redeem at counter · No expiry</div></div><div style="text-align:right"><div class="rl-pts-num">200</div><div class="rl-pts-label">pts needed</div></div></div>
+        <div class="rl" style="opacity:0.5"><div class="rl-icon">🥢</div><div style="flex:1"><div class="rl-name">10% Off Total Bill</div><div class="rl-desc">Valid 1 visit · Silver tier</div></div><div style="text-align:right"><div class="rl-pts-num">500</div><div class="rl-pts-label">pts needed</div></div></div>
+        <div class="rl" style="opacity:0.4"><div class="rl-icon">🎂</div><div style="flex:1"><div class="rl-name">Birthday Treat</div><div class="rl-desc">Free dessert · Silver+</div></div><div style="text-align:right"><div class="rl-pts-num">Silver</div><div class="rl-pts-label">tier req.</div></div></div>
+        <div class="rl" style="opacity:0.3"><div class="rl-icon">👑</div><div style="flex:1"><div class="rl-name">VIP Priority Table</div><div class="rl-desc">Skip the queue · Gold only</div></div><div style="text-align:right"><div class="rl-pts-num">Gold</div><div class="rl-pts-label">tier req.</div></div></div>
+      </div>
+    </div>
+    <div style="background:rgba(201,150,58,0.06);border:1px solid rgba(201,150,58,0.18);border-radius:10px;padding:1rem">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--yellow);margin-bottom:0.35rem">District Rewards</div>
+      <div style="font-size:0.78rem;font-weight:600;color:var(--off);margin-bottom:0.2rem">Earn across all malls</div>
+      <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5">Your CBOXX points pool across all participating merchants in Tampines Mall.</div>
+    </div>
+    <div style="margin-bottom:0.5rem"></div>
+  </div>
+  <div class="bottom-nav">
+    <div class="bn-item" onclick="tab('s_home',this)"><div class="bn-icon">🏠</div><div class="bn-label">Home</div></div>
+    <div class="bn-item active"><div class="bn-icon">🎁</div><div class="bn-label">Rewards</div></div>
+    <div class="bn-item" onclick="tab('s_settings',this)"><div class="bn-icon">⚙️</div><div class="bn-label">Settings</div></div>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="screen" id="s_settings">
+  <div style="background:#000;padding:1.5rem 1.5rem 1rem;border-bottom:1px solid rgba(255,255,255,0.06)">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;color:var(--off);text-transform:uppercase">Settings</div>
+    <div style="font-size:0.68rem;color:rgba(255,255,255,0.3);margin-top:0.15rem" id="settingsSub">Demo Store membership</div>
+  </div>
+  <div style="padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:1.1rem;overflow-y:auto">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.2rem">
+      <div class="eyebrow" style="margin-bottom:0.75rem">Member Identity</div>
+      <div class="s-row"><span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Phone number</span><span style="font-size:0.8rem;font-weight:600;color:var(--off)">+65 <span id="sPhone">81234567</span></span></div>
+        <div class="s-row"><span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Name</span><span style="font-size:0.8rem;font-weight:600;color:var(--off)" id="sName">Not set</span></div>
+        <div class="s-row"><span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Email</span><span style="font-size:0.8rem;font-weight:600;color:var(--off)" id="sEmail">Not set</span></div>
+        <div class="s-row"><span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Birthday</span><span style="font-size:0.8rem;font-weight:600;color:var(--off)" id="sBday">Not set</span></div>
+      <div class="s-row"><span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Member since</span><span style="font-size:0.8rem;font-weight:600;color:var(--off)">Today</span></div>
+      <div class="s-row"><span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Current tier</span><span class="pill-red">🥉 Bronze</span></div>
+      <div class="s-row"><span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Total points</span><span style="font-size:0.8rem;font-weight:700;color:var(--yellow)">50 pts</span></div>
+      <div class="s-row" style="border-bottom:none"><span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Merchant</span><span style="font-size:0.8rem;font-weight:600;color:var(--off)" id="sMerchant">Demo Store</span></div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.2rem">
+      <div class="eyebrow" style="margin-bottom:0.75rem">Notifications</div>
+      <div class="s-row"><div><div style="font-size:0.82rem;font-weight:600;color:var(--off)">Campaign offers</div><div style="font-size:0.62rem;color:rgba(255,255,255,0.3);margin-top:0.1rem">Promotions from this merchant</div></div><div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div></div>
+      <div class="s-row"><div><div style="font-size:0.82rem;font-weight:600;color:var(--off)">Points updates</div><div style="font-size:0.62rem;color:rgba(255,255,255,0.3);margin-top:0.1rem">When you earn or redeem</div></div><div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div></div>
+      <div class="s-row" style="border-bottom:none"><div><div style="font-size:0.82rem;font-weight:600;color:var(--off)">District rewards</div><div style="font-size:0.62rem;color:rgba(255,255,255,0.3);margin-top:0.1rem">Cross-mall offers</div></div><div class="toggle" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div></div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.2rem">
+      <div class="eyebrow" style="margin-bottom:0.75rem">Data & Privacy</div>
+      <div class="s-row" style="cursor:pointer"><span style="font-size:0.82rem;color:rgba(255,255,255,0.55)">View my data</span><span style="color:rgba(255,255,255,0.25)">→</span></div>
+      <div class="s-row" style="cursor:pointer" onclick="goTo('s3')"><span style="font-size:0.82rem;color:rgba(255,255,255,0.55)">Update consent</span><span style="color:rgba(255,255,255,0.25)">→</span></div>
+      <div class="s-row" style="cursor:pointer"><span style="font-size:0.82rem;color:rgba(255,255,255,0.55)">Privacy policy</span><span style="color:rgba(255,255,255,0.25)">→</span></div>
+      <div class="s-row" style="cursor:pointer;border-bottom:none"><span style="font-size:0.82rem;color:#ff6b6b">Delete my account</span><span style="color:rgba(255,255,255,0.25)">→</span></div>
+    </div>
+    <div class="pdpa"><span>🔒</span><span>PDPA · CBOXX Pte. Ltd. (UEN: 202613969N) · DPO: Melissa · info@cboxxsg.com</span></div>
+    <div style="text-align:center;font-size:0.62rem;color:rgba(255,255,255,0.15);margin-bottom:1rem">CBOXX v1.0 · cboxxsg.com</div>
+  </div>
+  <div class="bottom-nav">
+    <div class="bn-item" onclick="tab('s_home',this)"><div class="bn-icon">🏠</div><div class="bn-label">Home</div></div>
+    <div class="bn-item" onclick="tab('s_rewards',this)"><div class="bn-icon">🎁</div><div class="bn-label">Rewards</div></div>
+    <div class="bn-item active"><div class="bn-icon">⚙️</div><div class="bn-label">Settings</div></div>
+  </div>
+</div>
+
+<!-- RETURNING INPUT -->
+<div class="screen" id="s_ret_input">
+  <div class="pad gap" style="background:#000;min-height:100vh;justify-content:center">
+    <div style="width:64px;height:64px;background:rgba(201,150,58,0.15);border:2px solid rgba(201,150,58,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;animation:tickPop 0.5s cubic-bezier(0.175,0.885,0.32,1.275) both">👋</div>
+    <div>
+      <div class="headline" style="font-size:2.2rem">Check in.</div>
+      <p class="sub" style="margin-top:0.5rem">Enter your number to check in and earn points this visit.</p>
+    </div>
+    <div>
+      <div class="phone-wrap">
+        <div class="phone-flag">🇸🇬 <span>+65</span></div>
+        <input type="tel" class="phone-input" id="retInput" placeholder="8123 4567" maxlength="8" oninput="onRetPhone(this)">
+      </div>
+      <div class="input-hint">Your registered CBOXX number</div>
+    </div>
+    <div style="background:rgba(201,150,58,0.06);border:1px solid rgba(201,150,58,0.15);border-radius:8px;padding:0.85rem;text-align:center">
+      <div style="font-size:0.65rem;font-weight:700;color:var(--yellow);margin-bottom:0.2rem">DEMO MODE</div>
+      <div style="font-size:0.72rem;color:rgba(255,255,255,0.4)">Enter any 8-digit number to see returning member screen</div>
+    </div>
+    <button class="btn btn-red" id="retBtn" onclick="submitRet()" disabled style="font-size:1rem;padding:1.1rem">Check In & Earn Points →</button>
+    <button class="btn btn-ghost" onclick="goTo('s1')">← Back</button>
+  </div>
+</div>
+
+<!-- RETURNING RESULT -->
+<div class="screen" id="s_returning">
+  <div class="pad gap" style="background:#000;min-height:100vh;justify-content:center;align-items:center">
+    <div style="width:72px;height:72px;background:rgba(201,150,58,0.15);border:2px solid rgba(201,150,58,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;animation:tickPop 0.5s cubic-bezier(0.175,0.885,0.32,1.275) both">👋</div>
+    <div style="text-align:center;animation:fadeUp 0.5s ease 0.3s both">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;text-transform:uppercase;color:var(--off);line-height:1;letter-spacing:0.02em">Welcome back!</div>
+      <div style="font-size:0.85rem;color:rgba(255,255,255,0.4);margin-top:0.3rem">+65 <span id="retPhoneShow">81234567</span> · Visit #5 this month</div>
+    </div>
+    <div class="ret-pts-box" style="width:100%;animation:fadeUp 0.5s ease 0.4s both">
+      <div><div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.2rem">Points earned today</div><div class="ret-big">+60</div></div>
+      <div style="text-align:right"><div style="font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.2rem">Total points</div><div class="ret-big">340</div></div>
+    </div>
+    <div class="member-card" style="width:100%;animation:fadeUp 0.5s ease 0.5s both">
+      <div class="mc-top">
+        <div><div class="mc-ml">Tampines Mall</div><div class="mc-mn" id="retMName">Demo Store</div></div>
+        <span class="pill-amber">🥈 Silver</span>
+      </div>
+      <div class="divider" style="margin-bottom:0.75rem"></div>
+      <div style="display:flex;gap:0.5rem;margin-bottom:1rem">
+        <div class="sk" style="background:rgba(139,0,21,0.15);border:1px solid rgba(139,0,21,0.25)"><div class="sk-num" style="color:var(--off)">5</div><div class="sk-label" style="color:#ff8c8c">visits</div></div>
+        <div class="sk" style="background:rgba(22,92,50,0.15);border:1px solid rgba(22,92,50,0.25)"><div class="sk-num" style="color:#3ab86a">3🔥</div><div class="sk-label" style="color:#3ab86a">streak</div></div>
+        <div class="sk" style="background:rgba(201,150,58,0.12);border:1px solid rgba(201,150,58,0.2)"><div class="sk-num" style="color:var(--yellow)">340</div><div class="sk-label" style="color:var(--yellow)">pts</div></div>
+      </div>
+      <div class="prog-row"><span>Progress to Gold</span><span>340 / 1,000 pts</span></div>
+      <div class="prog-track"><div class="prog-fill" style="width:34%"></div></div>
+    </div>
+    <div style="width:100%;background:rgba(139,0,21,0.08);border:1px solid rgba(139,0,21,0.2);border-radius:10px;padding:1rem;display:flex;gap:0.85rem;align-items:center;animation:fadeUp 0.5s ease 0.6s both">
+      <span style="font-size:1.3rem;flex-shrink:0">🎁</span>
+      <div><div style="font-size:0.82rem;font-weight:700;color:var(--off);margin-bottom:0.15rem">Weekend Double Points</div><div style="font-size:0.68rem;color:rgba(255,255,255,0.38);line-height:1.45">Active now · Earn 2x points this weekend · Ends Sunday</div></div>
+    </div>
+    <div style="width:100%;display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;animation:fadeUp 0.5s ease 0.7s both">
+      <button onclick="tab('s_rewards',null);goTo('s_rewards')" style="padding:0.85rem;background:var(--card);border:1px solid var(--border);border-radius:10px;color:rgba(255,255,255,0.65);font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.4rem">🎁 My Rewards</button>
+      <button onclick="goTo('s_home')" style="padding:0.85rem;background:var(--card);border:1px solid var(--border);border-radius:10px;color:rgba(255,255,255,0.65);font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.4rem">🏠 My Profile</button>
+    </div>
+    <button class="btn btn-ghost" onclick="goTo('s1')" style="width:100%;animation:fadeUp 0.5s ease 0.8s both">Done · Close</button>
+  </div>
+</div>
+
+
+<!-- POST-TAP SURVEY -->
+<div class="screen" id="s_survey">
+  <div class="pad gap" style="background:#060C12;min-height:100vh">
+
+    <!-- Progress dots -->
+    <div class="survey-progress">
+      <div class="sp-dot done" id="sp1"></div>
+      <div class="sp-dot done" id="sp2"></div>
+      <div class="sp-dot" id="sp3"></div>
+    </div>
+
+    <!-- Step 1: Star rating -->
+    <div class="survey-step active" id="sv1">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;text-transform:uppercase;color:var(--off);line-height:1;margin-bottom:0.5rem">Rate your<br>experience.</div>
+      <p style="font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.6;margin-bottom:0.5rem">How was your visit to <span id="surveyShopName">this shop</span> today?</p>
+
+      <div class="star-row" id="starRow">
+        <button class="star-btn" onclick="rateStar(1)" id="star1">★</button>
+        <button class="star-btn" onclick="rateStar(2)" id="star2">★</button>
+        <button class="star-btn" onclick="rateStar(3)" id="star3">★</button>
+        <button class="star-btn" onclick="rateStar(4)" id="star4">★</button>
+        <button class="star-btn" onclick="rateStar(5)" id="star5">★</button>
+      </div>
+
+      <div style="text-align:center;font-size:0.75rem;color:rgba(255,255,255,0.25);margin-bottom:1.5rem" id="starLabel">Tap to rate</div>
+
+      <button class="btn btn-red" id="sv1Btn" onclick="surveyNext(1)" disabled>Next →</button>
+      <button class="btn btn-ghost" style="margin-top:0.5rem" onclick="skipSurvey()">Skip for now</button>
+    </div>
+
+    <!-- Step 2: Quick tags -->
+    <div class="survey-step" id="sv2">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;text-transform:uppercase;color:var(--off);line-height:1;margin-bottom:0.5rem">What stood<br>out?</div>
+      <p style="font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.6;margin-bottom:1rem">Select all that apply.</p>
+
+      <div class="survey-opts" id="tagGrid">
+        <button class="survey-opt" onclick="pickTag(this)">⚡ Fast service</button>
+        <button class="survey-opt" onclick="pickTag(this)">😊 Friendly staff</button>
+        <button class="survey-opt" onclick="pickTag(this)">🍽️ Great food/product</button>
+        <button class="survey-opt" onclick="pickTag(this)">💰 Good value</button>
+        <button class="survey-opt" onclick="pickTag(this)">🏪 Clean environment</button>
+        <button class="survey-opt" onclick="pickTag(this)">⏳ Had to wait</button>
+        <button class="survey-opt survey-opt full-width" onclick="pickTag(this)">😞 Not what I expected</button>
+      </div>
+
+      <button class="btn btn-red" style="margin-top:0.75rem" onclick="surveyNext(2)">Next →</button>
+      <button class="btn btn-ghost" style="margin-top:0.5rem" onclick="skipSurvey()">Skip</button>
+    </div>
+
+    <!-- Step 3: Open comment (optional) -->
+    <div class="survey-step" id="sv3">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;text-transform:uppercase;color:var(--off);line-height:1;margin-bottom:0.5rem">Anything<br>else?</div>
+      <p style="font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.6;margin-bottom:1rem">Optional — leave a note for the merchant.</p>
+
+      <textarea class="survey-msg" id="surveyComment" rows="4" placeholder="Tell us more about your visit today..."></textarea>
+
+      <div style="margin-top:0.35rem;font-size:0.62rem;color:rgba(255,255,255,0.2)">This goes directly to the merchant. Optional.</div>
+
+      <button class="btn btn-red" style="margin-top:1rem" onclick="submitSurvey()">Submit feedback →</button>
+      <button class="btn btn-ghost" style="margin-top:0.5rem" onclick="skipSurvey()">Skip</button>
+    </div>
+
+    <!-- Thank you -->
+    <div class="survey-step" id="sv4">
+      <div class="survey-thanks">
+        <div class="survey-thanks-icon">🙏</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:900;text-transform:uppercase;color:var(--off)">Thank you!</div>
+        <p style="font-size:0.88rem;color:rgba(255,255,255,0.4);line-height:1.65;max-width:280px">Your feedback helps <span id="surveyShopName2">this shop</span> improve. You've earned a bonus <strong style="color:var(--yellow)">+10 pts</strong> for sharing.</p>
+
+        <!-- Bonus points card -->
+        <div style="width:100%;background:rgba(201,150,58,0.08);border:1px solid rgba(201,150,58,0.2);border-radius:12px;padding:1rem;display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.2rem">Survey bonus</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:var(--yellow)">+10 pts</div>
+          </div>
+          <div style="font-size:2rem">⭐</div>
+        </div>
+
+        <button class="btn btn-red" style="width:100%" onclick="goTo('s_home')">View my membership →</button>
+        <button class="btn btn-ghost" style="width:100%" onclick="goTo('s1')">Done · Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+<script>
+var params=new URLSearchParams(window.location.search);
+var mall=params.get('mall')||'Tampines Mall';
+var mName=params.get('name')||'Demo Store';
+var phoneNum='';
+
+// Set names
+['mName','lpName','eName','eMerchant','retMName','sMerchant'].forEach(function(id){
+  var el=document.getElementById(id);
+  if(el) el.textContent=id==='mName'?mName+'.':mName;
+});
+['mallTag','eMall'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=mall;});
+document.getElementById('homeSub').textContent='East Area · District Member';
+document.getElementById('settingsSub').textContent=mName+' membership';
+
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+  var el=document.getElementById(id);
+  if(el)el.classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='s4')startEnrolled();
+}
+
+function tab(id,btn){
+  goTo(id);
+  if(btn){
+    document.querySelectorAll('.bn-item').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');
+  }
+}
+
+function vibe(p){if(navigator.vibrate)navigator.vibrate(p);}
+function tc(el){el.classList.toggle('selected');}
+
+function onPhone(input){
+  var v=input.value.replace(/\D/g,'');input.value=v;
+  var btn=document.getElementById('phoneBtn');
+  var hint=document.getElementById('phoneHint');
+  if(v.length===8&&(v[0]==='8'||v[0]==='9'||v[0]==='6')){
+    input.classList.add('valid');input.classList.remove('error');
+    btn.disabled=false;hint.textContent='Looks good!';hint.classList.remove('err');
+  }else if(v.length===8){
+    input.classList.add('error');input.classList.remove('valid');
+    btn.disabled=true;hint.textContent='Enter a valid SG mobile number';hint.classList.add('err');
+  }else{
+    input.classList.remove('valid','error');btn.disabled=true;
+    hint.textContent='Enter your 8-digit Singapore mobile number';hint.classList.remove('err');
+  }
+}
+
+function submitPhone(){
+  var v=document.getElementById('phoneInput').value.replace(/\D/g,'');
+  if(v.length!==8)return;
+  phoneNum=v;
+  document.getElementById('phoneDisplay').textContent='+65 '+v.slice(0,4)+' '+v.slice(4);
+  goTo('s2b');
+}
+
+function onOtp(input){
+  var v=input.value.replace(/\D/g,'');input.value=v;
+  document.getElementById('otpBtn').disabled=v.length<6;
+}
+
+function submitOtp(){
+  var v=document.getElementById('otpInput').value;
+  if(v==='654321'){
+    document.getElementById('retPhoneShow').textContent=phoneNum.slice(0,4)+' '+phoneNum.slice(4);
+    goTo('s_returning');
+  }else{goTo('s2c');}
+}
+
+function resend(){
+  var h=document.getElementById('otpHint');
+  h.textContent='Code resent!';h.style.color='#3ab86a';
+  setTimeout(function(){h.textContent='Enter the 6-digit code';h.style.color='';},3000);
+}
+
+function startEnrolled(){
+
+  // Update settings display after profile save
+  var sn = document.getElementById('sName'); if(sn) sn.textContent = profileData.name || 'Not set';
+  var se = document.getElementById('sEmail'); if(se) se.textContent = profileData.email || 'Not set';
+  var sb = document.getElementById('sBday'); if(sb) sb.textContent = profileData.bday || 'Not set';
+
+  ['ePhone','homePhone','sPhone'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=phoneNum||'81234567';});
+  var pts=0,t=setInterval(function(){pts+=2;var el=document.getElementById('ePts');if(el)el.textContent=pts;if(pts>=50)clearInterval(t);},28);
+  setTimeout(function(){var f=document.getElementById('eFill');if(f)f.style.width='10%';},700);
+}
+
+function onRetPhone(input){
+  var v=input.value.replace(/\D/g,'');input.value=v;
+  document.getElementById('retBtn').disabled=v.length!==8;
+}
+
+function submitRet(){
+  var v=document.getElementById('retInput').value;
+  if(v.length!==8)return;
+  document.getElementById('retPhoneShow').textContent=v.slice(0,4)+' '+v.slice(4);
+  goTo('s_returning');
+}
+
+
+
+// ── SURVEY ──
+var surveyRating = 0;
+var surveyTags = [];
+var currentSurveyStep = 1;
+
+function rateStar(n) {
+  surveyRating = n;
+  for (var i = 1; i <= 5; i++) {
+    var s = document.getElementById('star' + i);
+    if (s) s.classList.toggle('lit', i <= n);
+  }
+  var labels = ['', 'Poor', 'Fair', 'Good', 'Great', 'Excellent!'];
+  var lbl = document.getElementById('starLabel');
+  if (lbl) lbl.textContent = labels[n] + ' · ' + n + '/5';
+  var btn = document.getElementById('sv1Btn');
+  if (btn) btn.disabled = false;
+  if (navigator.vibrate) navigator.vibrate(20);
+}
+
+function pickTag(el) {
+  el.classList.toggle('picked');
+  if (navigator.vibrate) navigator.vibrate(15);
+}
+
+function surveyNext(step) {
+  document.getElementById('sv' + step).classList.remove('active');
+  document.getElementById('sv' + (step + 1)).classList.add('active');
+  document.getElementById('sp' + (step < 3 ? step + 1 : 3)).classList.add('done');
+  currentSurveyStep = step + 1;
+  if (navigator.vibrate) navigator.vibrate(20);
+}
+
+function submitSurvey() {
+  // Collect all data
+  var tags = [];
+  document.querySelectorAll('.survey-opt.picked').forEach(function(el) { tags.push(el.textContent.trim()); });
+  var comment = document.getElementById('surveyComment') ? document.getElementById('surveyComment').value : '';
+  
+  // In real build: POST to Dylan's backend
+  // { rating: surveyRating, tags: tags, comment: comment, merchant: mName, phone: phoneNum, timestamp: Date.now() }
+  console.log('Survey submitted:', { rating: surveyRating, tags: tags, comment: comment });
+  
+  // Show thank you
+  document.getElementById('sv3').classList.remove('active');
+  document.getElementById('sv4').classList.add('active');
+  document.querySelectorAll('.sp-dot').forEach(function(d) { d.classList.add('done'); });
+  if (navigator.vibrate) navigator.vibrate([40, 30, 60]);
+}
+
+function skipSurvey() {
+  goTo('s_home');
+}
+
+// Set shop name in survey
+function setSurveyShop(name) {
+  ['surveyShopName', 'surveyShopName2'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = name;
+  });
+}
+
+
+// Profile data
+var profileData = { name: '', email: '', bday: '' };
+
+function saveProfile() {
+  profileData.name = document.getElementById('profileName').value.trim();
+  profileData.email = document.getElementById('profileEmail').value.trim();
+  profileData.bday = document.getElementById('profileBday').value;
+  // Update display name on enrolled screen if name provided
+  if (profileData.name) {
+    var eName = document.getElementById('eName');
+    if (eName) eName.textContent = profileData.name + ' · ' + (document.getElementById('eMerchant') ? document.getElementById('eMerchant').textContent : mName);
+  }
+  // In real build: POST { phone: phoneNum, name, email, bday } to backend
+  console.log('Profile saved:', { phone: phoneNum, ...profileData });
+  goTo('s3');
+}
+
+
+function switchDistrict(id, btn) {
+  document.querySelectorAll('.dtab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.district-panel').forEach(function(p){ p.classList.remove('active'); });
+  btn.classList.add('active');
+  var panel = document.getElementById('dp-' + id);
+  if (panel) panel.classList.add('active');
+}
+
+
+function toggleArea(id) {
+  var content = document.getElementById(id + '-content');
+  var arrow = document.getElementById(id + '-arrow');
+  if (!content) return;
+  var open = content.classList.contains('open');
+  content.classList.toggle('open', !open);
+  if (arrow) arrow.textContent = open ? '▸' : '▾';
+  if (!open && navigator.vibrate) navigator.vibrate(15);
+}
+
+function toggleDistrict(id) {
+  var content = document.getElementById(id + '-content');
+  var arrow = document.getElementById(id + '-arrow');
+  if (!content) return;
+  var open = content.classList.contains('open');
+  // Close others
+  document.querySelectorAll('.district-content').forEach(function(d){ d.classList.remove('open'); });
+  document.querySelectorAll('[id$="-arrow"]').forEach(function(a){
+    if(a.id.split('-').length === 2 && a.id !== 'east-arrow') a.textContent = '▸';
+  });
+  if (!open) {
+    content.classList.add('open');
+    if (arrow) arrow.textContent = '▾';
+    if (navigator.vibrate) navigator.vibrate(15);
+  }
+}
+
+function toggleMall(id) {
+  var shops = document.getElementById(id + '-shops');
+  var arrow = document.getElementById(id + '-arrow');
+  if (!shops) return;
+  var isOpen = shops.classList.contains('open');
+  // Close all malls first
+  document.querySelectorAll('.mall-shops').forEach(function(s){ s.classList.remove('open'); });
+  document.querySelectorAll('[id$="-arrow"]').forEach(function(a){ if(a.id.split('-').length===2) a.textContent='▸'; });
+  if (!isOpen) {
+    shops.classList.add('open');
+    if (arrow) arrow.textContent = '▾';
+    if (navigator.vibrate) navigator.vibrate(15);
+  }
+}
+
+function toggleShop(id) {
+  var detail = document.getElementById(id);
+  var arrow = document.getElementById(id + 'arrow');
+  var isOpen = detail.classList.contains('open');
+  // Close all first
+  document.querySelectorAll('.shop-detail').forEach(function(d){ d.classList.remove('open'); });
+  document.querySelectorAll('[id$="arrow"]').forEach(function(a){ a.textContent = '▸'; });
+  // Toggle clicked
+  if (!isOpen) {
+    detail.classList.add('open');
+    if (arrow) arrow.textContent = '▾';
+    if (navigator.vibrate) navigator.vibrate(15);
+  }
+}
+
+// Auto-open East Area
+setTimeout(function(){
+  var ec = document.getElementById('east-content');
+  var ea = document.getElementById('east-arrow');
+  if(ec){ ec.classList.add('open'); if(ea) ea.textContent='▾'; }
+}, 600);
+
+// Live stats
+setTimeout(function(){
+  var m=0,t=0;
+  var mi=setInterval(function(){m++;document.getElementById('lsM').textContent=m;if(m>=34)clearInterval(mi);},40);
+  var ti=setInterval(function(){t+=52;document.getElementById('lsT').textContent=t;if(t>=1860)clearInterval(ti);},18);
+  var p=0,pi=setInterval(function(){p++;var el=document.getElementById('lpPts');if(el)el.textContent=p;if(p>=50)clearInterval(pi);},30);
+},500);
+</script>
+</body>
+</html>
