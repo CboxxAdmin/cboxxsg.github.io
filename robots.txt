@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /government.html
+Disallow: /dashboard.html
+Disallow: /consumer.html
+Disallow: /tap.html
+
+Sitemap: https://cboxxsg.com/sitemap.xml
