@@ -1,1590 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CBOXX Dashboard — Tampines Mall · Haidilao</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CBOXX Team, Built by Founders Who Move Fast</title>
+<meta name="description" content="Meet the five co-founders building Singapore's first NFC-powered district loyalty network.">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; font-family: 'Inter', sans-serif; background: #070C12; color: #E8E4DF; overflow-x: hidden; }
+:root{--red:#8B0015;--navy:#0D1B2A;--cream:#F2EDE5;--yellow:#C9963A;--green:#165C32;--mid:#7A7A7A;--white:#FFFFFF;--light:#F4F1EC;--black:#060C14;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:#000000;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:72px;border-bottom:1px solid rgba(139,0,21,0.3);}
+.nav-logo img{height:36px;width:auto;display:block;}
+.nav-links{display:flex;gap:1.1rem;list-style:none;align-items:center;}
+.nav-links a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.78rem;font-weight:500;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:#C9963A;}
+.nav-cta{background:#8B0015!important;color:white!important;padding:0.42rem 1.05rem;border-radius:4px;font-weight:600!important;}
+.nav-cta:hover{background:#7A0012!important;}
+.nav-burger{display:none;background:none;border:none;cursor:pointer;padding:0.5rem;flex-direction:column;gap:5px;}
+.nav-burger span{display:block;width:22px;height:2px;background:white;border-radius:2px;transition:all 0.3s;}
+.mobile-nav{display:none;position:fixed;top:72px;left:0;right:0;background:#000000;backdrop-filter:blur(16px);z-index:199;padding:1.5rem 5vw 2rem;border-bottom:1px solid rgba(139,0,21,0.3);}
+.mobile-nav.open{display:block;animation:slideDown 0.22s ease;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.mobile-nav ul{list-style:none;display:flex;flex-direction:column;gap:0.9rem;}
+.mobile-nav a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:1rem;font-weight:600;display:block;padding:0.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.mobile-nav a.cta-m{color:#8B0015;border:none;margin-top:0.5rem;}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.from-left{transform:translateX(-28px);}
+.reveal.from-right{transform:translateX(28px);}
+.reveal.from-scale{transform:scale(0.92);}
+.reveal.visible{opacity:1!important;transform:none!important;}
+.d1{transition-delay:.06s}.d2{transition-delay:.13s}.d3{transition-delay:.20s}.d4{transition-delay:.27s}.d5{transition-delay:.34s}.d6{transition-delay:.41s}
+.eyebrow{font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;display:block;margin-bottom:0.85rem;}
+.section-headline{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;text-transform:uppercase;line-height:1;margin-bottom:1rem;}
+.section-sub{font-size:0.98rem;line-height:1.75;max-width:540px;margin-bottom:3rem;}
+.btn-red{display:inline-flex;align-items:center;gap:0.5rem;background:#8B0015;color:white;padding:0.9rem 1.8rem;border-radius:4px;font-weight:700;font-size:0.9rem;text-decoration:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s,transform 0.15s;}
+.btn-red:hover{background:#7A0012;transform:translateY(-1px);}
+.btn-ghost{display:inline-flex;align-items:center;gap:0.5rem;border:1.5px solid rgba(255,255,255,0.25);color:white;padding:0.9rem 1.8rem;border-radius:4px;font-weight:600;font-size:0.9rem;text-decoration:none;transition:border-color 0.2s,color 0.2s;}
+.btn-ghost:hover{border-color:#C9963A;color:#C9963A;}
+footer{background:#060C14;padding:3rem 5vw;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;}
+.footer-logo img{height:30px;}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.footer-links a{color:rgba(255,255,255,0.28);text-decoration:none;font-size:0.78rem;transition:color 0.2s;}
+.footer-links a:hover{color:rgba(255,255,255,0.65);}
+.footer-copy{font-size:0.7rem;color:rgba(255,255,255,0.18);}
+@media(max-width:768px){nav{padding:0 4vw;height:64px;}.nav-links{display:none;}.nav-burger{display:flex;}.nav-logo img{height:30px;}footer{flex-direction:column;text-align:center;}.footer-links{justify-content:center;}}
 
-/* ── LAYOUT ── */
-.app { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
-
-/* ── SIDEBAR ── */
-.sidebar {
-  background: #000000;
-  border-right: 1px solid rgba(255,255,255,0.06);
-  display: flex; flex-direction: column;
-  padding: 0;
-  position: sticky; top: 0; height: 100vh; overflow-y: auto;
-}
-.sidebar-logo {
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  display: flex; align-items: center; gap: 0.6rem;
-}
-.logo-mark {
-  width: 28px; height: 28px; background: #8B0015; border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.75rem; font-weight: 900; color: white; letter-spacing: 0.05em;
-  flex-shrink: 0;
-}
-.logo-text { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 900; color: #E8E4DF; letter-spacing: 0.05em; }
-.sidebar-merchant {
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.sm-label { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 0.25rem; }
-.sm-name { font-size: 0.88rem; font-weight: 700; color: #E8E4DF; margin-bottom: 0.1rem; }
-.sm-mall { font-size: 0.72rem; color: rgba(255,255,255,0.35); }
-.sm-plan {
-  display: inline-block; margin-top: 0.5rem;
-  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-  padding: 0.2rem 0.55rem; border-radius: 100px;
-  background: rgba(139,0,21,0.2); border: 1px solid rgba(139,0,21,0.4); color: #ff6b6b;
-}
-.sidebar-nav { padding: 1rem 0; flex: 1; }
-.nav-section-label {
-  font-size: 0.56rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-  color: rgba(255,255,255,0.2); padding: 0.6rem 1.5rem 0.3rem;
-}
-.nav-item {
-  display: flex; align-items: center; gap: 0.7rem;
-  padding: 0.6rem 1.5rem; cursor: pointer;
-  font-size: 0.82rem; font-weight: 500; color: rgba(255,255,255,0.45);
-  transition: all 0.15s; position: relative; border-radius: 0;
-  text-decoration: none;
-}
-.nav-item:hover { color: #E8E4DF; background: rgba(255,255,255,0.04); }
-.nav-item.active {
-  color: #E8E4DF; background: rgba(139,0,21,0.12);
-  border-left: 2px solid #8B0015;
-}
-.nav-item .ni { font-size: 0.85rem; width: 16px; text-align: center; flex-shrink: 0; }
-.nav-badge {
-  margin-left: auto; font-size: 0.58rem; font-weight: 700;
-  background: #8B0015; color: white; padding: 0.15rem 0.45rem;
-  border-radius: 100px;
-}
-.sidebar-bottom {
-  padding: 1rem 1.5rem;
-  border-top: 1px solid rgba(255,255,255,0.06);
-}
-.upgrade-box {
-  background: rgba(139,0,21,0.1); border: 1px solid rgba(139,0,21,0.25);
-  border-radius: 8px; padding: 1rem;
-}
-.upgrade-box p { font-size: 0.75rem; color: rgba(255,255,255,0.45); line-height: 1.5; margin-bottom: 0.75rem; }
-.upgrade-btn {
-  display: block; width: 100%; text-align: center;
-  background: #8B0015; color: white; border: none; border-radius: 4px;
-  padding: 0.5rem; font-size: 0.75rem; font-weight: 700; cursor: pointer;
-  font-family: 'Inter', sans-serif; transition: background 0.2s;
-}
-.upgrade-btn:hover { background: #7A0012; }
-
-/* ── MAIN ── */
-.main { display: flex; flex-direction: column; min-height: 100vh; }
-
-/* ── TOPBAR ── */
-.topbar {
-  background: #070C12; border-bottom: 1px solid rgba(255,255,255,0.06);
-  padding: 0 2rem; height: 60px;
-  display: flex; align-items: center; justify-content: space-between;
-  position: sticky; top: 0; z-index: 10;
-}
-.topbar-left { display: flex; align-items: center; gap: 1rem; }
-.page-title { font-size: 0.9rem; font-weight: 600; color: #E8E4DF; }
-.date-range {
-  display: flex; align-items: center; gap: 0.4rem;
-  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 6px; padding: 0.35rem 0.75rem;
-  font-size: 0.75rem; color: rgba(255,255,255,0.5); cursor: pointer;
-}
-.topbar-right { display: flex; align-items: center; gap: 1rem; }
-.live-indicator {
-  display: flex; align-items: center; gap: 0.4rem;
-  font-size: 0.7rem; color: rgba(255,255,255,0.4);
-}
-.live-dot { width: 6px; height: 6px; border-radius: 50%; background: #3ab86a; animation: pulse 2s ease-in-out infinite; }
-@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-.notif-btn {
-  width: 32px; height: 32px; border-radius: 6px;
-  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.85rem; cursor: pointer; position: relative;
-}
-.notif-count {
-  position: absolute; top: -4px; right: -4px;
-  width: 14px; height: 14px; border-radius: 50%;
-  background: #8B0015; font-size: 0.5rem; font-weight: 700;
-  display: flex; align-items: center; justify-content: center; color: white;
-}
-
-/* ── CONTENT ── */
-.content { padding: 1.75rem 2rem; flex: 1; }
-
-/* ── KPI CARDS ── */
-.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
-.kpi {
-  background: #0D1520; border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 10px; padding: 1.25rem 1.4rem;
-  position: relative; overflow: hidden; transition: border-color 0.2s;
-}
-.kpi:hover { border-color: rgba(139,0,21,0.3); }
-.kpi::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
-.kpi.red::before { background: #8B0015; }
-.kpi.green::before { background: #165C32; }
-.kpi.amber::before { background: #C9963A; }
-.kpi.blue::before { background: #1d4ed8; }
-.kpi-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 0.6rem; }
-.kpi-value { font-family: 'Barlow Condensed', sans-serif; font-size: 2.2rem; font-weight: 900; color: #E8E4DF; line-height: 1; margin-bottom: 0.4rem; }
-.kpi-change { display: flex; align-items: center; gap: 0.3rem; font-size: 0.72rem; font-weight: 600; }
-.kpi-change.up { color: #3ab86a; }
-.kpi-change.down { color: #ff6b6b; }
-.kpi-sub { font-size: 0.68rem; color: rgba(255,255,255,0.25); margin-top: 0.15rem; }
-
-/* ── GRID LAYOUT ── */
-.grid-2 { display: grid; grid-template-columns: 1fr 340px; gap: 1.25rem; margin-bottom: 1.25rem; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
-
-/* ── CARDS ── */
-.card {
-  background: #0D1520; border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 10px; padding: 1.4rem;
-}
-.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
-.card-title { font-size: 0.82rem; font-weight: 700; color: #E8E4DF; }
-.card-sub { font-size: 0.68rem; color: rgba(255,255,255,0.28); margin-top: 0.1rem; }
-.card-action { font-size: 0.7rem; color: rgba(255,255,255,0.3); cursor: pointer; transition: color 0.2s; }
-.card-action:hover { color: #C9963A; }
-
-/* ── CHART ── */
-.chart-area { position: relative; height: 160px; display: flex; align-items: flex-end; gap: 6px; padding: 0 4px; }
-.bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.bar {
-  width: 100%; border-radius: 4px 4px 0 0;
-  background: linear-gradient(180deg, rgba(139,0,21,0.9) 0%, rgba(139,0,21,0.5) 100%);
-  transition: all 0.3s ease; cursor: pointer; position: relative;
-}
-.bar:hover { background: linear-gradient(180deg, #8B0015 0%, rgba(139,0,21,0.7) 100%); }
-.bar.today { background: linear-gradient(180deg, #C9963A 0%, rgba(201,150,58,0.6) 100%); }
-.bar-label { font-size: 0.58rem; color: rgba(255,255,255,0.25); }
-.chart-yaxis {
-  position: absolute; left: 0; top: 0; bottom: 20px;
-  display: flex; flex-direction: column; justify-content: space-between;
-  pointer-events: none;
-}
-.chart-yaxis span { font-size: 0.58rem; color: rgba(255,255,255,0.15); }
-.chart-gridlines {
-  position: absolute; left: 0; right: 0; top: 0; bottom: 20px;
-  display: flex; flex-direction: column; justify-content: space-between;
-  pointer-events: none;
-}
-.chart-gridlines div { border-top: 1px dashed rgba(255,255,255,0.05); width: 100%; }
-
-/* ── LINE CHART ── */
-.line-chart-wrap { height: 120px; position: relative; }
-svg.line-chart { width: 100%; height: 100%; overflow: visible; }
-
-/* ── PEAK HOURS ── */
-.peak-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; }
-.peak-cell {
-  height: 32px; border-radius: 4px; display: flex; align-items: center; justify-content: center;
-  font-size: 0.52rem; color: rgba(255,255,255,0.3); font-weight: 600;
-  transition: all 0.2s; cursor: default;
-}
-.peak-label-row { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; margin-top: 4px; }
-.peak-label { font-size: 0.52rem; color: rgba(255,255,255,0.2); text-align: center; }
-
-/* ── LOYALTY TABLE ── */
-.member-list { display: flex; flex-direction: column; gap: 0; }
-.member-row {
-  display: flex; align-items: center; gap: 1rem;
-  padding: 0.65rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-}
-.member-row:last-child { border-bottom: none; }
-.member-avatar {
-  width: 30px; height: 30px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.7rem; font-weight: 700; color: white; flex-shrink: 0;
-}
-.member-info { flex: 1; min-width: 0; }
-.member-name { font-size: 0.8rem; font-weight: 600; color: #E8E4DF; }
-.member-meta { font-size: 0.65rem; color: rgba(255,255,255,0.3); }
-.member-pts { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 900; color: #C9963A; }
-.member-tier { font-size: 0.6rem; margin-top: 1px; }
-
-/* ── RING CHART ── */
-.ring-wrap { display: flex; align-items: center; gap: 1.25rem; }
-.ring-chart { position: relative; width: 90px; height: 90px; flex-shrink: 0; }
-.ring-chart svg { transform: rotate(-90deg); }
-.ring-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.ring-pct { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 900; color: #E8E4DF; line-height: 1; }
-.ring-sub-label { font-size: 0.48rem; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em; }
-.ring-legend { display: flex; flex-direction: column; gap: 0.6rem; }
-.rl-item { display: flex; align-items: center; gap: 0.5rem; }
-.rl-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.rl-text { font-size: 0.72rem; color: rgba(255,255,255,0.5); }
-.rl-val { margin-left: auto; font-size: 0.72rem; font-weight: 600; color: #E8E4DF; }
-
-/* ── ACTIVITY FEED ── */
-.activity-list { display: flex; flex-direction: column; gap: 0; }
-.activity-item {
-  display: flex; align-items: flex-start; gap: 0.85rem;
-  padding: 0.65rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-  animation: fadeIn 0.4s ease;
-}
-@keyframes fadeIn { from { opacity:0; transform: translateX(-6px); } to { opacity:1; transform: translateX(0); } }
-.activity-item:last-child { border-bottom: none; }
-.activity-icon {
-  width: 28px; height: 28px; border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.7rem; flex-shrink: 0; margin-top: 1px;
-}
-.activity-body { flex: 1; min-width: 0; }
-.activity-text { font-size: 0.78rem; color: rgba(255,255,255,0.65); line-height: 1.4; }
-.activity-text strong { color: #E8E4DF; font-weight: 600; }
-.activity-time { font-size: 0.62rem; color: rgba(255,255,255,0.22); margin-top: 0.15rem; }
-
-/* ── CAMPAIGN CARD ── */
-.campaign-row {
-  display: flex; align-items: center; gap: 1rem;
-  padding: 0.75rem; background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;
-  margin-bottom: 0.6rem; cursor: pointer; transition: border-color 0.2s;
-}
-.campaign-row:hover { border-color: rgba(139,0,21,0.3); }
-.campaign-row:last-child { margin-bottom: 0; }
-.campaign-status { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.campaign-info { flex: 1; }
-.campaign-name { font-size: 0.8rem; font-weight: 600; color: #E8E4DF; margin-bottom: 0.1rem; }
-.campaign-meta { font-size: 0.65rem; color: rgba(255,255,255,0.3); }
-.campaign-stat { text-align: right; }
-.campaign-rate { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 900; color: #C9963A; }
-.campaign-label { font-size: 0.6rem; color: rgba(255,255,255,0.25); }
-
-/* ── CHURN ALERT ── */
-.churn-alert {
-  background: rgba(139,0,21,0.08); border: 1px solid rgba(139,0,21,0.25);
-  border-radius: 8px; padding: 1rem 1.2rem;
-  display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;
-}
-.churn-icon { font-size: 1.2rem; flex-shrink: 0; }
-.churn-text { flex: 1; }
-.churn-title { font-size: 0.82rem; font-weight: 700; color: #ff6b6b; margin-bottom: 0.15rem; }
-.churn-desc { font-size: 0.72rem; color: rgba(255,255,255,0.4); line-height: 1.45; }
-.churn-btn {
-  background: rgba(139,0,21,0.2); border: 1px solid rgba(139,0,21,0.4);
-  color: #ff6b6b; padding: 0.4rem 0.9rem; border-radius: 4px;
-  font-size: 0.72rem; font-weight: 700; cursor: pointer; white-space: nowrap;
-  font-family: 'Inter', sans-serif; transition: background 0.2s;
-}
-.churn-btn:hover { background: rgba(139,0,21,0.35); }
-
-/* ── BENCHMARK ── (Pro) */
-.bench-row { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 0.85rem; }
-.bench-row:last-child { margin-bottom: 0; }
-.bench-label { font-size: 0.75rem; color: rgba(255,255,255,0.45); width: 90px; flex-shrink: 0; }
-.bench-bar-wrap { flex: 1; height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
-.bench-bar { height: 100%; border-radius: 4px; transition: width 1s ease; }
-.bench-val { font-size: 0.75rem; font-weight: 600; color: #E8E4DF; width: 36px; text-align: right; flex-shrink: 0; }
-.bench-rank { font-size: 0.62rem; color: rgba(255,255,255,0.25); width: 50px; text-align: right; flex-shrink: 0; }
-
-/* ── PRO BADGE ── */
-.pro-badge {
-  display: inline-flex; align-items: center; gap: 0.3rem;
-  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  background: rgba(201,150,58,0.15); border: 1px solid rgba(201,150,58,0.3);
-  color: #C9963A; padding: 0.18rem 0.5rem; border-radius: 100px;
-}
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
-
-/* Customer Service */
-.csat-score { display:flex; align-items:center; justify-content:center; flex-direction:column; }
-.csat-big { font-family:'Barlow Condensed',sans-serif; font-size:3.5rem; font-weight:900; color:#E8E4DF; line-height:1; }
-.csat-stars { display:flex; gap:2px; margin:0.4rem 0; font-size:1.1rem; }
-.csat-label { font-size:0.68rem; color:rgba(255,255,255,0.3); }
-.resp-row { display:flex; align-items:center; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid rgba(255,255,255,0.05); }
-.resp-row:last-child { border-bottom:none; }
-.resp-label { font-size:0.78rem; color:rgba(255,255,255,0.45); }
-.resp-val { font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:900; color:#E8E4DF; }
-.resp-badge { font-size:0.65rem; font-weight:700; padding:0.18rem 0.5rem; border-radius:100px; }
-.resp-good { background:rgba(58,184,106,0.15); color:#3ab86a; }
-.resp-warn { background:rgba(201,150,58,0.15); color:#C9963A; }
-.resp-bad { background:rgba(139,0,21,0.2); color:#ff6b6b; }
-.feedback-row { display:flex; align-items:center; gap:0.85rem; padding:0.6rem 0; border-bottom:1px solid rgba(255,255,255,0.05); }
-.feedback-row:last-child { border-bottom:none; }
-.fb-icon { width:30px; height:30px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:0.85rem; flex-shrink:0; }
-.fb-text { flex:1; font-size:0.78rem; color:rgba(255,255,255,0.6); line-height:1.4; }
-.fb-time { font-size:0.62rem; color:rgba(255,255,255,0.22); white-space:nowrap; }
-.nps-bar { display:flex; gap:3px; margin:0.75rem 0; }
-.nps-seg { flex:1; height:28px; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:0.6rem; font-weight:700; color:rgba(255,255,255,0.7); cursor:default; }
-
-
-/* ── MOBILE RESPONSIVE ── */
-@media (max-width: 900px) {
-  .app { grid-template-columns: 1fr !important; }
-  .sidebar {
-    position: fixed !important;
-    left: 0; top: 0; bottom: 0;
-    width: 260px; z-index: 300;
-    transform: translateX(-100%);
-    transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
-    height: 100vh;
-    overflow-y: auto;
-  }
-  .sidebar.open { transform: translateX(0) !important; }
-  .mobile-header { display: flex !important; }
-  .topbar { display: none !important; }
-  .content { padding: 1rem !important; }
-  .main { padding-top: 56px !important; }
-  .kpi-grid { grid-template-columns: repeat(2, 1fr) !important; }
-  .grid-2 { grid-template-columns: 1fr !important; }
-  .grid-3 { grid-template-columns: 1fr !important; }
-}
-@media (max-width: 500px) {
-  .kpi-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.65rem !important; }
-  .kpi { padding: 1rem !important; }
-  .kpi-value { font-size: 1.8rem !important; }
-  .content { padding: 0.75rem !important; }
-  .card { padding: 1rem !important; }
-  .churn-alert { flex-direction: column !important; gap: 0.65rem !important; }
-  .bench-rank { display: none !important; }
-  .member-row { flex-wrap: wrap !important; }
-}
-@media (max-width: 500px) {
-  .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 0.65rem; }
-  .kpi { padding: 1rem; }
-  .kpi-value { font-size: 1.8rem; }
-  .content { padding: 0.75rem; }
-  .topbar { height: 56px; }
-  .card { padding: 1rem; }
-  .churn-alert { flex-direction: column; gap: 0.65rem; }
-  .bench-rank { display: none; }
-}
-
-/* Mobile header */
-.mobile-header {
-  display: none;
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  background: #000; border-bottom: 1px solid rgba(255,255,255,0.06);
-  padding: 0 1rem; height: 56px;
-  align-items: center; justify-content: space-between;
-}
-.mob-menu-btn {
-  width: 36px; height: 36px; background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08); border-radius: 6px;
-  display: flex; flex-direction: column; gap: 4px; align-items: center; justify-content: center;
-  cursor: pointer; border: none; padding: 0;
-}
-.mob-menu-btn span { display: block; width: 18px; height: 2px; background: white; border-radius: 2px; }
-.mob-overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 299;
-}
-.mob-overlay.open { display: block; }
-@media (min-width: 901px) {
-  .mobile-header { display: none !important; }
-  .main { padding-top: 0 !important; }
-}
-@media (max-width: 900px) {
-  .main { padding-top: 56px; }
-  .topbar { display: none; }
-}
-
-
-
-.dash-section { display:none; width:100%; min-height:200px; }
-.dash-section.active { display:block; }
-.main { overflow-y: auto; }
-.content { padding: 1.75rem 2rem; flex: 1; overflow-y: visible; }
-
-.dash-section.active { display:block; }
-.section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; }
-
-
-@media (max-width: 500px) {
-  .kpi-grid { grid-template-columns: 1fr 1fr !important; }
-  .grid-2 { grid-template-columns: 1fr !important; }
-  .grid-3 { grid-template-columns: 1fr !important; }
-  /* Segments grid */
-  #sec-segments > div[style*="grid-template-columns:repeat(2"] { grid-template-columns: 1fr !important; }
-  /* Customer service grid */
-  div[style*="grid-template-columns:repeat(auto-fit"] { grid-template-columns: 1fr !important; }
-  /* Benchmarks grid */
-  #sec-benchmarks > div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
-  /* Section header */
-  .section-header { flex-wrap: wrap; gap: 0.75rem; }
-  /* Ring chart */
-  .ring-wrap { flex-direction: column; align-items: center; text-align: center; }
-  .ring-legend { width: 100%; }
-  .rl-item { justify-content: center; }
-  /* Bench rows */
-  .bench-rank { display: none; }
-  /* Campaign rows */
-  div[style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr 1fr !important; }
-  /* CSAT grid */
-  div[style*="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))"] { grid-template-columns: 1fr !important; }
-  /* Member table — hide less important cols */
-  #memberTable th:nth-child(4),
-  #memberTable th:nth-child(5),
-  #memberTable td:nth-child(4),
-  #memberTable td:nth-child(5) { display: none; }
-  /* Card padding */
-  .card { padding: 0.85rem !important; }
-  .content { padding: 0.65rem !important; }
-}
-
-
-.date-opt { padding:0.5rem 0.85rem; font-size:0.8rem; color:rgba(255,255,255,0.5); cursor:pointer; border-radius:5px; font-family:Inter,sans-serif; }
-.date-opt:hover, .date-opt.active { background:rgba(139,0,21,0.15); color:#E8E4DF; }
-.notif-item { display:flex; align-items:flex-start; gap:0.65rem; padding:0.75rem 1rem; border-bottom:1px solid rgba(255,255,255,0.04); cursor:pointer; }
-.notif-item:hover { background:rgba(255,255,255,0.03); }
-.notif-item.unread { background:rgba(139,0,21,0.04); }
-.notif-dot { width:7px; height:7px; border-radius:50%; background:#8B0015; flex-shrink:0; margin-top:4px; }
-.notif-text { font-size:0.75rem; color:rgba(255,255,255,0.65); line-height:1.4; margin-bottom:0.2rem; }
-.notif-time { font-size:0.62rem; color:rgba(255,255,255,0.28); }
-.auto-toggle { width:40px; height:22px; background:rgba(255,255,255,0.1); border-radius:11px; position:relative; cursor:pointer; transition:background 0.25s; flex-shrink:0; }
-.auto-toggle.on { background:#8B0015; }
-.auto-knob { position:absolute; top:3px; left:3px; width:16px; height:16px; border-radius:50%; background:white; transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1); }
-.auto-toggle.on .auto-knob { transform:translateX(18px); }
-
+body{background:#F2EDE5;}
+.about-hero{background:#0D1B2A;padding:120px 5vw 80px;position:relative;overflow:hidden;}
+.about-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 40% 50% at 15% 70%,rgba(139,0,21,0.08) 0%,transparent 65%);}
+.ah{font-family:'Barlow Condensed',sans-serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:900;line-height:0.92;text-transform:uppercase;color:white;margin-bottom:1.5rem;position:relative;z-index:1;}
+.ah em{color:#8B0015;font-style:normal;}
+.asub{font-size:1rem;line-height:1.75;color:rgba(255,255,255,0.5);max-width:520px;position:relative;z-index:1;}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.sstat{padding:1.5rem;background:#F2EDE5;border-radius:8px;border-left:4px solid #8B0015;margin-bottom:1rem;}
+.sstat-num{font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:900;color:#8B0015;line-height:1;margin-bottom:0.2rem;}
+.sstat-label{font-size:0.78rem;color:#7A7A7A;font-weight:500;}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.tc{background:white;border-radius:10px;border:2px solid #0D1B2A;padding:1.75rem;transition:transform 0.2s,box-shadow 0.2s;}
+.tc:hover{transform:translateY(-4px);box-shadow:0 10px 35px rgba(13,27,42,0.1);}
+.tc.feat{border-color:#8B0015;}
+.ti{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:900;color:white;margin-bottom:1.1rem;}
+.tn{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#0D1B2A;text-transform:uppercase;margin-bottom:0.15rem;}
+.tr{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#8B0015;margin-bottom:0.85rem;}
+.tb{font-size:0.855rem;line-height:1.65;color:#7A7A7A;margin-bottom:1rem;}
+.ttags{display:flex;flex-wrap:wrap;gap:0.35rem;}
+.ttag{font-size:0.62rem;font-weight:600;padding:0.22rem 0.55rem;border-radius:100px;background:rgba(13,27,42,0.06);color:#0D1B2A;}
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem;}
+.vc{padding:1.75rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;border-top:3px solid #8B0015;}
+.vicon{font-size:1.6rem;margin-bottom:0.65rem;}
+.vtitle{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:white;text-transform:uppercase;margin-bottom:0.45rem;}
+.vbody{font-size:0.84rem;color:rgba(255,255,255,0.45);line-height:1.65;}
+@media(max-width:768px){.story-grid{grid-template-columns:1fr;}.team-grid{grid-template-columns:1fr;}.val-grid{grid-template-columns:1fr;}}
 </style>
+<meta name="robots" content="index, follow">
 </head>
 <body>
+<nav>
+  <div class="nav-logo"><a href="index.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAF0AAAAmCAIAAAAp9gCWAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAApm0lEQVR4AQGQKW/WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAABAAAAAAAAAAAAAAAAAAAAAAD/AAABAAAAAAAAAAAAAAAAAAD+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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AAAA/v7+/v7+AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAP4AANX4+CAGBvj+/goCAtz6+gwCA0QNDff+/v4AAAQBAAEAAbvz8ygHByMHB/T+/gAAABEEBLDx8ZDq6gEAAAEAAP8AAAAAAAAAAAAAAAAAAAMDA/39/f7+/gAAAAAAAAAAAAICAgEBAQAAAAAAAA8PD/z8/AAAAAAAAAAAAAEBAQAAAP///wAAAAICAv7+/v39/QAAAAAAAAAAAAAAAAICAv7+/v7+/gAAAAAAAAEBAf///wEBAf39/QAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAv7+/gEBAfz8/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAAAADU9/hEDQ0HAgLW+fkUBAVACwv0/v7///8FAQH+/wC68/MqCAchBgby/f0DAQEQAwOo7++Y7OwCAAD/AAD/AAAAAAAAAAAAAAAAAAACAgL9/f0iIiJISEgcHBzu7u7BwcHLy8v7+/sAAAD///+ZmZmioqIKCgr39/fFxcXBwcEAAAABAQEBAQH+/v4EBARLS0s1NTUEBATR0dG0tLTz8/NYWFgvLy/+/v7W1talpaUFBQX7+/tOTk43NzcBAQHc3NwDAwMgICAAAADCwsK5ubkFBQX7+/tfX18mJiYDAwPJycmvr68CAgL+/v4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAQAAcRYVdxcWjBsbySYmviQkviQkvyUlvCQkfBgZpSAgyCYmvCQkwCUlvyQlYBMTAAAAAgAAAQAAAAAAAAAAAAAAAAAAAAAAAwMDAAAAdnZ28/Pz/////////////f39kZGRS0tL/v7+/v7+////////////////////tbW1FRUVAQEBAAAAKioqzMzM////////////////3NzcPDw8Ly8v////////////enp6AAAAV1dX////////////RkZGTExM////////////VFRUAAAAfX19////////////MzMzAAAAAgICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAABcFBUsPD3YXF24VFW8VFm8VFnYXFz4MDVgREngXF20VFW8VFmkUFDMKCgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwAAAG5ubv////////n5+djY2PDw8P////Ly8m1tbf39/f7+/v////z8/OHh4fj4+P///////8nJyQICAhUVFeTk5P///////+Xl5eHh4f////////b29hcXF1dXV/////n5+f///21tbevr6/z8/P///4eHhwAAAAAAAIiIiP////39/evr62xsbP////n5+f///19fXwAAAAMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAEAQFNDw9tFRVvFRZuFRZ4FxdCDQ5TEBB4FxdtFRVuFRZyFhZuFRY2CwsKAgIBAAAAAAAAAAAAAAAAAAAAAAABAQEAAAAWFhby8vL+/v7Q0NAwMDAFBQUfHx9VVVUWFhY4ODj////+/v7T09M2NjYNDQ0tLS3ExMT9/f3///9XV1d9fX3////7+/t4eHgPDw8LCwtiYmL19fX///+zs7MAAACqqqr////8/Pz////////////Q0NAGBgYDAwMDAwMFBQXMzMz////////////8/Pz///+urq4AAAAEBAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAADgMDjxscwyUlviQkviQkySYmihsbkRwcxCUlviQkviQkwiUlvyQlcxcXhxoZRQ0NAAAAAgAAAAAAAAAAAAAAAAAABAQEAAAAV1dX////+vr6NDQ0AAAAAQEBAAAAAAAAAAAAQkJC////+vr6MjIyAAAAAgICAAAAHh4e8/Pz/f39vLy8y8vL/v7+rq6uAAAAAAAAAQEBAAAAjo6O/v7+7u7uEhISDg4O2tra/v7++vr6/Pz88PDwLi4uAAAAAgICAgICAAAAKCgo7Ozs/f39+vr6/v7+39/fFRUVAgICAgICAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAP4AABMEBIkaGi4JCOr8/PH+/vv//7Hy8vn+/ykICOv9/fD9/fb+/uv8/KTv7gIA/wwCAioICAEAAP8AAAAAAAAA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AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAAAADB8/QDAAH7//8BAAAAAAABAADj+/vx/f0AAAAAAAAAAAAAAAABAQAJAgL6/f0BAAD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAAAAAAAAAAAAAAAAAAP8AAAEAAAAAAAAAAAAAAAAAAAAAAP4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACUcARs7k4+0wAAAABJRU5ErkJggg==" alt="CBOXX" style="height:38px;width:auto;display:block"></a></div>
+  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="merchants.html">For Merchants</a></li><li><a href="eastarea.html">East Area</a></li><li><a href="about.html" class="active">Team</a></li><li><a href="merchants.html#contact" class="nav-cta">Join Pilot</a></li></ul>
+  <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobileNav"><ul><li><a href="index.html">Home</a></li><li><a href="merchants.html">For Merchants</a></li><li><a href="eastarea.html">East Area</a></li><li><a href="about.html">Team</a></li><li><a href="merchants.html#contact" class="cta-m">Join Pilot</a></li></ul></div>
 
-<!-- Mobile overlay -->
-<div class="mob-overlay" id="mobOverlay" onclick="closeSidebar()"></div>
-
-<!-- Mobile header -->
-<div class="mobile-header">
-  <button class="mob-menu-btn" onclick="toggleSidebar()">
-    <span></span><span></span><span></span>
-  </button>
-  <img src="data:image/png;base64,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3f////////n5+f///+Hh4RERETw8PP39/f////T09P///9XV1TAwMO3t7f///3p6er29vf///6ioqAcHB7Gxsf///7a2tn5+fv///+/v7xwcHAEBAQEBAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAABAAAAAABODw+GGhqIGhp2FxdcEhKHGhqDGRmJGhtgExMcBgUCAAABAAAAAAABAQEAAAASEhL29vbU1NQeHh4MDAwyMjIcHBzy8vLj4+MuLi4ODg6Ghob///+QkJDCwsL09PQ6OjoKCgppaWn///97e3s1NTX8/Pz////////Y2NgLCwsBAQENDQ3a2tr////////7+/tCQkIAAAADAwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAgAAAAAAaxQVwSUlwCUkryEhjBsbuiMjvCQkwiUlkBwchRoZbxUVAAAAAQAAAAAAAwMDAAAAOjo6////ZGRkAAAABgYGAAAADQ0N////goKCAAAAAAAACQkJ9vb25+fn////o6OjAAAAAwMDAAAA6enp09PTAAAAmZmZ+/v7+vr6PT09AAAABwcHAAAAPz8/+vr6+/v7lZWVAAAABAQEAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAEAAAAAAP4AAHEWFlMQD/P9/eP6+9L4+CQGBvj///v//8P19eP6+QYBARgFBBQEBP8AAAEAAP///wAAAOzs7AAAADU1NQAAAPr6+gAAAPX19fv7+ysrKwAAAAAAACwsLAQEBN/f3+np6SkpKQAAAP39/R4eHg4ODt7e3gYGBjg4OAQEBAUFBUhISAAAAAAAAAAAAE1NTQUFBQQEBDY2NgoKCv///wEBAQAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAB1Fxe9JCSzIiKkHx+BGRmwIiK0IiK5IyN6GBhtFRSPGxqEGRiSHBs/DAwAAAACAAAAAAACAgIBAQG3t7f///+goKCGhobFxcVra2vv7+////+srKyDg4Pp6en///9ERER4eHj///+9vb2FhYXh4eH///80NDSRkZH///+fn5/X19f///9AQEAAAABOTk7////R0dGkpKT///+QkJAAAAADAwMAAAAAAAAAAAAAAAAAAAAAAQAAAQAADAICgxkZxiYmuSMjqyEhiRsbuCMjuiMjtSIjghkZcBYVcRYVixsahhoZjhsaaxQUAAAAAQAAAAAAAQEBAQEBFBQUsbGx////////5eXla2trmZmZnp6e////////8fHxdXV1AAAABgYGlZWV////////7u7uXl5eXFxc////wcHBAAAAOzs7+Pj44+PjPT098vLy8fHxMTExAAAAzMzM////U1NTAAAAAwMDAAAAAAAAAQAAAAAAAAIAAP4AAFUQEFAQEO38/P8AANr5+SkHBwMBAQQBAeT6+vn//hgEBNv6+hkEBAUBAf8AAAAAAI3q6+v8/AEAAP8AAAEBAf///wAAACAgIAsLC9jY2P39/QAAAAAAABkZGRcXF+Li4u7u7gICAv7+/gAAABkZGRMTE+Li4vLy8jMzMwQEBNHR0fn5+f///yUlJRgYGPPz8w0NDeLi4uHh4QAAAA0NDSwsLPPz89TU1AEBAf///wAAAAEAAAAAAAAAAAAAAAADAQH9//8AAAAAAAABAAABAAD+AAAMAwNvFRQPAgL/AADq/PwDAQEUBAP5/v8NAwOu8PHC9PQCAAD+AAAAAAABAQEAAAD///8AAAAAAAABAQEAAAACAgL9/f0AAAAAAAADAwP9/f0AAAADAwP9/f0AAAAAAAADAwP9/f0AAAAAAAAAAAABAQH///8AAAAAAAAAAAAAAAABAQEAAAD///8AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA/f//AAAAAAAAAAAA/wAA/gAAAQAA9P396Pv7DwMDBwICFwUE/v8ACgECDAICBwEBNwoKAgAA/wAAAAAAAAAA////////AgICAgICAQEB/////////f39AgICAwMDAQEB/f39AAAAAAAA/f39AgICAgICAQEB/f39AgICAwMDAQEBAAAA////AgICAwMDAgICAwMDAgIC////////AQEBAwMDAgICAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAP8AAL/09P0AAPn+/wIAAOz9/OX7+gEAAQEAAP0A/wgCAvb+/gEAAP8AAAAAAAAAAP7+/gAAAAAAAAAAAAAAAAAAAP7+/gAAAAAAAAAAAAAAAAAAAAAAAP7+/gAAAAAAAAAAAP7+/gAAAAAAAAAAAAAAAP7+/gAAAAAAAAAAAAAAAAAAAAAAAP////39/QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAQAAAAAAAAAA/wAAAQAAAAAAAAAAAAAA/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/t8ueQXvxzgAAAABJRU5ErkJggg==" alt="CBOXX" style="height:24px;width:auto;display:block">
-  <div style="display:flex;align-items:center;gap:0.5rem">
-    <div style="width:6px;height:6px;border-radius:50%;background:#3ab86a;animation:pulse 2s ease-in-out infinite"></div>
-    <span style="font-size:0.7rem;color:rgba(255,255,255,0.4)">Live</span>
-  </div>
+<div class="about-hero">
+  <span class="eyebrow reveal" style="color:#8B0015">The Team</span>
+  <h1 class="ah reveal">Built by founders<br>who move <em>fast.</em></h1>
+  <p class="asub reveal">Five co-founders across commercial, tech, ops, people, and creative. Singapore-based. Building Singapore's first NFC-powered district loyalty network.</p>
 </div>
 
-<div class="app">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-logo" style="background:#000;padding:1.25rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.06)"><img src="data:image/png;base64,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3f////////n5+f///+Hh4RERETw8PP39/f////T09P///9XV1TAwMO3t7f///3p6er29vf///6ioqAcHB7Gxsf///7a2tn5+fv///+/v7xwcHAEBAQEBAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAABAAAAAABODw+GGhqIGhp2FxdcEhKHGhqDGRmJGhtgExMcBgUCAAABAAAAAAABAQEAAAASEhL29vbU1NQeHh4MDAwyMjIcHBzy8vLj4+MuLi4ODg6Ghob///+QkJDCwsL09PQ6OjoKCgppaWn///97e3s1NTX8/Pz////////Y2NgLCwsBAQENDQ3a2tr////////7+/tCQkIAAAADAwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAgAAAAAAaxQVwSUlwCUkryEhjBsbuiMjvCQkwiUlkBwchRoZbxUVAAAAAQAAAAAAAwMDAAAAOjo6////ZGRkAAAABgYGAAAADQ0N////goKCAAAAAAAACQkJ9vb25+fn////o6OjAAAAAwMDAAAA6enp09PTAAAAmZmZ+/v7+vr6PT09AAAABwcHAAAAPz8/+vr6+/v7lZWVAAAABAQEAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAEAAAAAAP4AAHEWFlMQD/P9/eP6+9L4+CQGBvj///v//8P19eP6+QYBARgFBBQEBP8AAAEAAP///wAAAOzs7AAAADU1NQAAAPr6+gAAAPX19fv7+ysrKwAAAAAAACwsLAQEBN/f3+np6SkpKQAAAP39/R4eHg4ODt7e3gYGBjg4OAQEBAUFBUhISAAAAAAAAAAAAE1NTQUFBQQEBDY2NgoKCv///wEBAQAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAB1Fxe9JCSzIiKkHx+BGRmwIiK0IiK5IyN6GBhtFRSPGxqEGRiSHBs/DAwAAAACAAAAAAACAgIBAQG3t7f///+goKCGhobFxcVra2vv7+////+srKyDg4Pp6en///9ERER4eHj///+9vb2FhYXh4eH///80NDSRkZH///+fn5/X19f///9AQEAAAABOTk7////R0dGkpKT///+QkJAAAAADAwMAAAAAAAAAAAAAAAAAAAAAAQAAAQAADAICgxkZxiYmuSMjqyEhiRsbuCMjuiMjtSIjghkZcBYVcRYVixsahhoZjhsaaxQUAAAAAQAAAAAAAQEBAQEBFBQUsbGx////////5eXla2trmZmZnp6e////////8fHxdXV1AAAABgYGlZWV////////7u7uXl5eXFxc////wcHBAAAAOzs7+Pj44+PjPT098vLy8fHxMTExAAAAzMzM////U1NTAAAAAwMDAAAAAAAAAQAAAAAAAAIAAP4AAFUQEFAQEO38/P8AANr5+SkHBwMBAQQBAeT6+vn//hgEBNv6+hkEBAUBAf8AAAAAAI3q6+v8/AEAAP8AAAEBAf///wAAACAgIAsLC9jY2P39/QAAAAAAABkZGRcXF+Li4u7u7gICAv7+/gAAABkZGRMTE+Li4vLy8jMzMwQEBNHR0fn5+f///yUlJRgYGPPz8w0NDeLi4uHh4QAAAA0NDSwsLPPz89TU1AEBAf///wAAAAEAAAAAAAAAAAAAAAADAQH9//8AAAAAAAABAAABAAD+AAAMAwNvFRQPAgL/AADq/PwDAQEUBAP5/v8NAwOu8PHC9PQCAAD+AAAAAAABAQEAAAD///8AAAAAAAABAQEAAAACAgL9/f0AAAAAAAADAwP9/f0AAAADAwP9/f0AAAAAAAADAwP9/f0AAAAAAAAAAAABAQH///8AAAAAAAAAAAAAAAABAQEAAAD///8AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA/f//AAAAAAAAAAAA/wAA/gAAAQAA9P396Pv7DwMDBwICFwUE/v8ACgECDAICBwEBNwoKAgAA/wAAAAAAAAAA////////AgICAgICAQEB/////////f39AgICAwMDAQEB/f39AAAAAAAA/f39AgICAgICAQEB/f39AgICAwMDAQEBAAAA////AgICAwMDAgICAwMDAgIC////////AQEBAwMDAgICAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAP8AAL/09P0AAPn+/wIAAOz9/OX7+gEAAQEAAP0A/wgCAvb+/gEAAP8AAAAAAAAAAP7+/gAAAAAAAAAAAAAAAAAAAP7+/gAAAAAAAAAAAAAAAAAAAAAAAP7+/gAAAAAAAAAAAP7+/gAAAAAAAAAAAAAAAP7+/gAAAAAAAAAAAAAAAAAAAAAAAP////39/QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAQAAAAAAAAAA/wAAAQAAAAAAAAAAAAAA/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/t8ueQXvxzgAAAABJRU5ErkJggg==" alt="CBOXX" style="height:26px;width:auto;display:block"></div>
-    <div class="sidebar-merchant">
-      <div class="sm-label">Merchant</div>
-      <div class="sm-name">Haidilao Hot Pot</div>
-      <div class="sm-mall">Tampines Mall · #03-18</div>
-      <span class="sm-plan">Pro Plan</span>
+<section style="background:white;padding:6rem 5vw;">
+  <div class="story-grid">
+    <div class="reveal from-left">
+      <span class="eyebrow" style="color:#8B0015">Why We're Building This</span>
+      <h2 class="section-headline" style="color:#0D1B2A">The infrastructure physical retail never had.</h2>
+      <p style="font-size:0.92rem;color:#7A7A7A;line-height:1.75;margin-bottom:1rem">86.9% of Singapore's retail happens in physical stores. But the entire loyalty and data infrastructure was built for e-commerce. Physical merchants have been left behind.</p>
+      <p style="font-size:0.92rem;color:#7A7A7A;line-height:1.75;margin-bottom:1rem">We asked: what if every merchant in a mall could have the same loyalty and data capabilities as a major e-commerce brand, for SGD 100 to start?</p>
+      <p style="font-size:0.92rem;font-weight:600;color:#0D1B2A;line-height:1.75">The data is the real asset. The loyalty OS is how we earn the right to collect it.</p>
     </div>
-    <nav class="sidebar-nav">
-      <div class="nav-section-label">Overview</div>
-      <a class="nav-item active" onclick="showSection('dashboard',this)"><span class="ni">📊</span> Dashboard</a>
-      <a class="nav-item" onclick="showSection('members',this)"><span class="ni">👥</span> Members <span class="nav-badge">247</span></a>
-      <a class="nav-item" onclick="showSection('taps',this)"><span class="ni">📍</span> Tap Activity</a>
-
-      <div class="nav-section-label" style="margin-top:0.75rem">Marketing</div>
-      <a class="nav-item" onclick="showSection('campaigns',this)"><span class="ni">📣</span> Campaigns</a>
-      <a class="nav-item" onclick="showSection('rewards',this)"><span class="ni">🎁</span> Rewards</a>
-      <a class="nav-item" onclick="showSection('automations',this)"><span class="ni">⚡</span> Automations</a>
-
-      <div class="nav-section-label" style="margin-top:0.75rem">Intelligence</div>
-      <a class="nav-item" onclick="showSection('benchmarks',this)"><span class="ni">🏆</span> Benchmarks <span class="pro-badge">Pro</span></a>
-      <a class="nav-item" onclick="showSection('churn',this)"><span class="ni">⚠️</span> Churn Alerts <span class="pro-badge">Pro</span></a>
-      <a class="nav-item" onclick="showSection('segments',this)"><span class="ni">🗺️</span> Segments <span class="pro-badge">Pro</span></a>
-
-      <div class="nav-section-label" style="margin-top:0.75rem">Settings</div>
-      <a class="nav-item" onclick="showSection('nfc',this)"><span class="ni">⚙️</span> NFC Tags</a>
-      <a class="nav-item" onclick="showSection('billing',this)"><span class="ni">💳</span> Billing</a>
-      <a class="nav-item" onclick="showSection('calculator',this)"><span class="ni">🧮</span> ROI Calculator</a>
-    </nav>
-    <div class="sidebar-bottom">
-      <div class="upgrade-box">
-        <p>PSG grant approved. Your effective rate is <strong style="color:#E8E4DF">SGD 175/mo</strong>.</p>
-        <button class="upgrade-btn">View grant details</button>
-      </div>
+    <div>
+      <div class="sstat reveal d1"><div class="sstat-num">Apr 2026</div><div class="sstat-label">CBOXX Pte. Ltd. incorporated &middot; UEN: 202619369N</div></div>
+      <div class="sstat reveal d2"><div class="sstat-num">1,260+</div><div class="sstat-label">Target merchants in East Area pilot</div></div>
+      <div class="sstat reveal d3"><div class="sstat-num">5</div><div class="sstat-label">Co-founders across commercial, tech, ops, people, and creative</div></div>
+      <div class="sstat reveal d4"><div class="sstat-num">SGD 100</div><div class="sstat-label">What it costs a merchant to get started</div></div>
     </div>
-  </aside>
+  </div>
+</section>
 
-  <!-- MAIN -->
-  <div class="main">
-
-    <!-- TOPBAR -->
-    <header class="topbar">
-      <div class="topbar-left">
-        <div class="page-title">Dashboard</div>
-        <div class="date-range">📅 Last 30 days ▾</div>
-      </div>
-      <div class="topbar-right">
-        <div class="live-indicator"><div class="live-dot"></div> Live</div>
-        <div class="notif-btn">🔔<span class="notif-count">3</span></div>
-      </div>
-    </header>
-
-    <!-- CONTENT -->
-    <div class="content">
-
-      <div class="dash-section active" id="sec-dashboard">
-      <!-- CHURN ALERT -->
-      <div class="churn-alert">
-        <div class="churn-icon">⚠️</div>
-        <div class="churn-text">
-          <div class="churn-title">18 members at churn risk</div>
-          <div class="churn-desc">Haven't visited in 21+ days. Last active between 22–28 days ago. Send a re-engagement campaign now to recover them.</div>
-        </div>
-        <button class="churn-btn">Send campaign →</button>
-      </div>
-
-      <!-- KPI CARDS -->
-      <div class="kpi-grid">
-        <div class="kpi red">
-          <div class="kpi-label">Total Taps</div>
-          <div class="kpi-value" id="kpiTaps">0</div>
-          <div class="kpi-change up">↑ 12% vs last month</div>
-          <div class="kpi-sub">1,102 unique devices</div>
-        </div>
-        <div class="kpi green">
-          <div class="kpi-label">Loyalty Members</div>
-          <div class="kpi-value" id="kpiMembers">0</div>
-          <div class="kpi-change up">↑ 34 new this week</div>
-          <div class="kpi-sub">+18% MoM growth</div>
-        </div>
-        <div class="kpi amber">
-          <div class="kpi-label">Repeat Visit Rate</div>
-          <div class="kpi-value" id="kpiRepeat">0%</div>
-          <div class="kpi-change up">↑ 4.2pp vs last month</div>
-          <div class="kpi-sub">District avg: 31%</div>
-        </div>
-        <div class="kpi blue">
-          <div class="kpi-label">Avg Visits / Member</div>
-          <div class="kpi-value" id="kpiAvg">0</div>
-          <div class="kpi-change down">↓ 0.2 vs last month</div>
-          <div class="kpi-sub">Top 20%: 8.4 visits</div>
-        </div>
-      </div>
-
-      <!-- INTEL SUMMARY STRIP -->
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1.25rem">
-
-        <!-- Mall rank -->
-        <div style="background:rgba(58,184,106,0.08);border:1px solid rgba(58,184,106,0.25);border-radius:10px;padding:1.1rem;cursor:pointer;transition:all 0.2s" onclick="showSection('benchmarks',document.querySelector('[onclick*=benchmarks]'))" title="View benchmarks">
-          <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#3ab86a;margin-bottom:0.4rem">Mall Rank 🏆</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:900;color:#3ab86a;line-height:1">#3</div>
-          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:0.2rem">of 42 Tampines F&B</div>
-          <div style="font-size:0.65rem;color:#3ab86a;font-weight:600;margin-top:0.35rem">↑ +2 this month</div>
-        </div>
-
-        <!-- Churn risk -->
-        <div style="background:rgba(139,0,21,0.08);border:1px solid rgba(139,0,21,0.28);border-radius:10px;padding:1.1rem;cursor:pointer;transition:all 0.2s" onclick="showSection('churn',document.querySelector('[onclick*=churn]'))" title="View churn alerts">
-          <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ff6b6b;margin-bottom:0.4rem">Churn Risk ⚠️</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:900;color:#ff6b6b;line-height:1">18</div>
-          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:0.2rem">members at risk</div>
-          <div style="font-size:0.65rem;color:#ff6b6b;font-weight:600;margin-top:0.35rem">21+ days inactive</div>
-        </div>
-
-        <!-- Segments -->
-        <div style="background:rgba(201,150,58,0.08);border:1px solid rgba(201,150,58,0.25);border-radius:10px;padding:1.1rem;cursor:pointer;transition:all 0.2s" onclick="showSection('segments',document.querySelector('[onclick*=segments]'))" title="View segments">
-          <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#C9963A;margin-bottom:0.4rem">Top Segment 🗺️</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:900;color:#C9963A;line-height:1">31</div>
-          <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:0.2rem">loyal regulars</div>
-          <div style="font-size:0.65rem;color:#C9963A;font-weight:600;margin-top:0.35rem">5+ visits · high spend</div>
-        </div>
-
-      </div>
-
-      <!-- TAP CHART + MEMBERS -->
-      <div class="grid-2">
-
-        <!-- Bar chart -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Daily Tap Volume</div>
-              <div class="card-sub">Last 14 days · Today highlighted in amber</div>
-            </div>
-            <div class="card-action">Export ↗</div>
-          </div>
-          <div class="chart-area" id="barChart">
-            <div class="chart-gridlines">
-              <div></div><div></div><div></div><div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Top members -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Top Members</div>
-              <div class="card-sub">By visit frequency this month</div>
-            </div>
-            <div class="card-action">View all →</div>
-          </div>
-          <div class="member-list">
-            <div class="member-row">
-              <div class="member-avatar" style="background:#8B0015">SL</div>
-              <div class="member-info"><div class="member-name">S. Lim</div><div class="member-meta">14 visits · Gold</div></div>
-              <div><div class="member-pts">840</div><div class="member-tier">🥇 Gold</div></div>
-            </div>
-            <div class="member-row">
-              <div class="member-avatar" style="background:#165C32">RK</div>
-              <div class="member-info"><div class="member-name">+65 8234 ····</div><div class="member-meta">11 visits · Gold</div></div>
-              <div><div class="member-pts">660</div><div class="member-tier">🥇 Gold</div></div>
-            </div>
-            <div class="member-row">
-              <div class="member-avatar" style="background:#1d4ed8">AT</div>
-              <div class="member-info"><div class="member-name">A. Tan</div><div class="member-meta">9 visits · Silver</div></div>
-              <div><div class="member-pts">540</div><div class="member-tier">🥈 Silver</div></div>
-            </div>
-            <div class="member-row">
-              <div class="member-avatar" style="background:#6d28d9">MW</div>
-              <div class="member-info"><div class="member-name">+65 8456 ····</div><div class="member-meta">8 visits · Silver</div></div>
-              <div><div class="member-pts">480</div><div class="member-tier">🥈 Silver</div></div>
-            </div>
-            <div class="member-row">
-              <div class="member-avatar" style="background:#C9963A">NA</div>
-              <div class="member-info"><div class="member-name">N. Ahmad</div><div class="member-meta">7 visits · Bronze</div></div>
-              <div><div class="member-pts">420</div><div class="member-tier">🥉 Bronze</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- PEAK HOURS + LOYALTY SPLIT + BENCHMARK -->
-      <div class="grid-3">
-
-        <!-- Peak hours -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Peak Hours</div>
-              <div class="card-sub">Average taps per hour · Today</div>
-            </div>
-          </div>
-          <div class="peak-grid" id="peakGrid"></div>
-          <div class="peak-label-row" id="peakLabels"></div>
-        </div>
-
-        <!-- Loyalty tier split -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Member Tiers</div>
-              <div class="card-sub">Distribution across loyalty levels</div>
-            </div>
-          </div>
-          <div class="ring-wrap">
-            <div class="ring-chart">
-              <svg viewBox="0 0 90 90">
-                <circle cx="45" cy="45" r="35" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="10"/>
-                <circle cx="45" cy="45" r="35" fill="none" stroke="#8B0015" stroke-width="10"
-                  stroke-dasharray="54 166" stroke-dashoffset="0"/>
-                <circle cx="45" cy="45" r="35" fill="none" stroke="#C9963A" stroke-width="10"
-                  stroke-dasharray="55 166" stroke-dashoffset="-54"/>
-                <circle cx="45" cy="45" r="35" fill="none" stroke="#1d4ed8" stroke-width="10"
-                  stroke-dasharray="57 166" stroke-dashoffset="-109"/>
-              </svg>
-              <div class="ring-center"><div class="ring-pct">247</div><div class="ring-sub-label">members</div></div>
-            </div>
-            <div class="ring-legend">
-              <div class="rl-item"><div class="rl-dot" style="background:#8B0015"></div><span class="rl-text">Bronze</span><span class="rl-val">134</span></div>
-              <div class="rl-item"><div class="rl-dot" style="background:#C9963A"></div><span class="rl-text">Silver</span><span class="rl-val">82</span></div>
-              <div class="rl-item"><div class="rl-dot" style="background:#1d4ed8"></div><span class="rl-text">Gold</span><span class="rl-val">31</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Benchmark (Pro) -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Mall Benchmarks <span class="pro-badge">Pro</span></div>
-              <div class="card-sub">Your rank vs Tampines F&B merchants</div>
-            </div>
-          </div>
-          <div style="margin-bottom:1rem">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem">
-              <span style="font-size:0.68rem;color:rgba(255,255,255,0.3)">Overall rank</span>
-              <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#3ab86a">#3 of 42</span>
-            </div>
-          </div>
-          <div class="bench-row">
-            <div class="bench-label">Repeat rate</div>
-            <div class="bench-bar-wrap"><div class="bench-bar" style="width:72%;background:#3ab86a" id="b1"></div></div>
-            <div class="bench-val">72%</div>
-            <div class="bench-rank" style="color:#3ab86a">Top 8%</div>
-          </div>
-          <div class="bench-row">
-            <div class="bench-label">Tap volume</div>
-            <div class="bench-bar-wrap"><div class="bench-bar" style="width:58%;background:#C9963A" id="b2"></div></div>
-            <div class="bench-val">58%</div>
-            <div class="bench-rank">Top 22%</div>
-          </div>
-          <div class="bench-row">
-            <div class="bench-label">Member growth</div>
-            <div class="bench-bar-wrap"><div class="bench-bar" style="width:85%;background:#3ab86a" id="b3"></div></div>
-            <div class="bench-val">85%</div>
-            <div class="bench-rank" style="color:#3ab86a">Top 5%</div>
-          </div>
-          <div class="bench-row">
-            <div class="bench-label">Churn rate</div>
-            <div class="bench-bar-wrap"><div class="bench-bar" style="width:40%;background:#8B0015" id="b4"></div></div>
-            <div class="bench-val">40%</div>
-            <div class="bench-rank" style="color:#ff6b6b">Avg</div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- CAMPAIGNS + ACTIVITY -->
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Active Campaigns</div>
-              <div class="card-sub">3 running · 1 scheduled</div>
-            </div>
-            <div class="card-action">+ New campaign</div>
-          </div>
-          <div class="campaign-row">
-            <div class="campaign-status" style="background:#3ab86a"></div>
-            <div class="campaign-info">
-              <div class="campaign-name">Weekend Double Points</div>
-              <div class="campaign-meta">Sent to 247 members · Ends Sun</div>
-            </div>
-            <div class="campaign-stat">
-              <div class="campaign-rate">38%</div>
-              <div class="campaign-label">open rate</div>
-            </div>
-          </div>
-          <div class="campaign-row">
-            <div class="campaign-status" style="background:#3ab86a"></div>
-            <div class="campaign-info">
-              <div class="campaign-name">Gold Member Exclusive Offer</div>
-              <div class="campaign-meta">Sent to 31 Gold members · Ongoing</div>
-            </div>
-            <div class="campaign-stat">
-              <div class="campaign-rate">62%</div>
-              <div class="campaign-label">open rate</div>
-            </div>
-          </div>
-          <div class="campaign-row">
-            <div class="campaign-status" style="background:#C9963A"></div>
-            <div class="campaign-info">
-              <div class="campaign-name">Re-engagement · At-risk members</div>
-              <div class="campaign-meta">18 at-risk members · Draft</div>
-            </div>
-            <div class="campaign-stat">
-              <div class="campaign-rate">·</div>
-              <div class="campaign-label">not sent</div>
-            </div>
-          </div>
-          <div class="campaign-row">
-            <div class="campaign-status" style="background:rgba(255,255,255,0.2)"></div>
-            <div class="campaign-info">
-              <div class="campaign-name">National Day Promo</div>
-              <div class="campaign-meta">All members · Scheduled Aug 9</div>
-            </div>
-            <div class="campaign-stat">
-              <div class="campaign-rate">·</div>
-              <div class="campaign-label">scheduled</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Live activity -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Live Activity <div class="live-dot" style="display:inline-block;margin-left:5px;vertical-align:middle"></div></div>
-              <div class="card-sub">Real-time tap feed</div>
-            </div>
-          </div>
-          <div class="activity-list" id="activityFeed">
-            <div class="activity-item">
-              <div class="activity-icon" style="background:rgba(58,184,106,0.12)">✓</div>
-              <div class="activity-body">
-                <div class="activity-text"><strong>New tap</strong> · Member earned 60 pts · Bronze → Silver upgrade</div>
-                <div class="activity-time">Just now</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon" style="background:rgba(139,0,21,0.12)">👤</div>
-              <div class="activity-body">
-                <div class="activity-text"><strong>New enrollment</strong> · First-time visitor · Bronze tier</div>
-                <div class="activity-time">2 min ago</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon" style="background:rgba(201,150,58,0.12)">⭐</div>
-              <div class="activity-body">
-                <div class="activity-text"><strong>Reward redeemed</strong> · +65 9123 ···· · Free drink (200 pts)</div>
-                <div class="activity-time">5 min ago</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon" style="background:rgba(58,184,106,0.12)">✓</div>
-              <div class="activity-body">
-                <div class="activity-text"><strong>New tap</strong> · Returning member · 5th visit this month</div>
-                <div class="activity-time">8 min ago</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon" style="background:rgba(29,78,216,0.12)">🏆</div>
-              <div class="activity-body">
-                <div class="activity-text"><strong>Tier upgrade</strong> · +65 8234 ···· reached Gold</div>
-                <div class="activity-time">12 min ago</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-        <!-- CUSTOMER SERVICE KPIs -->
-        <div style="grid-column:1/-1;margin-top:0.5rem">
-          <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:1rem">Customer Service Intelligence</div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem">
-
-            <!-- CSAT Score -->
-            <div class="card">
-              <div class="card-header">
-                <div><div class="card-title">CSAT Score</div><div class="card-sub">Customer satisfaction · Last 30 days</div></div>
-                <span style="font-size:0.68rem;font-weight:700;color:#3ab86a">↑ 0.3</span>
-              </div>
-              <div class="csat-score">
-                <div class="csat-big" id="csatScore">0</div>
-                <div class="csat-stars" id="csatStars">☆☆☆☆☆</div>
-                <div class="csat-label">out of 5.0 · Based on 184 responses</div>
-              </div>
-              <div class="divider" style="margin:1rem 0;background:rgba(255,255,255,0.06)"></div>
-              <div class="resp-row"><span class="resp-label">Promoters (5★)</span><span style="display:flex;align-items:center;gap:0.5rem"><span class="resp-val">61%</span><span class="resp-badge resp-good">Good</span></span></div>
-              <div class="resp-row"><span class="resp-label">Passives (4★)</span><span style="display:flex;align-items:center;gap:0.5rem"><span class="resp-val">24%</span><span class="resp-badge resp-warn">Avg</span></span></div>
-              <div class="resp-row"><span class="resp-label">Detractors (1–3★)</span><span style="display:flex;align-items:center;gap:0.5rem"><span class="resp-val">15%</span><span class="resp-badge resp-bad">Watch</span></span></div>
-            </div>
-
-            <!-- Response Time -->
-            <div class="card">
-              <div class="card-header">
-                <div><div class="card-title">Response Time</div><div class="card-sub">Average across all channels</div></div>
-                <span style="font-size:0.68rem;font-weight:700;color:#3ab86a">↑ Faster</span>
-              </div>
-              <div style="display:flex;flex-direction:column;gap:0">
-                <div class="resp-row">
-                  <div><div style="font-size:0.78rem;font-weight:600;color:#E8E4DF">First response</div><div style="font-size:0.65rem;color:rgba(255,255,255,0.3);margin-top:0.1rem">Avg time to first reply</div></div>
-                  <div style="text-align:right"><div class="resp-val">4.2 min</div><span class="resp-badge resp-good">Excellent</span></div>
-                </div>
-                <div class="resp-row">
-                  <div><div style="font-size:0.78rem;font-weight:600;color:#E8E4DF">Resolution time</div><div style="font-size:0.65rem;color:rgba(255,255,255,0.3);margin-top:0.1rem">Avg time to resolve</div></div>
-                  <div style="text-align:right"><div class="resp-val">18 min</div><span class="resp-badge resp-good">Good</span></div>
-                </div>
-                <div class="resp-row">
-                  <div><div style="font-size:0.78rem;font-weight:600;color:#E8E4DF">Peak wait time</div><div style="font-size:0.65rem;color:rgba(255,255,255,0.3);margin-top:0.1rem">Fri–Sat dinner rush</div></div>
-                  <div style="text-align:right"><div class="resp-val">12 min</div><span class="resp-badge resp-warn">Monitor</span></div>
-                </div>
-                <div class="resp-row">
-                  <div><div style="font-size:0.78rem;font-weight:600;color:#E8E4DF">Unresolved tickets</div><div style="font-size:0.65rem;color:rgba(255,255,255,0.3);margin-top:0.1rem">Open &gt; 24 hours</div></div>
-                  <div style="text-align:right"><div class="resp-val">3</div><span class="resp-badge resp-bad">Action needed</span></div>
-                </div>
-                <div class="resp-row" style="border:none">
-                  <div><div style="font-size:0.78rem;font-weight:600;color:#E8E4DF">Tickets this month</div><div style="font-size:0.65rem;color:rgba(255,255,255,0.3);margin-top:0.1rem">Total inquiries</div></div>
-                  <div style="text-align:right"><div class="resp-val">47</div><span class="resp-badge resp-good">Normal</span></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Feedback & NPS -->
-            <div class="card">
-              <div class="card-header">
-                <div><div class="card-title">Member Feedback</div><div class="card-sub">NPS + Recent comments</div></div>
-                <div class="card-action">View all →</div>
-              </div>
-              <!-- NPS -->
-              <div style="margin-bottom:0.85rem">
-                <div style="display:flex;justify-content:space-between;margin-bottom:0.4rem">
-                  <span style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Net Promoter Score</span>
-                  <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:900;color:#3ab86a">+46</span>
-                </div>
-                <div class="nps-bar" id="npsBar"></div>
-                <div style="display:flex;justify-content:space-between;font-size:0.58rem;color:rgba(255,255,255,0.2)">
-                  <span>Detractors</span><span>Passives</span><span>Promoters</span>
-                </div>
-              </div>
-              <div style="height:1px;background:rgba(255,255,255,0.06);margin-bottom:0.85rem"></div>
-              <!-- Recent feedback -->
-              <div class="feedback-row">
-                <div class="fb-icon" style="background:rgba(58,184,106,0.12)">⭐</div>
-                <div class="fb-text">"Love the tap system, so easy to earn points now"</div>
-                <div class="fb-time">2h ago</div>
-              </div>
-              <div class="feedback-row">
-                <div class="fb-icon" style="background:rgba(58,184,106,0.12)">⭐</div>
-                <div class="fb-text">"Finally a loyalty card that doesn't need an app"</div>
-                <div class="fb-time">5h ago</div>
-              </div>
-              <div class="feedback-row">
-                <div class="fb-icon" style="background:rgba(201,150,58,0.12)">💬</div>
-                <div class="fb-text">"Reward redemption was a bit confusing at counter"</div>
-                <div class="fb-time">1d ago</div>
-              </div>
-              <div class="feedback-row">
-                <div class="fb-icon" style="background:rgba(139,0,21,0.12)">⚠️</div>
-                <div class="fb-text">"NFC tag didn't work the first time, had to tap twice"</div>
-                <div class="fb-time">2d ago</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-    </div><!-- end dashboard section -->
-    </div><!-- end sec-dashboard -->
-
-    <!-- MEMBERS SECTION -->
-    <div class="dash-section" id="sec-members">
-      <div class="section-header"><div class="page-title">Members</div><div style="font-size:0.8rem;color:rgba(255,255,255,0.35)">247 total · 34 new this week</div></div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem">
-        <div class="kpi green"><div class="kpi-label">Total Members</div><div class="kpi-value">247</div><div class="kpi-change up">↑ 34 this week</div></div>
-        <div class="kpi red"><div class="kpi-label">New This Month</div><div class="kpi-value">89</div><div class="kpi-change up">↑ 18% MoM</div></div>
-        <div class="kpi amber"><div class="kpi-label">Retention Rate</div><div class="kpi-value">72%</div><div class="kpi-change up">↑ 4pp</div></div>
-      </div>
-      <div class="card">
-        <div class="card-header"><div class="card-title">All Members</div><input type="text" placeholder="Search members..." onkeyup="filterMembers(this.value)" style="padding:0.45rem 0.85rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#E8E4DF;font-family:Inter,sans-serif;font-size:0.8rem;outline:none;width:200px"></div>
-        <table style="width:100%;border-collapse:collapse" id="memberTable">
-          <thead><tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
-            <th style="text-align:left;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:0.5rem 0">Member</th>
-            <th style="text-align:left;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:0.5rem 0">Tier</th>
-            <th style="text-align:right;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:0.5rem 0">Points</th>
-            <th style="text-align:right;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:0.5rem 0">Visits</th>
-            <th style="text-align:right;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);padding:0.5rem 0">Last Seen</th>
-          </tr></thead>
-          <tbody id="memberTbody"></tbody>
-        </table>
-      </div>
+<section style="background:#F2EDE5;padding:6rem 5vw;">
+  <span class="eyebrow reveal" style="color:#8B0015">Co-Founders</span>
+  <h2 class="section-headline reveal" style="color:#0D1B2A">The people<br>building this.</h2>
+  <div class="team-grid">
+    <div class="tc feat reveal d1">
+      <div class="ti" style="background:#8B0015">HO</div>
+      <div class="tn">Hakim Osman</div>
+      <div class="tr">Founder &amp; CEO</div>
+      <p class="tb">Finance student turned founder. Sets company direction, drives B2B merchant sales, investor relations, and leads frontend tech development. Building Singapore's physical commerce intelligence layer.</p>
+      <div class="ttags"><span class="ttag">B2B Sales</span><span class="ttag">Investor Relations</span><span class="ttag">Frontend Tech</span><span class="ttag">Strategy</span></div>
     </div>
-
-    <!-- TAP ACTIVITY SECTION -->
-    <div class="dash-section" id="sec-taps">
-      <div class="section-header"><div class="page-title">Tap Activity</div><div style="font-size:0.8rem;color:rgba(255,255,255,0.35)">Real-time tap feed</div></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem">
-        <div class="kpi red"><div class="kpi-label">Taps Today</div><div class="kpi-value" id="tapsToday">94</div><div class="kpi-change up">↑ vs 87 yesterday</div></div>
-        <div class="kpi amber"><div class="kpi-label">This Week</div><div class="kpi-value">1,104</div><div class="kpi-change up">↑ 8% vs last week</div></div>
-      </div>
-      <div class="card">
-        <div class="card-header"><div class="card-title">Live Tap Feed</div><div class="live-indicator"><div class="live-dot"></div> Live</div></div>
-        <div id="tapFeedSection" style="display:flex;flex-direction:column;gap:0"></div>
-      </div>
+    <div class="tc reveal d1">
+      <div class="ti" style="background:#0D1B2A">DY</div>
+      <div class="tn">Dylan</div>
+      <div class="tr">Co-founder &amp; CTO</div>
+      <p class="tb">Owns the entire tech stack, NFC architecture, backend infrastructure, loyalty platform, and the data pipeline. Also serves as Company Secretary.</p>
+      <div class="ttags"><span class="ttag">NFC Architecture</span><span class="ttag">Backend</span><span class="ttag">Data</span></div>
     </div>
-
-    <!-- CAMPAIGNS SECTION -->
-    <div class="dash-section" id="sec-campaigns">
-      <div class="section-header"><div class="page-title">Campaigns</div><div><button onclick="alert('Campaign builder coming soon!')" style="background:#8B0015;color:white;border:none;padding:0.5rem 1.1rem;border-radius:4px;font-family:Inter,sans-serif;font-size:0.8rem;font-weight:700;cursor:pointer">+ New Campaign</button></div></div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem">
-        <div class="kpi green"><div class="kpi-label">Active Campaigns</div><div class="kpi-value">3</div></div>
-        <div class="kpi amber"><div class="kpi-label">Avg Open Rate</div><div class="kpi-value">41%</div><div class="kpi-change up">↑ Industry avg: 22%</div></div>
-        <div class="kpi red"><div class="kpi-label">Members Reached</div><div class="kpi-value">247</div></div>
-      </div>
-      <div class="card">
-        <div class="card-header"><div class="card-title">All Campaigns</div></div>
-        <div style="display:flex;flex-direction:column;gap:0.75rem">
-          <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="width:8px;height:8px;border-radius:50%;background:#3ab86a;flex-shrink:0"></div>
-            <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF;margin-bottom:0.2rem">Weekend Double Points</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">All 247 members · Ends Sunday · Sent 2 days ago</div></div>
-            <div style="text-align:right"><div style="font-family:Barlow Condensed,sans-serif;font-size:1.2rem;font-weight:900;color:#C9963A">38%</div><div style="font-size:0.62rem;color:rgba(255,255,255,0.28)">open rate</div></div>
-          </div>
-          <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="width:8px;height:8px;border-radius:50%;background:#3ab86a;flex-shrink:0"></div>
-            <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF;margin-bottom:0.2rem">Gold Member Exclusive</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">31 Gold members · Ongoing · Sent 5 days ago</div></div>
-            <div style="text-align:right"><div style="font-family:Barlow Condensed,sans-serif;font-size:1.2rem;font-weight:900;color:#C9963A">62%</div><div style="font-size:0.62rem;color:rgba(255,255,255,0.28)">open rate</div></div>
-          </div>
-          <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="width:8px;height:8px;border-radius:50%;background:#C9963A;flex-shrink:0"></div>
-            <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF;margin-bottom:0.2rem">Re-engagement · At-risk members</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">18 at-risk members · Draft · Not sent</div></div>
-            <div style="text-align:right"><div style="font-family:Barlow Condensed,sans-serif;font-size:1.2rem;font-weight:900;color:rgba(255,255,255,0.3)">·</div><div style="font-size:0.62rem;color:rgba(255,255,255,0.28)">not sent</div></div>
-          </div>
-        </div>
-      </div>
+    <div class="tc reveal d2">
+      <div class="ti" style="background:#165C32">ME</div>
+      <div class="tn">Melissa</div>
+      <div class="tr">Co-founder &amp; COO</div>
+      <p class="tb">Runs finance, operations, and governance. Originated the district loyalty concept at the core of CBOXX's network strategy. Also Data Protection Officer.</p>
+      <div class="ttags"><span class="ttag">Operations</span><span class="ttag">Finance</span><span class="ttag">PDPA / DPO</span></div>
     </div>
-
-    <!-- REWARDS SECTION -->
-    <div class="dash-section" id="sec-rewards">
-      <div class="section-header"><div class="page-title">Rewards</div><div><button onclick="alert('Add reward coming soon!')" style="background:#8B0015;color:white;border:none;padding:0.5rem 1.1rem;border-radius:4px;font-family:Inter,sans-serif;font-size:0.8rem;font-weight:700;cursor:pointer">+ Add Reward</button></div></div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem">
-        <div class="kpi green"><div class="kpi-label">Active Rewards</div><div class="kpi-value">4</div></div>
-        <div class="kpi amber"><div class="kpi-label">Redeemed This Month</div><div class="kpi-value">23</div><div class="kpi-change up">↑ 8 vs last month</div></div>
-        <div class="kpi red"><div class="kpi-label">Redemption Rate</div><div class="kpi-value">9.3%</div></div>
-      </div>
-      <div class="card">
-        <div class="card-header"><div class="card-title">Reward Catalogue</div></div>
-        <div style="display:flex;flex-direction:column;gap:0.75rem" id="rewardsList">
-          <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="font-size:1.4rem">🍜</div>
-            <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF">Free Soup Base</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Bronze tier · 200 pts · 12 redeemed this month</div></div>
-            <div style="font-size:0.7rem;color:#3ab86a;font-weight:600">Active</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="font-size:1.4rem">🥢</div>
-            <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF">10% Off Total Bill</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Silver tier · 500 pts · 8 redeemed this month</div></div>
-            <div style="font-size:0.7rem;color:#3ab86a;font-weight:600">Active</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="font-size:1.4rem">🎂</div>
-            <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF">Birthday Treat</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Silver tier · Birthday month · 3 redeemed this month</div></div>
-            <div style="font-size:0.7rem;color:#3ab86a;font-weight:600">Active</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="font-size:1.4rem">👑</div>
-            <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF">VIP Priority Table</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Gold tier · 0 redeemed this month</div></div>
-            <div style="font-size:0.7rem;color:#C9963A;font-weight:600">Low usage</div>
-          </div>
-        </div>
-      </div>
+    <div class="tc reveal d3">
+      <div class="ti" style="background:#4C1D95">JA</div>
+      <div class="tn">Jason</div>
+      <div class="tr">Co-founder &amp; HR Lead</div>
+      <p class="tb">Oversees people operations, HR, and company structure. Supports merchant sales and manages key relationships. Builds the internal culture and accountability systems that keep CBOXX moving as we scale.</p>
+      <div class="ttags"><span class="ttag">People Ops</span><span class="ttag">HR</span><span class="ttag">Sales Support</span><span class="ttag">Relationship Management</span></div>
     </div>
-
-    <!-- CHURN SECTION -->
-    <div class="dash-section" id="sec-churn">
-      <div class="section-header"><div class="page-title">Churn Alerts</div><div class="pro-badge">Pro</div></div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem">
-        <div class="kpi red"><div class="kpi-label">At Risk</div><div class="kpi-value">18</div><div class="kpi-change down">↑ 3 vs last week</div><div class="kpi-sub">21+ days inactive</div></div>
-        <div class="kpi amber"><div class="kpi-label">Avg Days Inactive</div><div class="kpi-value">24</div><div class="kpi-sub">At-risk group</div></div>
-        <div class="kpi green"><div class="kpi-label">Recovered This Month</div><div class="kpi-value">7</div><div class="kpi-change up">↑ via re-engagement</div></div>
-      </div>
-      <div class="card">
-        <div class="card-header"><div class="card-title">At-Risk Members</div><button onclick="alert('Campaign sent!')" style="background:#8B0015;color:white;border:none;padding:0.45rem 1rem;border-radius:4px;font-family:Inter,sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer">Send Re-engagement →</button></div>
-        <div style="display:flex;flex-direction:column;gap:0" id="churnList"></div>
-      </div>
+    <div class="tc reveal d1">
+      <div class="ti" style="background:#C9963A">YC</div>
+      <div class="tn">Yao Cong</div>
+      <div class="tr">Co-founder &amp; Creative Lead</div>
+      <p class="tb">Shapes the CBOXX brand from the ground up, visual identity, design language, and creative direction. Makes sure everything CBOXX puts in front of the world looks like it belongs there.</p>
+      <div class="ttags"><span class="ttag">Creative Direction</span><span class="ttag">Brand Identity</span><span class="ttag">Visual Design</span></div>
     </div>
-
-    <!-- SEGMENTS SECTION -->
-    <div class="dash-section" id="sec-segments">
-      <div class="section-header"><div class="page-title">Consumer Segments</div><div class="pro-badge">Pro</div></div>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem">
-        <div class="card" style="border-top:3px solid #3ab86a"><div style="font-size:0.8rem;font-weight:700;color:#E8E4DF;margin-bottom:0.5rem">Loyal Regulars</div><div style="font-family:Barlow Condensed,sans-serif;font-size:2.5rem;font-weight:900;color:#3ab86a">31</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38);margin:0.35rem 0 0.75rem">5+ visits · High spend · No churn risk</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Avg 8.4 visits/month · Avg 504 pts · Top revenue drivers</div></div>
-        <div class="card" style="border-top:3px solid #C9963A"><div style="font-size:0.8rem;font-weight:700;color:#E8E4DF;margin-bottom:0.5rem">Growing Members</div><div style="font-family:Barlow Condensed,sans-serif;font-size:2.5rem;font-weight:900;color:#C9963A">98</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38);margin:0.35rem 0 0.75rem">2–4 visits · Engaged · Trending up</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Avg 3.1 visits/month · Avg 186 pts · High conversion potential</div></div>
-        <div class="card" style="border-top:3px solid #8B0015"><div style="font-size:0.8rem;font-weight:700;color:#E8E4DF;margin-bottom:0.5rem">At Risk</div><div style="font-family:Barlow Condensed,sans-serif;font-size:2.5rem;font-weight:900;color:#ff6b6b">18</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38);margin:0.35rem 0 0.75rem">21+ days inactive · Previously regular</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Avg last visit: 24 days ago · Send re-engagement now</div></div>
-        <div class="card" style="border-top:3px solid rgba(255,255,255,0.2)"><div style="font-size:0.8rem;font-weight:700;color:#E8E4DF;margin-bottom:0.5rem">New Members</div><div style="font-family:Barlow Condensed,sans-serif;font-size:2.5rem;font-weight:900;color:#E8E4DF">100</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38);margin:0.35rem 0 0.75rem">First visit only · Conversion window open</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Avg 1 visit · 50 pts · Need 2nd visit to convert</div></div>
-      </div>
+    <div class="tc reveal d3" style="border-style:dashed;border-color:rgba(13,27,42,0.2);background:#F4F1EC;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
+      <div style="font-size:1.8rem;margin-bottom:0.75rem">&#129309;</div>
+      <div class="tn" style="font-size:1.1rem">We're hiring</div>
+      <div class="tr" style="margin-bottom:0.65rem">Join the founding team</div>
+      <p class="tb" style="font-size:0.82rem">Advisors, early team members, and merchant partners who believe in what we're building.</p>
+      <a href="mailto:info@cboxxsg.com" style="font-size:0.78rem;font-weight:600;color:#8B0015;text-decoration:none;margin-top:0.65rem">info@cboxxsg.com &rarr;</a>
     </div>
+  </div>
+</section>
 
-    <!-- NFC TAGS SECTION -->
-    <div class="dash-section" id="sec-nfc">
-      <div class="section-header"><div class="page-title">NFC Tags</div><div><button onclick="alert('Order NFC tags coming soon!')" style="background:#8B0015;color:white;border:none;padding:0.5rem 1.1rem;border-radius:4px;font-family:Inter,sans-serif;font-size:0.8rem;font-weight:700;cursor:pointer">+ Order Tags</button></div></div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem">
-        <div class="kpi green"><div class="kpi-label">Active Tags</div><div class="kpi-value">3</div><div class="kpi-sub">All operational</div></div>
-        <div class="kpi amber"><div class="kpi-label">Total Taps</div><div class="kpi-value">1,847</div><div class="kpi-sub">Since installation</div></div>
-        <div class="kpi red"><div class="kpi-label">Avg Taps/Tag/Day</div><div class="kpi-value">61.6</div></div>
-      </div>
-      <div class="card">
-        <div class="card-header"><div class="card-title">Installed Tags</div></div>
-        <div style="display:flex;flex-direction:column;gap:0.75rem">
-          <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="width:38px;height:38px;background:rgba(58,184,106,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem">📲</div>
-            <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF">Counter Tag #1 · Main entrance</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Installed 15 Jun · 847 lifetime taps · Last tap: 3 min ago</div></div>
-            <div style="font-size:0.7rem;color:#3ab86a;font-weight:600">● Active</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="width:38px;height:38px;background:rgba(58,184,106,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem">📲</div>
-            <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF">Counter Tag #2 · Cashier</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Installed 15 Jun · 623 lifetime taps · Last tap: 12 min ago</div></div>
-            <div style="font-size:0.7rem;color:#3ab86a;font-weight:600">● Active</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="width:38px;height:38px;background:rgba(58,184,106,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem">📲</div>
-            <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF">Table Tag #3 · Waiting area</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Installed 18 Jun · 377 lifetime taps · Last tap: 28 min ago</div></div>
-            <div style="font-size:0.7rem;color:#3ab86a;font-weight:600">● Active</div>
-          </div>
-        </div>
-      </div>
-    </div>
+<section style="background:#0D1B2A;padding:6rem 5vw;">
+  <span class="eyebrow reveal" style="color:#C9963A">How We Build</span>
+  <h2 class="section-headline reveal" style="color:white">What we believe.</h2>
+  <div class="val-grid">
+    <div class="vc reveal d1"><div class="vicon">&#9889;</div><div class="vtitle">Move fast, learn faster</div><p class="vbody">We'd rather ship something imperfect and learn from real merchants than spend months building in isolation.</p></div>
+    <div class="vc reveal d2"><div class="vicon">&#128269;</div><div class="vtitle">Data over opinions</div><p class="vbody">Every product decision is grounded in what merchants actually need and what consumers actually do.</p></div>
+    <div class="vc reveal d3"><div class="vicon">&#129309;</div><div class="vtitle">Merchant-first</div><p class="vbody">If merchants don't win, we don't win. Every feature and price point runs through that filter.</p></div>
+    <div class="vc reveal d4"><div class="vicon">&#127759;</div><div class="vtitle">Built for Southeast Asia</div><p class="vbody">Starting in Singapore for infrastructure clarity, but this is a regional play from day one.</p></div>
+    <div class="vc reveal d5"><div class="vicon">&#128274;</div><div class="vtitle">Privacy by design</div><p class="vbody">PDPA compliance is a competitive advantage. Consumer consent is explicit. Trust is our moat.</p></div>
+    <div class="vc reveal d6"><div class="vicon">&#128226;</div><div class="vtitle">Build in public</div><p class="vbody">We document the journey, the wins, the setbacks, the lessons. Building in public keeps us accountable.</p></div>
+  </div>
+</section>
 
-    <!-- BILLING SECTION -->
-    <div class="dash-section" id="sec-billing">
-      <div class="section-header"><div class="page-title">Billing</div></div>
-      <div class="card" style="margin-bottom:1.25rem">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem">
-          <div><div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.35rem">Current Plan</div><div style="font-family:Barlow Condensed,sans-serif;font-size:1.8rem;font-weight:900;color:#E8E4DF">Pro Plan</div></div>
-          <div style="text-align:right"><div style="font-family:Barlow Condensed,sans-serif;font-size:2.2rem;font-weight:900;color:#C9963A">SGD 175</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.3)">/month · PSG applied</div></div>
-        </div>
-        <div style="background:rgba(58,184,106,0.08);border:1px solid rgba(58,184,106,0.2);border-radius:8px;padding:0.85rem;margin-bottom:1.25rem">
-          <div style="font-size:0.72rem;font-weight:700;color:#3ab86a;margin-bottom:0.2rem">PSG Grant Active · Saving SGD 175/month</div>
-          <div style="font-size:0.7rem;color:rgba(255,255,255,0.38)">Original price: SGD 350/month · Your rate: SGD 175/month · Grant expires: Dec 2025</div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:0.5rem">
-          <div style="display:flex;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span style="font-size:0.82rem;color:rgba(255,255,255,0.45)">Next billing date</span><span style="font-size:0.82rem;font-weight:600;color:#E8E4DF">1 Aug 2025</span></div>
-          <div style="display:flex;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span style="font-size:0.82rem;color:rgba(255,255,255,0.45)">Payment method</span><span style="font-size:0.82rem;font-weight:600;color:#E8E4DF">Visa ···· 4242</span></div>
-          <div style="display:flex;justify-content:space-between;padding:0.6rem 0"><span style="font-size:0.82rem;color:rgba(255,255,255,0.45)">Onboarding fee</span><span style="font-size:0.82rem;font-weight:600;color:#3ab86a">Paid · SGD 100</span></div>
-        </div>
-      </div>
-    </div>
+<section style="background:#0D1B2A;text-align:center;padding:5rem 5vw;border-top:1px solid rgba(255,255,255,0.05);">
+  <h2 class="section-headline reveal" style="color:white;font-size:clamp(2.5rem,5vw,4rem)">Work with us.</h2>
+  <p class="reveal" style="font-size:1rem;color:rgba(255,255,255,0.42);max-width:420px;margin:0 auto 2.5rem;line-height:1.65">Merchant, investor, advisor, or someone who believes physical retail deserves better tools.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap" class="reveal">
+    <a href="merchants.html#contact" class="btn-red">Join the pilot &rarr;</a>
+    <a href="mailto:info@cboxxsg.com" class="btn-ghost">Email us</a>
+  </div>
+</section>
 
-    <!-- BENCHMARKS SECTION -->
-    <div class="dash-section" id="sec-benchmarks">
-      <div class="section-header"><div class="page-title">Mall Benchmarks</div><div class="pro-badge">Pro</div></div>
-      <div style="background:rgba(58,184,106,0.08);border:1px solid rgba(58,184,106,0.2);border-radius:10px;padding:1.25rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between">
-        <div><div style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.35);margin-bottom:0.3rem">Overall rank · Tampines Mall F&B</div><div style="font-family:Barlow Condensed,sans-serif;font-size:3rem;font-weight:900;color:#3ab86a;line-height:1">#3 <span style="font-size:1rem;color:rgba(255,255,255,0.3);font-weight:400">of 42</span></div></div>
-        <div style="text-align:right"><div style="font-size:0.68rem;color:rgba(255,255,255,0.3);margin-bottom:0.2rem">vs last month</div><div style="font-family:Barlow Condensed,sans-serif;font-size:1.5rem;font-weight:900;color:#3ab86a">↑ +2 positions</div></div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem">
-        <div class="card"><div style="font-size:0.8rem;font-weight:700;color:#E8E4DF;margin-bottom:1rem">Repeat Rate</div><div class="bench-row"><div class="bench-label">You</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:72%;background:#3ab86a"></div></div><div class="bench-val">72%</div><div class="bench-rank" style="color:#3ab86a">Top 8%</div></div><div class="bench-row"><div class="bench-label">Mall avg</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:31%;background:rgba(255,255,255,0.2)"></div></div><div class="bench-val">31%</div></div></div>
-        <div class="card"><div style="font-size:0.8rem;font-weight:700;color:#E8E4DF;margin-bottom:1rem">Member Growth</div><div class="bench-row"><div class="bench-label">You</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:85%;background:#3ab86a"></div></div><div class="bench-val">85%</div><div class="bench-rank" style="color:#3ab86a">Top 5%</div></div><div class="bench-row"><div class="bench-label">Mall avg</div><div class="bench-bar-wrap"><div class="bench-bar" style="width:42%;background:rgba(255,255,255,0.2)"></div></div><div class="bench-val">42%</div></div></div>
-      </div>
-    </div>
-
-    <!-- AUTOMATIONS SECTION -->
-    <div class="dash-section" id="sec-automations">
-      <div class="section-header"><div class="page-title">Automations</div><div><button onclick="alert('Automation builder coming soon!')" style="background:#8B0015;color:white;border:none;padding:0.5rem 1.1rem;border-radius:4px;font-family:Inter,sans-serif;font-size:0.8rem;font-weight:700;cursor:pointer">+ New Automation</button></div></div>
-      <div style="display:flex;flex-direction:column;gap:1rem">
-        <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.85rem;font-weight:700;color:#E8E4DF">Welcome message</div><div class="auto-toggle on" onclick="this.classList.toggle('on')"><div class="auto-knob"></div></div></div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38)">Triggered on first tap · SMS sent to new member with loyalty welcome message</div></div>
-        <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.85rem;font-weight:700;color:#E8E4DF">Churn re-engagement</div><div class="auto-toggle on" onclick="this.classList.toggle('on')"><div class="auto-knob"></div></div></div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38)">Triggered at 21 days inactive · Auto-sends re-engagement campaign with 2x points offer</div></div>
-        <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.85rem;font-weight:700;color:#E8E4DF">Tier upgrade congratulations</div><div class="auto-toggle" onclick="this.classList.toggle('on')"><div class="auto-knob"></div></div></div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38)">Triggered when member reaches Silver or Gold · Sends congratulations with tier benefits</div></div>
-        <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.85rem;font-weight:700;color:#E8E4DF">Birthday reward</div><div class="auto-toggle" onclick="this.classList.toggle('on')"><div class="auto-knob"></div></div></div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38)">Triggered on member birthday month · Unlocks birthday treat reward automatically</div></div>
-      </div>
-    </div>
-
-
-    <!-- ROI CALCULATOR SECTION -->
-    <div class="dash-section" id="sec-calculator">
-      <div class="section-header">
-        <div class="page-title">ROI Calculator</div>
-        <div style="font-size:0.8rem;color:rgba(255,255,255,0.35)">Estimate CBOXX impact on your revenue</div>
-      </div>
-
-      <!-- Live calculated results from your real data -->
-      <div style="background:rgba(58,184,106,0.08);border:1px solid rgba(58,184,106,0.2);border-radius:10px;padding:1.25rem;margin-bottom:1.5rem">
-        <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#3ab86a;margin-bottom:0.75rem">Based on your actual tap data</div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem">
-          <div style="text-align:center">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:#E8E4DF" id="calcEstRev">SGD 0</div>
-            <div style="font-size:0.65rem;color:rgba(255,255,255,0.35);margin-top:0.2rem">Est. monthly revenue</div>
-          </div>
-          <div style="text-align:center">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:#3ab86a" id="calcROI">0x</div>
-            <div style="font-size:0.65rem;color:rgba(255,255,255,0.35);margin-top:0.2rem">ROI vs CBOXX cost</div>
-          </div>
-          <div style="text-align:center">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:#C9963A" id="calcRPM">SGD 0</div>
-            <div style="font-size:0.65rem;color:rgba(255,255,255,0.35);margin-top:0.2rem">Revenue per member</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Adjustable inputs -->
-      <div class="card" style="margin-bottom:1.25rem">
-        <div style="font-size:0.82rem;font-weight:700;color:#E8E4DF;margin-bottom:1.25rem">Adjust assumptions</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
-          <div>
-            <label style="font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:0.4rem">Daily customers</label>
-            <input type="range" min="20" max="500" value="80" id="rc1" oninput="updateCalc()" style="width:100%;accent-color:#8B0015;margin-bottom:0.25rem">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#8B0015" id="rv1">80</div>
-          </div>
-          <div>
-            <label style="font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:0.4rem">Avg spend (SGD)</label>
-            <input type="range" min="5" max="200" value="38" id="rc2" oninput="updateCalc()" style="width:100%;accent-color:#8B0015;margin-bottom:0.25rem">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#8B0015" id="rv2">SGD 38</div>
-          </div>
-          <div>
-            <label style="font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:0.4rem">Repeat rate improvement</label>
-            <input type="range" min="5" max="40" value="15" id="rc3" oninput="updateCalc()" style="width:100%;accent-color:#8B0015;margin-bottom:0.25rem">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#8B0015" id="rv3">+15%</div>
-          </div>
-          <div>
-            <label style="font-size:0.72rem;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:0.4rem">CBOXX plan cost</label>
-            <input type="range" min="75" max="350" value="175" id="rc4" oninput="updateCalc()" style="width:100%;accent-color:#8B0015;margin-bottom:0.25rem">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#8B0015" id="rv4">SGD 175/mo</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Results breakdown -->
-      <div class="card">
-        <div style="font-size:0.82rem;font-weight:700;color:#E8E4DF;margin-bottom:1.25rem">Revenue breakdown</div>
-        <div style="display:flex;flex-direction:column;gap:0">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
-            <span style="font-size:0.82rem;color:rgba(255,255,255,0.45)">Additional repeat visits/month</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:900;color:#E8E4DF" id="cr1">—</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
-            <span style="font-size:0.82rem;color:rgba(255,255,255,0.45)">Additional revenue/month</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:900;color:#C9963A" id="cr2">—</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
-            <span style="font-size:0.82rem;color:rgba(255,255,255,0.45)">CBOXX cost/month</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:900;color:#E8E4DF" id="cr3">—</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.75rem 0">
-            <span style="font-size:0.88rem;font-weight:700;color:#E8E4DF">Net monthly gain</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900" id="cr4">—</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Loyalty impact -->
-      <div class="card" style="margin-top:1.25rem">
-        <div style="font-size:0.82rem;font-weight:700;color:#E8E4DF;margin-bottom:1.25rem">Loyalty impact · Your actual data</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem">
-          <div style="text-align:center;padding:1rem;background:rgba(255,255,255,0.03);border-radius:8px">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:#3ab86a">72%</div>
-            <div style="font-size:0.65rem;color:rgba(255,255,255,0.35);margin-top:0.2rem">Repeat rate<br>vs 31% mall avg</div>
-          </div>
-          <div style="text-align:center;padding:1rem;background:rgba(255,255,255,0.03);border-radius:8px">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:#C9963A">4.2x</div>
-            <div style="font-size:0.65rem;color:rgba(255,255,255,0.35);margin-top:0.2rem">Avg visits<br>per member/month</div>
-          </div>
-          <div style="text-align:center;padding:1rem;background:rgba(255,255,255,0.03);border-radius:8px">
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:#E8E4DF">247</div>
-            <div style="font-size:0.65rem;color:rgba(255,255,255,0.35);margin-top:0.2rem">Active members<br>this month</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div><!-- end content -->
-  </div><!-- end main -->
-</div><!-- end app -->
-
+<footer>
+  <div class="footer-logo"><a href="index.html"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAF0AAAAmCAIAAAAp9gCWAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAApm0lEQVR4AQGQKW/WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAABAAAAAAAAAAAAAAAAAAAAAAD/AAABAAAAAAAAAAAAAAAAAAD+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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AAAA/v7+/v7+AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAP4AANX4+CAGBvj+/goCAtz6+gwCA0QNDff+/v4AAAQBAAEAAbvz8ygHByMHB/T+/gAAABEEBLDx8ZDq6gEAAAEAAP8AAAAAAAAAAAAAAAAAAAMDA/39/f7+/gAAAAAAAAAAAAICAgEBAQAAAAAAAA8PD/z8/AAAAAAAAAAAAAEBAQAAAP///wAAAAICAv7+/v39/QAAAAAAAAAAAAAAAAICAv7+/v7+/gAAAAAAAAEBAf///wEBAf39/QAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAv7+/gEBAfz8/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAAAADU9/hEDQ0HAgLW+fkUBAVACwv0/v7///8FAQH+/wC68/MqCAchBgby/f0DAQEQAwOo7++Y7OwCAAD/AAD/AAAAAAAAAAAAAAAAAAACAgL9/f0iIiJISEgcHBzu7u7BwcHLy8v7+/sAAAD///+ZmZmioqIKCgr39/fFxcXBwcEAAAABAQEBAQH+/v4EBARLS0s1NTUEBATR0dG0tLTz8/NYWFgvLy/+/v7W1talpaUFBQX7+/tOTk43NzcBAQHc3NwDAwMgICAAAADCwsK5ubkFBQX7+/tfX18mJiYDAwPJycmvr68CAgL+/v4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAQAAcRYVdxcWjBsbySYmviQkviQkvyUlvCQkfBgZpSAgyCYmvCQkwCUlvyQlYBMTAAAAAgAAAQAAAAAAAAAAAAAAAAAAAAAAAwMDAAAAdnZ28/Pz/////////////f39kZGRS0tL/v7+/v7+////////////////////tbW1FRUVAQEBAAAAKioqzMzM////////////////3NzcPDw8Ly8v////////////enp6AAAAV1dX////////////RkZGTExM////////////VFRUAAAAfX19////////////MzMzAAAAAgICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAABcFBUsPD3YXF24VFW8VFm8VFnYXFz4MDVgREngXF20VFW8VFmkUFDMKCgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAMDAwAAAG5ubv////////n5+djY2PDw8P////Ly8m1tbf39/f7+/v////z8/OHh4fj4+P///////8nJyQICAhUVFeTk5P///////+Xl5eHh4f////////b29hcXF1dXV/////n5+f///21tbevr6/z8/P///4eHhwAAAAAAAIiIiP////39/evr62xsbP////n5+f///19fXwAAAAMDAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAEAQFNDw9tFRVvFRZuFRZ4FxdCDQ5TEBB4FxdtFRVuFRZyFhZuFRY2CwsKAgIBAAAAAAAAAAAAAAAAAAAAAAABAQEAAAAWFhby8vL+/v7Q0NAwMDAFBQUfHx9VVVUWFhY4ODj////+/v7T09M2NjYNDQ0tLS3ExMT9/f3///9XV1d9fX3////7+/t4eHgPDw8LCwtiYmL19fX///+zs7MAAACqqqr////8/Pz////////////Q0NAGBgYDAwMDAwMFBQXMzMz////////////8/Pz///+urq4AAAAEBAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAADgMDjxscwyUlviQkviQkySYmihsbkRwcxCUlviQkviQkwiUlvyQlcxcXhxoZRQ0NAAAAAgAAAAAAAAAAAAAAAAAABAQEAAAAV1dX////+vr6NDQ0AAAAAQEBAAAAAAAAAAAAQkJC////+vr6MjIyAAAAAgICAAAAHh4e8/Pz/f39vLy8y8vL/v7+rq6uAAAAAAAAAQEBAAAAjo6O/v7+7u7uEhISDg4O2tra/v7++vr6/Pz88PDwLi4uAAAAAgICAgICAAAAKCgo7Ozs/f39+vr6/v7+39/fFRUVAgICAgICAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAP4AABMEBIkaGi4JCOr8/PH+/vv//7Hy8vn+/ykICOv9/fD9/fb+/uv8/KTv7gIA/wwCAioICAEAAP8AAAAAAAAA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AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAAAADB8/QDAAH7//8BAAAAAAABAADj+/vx/f0AAAAAAAAAAAAAAAABAQAJAgL6/f0BAAD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAEAAAAAAAAAAAAAAAAAAP8AAAEAAAAAAAAAAAAAAAAAAAAAAP4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACUcARs7k4+0wAAAABJRU5ErkJggg==" alt="CBOXX" style="height:38px;width:auto;display:block"></a></div>
+  <div class="footer-links"><a href="index.html">Home</a><a href="merchants.html">Merchants</a><a href="eastarea.html">East Area</a><a href="about.html">Team</a><a href="mailto:info@cboxxsg.com">Contact</a></div>
+  <div class="footer-copy">2026 CBOXX Pte. Ltd. UEN: 202619369N</div>
+</footer>
 <script>
-
-// ── SECTION SWITCHING ──
-function showSection(id, navItem) {
-  // Update nav
-  document.querySelectorAll('.nav-item').forEach(function(el) { el.classList.remove('active'); });
-  if (navItem) navItem.classList.add('active');
-  // Update sections
-  document.querySelectorAll('.dash-section').forEach(function(s) { s.classList.remove('active'); });
-  var sec = document.getElementById('sec-' + id);
-  if (sec) sec.classList.add('active');
-  // Update topbar title
-  var titles = { dashboard:'Dashboard', members:'Members', taps:'Tap Activity', campaigns:'Campaigns', rewards:'Rewards', automations:'Automations', benchmarks:'Benchmarks', churn:'Churn Alerts', segments:'Segments', nfc:'NFC Tags', billing:'Billing' };
-  var pt = document.querySelector('.page-title');
-  if (pt) pt.textContent = titles[id] || 'Dashboard';
-  // Close mobile sidebar
-  if (window.innerWidth <= 900) closeSidebar();
-  // Load section-specific content
-  if (id === 'members') buildMemberTable();
-  if (id === 'taps') buildTapFeed();
-  if (id === 'churn') buildChurnList();
-}
-
-// ── MEMBER TABLE ──
-var members = [
-  {name:'+65 9123 ····', pts:840, visits:14, tier:'Gold', last:'Today', risk:false},
-  {name:'+65 8234 ····', pts:660, visits:11, tier:'Gold', last:'Today', risk:false},
-  {name:'+65 9345 ····', pts:540, visits:9, tier:'Silver', last:'Yesterday', risk:false},
-  {name:'+65 8456 ····', pts:480, visits:8, tier:'Silver', last:'2 days ago', risk:false},
-  {name:'+65 9567 ····', pts:420, visits:7, tier:'Bronze', last:'3 days ago', risk:false},
-  {name:'+65 8678 ····', pts:380, visits:6, tier:'Bronze', last:'4 days ago', risk:false},
-  {name:'P. Tan', pts:320, visits:5, tier:'Bronze', last:'5 days ago', risk:false},
-  {name:'+65 8890 ····', pts:280, visits:4, tier:'Bronze', last:'6 days ago', risk:false},
-  {name:'+65 9901 ····', pts:180, visits:3, tier:'Bronze', last:'12 days ago', risk:false},
-  {name:'B. Ng', pts:120, visits:2, tier:'Bronze', last:'22 days ago', risk:true},
-  {name:'+65 9123 ····', pts:60, visits:1, tier:'Bronze', last:'24 days ago', risk:true},
-  {name:'+65 8234 ····', pts:60, visits:1, tier:'Bronze', last:'26 days ago', risk:true},
-];
-
-function tierBadge(tier) {
-  var colors = { Gold:'background:rgba(201,150,58,0.2);border:1px solid rgba(201,150,58,0.4);color:#C9963A', Silver:'background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.7)', Bronze:'background:rgba(139,0,21,0.15);border:1px solid rgba(139,0,21,0.3);color:#ff8c8c' };
-  var icons = { Gold:'🥇', Silver:'🥈', Bronze:'🥉' };
-  return '<span style="'+colors[tier]+';font-size:0.6rem;font-weight:700;padding:0.18rem 0.5rem;border-radius:100px;display:inline-block">'+icons[tier]+' '+tier+'</span>';
-}
-
-function buildMemberTable(filter) {
-  var tbody = document.getElementById('memberTbody');
-  if (!tbody) return;
-  var list = filter ? members.filter(function(m){ return m.name.toLowerCase().includes(filter.toLowerCase()); }) : members;
-  tbody.innerHTML = list.map(function(m) {
-    return '<tr style="border-bottom:1px solid rgba(255,255,255,0.04)' + (m.risk ? ';background:rgba(139,0,21,0.04)' : '') + '">' +
-      '<td style="padding:0.6rem 0;font-size:0.82rem;font-weight:600;color:#E8E4DF">' + m.name + (m.risk ? ' <span style="font-size:0.58rem;color:#ff6b6b;background:rgba(139,0,21,0.15);padding:0.1rem 0.4rem;border-radius:4px">At risk</span>' : '') + '</td>' +
-      '<td style="padding:0.6rem 0">' + tierBadge(m.tier) + '</td>' +
-      '<td style="padding:0.6rem 0;text-align:right;font-family:Barlow Condensed,sans-serif;font-size:1rem;font-weight:900;color:#C9963A">' + m.pts + '</td>' +
-      '<td style="padding:0.6rem 0;text-align:right;font-size:0.82rem;color:rgba(255,255,255,0.45)">' + m.visits + '</td>' +
-      '<td style="padding:0.6rem 0;text-align:right;font-size:0.78rem;color:rgba(255,255,255,0.35)">' + m.last + '</td>' +
-      '</tr>';
-  }).join('');
-}
-
-function filterMembers(v) { buildMemberTable(v); }
-
-// ── TAP FEED ──
-var tapActivities = [
-  { icon:'✓', bg:'rgba(58,184,106,0.12)', text:'<strong>New tap</strong> · Returning member · +65 9123 ···· · 5th visit this month', time:'Just now' },
-  { icon:'👤', bg:'rgba(139,0,21,0.12)', text:'<strong>New enrollment</strong> · First-time visitor · Bronze tier', time:'2 min ago' },
-  { icon:'⭐', bg:'rgba(201,150,58,0.12)', text:'<strong>Reward redeemed</strong> · +65 9345 ···· · Free soup base (200 pts)', time:'5 min ago' },
-  { icon:'✓', bg:'rgba(58,184,106,0.12)', text:'<strong>New tap</strong> · +65 8234 ···· · Gold member · 11th visit', time:'8 min ago' },
-  { icon:'🏆', bg:'rgba(29,78,216,0.12)', text:'<strong>Tier upgrade</strong> · +65 9567 ···· reached Silver tier', time:'12 min ago' },
-  { icon:'✓', bg:'rgba(58,184,106,0.12)', text:'<strong>New tap</strong> · Returning member · 3rd visit this week', time:'15 min ago' },
-  { icon:'👤', bg:'rgba(139,0,21,0.12)', text:'<strong>New enrollment</strong> · First-time visitor · Enrolled via Counter Tag #2', time:'18 min ago' },
-  { icon:'⭐', bg:'rgba(201,150,58,0.12)', text:'<strong>Points earned</strong> · +65 8456 ···· · +60 pts · Total: 480 pts', time:'22 min ago' },
-];
-
-function buildTapFeed() {
-  var feed = document.getElementById('tapFeedSection');
-  if (!feed || feed.children.length > 0) return;
-  tapActivities.forEach(function(a) {
-    var row = document.createElement('div');
-    row.style.cssText = 'display:flex;align-items:flex-start;gap:0.85rem;padding:0.65rem 0;border-bottom:1px solid rgba(255,255,255,0.04)';
-    row.innerHTML = '<div style="width:28px;height:28px;border-radius:6px;background:'+a.bg+';display:flex;align-items:center;justify-content:center;font-size:0.7rem;flex-shrink:0;margin-top:1px">'+a.icon+'</div><div style="flex:1"><div style="font-size:0.78rem;color:rgba(255,255,255,0.65);line-height:1.4">'+a.text+'</div><div style="font-size:0.62rem;color:rgba(255,255,255,0.22);margin-top:0.15rem">'+a.time+'</div></div>';
-    feed.appendChild(row);
-  });
-}
-
-// ── CHURN LIST ──
-var churnMembers = [
-  {name:'+65 8012 ····', pts:120, days:22},{name:'+65 9123 ····', pts:60, days:24},{name:'+65 8234 ····', pts:60, days:26},
-  {name:'E. Tan', pts:200, days:21},{name:'F. Lee', pts:150, days:28},{name:'G. Goh', pts:90, days:23},
-];
-function buildChurnList() {
-  var el = document.getElementById('churnList');
-  if (!el || el.children.length > 0) return;
-  churnMembers.forEach(function(m) {
-    var row = document.createElement('div');
-    row.style.cssText = 'display:flex;align-items:center;gap:1rem;padding:0.65rem 0;border-bottom:1px solid rgba(255,255,255,0.04)';
-    row.innerHTML = '<div style="width:32px;height:32px;border-radius:50%;background:#8B0015;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;color:white;flex-shrink:0">'+m.name[0]+m.name.split(' ')[1][0]+'</div><div style="flex:1"><div style="font-size:0.82rem;font-weight:600;color:#E8E4DF">'+m.name+'</div><div style="font-size:0.65rem;color:rgba(255,255,255,0.3);margin-top:0.1rem">'+m.pts+' pts · Last visit: '+m.days+' days ago</div></div><span style="font-size:0.68rem;font-weight:700;color:#ff6b6b;background:rgba(139,0,21,0.15);padding:0.2rem 0.55rem;border-radius:100px">'+m.days+'d inactive</span>';
-    el.appendChild(row);
-  });
-}
-
-// ── CALCULATIONS: ROI & Revenue ──
-// Repeat rate = repeat taps / total taps
-// Revenue impact = repeat members × avg spend
-// All derived from core tap data
-var DATA = {
-  totalTaps: 1847,
-  totalMembers: 247,
-  repeatTaps: 1330,        // 72% of 1847
-  newMembers: 89,
-  avgSpend: 38,            // SGD per visit estimate
-  monthlyPlan: 175,        // SGD after PSG
-};
-
-function calcDerived() {
-  DATA.repeatRate = Math.round((DATA.repeatTaps / DATA.totalTaps) * 100);
-  DATA.avgVisits = (DATA.totalTaps / DATA.totalMembers).toFixed(1);
-  DATA.estimatedRevenue = DATA.totalTaps * DATA.avgSpend;
-  DATA.roiMultiple = ((DATA.estimatedRevenue - DATA.monthlyPlan) / DATA.monthlyPlan).toFixed(1);
-  DATA.revenuePerMember = Math.round(DATA.estimatedRevenue / DATA.totalMembers);
-}
-calcDerived();
-
-// ── COUNT UP KPIs ──
-function countUp(id, target, suffix, duration) {
-  var el = document.getElementById(id);
-  if (!el) return;
-  var start = 0, step = target / (duration / 16);
-  var t = setInterval(function() {
-    start = Math.min(start + step, target);
-    el.textContent = Math.round(start).toLocaleString() + (suffix || '');
-    if (start >= target) clearInterval(t);
-  }, 16);
-}
-setTimeout(function() {
-  countUp('kpiTaps', 1847, '', 1400);
-  countUp('kpiMembers', 247, '', 1200);
-  countUp('kpiRepeat', 72, '%', 1200);
-  countUp('kpiAvg', 4.2, '', 1000);
-}, 400);
-
-// ── BAR CHART ──
-var tapData = [98, 112, 87, 134, 156, 143, 98, 167, 189, 145, 123, 178, 201, 94];
-var days = ['17','18','19','20','21','22','23','24','25','26','27','28','29','30'];
-var max = Math.max.apply(null, tapData);
-var chart = document.getElementById('barChart');
-var existingGridlines = chart.querySelector('.chart-gridlines');
-tapData.forEach(function(val, i) {
-  var wrap = document.createElement('div');
-  wrap.className = 'bar-wrap';
-  var bar = document.createElement('div');
-  bar.className = 'bar' + (i === tapData.length - 1 ? ' today' : '');
-  bar.style.height = '0px';
-  bar.title = days[i] + ' Jun: ' + val + ' taps';
-  var label = document.createElement('div');
-  label.className = 'bar-label';
-  label.textContent = days[i];
-  wrap.appendChild(bar);
-  wrap.appendChild(label);
-  chart.appendChild(wrap);
-  setTimeout(function(b, h) {
-    b.style.height = Math.round((h / max) * 130) + 'px';
-  }, 600 + i * 40, bar, val);
-});
-
-// ── PEAK HOURS ──
-var peakData = [2, 3, 2, 1, 1, 2, 8, 22, 35, 42, 48, 52, 65, 71, 58, 45, 38, 62, 78, 85, 72, 55, 28, 12];
-var hours = ['12a','1','2','3','4','5','6','7','8','9','10','11','12p','1','2','3','4','5','6','7','8','9','10','11'];
-var peakMax = Math.max.apply(null, peakData);
-var pg = document.getElementById('peakGrid');
-var pl = document.getElementById('peakLabels');
-// Show only every 2 hours for 12 cells
-var peakShow = [0,2,4,6,8,10,12,14,16,18,20,22];
-peakShow.forEach(function(hi) {
-  var val = peakData[hi];
-  var pct = val / peakMax;
-  var cell = document.createElement('div');
-  cell.className = 'peak-cell';
-  var intensity = Math.round(pct * 100);
-  var r = Math.round(139 * pct + 13 * (1-pct));
-  var g = Math.round(0 * pct + 21 * (1-pct));
-  var b = Math.round(21 * pct + 32 * (1-pct));
-  cell.style.background = 'rgba(' + r + ',' + g + ',' + b + ',' + (0.15 + pct * 0.75) + ')';
-  cell.textContent = val > 5 ? val : '';
-  pg.appendChild(cell);
-  var lbl = document.createElement('div');
-  lbl.className = 'peak-label';
-  lbl.textContent = hours[hi];
-  pl.appendChild(lbl);
-});
-
-// ── LIVE ACTIVITY FEED ──
-var activities = [
-  { icon: '✓', bg: 'rgba(58,184,106,0.12)', text: '<strong>New tap</strong> · Returning member · 3rd visit this week' },
-  { icon: '👤', bg: 'rgba(139,0,21,0.12)', text: '<strong>New enrollment</strong> · First-time visitor · Bronze tier' },
-  { icon: '⭐', bg: 'rgba(201,150,58,0.12)', text: '<strong>Points earned</strong> · 60 pts · Running total: 420 pts' },
-  { icon: '✓', bg: 'rgba(58,184,106,0.12)', text: '<strong>New tap</strong> · Gold member · 12th visit this month' },
-  { icon: '🏆', bg: 'rgba(29,78,216,0.12)', text: '<strong>Tier upgrade</strong> · Member reached Silver tier' },
-  { icon: '🎁', bg: 'rgba(201,150,58,0.12)', text: '<strong>Reward redeemed</strong> · Free item · 200 pts used' },
-];
-var times = ['Just now', '1 min ago', '3 min ago', '5 min ago', '7 min ago', '9 min ago'];
-var feedIdx = 0;
-setInterval(function() {
-  var feed = document.getElementById('activityFeed');
-  if (!feed) return;
-  var a = activities[feedIdx % activities.length];
-  var item = document.createElement('div');
-  item.className = 'activity-item';
-  item.innerHTML = '<div class="activity-icon" style="background:' + a.bg + '">' + a.icon + '</div><div class="activity-body"><div class="activity-text">' + a.text + '</div><div class="activity-time">Just now</div></div>';
-  feed.insertBefore(item, feed.firstChild);
-  // Update times
-  var rows = feed.querySelectorAll('.activity-time');
-  rows.forEach(function(r, i) { r.textContent = times[Math.min(i, times.length-1)]; });
-  // Keep max 5 items
-  while (feed.children.length > 5) feed.removeChild(feed.lastChild);
-  feedIdx++;
-}, 4000);
-
-// NPS Bar
 (function(){
-  var bar = document.getElementById('npsBar');
-  if(!bar) return;
-  var segs = [
-    {pct:15,color:'rgba(139,0,21,0.6)'},{pct:10,color:'rgba(139,0,21,0.4)'},
-    {pct:5,color:'rgba(201,150,58,0.4)'},{pct:10,color:'rgba(201,150,58,0.3)'},
-    {pct:9,color:'rgba(201,150,58,0.35)'},{pct:12,color:'rgba(58,184,106,0.4)'},
-    {pct:14,color:'rgba(58,184,106,0.55)'},{pct:10,color:'rgba(58,184,106,0.65)'},
-    {pct:15,color:'rgba(58,184,106,0.8)'}
-  ];
-  segs.forEach(function(s){
-    var el=document.createElement('div');
-    el.className='nps-seg';
-    el.style.background=s.color;
-    el.style.flex=s.pct;
-    bar.appendChild(el);
-  });
+  var els=document.querySelectorAll('.reveal');
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e,i){if(e.isIntersecting){setTimeout(function(){e.target.classList.add('visible');},i*65);obs.unobserve(e.target);}});
+  },{threshold:0.08});
+  els.forEach(function(el){obs.observe(el);});
+  var b=document.getElementById('burger'),mn=document.getElementById('mobileNav');
+  if(b&&mn){b.addEventListener('click',function(){mn.classList.toggle('open');});mn.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mn.classList.remove('open');});});}
+  var counted=false,ces=document.querySelectorAll('[data-count]');
+  if(ces.length){var co=new IntersectionObserver(function(entries){if(entries[0].isIntersecting&&!counted){counted=true;ces.forEach(function(el){var t=parseFloat(el.dataset.count),sf=el.dataset.suffix||'',s=0,st=t/85;var tm=setInterval(function(){s=Math.min(s+st,t);el.textContent=Math.round(s).toLocaleString()+sf;if(s>=t)clearInterval(tm);},16);});}},{threshold:0.3});co.observe(ces[0].closest('section')||ces[0].parentElement);}
 })();
-
-// CSAT count-up
-(function(){
-  var el=document.getElementById('csatScore');
-  var stars=document.getElementById('csatStars');
-  if(!el) return;
-  var t=0, target=4.3, step=target/60;
-  var ti=setInterval(function(){
-    t=Math.min(t+step,target);
-    el.textContent=t.toFixed(1);
-    var full=Math.floor(t);
-    var half=t-full>=0.5;
-    var s='';
-    for(var i=0;i<5;i++){
-      if(i<full) s+='★';
-      else if(i===full&&half) s+='½';
-      else s+='☆';
-    }
-    if(stars) stars.textContent=s;
-    if(t>=target) clearInterval(ti);
-  },25);
-})();
-
-
-
-function updateCalc() {
-  var c = parseInt(document.getElementById('rc1').value);
-  var s = parseInt(document.getElementById('rc2').value);
-  var i = parseInt(document.getElementById('rc3').value);
-  var p = parseInt(document.getElementById('rc4').value);
-  document.getElementById('rv1').textContent = c;
-  document.getElementById('rv2').textContent = 'SGD ' + s;
-  document.getElementById('rv3').textContent = '+' + i + '%';
-  document.getElementById('rv4').textContent = 'SGD ' + p + '/mo';
-  var addVisits = Math.round(c * 26 * (i/100));
-  var addRev = addVisits * s;
-  var net = addRev - p;
-  var roi = (addRev / p).toFixed(1);
-  var rpm = Math.round(addRev / 247);
-  document.getElementById('cr1').textContent = addVisits.toLocaleString();
-  document.getElementById('cr2').textContent = 'SGD ' + addRev.toLocaleString();
-  document.getElementById('cr3').textContent = 'SGD ' + p;
-  document.getElementById('cr4').textContent = (net > 0 ? '+' : '') + 'SGD ' + net.toLocaleString();
-  document.getElementById('cr4').style.color = net > 0 ? '#3ab86a' : '#ff6b6b';
-  document.getElementById('calcEstRev').textContent = 'SGD ' + addRev.toLocaleString();
-  document.getElementById('calcROI').textContent = roi + 'x';
-  document.getElementById('calcRPM').textContent = 'SGD ' + rpm;
-}
-setTimeout(updateCalc, 1000);
-
-
-function toggleDateMenu() {
-  var m = document.getElementById('dateMenu');
-  m.style.display = m.style.display === 'none' ? 'block' : 'none';
-}
-function setDate(label) {
-  document.getElementById('dateLabel').textContent = label;
-  document.getElementById('dateMenu').style.display = 'none';
-  document.querySelectorAll('.date-opt').forEach(function(o){ o.classList.remove('active'); });
-  event.target.classList.add('active');
-}
-function toggleNotifs() {
-  var p = document.getElementById('notifPanel');
-  p.style.display = p.style.display === 'none' ? 'block' : 'none';
-}
-function clearNotifs() {
-  document.querySelectorAll('.notif-item').forEach(function(n){ n.classList.remove('unread'); n.querySelector('.notif-dot').style.opacity='0'; });
-  document.getElementById('notifBadge').style.display = 'none';
-  document.getElementById('notifPanel').style.display = 'none';
-}
-// Close menus on outside click
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('#dateBtn') && !e.target.closest('#dateMenu')) {
-    var m = document.getElementById('dateMenu');
-    if(m) m.style.display = 'none';
-  }
-  if (!e.target.closest('#notifPanel') && !e.target.closest('[onclick="toggleNotifs()"]')) {
-    var p = document.getElementById('notifPanel');
-    if(p) p.style.display = 'none';
-  }
-});
-
-// Mobile sidebar
-function toggleSidebar() {
-  var sb = document.querySelector('.sidebar');
-  var ov = document.getElementById('mobOverlay');
-  sb.classList.toggle('open');
-  ov.classList.toggle('open');
-}
-function closeSidebar() {
-  document.querySelector('.sidebar').classList.remove('open');
-  document.getElementById('mobOverlay').classList.remove('open');
-}
-// Close sidebar when nav item clicked on mobile
-document.querySelectorAll('.nav-item').forEach(function(el) {
-  el.addEventListener('click', function() {
-    if (window.innerWidth <= 900) closeSidebar();
-  });
-});
-
 </script>
 </body>
 </html>
