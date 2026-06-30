@@ -344,7 +344,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
   .sidebar.open { transform: translateX(0) !important; }
   .mobile-header { display: flex !important; }
   .topbar { display: none !important; }
-  .content { padding: 1rem !important; }
+  
   .main { padding-top: 56px !important; }
   .kpi-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .grid-2 { grid-template-columns: 1fr !important; }
@@ -354,7 +354,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
   .kpi-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.65rem !important; }
   .kpi { padding: 1rem !important; }
   .kpi-value { font-size: 1.8rem !important; }
-  .content { padding: 0.75rem !important; }
+  
   .card { padding: 1rem !important; }
   .churn-alert { flex-direction: column !important; gap: 0.65rem !important; }
   .bench-rank { display: none !important; }
@@ -364,7 +364,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
   .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 0.65rem; }
   .kpi { padding: 1rem; }
   .kpi-value { font-size: 1.8rem; }
-  .content { padding: 0.75rem; }
+  
   .topbar { height: 56px; }
   .card { padding: 1rem; }
   .churn-alert { flex-direction: column; gap: 0.65rem; }
@@ -401,10 +401,10 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
 
 
 
-.dash-section { display:none; width:100%; min-height:200px; }
+.dash-section { display:none !important; width:100%; } .dash-section.active { display:block !important; }
 .dash-section.active { display:block; }
 .main { overflow-y: auto; }
-.content { padding: 1.75rem 2rem; flex: 1; overflow-y: visible; }
+
 
 .dash-section.active { display:block; }
 .section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; }
@@ -439,7 +439,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
   #memberTable td:nth-child(5) { display: none; }
   /* Card padding */
   .card { padding: 0.85rem !important; }
-  .content { padding: 0.65rem !important; }
+  
 }
 
 
@@ -511,7 +511,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
     <div class="sidebar-bottom">
       <div class="upgrade-box">
         <p>PSG grant approved. Your effective rate is <strong style="color:#E8E4DF">SGD 175/mo</strong>.</p>
-        <button class="upgrade-btn">View grant details</button>
+        <button class="upgrade-btn" onclick="document.getElementById('psgModal').style.display='flex'">View grant details</button>
       </div>
     </div>
   </aside>
@@ -565,7 +565,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
           <div class="churn-title">18 members at churn risk</div>
           <div class="churn-desc">Haven't visited in 21+ days. Last active between 22–28 days ago. Send a re-engagement campaign now to recover them.</div>
         </div>
-        <button class="churn-btn">Send campaign →</button>
+        <button class="churn-btn" onclick="document.getElementById('campaignModal').style.display='flex'">Send campaign →</button>
       </div>
 
       <!-- KPI CARDS -->
@@ -635,7 +635,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
               <div class="card-title">Daily Tap Volume</div>
               <div class="card-sub">Last 14 days · Today highlighted in amber</div>
             </div>
-            <div class="card-action">Export ↗</div>
+            <div class="card-action" onclick="exportCSV()" style="cursor:pointer">Export ↗</div>
           </div>
           <div class="chart-area" id="barChart">
             <div class="chart-gridlines">
@@ -774,12 +774,12 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
         <div class="card">
           <div class="card-header">
             <div>
-              <div class="card-title">Active Campaigns</div>
+              <div class="card-title" onclick="goToCampaigns()" style="cursor:pointer">Active Campaigns</div>
               <div class="card-sub">3 running · 1 scheduled</div>
             </div>
-            <div class="card-action">+ New campaign</div>
+            <div class="card-action" onclick="goToCampaigns()" style="cursor:pointer">+ New campaign</div>
           </div>
-          <div class="campaign-row">
+          <div class="campaign-row" onclick="goToCampaigns()" style="cursor:pointer">
             <div class="campaign-status" style="background:#3ab86a"></div>
             <div class="campaign-info">
               <div class="campaign-name">Weekend Double Points</div>
@@ -790,7 +790,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
               <div class="campaign-label">open rate</div>
             </div>
           </div>
-          <div class="campaign-row">
+          <div class="campaign-row" onclick="goToCampaigns()" style="cursor:pointer">
             <div class="campaign-status" style="background:#3ab86a"></div>
             <div class="campaign-info">
               <div class="campaign-name">Gold Member Exclusive Offer</div>
@@ -801,7 +801,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
               <div class="campaign-label">open rate</div>
             </div>
           </div>
-          <div class="campaign-row">
+          <div class="campaign-row" onclick="goToCampaigns()" style="cursor:pointer">
             <div class="campaign-status" style="background:#C9963A"></div>
             <div class="campaign-info">
               <div class="campaign-name">Re-engagement · At-risk members</div>
@@ -812,7 +812,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
               <div class="campaign-label">not sent</div>
             </div>
           </div>
-          <div class="campaign-row">
+          <div class="campaign-row" onclick="goToCampaigns()" style="cursor:pointer">
             <div class="campaign-status" style="background:rgba(255,255,255,0.2)"></div>
             <div class="campaign-info">
               <div class="campaign-name">National Day Promo</div>
@@ -1010,7 +1010,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
 
     <!-- CAMPAIGNS SECTION -->
     <div class="dash-section" id="sec-campaigns">
-      <div class="section-header"><div class="page-title">Campaigns</div><div><button onclick="alert('Campaign builder coming soon!')" style="background:#8B0015;color:white;border:none;padding:0.5rem 1.1rem;border-radius:4px;font-family:Inter,sans-serif;font-size:0.8rem;font-weight:700;cursor:pointer">+ New Campaign</button></div></div>
+      <div class="section-header"><div class="page-title">Campaigns</div><div><button onclick="document.getElementById('newCampaignModal').style.display='flex'" style="background:#8B0015;color:white;border:none;padding:0.5rem 1.1rem;border-radius:4px;font-family:Inter,sans-serif;font-size:0.8rem;font-weight:700;cursor:pointer">+ New Campaign</button></div></div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem">
         <div class="kpi green"><div class="kpi-label">Active Campaigns</div><div class="kpi-value">3</div></div>
         <div class="kpi amber"><div class="kpi-label">Avg Open Rate</div><div class="kpi-value">41%</div><div class="kpi-change up">↑ Industry avg: 22%</div></div>
@@ -1040,7 +1040,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
 
     <!-- REWARDS SECTION -->
     <div class="dash-section" id="sec-rewards">
-      <div class="section-header"><div class="page-title">Rewards</div><div><button onclick="alert('Add reward coming soon!')" style="background:#8B0015;color:white;border:none;padding:0.5rem 1.1rem;border-radius:4px;font-family:Inter,sans-serif;font-size:0.8rem;font-weight:700;cursor:pointer">+ Add Reward</button></div></div>
+      <div class="section-header"><div class="page-title">Rewards</div><div><button onclick="document.getElementById('addRewardModal').style.display='flex'" style="background:#8B0015;color:white;border:none;padding:0.5rem 1.1rem;border-radius:4px;font-family:Inter,sans-serif;font-size:0.8rem;font-weight:700;cursor:pointer">+ Add Reward</button></div></div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem">
         <div class="kpi green"><div class="kpi-label">Active Rewards</div><div class="kpi-value">4</div></div>
         <div class="kpi amber"><div class="kpi-label">Redeemed This Month</div><div class="kpi-value">23</div><div class="kpi-change up">↑ 8 vs last month</div></div>
@@ -1275,6 +1275,27 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
 <script>
 
 // ── SECTION SWITCHING ──
+
+function goToCampaigns() {
+  document.querySelectorAll('.dash-section').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  var sec = document.getElementById('sec-campaigns');
+  if(sec) sec.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(function(n){
+    if(n.textContent.indexOf('Campaigns') !== -1) n.classList.add('active');
+  });
+}
+function goToMembers() {
+  document.querySelectorAll('.dash-section').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  var sec = document.getElementById('sec-members');
+  if(sec) sec.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(function(n){
+    if(n.textContent.indexOf('Members') !== -1) n.classList.add('active');
+  });
+  buildMemberTable();
+}
+
 function showSection(id, navItem) {
   // Update nav
   document.querySelectorAll('.nav-item').forEach(function(el) { el.classList.remove('active'); });
@@ -1559,12 +1580,6 @@ function updateCalc() {
 }
 setTimeout(updateCalc, 1000);
 
-
-
-  event.target.classList.add('active');
-}
-
-
 // Close menus on outside click
 document.addEventListener('click', function(e) {
   if (!e.target.closest('#dateBtn') && !e.target.closest('#dateMenu')) {
@@ -1613,6 +1628,69 @@ document.addEventListener('click', function(e) {
   }
 });
 
+
+function sendCampaign() {
+  document.getElementById('campaignModal').style.display = 'none';
+  document.getElementById('campaignSent').style.display = 'flex';
+  if (navigator.vibrate) navigator.vibrate([40, 30, 60]);
+}
+
+
+function exportCSV() {
+  var rows = [
+    ['Date','Taps','New Members','Returning','Peak Hour'],
+    ['2025-06-17','98','8','90','7pm'],
+    ['2025-06-18','112','11','101','7pm'],
+    ['2025-06-19','89','6','83','6pm'],
+    ['2025-06-20','134','14','120','8pm'],
+    ['2025-06-21','156','18','138','7pm'],
+    ['2025-06-22','143','12','131','6pm'],
+    ['2025-06-23','108','9','99','7pm'],
+    ['2025-06-24','167','21','146','7pm'],
+    ['2025-06-25','201','24','177','8pm'],
+    ['2025-06-26','178','16','162','7pm'],
+    ['2025-06-27','145','13','132','6pm'],
+    ['2025-06-28','159','17','142','7pm'],
+    ['2025-06-29','212','28','184','8pm'],
+    ['2025-06-30','94','7','87','5pm'],
+  ];
+  var csv = rows.map(function(r){ return r.join(','); }).join('\n');
+  var blob = new Blob([csv], { type: 'text/csv' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'CBOXX_tap_data_Jun2025.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+
+function createCampaign() {
+  var name = document.getElementById('campName').value || 'New Campaign';
+  var audience = document.getElementById('campAudience');
+  var audienceText = audience.options[audience.selectedIndex].text;
+  var schedule = document.querySelector('input[name="campSchedule"]:checked').value;
+  document.getElementById('newCampaignModal').style.display = 'none';
+  var msg = schedule === 'now'
+    ? '"' + name + '" sent to ' + audienceText + '.'
+    : '"' + name + '" scheduled for ' + audienceText + '.';
+  document.getElementById('campConfirmMsg').textContent = msg;
+  document.getElementById('campaignCreated').style.display = 'flex';
+  if (navigator.vibrate) navigator.vibrate([40, 30, 60]);
+}
+
+
+function addReward() {
+  var name = document.getElementById('rwdName').value || 'New Reward';
+  var pts = document.getElementById('rwdPts').value || '0';
+  var tier = document.querySelector('input[name="rwdTier"]:checked').value;
+  var tierLabel = tier === 'bronze' ? '🥉 Bronze' : tier === 'silver' ? '🥈 Silver' : '🥇 Gold';
+  document.getElementById('addRewardModal').style.display = 'none';
+  document.getElementById('rewardConfirmMsg').textContent = '"' + name + '" added for ' + tierLabel + ' members at ' + pts + ' pts.';
+  document.getElementById('rewardAdded').style.display = 'flex';
+  if (navigator.vibrate) navigator.vibrate([40, 30, 60]);
+}
+
 // Mobile sidebar
 function toggleSidebar() {
   var sb = document.querySelector('.sidebar');
@@ -1632,5 +1710,258 @@ document.querySelectorAll('.nav-item').forEach(function(el) {
 });
 
 </script>
+
+<!-- PSG GRANT MODAL -->
+<div id="psgModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:999;align-items:center;justify-content:center;padding:1.5rem" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#0D1520;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:2rem;max-width:480px;width:100%;position:relative">
+    <button onclick="document.getElementById('psgModal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:rgba(255,255,255,0.4);font-size:1.2rem;cursor:pointer">✕</button>
+    
+    <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C9963A;margin-bottom:0.5rem">PSG Grant Details</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:#E8E4DF;margin-bottom:1.25rem">Productivity Solutions Grant</div>
+    
+    <div style="background:rgba(58,184,106,0.08);border:1px solid rgba(58,184,106,0.2);border-radius:10px;padding:1rem;margin-bottom:1.25rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+        <span style="font-size:0.82rem;color:rgba(255,255,255,0.5)">Original price</span>
+        <span style="font-size:0.82rem;color:rgba(255,255,255,0.4);text-decoration:line-through">SGD 350/month</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem">
+        <span style="font-size:0.82rem;color:rgba(255,255,255,0.5)">PSG subsidy</span>
+        <span style="font-size:0.82rem;color:#3ab86a;font-weight:700">50% off</span>
+      </div>
+      <div style="height:1px;background:rgba(255,255,255,0.07);margin:0.5rem 0"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:0.88rem;font-weight:700;color:#E8E4DF">Your effective rate</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:#C9963A">SGD 175/mo</span>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:0.65rem;margin-bottom:1.25rem">
+      <div style="display:flex;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+        <span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Grant status</span>
+        <span style="font-size:0.8rem;font-weight:700;color:#3ab86a">● Approved</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+        <span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Grant provider</span>
+        <span style="font-size:0.8rem;font-weight:600;color:#E8E4DF">IMDA / Enterprise Singapore</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+        <span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Eligible business</span>
+        <span style="font-size:0.8rem;font-weight:600;color:#E8E4DF">Singapore SMEs</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:0.6rem 0">
+        <span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Grant expiry</span>
+        <span style="font-size:0.8rem;font-weight:600;color:#E8E4DF">Dec 2025</span>
+      </div>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px;padding:0.85rem;margin-bottom:1.25rem">
+      <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);line-height:1.6">The PSG grant supports Singapore SMEs in adopting digital solutions. CBOXX is a pre-approved vendor. Your 50% subsidy is applied automatically — no paperwork needed on your end.</div>
+    </div>
+
+    <button onclick="document.getElementById('psgModal').style.display='none'" style="width:100%;padding:0.9rem;background:#8B0015;border:none;border-radius:8px;color:white;font-family:'Inter',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer">Got it</button>
+  </div>
+</div>
+
+<!-- CAMPAIGN MODAL -->
+<div id="campaignModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;align-items:center;justify-content:center;padding:1.5rem" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#0D1520;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:2rem;max-width:480px;width:100%;position:relative">
+    <button onclick="document.getElementById('campaignModal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:rgba(255,255,255,0.4);font-size:1.2rem;cursor:pointer">✕</button>
+
+    <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#ff6b6b;margin-bottom:0.5rem">Re-engagement Campaign</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:#E8E4DF;margin-bottom:0.35rem">Win Back At-Risk Members</div>
+    <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:1.25rem;line-height:1.5">Sending to 18 members who haven't visited in 21+ days.</p>
+
+    <!-- Campaign preview -->
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1rem;margin-bottom:1.25rem">
+      <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.65rem">Message preview</div>
+      <div style="background:#000;border-radius:8px;padding:0.85rem;font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:1.6;border-left:3px solid #8B0015">
+        "Hi! We miss you at Demo Store 👋 It's been a while. Come back this week and earn <strong style="color:#C9963A">2x points</strong> on your next visit. Tap the NFC tag at our counter to redeem. Valid until Sunday."
+      </div>
+    </div>
+
+    <!-- Campaign settings -->
+    <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.25rem">
+      <div style="display:flex;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+        <span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Recipients</span>
+        <span style="font-size:0.8rem;font-weight:700;color:#E8E4DF">18 at-risk members</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+        <span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Offer</span>
+        <span style="font-size:0.8rem;font-weight:700;color:#C9963A">2x points this week</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
+        <span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Channel</span>
+        <span style="font-size:0.8rem;font-weight:600;color:#E8E4DF">SMS</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:0.6rem 0">
+        <span style="font-size:0.8rem;color:rgba(255,255,255,0.45)">Expected recovery rate</span>
+        <span style="font-size:0.8rem;font-weight:700;color:#3ab86a">~35% (6 members)</span>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:0.75rem">
+      <button onclick="document.getElementById('campaignModal').style.display='none'" style="flex:1;padding:0.9rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:rgba(255,255,255,0.5);font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer">Cancel</button>
+      <button onclick="sendCampaign()" style="flex:2;padding:0.9rem;background:#8B0015;border:none;border-radius:8px;color:white;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer">Send Campaign →</button>
+    </div>
+  </div>
+</div>
+
+<!-- CAMPAIGN SENT CONFIRMATION -->
+<div id="campaignSent" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;align-items:center;justify-content:center;padding:1.5rem">
+  <div style="background:#0D1520;border:1px solid rgba(58,184,106,0.3);border-radius:16px;padding:2rem;max-width:380px;width:100%;text-align:center">
+    <div style="width:64px;height:64px;background:rgba(22,92,50,0.2);border:2px solid rgba(58,184,106,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 1rem">✓</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:#E8E4DF;margin-bottom:0.35rem">Campaign Sent!</div>
+    <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:1.25rem;line-height:1.5">Re-engagement message sent to 18 members. You'll see responses in your Tap Activity feed.</p>
+    <button onclick="document.getElementById('campaignSent').style.display='none'" style="width:100%;padding:0.9rem;background:#8B0015;border:none;border-radius:8px;color:white;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer">Done</button>
+  </div>
+</div>
+
+<!-- NEW CAMPAIGN MODAL -->
+<div id="newCampaignModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;align-items:center;justify-content:center;padding:1.5rem;overflow-y:auto" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#0D1520;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:2rem;max-width:500px;width:100%;position:relative">
+    <button onclick="document.getElementById('newCampaignModal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:rgba(255,255,255,0.4);font-size:1.2rem;cursor:pointer">✕</button>
+
+    <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#8B0015;margin-bottom:0.5rem">New Campaign</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:#E8E4DF;margin-bottom:1.5rem">Create Campaign</div>
+
+    <!-- Campaign Name -->
+    <div style="margin-bottom:1rem">
+      <label style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:block;margin-bottom:0.4rem">Campaign name</label>
+      <input id="campName" type="text" placeholder="e.g. Weekend Special" style="width:100%;padding:0.75rem 1rem;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:8px;color:#E8E4DF;font-family:Inter,sans-serif;font-size:0.88rem;outline:none" onfocus="this.style.borderColor='#8B0015'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+    </div>
+
+    <!-- Target Audience -->
+    <div style="margin-bottom:1rem">
+      <label style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:block;margin-bottom:0.4rem">Target audience</label>
+      <select id="campAudience" style="width:100%;padding:0.75rem 1rem;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:8px;color:#E8E4DF;font-family:Inter,sans-serif;font-size:0.88rem;outline:none;appearance:none">
+        <option value="all">All members (247)</option>
+        <option value="bronze">Bronze members only</option>
+        <option value="silver">Silver members only</option>
+        <option value="gold">Gold members only</option>
+        <option value="atrisk">At-risk members (18)</option>
+        <option value="new">New members (first visit only)</option>
+      </select>
+    </div>
+
+    <!-- Offer -->
+    <div style="margin-bottom:1rem">
+      <label style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:block;margin-bottom:0.4rem">Offer</label>
+      <select id="campOffer" style="width:100%;padding:0.75rem 1rem;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:8px;color:#E8E4DF;font-family:Inter,sans-serif;font-size:0.88rem;outline:none;appearance:none">
+        <option>2x points this week</option>
+        <option>10% off next visit</option>
+        <option>Free item with next purchase</option>
+        <option>Birthday special reward</option>
+        <option>Custom offer</option>
+      </select>
+    </div>
+
+    <!-- Message -->
+    <div style="margin-bottom:1rem">
+      <label style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:block;margin-bottom:0.4rem">Message</label>
+      <textarea id="campMsg" rows="3" placeholder="Write your campaign message..." style="width:100%;padding:0.75rem 1rem;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:8px;color:#E8E4DF;font-family:Inter,sans-serif;font-size:0.88rem;outline:none;resize:none" onfocus="this.style.borderColor='#8B0015'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'"></textarea>
+    </div>
+
+    <!-- Schedule -->
+    <div style="margin-bottom:1.5rem">
+      <label style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:block;margin-bottom:0.4rem">Send</label>
+      <div style="display:flex;gap:0.65rem">
+        <label style="flex:1;display:flex;align-items:center;gap:0.5rem;padding:0.75rem;background:rgba(255,255,255,0.04);border:1.5px solid rgba(139,0,21,0.4);border-radius:8px;cursor:pointer">
+          <input type="radio" name="campSchedule" value="now" checked style="accent-color:#8B0015">
+          <span style="font-size:0.82rem;color:#E8E4DF">Send now</span>
+        </label>
+        <label style="flex:1;display:flex;align-items:center;gap:0.5rem;padding:0.75rem;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;cursor:pointer">
+          <input type="radio" name="campSchedule" value="schedule" style="accent-color:#8B0015">
+          <span style="font-size:0.82rem;color:#E8E4DF">Schedule</span>
+        </label>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:0.75rem">
+      <button onclick="document.getElementById('newCampaignModal').style.display='none'" style="flex:1;padding:0.9rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:rgba(255,255,255,0.5);font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer">Cancel</button>
+      <button onclick="createCampaign()" style="flex:2;padding:0.9rem;background:#8B0015;border:none;border-radius:8px;color:white;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer">Create Campaign →</button>
+    </div>
+  </div>
+</div>
+
+<!-- CAMPAIGN CREATED CONFIRMATION -->
+<div id="campaignCreated" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;align-items:center;justify-content:center;padding:1.5rem">
+  <div style="background:#0D1520;border:1px solid rgba(58,184,106,0.3);border-radius:16px;padding:2rem;max-width:380px;width:100%;text-align:center">
+    <div style="width:64px;height:64px;background:rgba(22,92,50,0.2);border:2px solid rgba(58,184,106,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 1rem">✓</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:#E8E4DF;margin-bottom:0.35rem">Campaign Created!</div>
+    <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:1.25rem;line-height:1.5" id="campConfirmMsg">Your campaign has been sent to all members.</p>
+    <button onclick="document.getElementById('campaignCreated').style.display='none'" style="width:100%;padding:0.9rem;background:#8B0015;border:none;border-radius:8px;color:white;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer">Done</button>
+  </div>
+</div>
+
+<!-- ADD REWARD MODAL -->
+<div id="addRewardModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;align-items:center;justify-content:center;padding:1.5rem" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:#0D1520;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:2rem;max-width:480px;width:100%;position:relative">
+    <button onclick="document.getElementById('addRewardModal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:rgba(255,255,255,0.4);font-size:1.2rem;cursor:pointer">✕</button>
+
+    <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C9963A;margin-bottom:0.5rem">New Reward</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:#E8E4DF;margin-bottom:1.5rem">Add a Reward</div>
+
+    <!-- Reward name -->
+    <div style="margin-bottom:1rem">
+      <label style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:block;margin-bottom:0.4rem">Reward name</label>
+      <input id="rwdName" type="text" placeholder="e.g. Free Dessert" style="width:100%;padding:0.75rem 1rem;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:8px;color:#E8E4DF;font-family:Inter,sans-serif;font-size:0.88rem;outline:none" onfocus="this.style.borderColor='#8B0015'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+    </div>
+
+    <!-- Tier required -->
+    <div style="margin-bottom:1rem">
+      <label style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:block;margin-bottom:0.4rem">Tier required</label>
+      <div style="display:flex;gap:0.65rem">
+        <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:0.4rem;padding:0.65rem;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;cursor:pointer;font-size:0.82rem;color:#ff8c8c">
+          <input type="radio" name="rwdTier" value="bronze" checked style="accent-color:#8B0015"> 🥉 Bronze
+        </label>
+        <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:0.4rem;padding:0.65rem;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;cursor:pointer;font-size:0.82rem;color:rgba(255,255,255,0.5)">
+          <input type="radio" name="rwdTier" value="silver" style="accent-color:#8B0015"> 🥈 Silver
+        </label>
+        <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:0.4rem;padding:0.65rem;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;cursor:pointer;font-size:0.82rem;color:#C9963A">
+          <input type="radio" name="rwdTier" value="gold" style="accent-color:#8B0015"> 🥇 Gold
+        </label>
+      </div>
+    </div>
+
+    <!-- Points required -->
+    <div style="margin-bottom:1rem">
+      <label style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:block;margin-bottom:0.4rem">Points required</label>
+      <input id="rwdPts" type="number" placeholder="e.g. 200" style="width:100%;padding:0.75rem 1rem;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:8px;color:#E8E4DF;font-family:Inter,sans-serif;font-size:0.88rem;outline:none" onfocus="this.style.borderColor='#8B0015'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+    </div>
+
+    <!-- Description -->
+    <div style="margin-bottom:1rem">
+      <label style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:block;margin-bottom:0.4rem">Description</label>
+      <input id="rwdDesc" type="text" placeholder="e.g. Redeem at counter · No expiry" style="width:100%;padding:0.75rem 1rem;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:8px;color:#E8E4DF;font-family:Inter,sans-serif;font-size:0.88rem;outline:none" onfocus="this.style.borderColor='#8B0015'" onblur="this.style.borderColor='rgba(255,255,255,0.1)'">
+    </div>
+
+    <!-- Expiry -->
+    <div style="margin-bottom:1.5rem">
+      <label style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:block;margin-bottom:0.4rem">Expiry</label>
+      <select id="rwdExpiry" style="width:100%;padding:0.75rem 1rem;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);border-radius:8px;color:#E8E4DF;font-family:Inter,sans-serif;font-size:0.88rem;outline:none;appearance:none">
+        <option>No expiry</option>
+        <option>7 days after unlock</option>
+        <option>30 days after unlock</option>
+        <option>End of month</option>
+        <option>End of year</option>
+      </select>
+    </div>
+
+    <div style="display:flex;gap:0.75rem">
+      <button onclick="document.getElementById('addRewardModal').style.display='none'" style="flex:1;padding:0.9rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:rgba(255,255,255,0.5);font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer">Cancel</button>
+      <button onclick="addReward()" style="flex:2;padding:0.9rem;background:#8B0015;border:none;border-radius:8px;color:white;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer">Add Reward →</button>
+    </div>
+  </div>
+</div>
+
+<!-- REWARD ADDED CONFIRMATION -->
+<div id="rewardAdded" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;align-items:center;justify-content:center;padding:1.5rem">
+  <div style="background:#0D1520;border:1px solid rgba(201,150,58,0.3);border-radius:16px;padding:2rem;max-width:380px;width:100%;text-align:center">
+    <div style="font-size:2.5rem;margin-bottom:0.75rem">🎁</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:#E8E4DF;margin-bottom:0.35rem">Reward Added!</div>
+    <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:1.25rem;line-height:1.5" id="rewardConfirmMsg">Your reward is now live for members.</p>
+    <button onclick="document.getElementById('rewardAdded').style.display='none'" style="width:100%;padding:0.9rem;background:#8B0015;border:none;border-radius:8px;color:white;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer">Done</button>
+  </div>
+</div>
 </body>
 </html>
