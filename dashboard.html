@@ -442,6 +442,20 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
   .content { padding: 0.65rem !important; }
 }
 
+
+.date-opt { padding:0.5rem 0.85rem; font-size:0.8rem; color:rgba(255,255,255,0.5); cursor:pointer; border-radius:5px; font-family:Inter,sans-serif; }
+.date-opt:hover, .date-opt.active { background:rgba(139,0,21,0.15); color:#E8E4DF; }
+.notif-item { display:flex; align-items:flex-start; gap:0.65rem; padding:0.75rem 1rem; border-bottom:1px solid rgba(255,255,255,0.04); cursor:pointer; }
+.notif-item:hover { background:rgba(255,255,255,0.03); }
+.notif-item.unread { background:rgba(139,0,21,0.04); }
+.notif-dot { width:7px; height:7px; border-radius:50%; background:#8B0015; flex-shrink:0; margin-top:4px; }
+.notif-text { font-size:0.75rem; color:rgba(255,255,255,0.65); line-height:1.4; margin-bottom:0.2rem; }
+.notif-time { font-size:0.62rem; color:rgba(255,255,255,0.28); }
+.auto-toggle { width:40px; height:22px; background:rgba(255,255,255,0.1); border-radius:11px; position:relative; cursor:pointer; transition:background 0.25s; flex-shrink:0; }
+.auto-toggle.on { background:#8B0015; }
+.auto-knob { position:absolute; top:3px; left:3px; width:16px; height:16px; border-radius:50%; background:white; transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+.auto-toggle.on .auto-knob { transform:translateX(18px); }
+
 </style>
 </head>
 <body>
@@ -623,7 +637,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
             </div>
             <div class="member-row">
               <div class="member-avatar" style="background:#165C32">RK</div>
-              <div class="member-info"><div class="member-name">R. Kumar</div><div class="member-meta">11 visits · Gold</div></div>
+              <div class="member-info"><div class="member-name">+65 8234 ····</div><div class="member-meta">11 visits · Gold</div></div>
               <div><div class="member-pts">660</div><div class="member-tier">🥇 Gold</div></div>
             </div>
             <div class="member-row">
@@ -633,7 +647,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
             </div>
             <div class="member-row">
               <div class="member-avatar" style="background:#6d28d9">MW</div>
-              <div class="member-info"><div class="member-name">M. Wong</div><div class="member-meta">8 visits · Silver</div></div>
+              <div class="member-info"><div class="member-name">+65 8456 ····</div><div class="member-meta">8 visits · Silver</div></div>
               <div><div class="member-pts">480</div><div class="member-tier">🥈 Silver</div></div>
             </div>
             <div class="member-row">
@@ -813,7 +827,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
             <div class="activity-item">
               <div class="activity-icon" style="background:rgba(201,150,58,0.12)">⭐</div>
               <div class="activity-body">
-                <div class="activity-text"><strong>Reward redeemed</strong> · S. Lim · Free drink (200 pts)</div>
+                <div class="activity-text"><strong>Reward redeemed</strong> · +65 9123 ···· · Free drink (200 pts)</div>
                 <div class="activity-time">5 min ago</div>
               </div>
             </div>
@@ -827,7 +841,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
             <div class="activity-item">
               <div class="activity-icon" style="background:rgba(29,78,216,0.12)">🏆</div>
               <div class="activity-body">
-                <div class="activity-text"><strong>Tier upgrade</strong> · R. Kumar reached Gold</div>
+                <div class="activity-text"><strong>Tier upgrade</strong> · +65 8234 ···· reached Gold</div>
                 <div class="activity-time">12 min ago</div>
               </div>
             </div>
@@ -1127,10 +1141,10 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
     <div class="dash-section" id="sec-automations">
       <div class="section-header"><div class="page-title">Automations</div><div><button onclick="alert('Automation builder coming soon!')" style="background:#8B0015;color:white;border:none;padding:0.5rem 1.1rem;border-radius:4px;font-family:Inter,sans-serif;font-size:0.8rem;font-weight:700;cursor:pointer">+ New Automation</button></div></div>
       <div style="display:flex;flex-direction:column;gap:1rem">
-        <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.85rem;font-weight:700;color:#E8E4DF">Welcome message</div><div style="width:40px;height:22px;background:#8B0015;border-radius:11px;position:relative;cursor:pointer"><div style="position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:white"></div></div></div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38)">Triggered on first tap · SMS sent to new member with loyalty welcome message</div></div>
-        <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.85rem;font-weight:700;color:#E8E4DF">Churn re-engagement</div><div style="width:40px;height:22px;background:#8B0015;border-radius:11px;position:relative;cursor:pointer"><div style="position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:white"></div></div></div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38)">Triggered at 21 days inactive · Auto-sends re-engagement campaign with 2x points offer</div></div>
-        <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.85rem;font-weight:700;color:#E8E4DF">Tier upgrade congratulations</div><div style="width:40px;height:22px;background:rgba(255,255,255,0.1);border-radius:11px;position:relative;cursor:pointer"><div style="position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.4)"></div></div></div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38)">Triggered when member reaches Silver or Gold · Sends congratulations with tier benefits</div></div>
-        <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.85rem;font-weight:700;color:#E8E4DF">Birthday reward</div><div style="width:40px;height:22px;background:rgba(255,255,255,0.1);border-radius:11px;position:relative;cursor:pointer"><div style="position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.4)"></div></div></div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38)">Triggered on member birthday month · Unlocks birthday treat reward automatically</div></div>
+        <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.85rem;font-weight:700;color:#E8E4DF">Welcome message</div><div class="auto-toggle on" onclick="this.classList.toggle('on')"><div class="auto-knob"></div></div></div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38)">Triggered on first tap · SMS sent to new member with loyalty welcome message</div></div>
+        <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.85rem;font-weight:700;color:#E8E4DF">Churn re-engagement</div><div class="auto-toggle on" onclick="this.classList.toggle('on')"><div class="auto-knob"></div></div></div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38)">Triggered at 21 days inactive · Auto-sends re-engagement campaign with 2x points offer</div></div>
+        <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.85rem;font-weight:700;color:#E8E4DF">Tier upgrade congratulations</div><div class="auto-toggle" onclick="this.classList.toggle('on')"><div class="auto-knob"></div></div></div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38)">Triggered when member reaches Silver or Gold · Sends congratulations with tier benefits</div></div>
+        <div class="card"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem"><div style="font-size:0.85rem;font-weight:700;color:#E8E4DF">Birthday reward</div><div class="auto-toggle" onclick="this.classList.toggle('on')"><div class="auto-knob"></div></div></div><div style="font-size:0.72rem;color:rgba(255,255,255,0.38)">Triggered on member birthday month · Unlocks birthday treat reward automatically</div></div>
       </div>
     </div>
 
@@ -1259,18 +1273,18 @@ function showSection(id, navItem) {
 
 // ── MEMBER TABLE ──
 var members = [
-  {name:'S. Lim', pts:840, visits:14, tier:'Gold', last:'Today', risk:false},
-  {name:'R. Kumar', pts:660, visits:11, tier:'Gold', last:'Today', risk:false},
-  {name:'A. Tan', pts:540, visits:9, tier:'Silver', last:'Yesterday', risk:false},
-  {name:'M. Wong', pts:480, visits:8, tier:'Silver', last:'2 days ago', risk:false},
-  {name:'N. Ahmad', pts:420, visits:7, tier:'Bronze', last:'3 days ago', risk:false},
-  {name:'J. Lee', pts:380, visits:6, tier:'Bronze', last:'4 days ago', risk:false},
+  {name:'+65 9123 ····', pts:840, visits:14, tier:'Gold', last:'Today', risk:false},
+  {name:'+65 8234 ····', pts:660, visits:11, tier:'Gold', last:'Today', risk:false},
+  {name:'+65 9345 ····', pts:540, visits:9, tier:'Silver', last:'Yesterday', risk:false},
+  {name:'+65 8456 ····', pts:480, visits:8, tier:'Silver', last:'2 days ago', risk:false},
+  {name:'+65 9567 ····', pts:420, visits:7, tier:'Bronze', last:'3 days ago', risk:false},
+  {name:'+65 8678 ····', pts:380, visits:6, tier:'Bronze', last:'4 days ago', risk:false},
   {name:'P. Tan', pts:320, visits:5, tier:'Bronze', last:'5 days ago', risk:false},
-  {name:'W. Lim', pts:280, visits:4, tier:'Bronze', last:'6 days ago', risk:false},
-  {name:'H. Goh', pts:180, visits:3, tier:'Bronze', last:'12 days ago', risk:false},
+  {name:'+65 8890 ····', pts:280, visits:4, tier:'Bronze', last:'6 days ago', risk:false},
+  {name:'+65 9901 ····', pts:180, visits:3, tier:'Bronze', last:'12 days ago', risk:false},
   {name:'B. Ng', pts:120, visits:2, tier:'Bronze', last:'22 days ago', risk:true},
-  {name:'C. Ong', pts:60, visits:1, tier:'Bronze', last:'24 days ago', risk:true},
-  {name:'D. Lim', pts:60, visits:1, tier:'Bronze', last:'26 days ago', risk:true},
+  {name:'+65 9123 ····', pts:60, visits:1, tier:'Bronze', last:'24 days ago', risk:true},
+  {name:'+65 8234 ····', pts:60, visits:1, tier:'Bronze', last:'26 days ago', risk:true},
 ];
 
 function tierBadge(tier) {
@@ -1298,14 +1312,14 @@ function filterMembers(v) { buildMemberTable(v); }
 
 // ── TAP FEED ──
 var tapActivities = [
-  { icon:'✓', bg:'rgba(58,184,106,0.12)', text:'<strong>New tap</strong> · Returning member · S. Lim · 5th visit this month', time:'Just now' },
+  { icon:'✓', bg:'rgba(58,184,106,0.12)', text:'<strong>New tap</strong> · Returning member · +65 9123 ···· · 5th visit this month', time:'Just now' },
   { icon:'👤', bg:'rgba(139,0,21,0.12)', text:'<strong>New enrollment</strong> · First-time visitor · Bronze tier', time:'2 min ago' },
-  { icon:'⭐', bg:'rgba(201,150,58,0.12)', text:'<strong>Reward redeemed</strong> · A. Tan · Free soup base (200 pts)', time:'5 min ago' },
-  { icon:'✓', bg:'rgba(58,184,106,0.12)', text:'<strong>New tap</strong> · R. Kumar · Gold member · 11th visit', time:'8 min ago' },
-  { icon:'🏆', bg:'rgba(29,78,216,0.12)', text:'<strong>Tier upgrade</strong> · N. Ahmad reached Silver tier', time:'12 min ago' },
+  { icon:'⭐', bg:'rgba(201,150,58,0.12)', text:'<strong>Reward redeemed</strong> · +65 9345 ···· · Free soup base (200 pts)', time:'5 min ago' },
+  { icon:'✓', bg:'rgba(58,184,106,0.12)', text:'<strong>New tap</strong> · +65 8234 ···· · Gold member · 11th visit', time:'8 min ago' },
+  { icon:'🏆', bg:'rgba(29,78,216,0.12)', text:'<strong>Tier upgrade</strong> · +65 9567 ···· reached Silver tier', time:'12 min ago' },
   { icon:'✓', bg:'rgba(58,184,106,0.12)', text:'<strong>New tap</strong> · Returning member · 3rd visit this week', time:'15 min ago' },
   { icon:'👤', bg:'rgba(139,0,21,0.12)', text:'<strong>New enrollment</strong> · First-time visitor · Enrolled via Counter Tag #2', time:'18 min ago' },
-  { icon:'⭐', bg:'rgba(201,150,58,0.12)', text:'<strong>Points earned</strong> · M. Wong · +60 pts · Total: 480 pts', time:'22 min ago' },
+  { icon:'⭐', bg:'rgba(201,150,58,0.12)', text:'<strong>Points earned</strong> · +65 8456 ···· · +60 pts · Total: 480 pts', time:'22 min ago' },
 ];
 
 function buildTapFeed() {
@@ -1321,7 +1335,7 @@ function buildTapFeed() {
 
 // ── CHURN LIST ──
 var churnMembers = [
-  {name:'B. Ng', pts:120, days:22},{name:'C. Ong', pts:60, days:24},{name:'D. Lim', pts:60, days:26},
+  {name:'+65 8012 ····', pts:120, days:22},{name:'+65 9123 ····', pts:60, days:24},{name:'+65 8234 ····', pts:60, days:26},
   {name:'E. Tan', pts:200, days:21},{name:'F. Lee', pts:150, days:28},{name:'G. Goh', pts:90, days:23},
 ];
 function buildChurnList() {
@@ -1520,6 +1534,38 @@ function updateCalc() {
   document.getElementById('calcRPM').textContent = 'SGD ' + rpm;
 }
 setTimeout(updateCalc, 1000);
+
+
+function toggleDateMenu() {
+  var m = document.getElementById('dateMenu');
+  m.style.display = m.style.display === 'none' ? 'block' : 'none';
+}
+function setDate(label) {
+  document.getElementById('dateLabel').textContent = label;
+  document.getElementById('dateMenu').style.display = 'none';
+  document.querySelectorAll('.date-opt').forEach(function(o){ o.classList.remove('active'); });
+  event.target.classList.add('active');
+}
+function toggleNotifs() {
+  var p = document.getElementById('notifPanel');
+  p.style.display = p.style.display === 'none' ? 'block' : 'none';
+}
+function clearNotifs() {
+  document.querySelectorAll('.notif-item').forEach(function(n){ n.classList.remove('unread'); n.querySelector('.notif-dot').style.opacity='0'; });
+  document.getElementById('notifBadge').style.display = 'none';
+  document.getElementById('notifPanel').style.display = 'none';
+}
+// Close menus on outside click
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#dateBtn') && !e.target.closest('#dateMenu')) {
+    var m = document.getElementById('dateMenu');
+    if(m) m.style.display = 'none';
+  }
+  if (!e.target.closest('#notifPanel') && !e.target.closest('[onclick="toggleNotifs()"]')) {
+    var p = document.getElementById('notifPanel');
+    if(p) p.style.display = 'none';
+  }
+});
 
 // Mobile sidebar
 function toggleSidebar() {
