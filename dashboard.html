@@ -1563,15 +1563,8 @@ setTimeout(updateCalc, 1000);
 
   event.target.classList.add('active');
 }
-function toggleNotifs() {
-  var p = document.getElementById('notifPanel');
-  p.style.display = p.style.display === 'none' ? 'block' : 'none';
-}
-function clearNotifs() {
-  document.querySelectorAll('.notif-item').forEach(function(n){ n.classList.remove('unread'); n.querySelector('.notif-dot').style.opacity='0'; });
-  document.getElementById('notifBadge').style.display = 'none';
-  document.getElementById('notifPanel').style.display = 'none';
-}
+
+
 // Close menus on outside click
 document.addEventListener('click', function(e) {
   if (!e.target.closest('#dateBtn') && !e.target.closest('#dateMenu')) {
