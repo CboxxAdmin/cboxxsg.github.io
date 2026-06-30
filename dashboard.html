@@ -523,11 +523,34 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
     <header class="topbar">
       <div class="topbar-left">
         <div class="page-title">Dashboard</div>
-        <div class="date-range">📅 Last 30 days ▾</div>
+        <div style="position:relative;display:inline-block">
+        <button onclick="toggleDateMenu(this)" id="dateBtn" style="padding:0.35rem 0.85rem;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;font-size:0.82rem;color:rgba(255,255,255,0.6);cursor:pointer;font-family:Inter,sans-serif;display:flex;align-items:center;gap:0.4rem">📅 <span id="dateLabel">Last 30 days</span> ▾</button>
+        <div id="dateMenu" style="display:none;position:absolute;top:110%;left:0;background:#0D1520;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:0.4rem;min-width:160px;z-index:1000;box-shadow:0 8px 24px rgba(0,0,0,0.5)">
+          <div class="date-opt active" onclick="setDate('Today',this)">Today</div>
+          <div class="date-opt" onclick="setDate('Last 7 days',this)">Last 7 days</div>
+          <div class="date-opt" onclick="setDate('Last 30 days',this)">Last 30 days</div>
+          <div class="date-opt" onclick="setDate('This quarter',this)">This quarter</div>
+          <div class="date-opt" onclick="setDate('Last 6 months',this)">Last 6 months</div>
+          <div class="date-opt" onclick="setDate('This year',this)">This year</div>
+        </div>
+      </div>
       </div>
       <div class="topbar-right">
         <div class="live-indicator"><div class="live-dot"></div> Live</div>
-        <div class="notif-btn">🔔<span class="notif-count">3</span></div>
+        <div style="position:relative;display:inline-block">
+        <div onclick="toggleNotifs()" style="position:relative;width:34px;height:34px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.9rem">🔔
+          <div id="notifBadge" style="position:absolute;top:-4px;right:-4px;width:16px;height:16px;background:#8B0015;border-radius:50%;font-size:0.5rem;font-weight:700;color:white;display:flex;align-items:center;justify-content:center">3</div>
+        </div>
+        <div id="notifPanel" style="display:none;position:absolute;top:110%;right:0;background:#0D1520;border:1px solid rgba(255,255,255,0.1);border-radius:10px;width:290px;z-index:1000;box-shadow:0 8px 32px rgba(0,0,0,0.5);overflow:hidden">
+          <div style="padding:0.85rem 1rem;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:0.82rem;font-weight:700;color:#E8E4DF">Notifications</span>
+            <span onclick="clearNotifs()" style="font-size:0.68rem;color:#8B0015;cursor:pointer;font-weight:600">Mark all read</span>
+          </div>
+          <div class="notif-item unread"><div class="notif-dot"></div><div><div class="notif-text">18 members at churn risk — send re-engagement now</div><div class="notif-time">2 hours ago</div></div></div>
+          <div class="notif-item unread"><div class="notif-dot"></div><div><div class="notif-text">S. Lim reached Gold tier — 14 visits this month</div><div class="notif-time">5 hours ago</div></div></div>
+          <div class="notif-item unread"><div class="notif-dot"></div><div><div class="notif-text">Weekend Double Points campaign ends Sunday</div><div class="notif-time">1 day ago</div></div></div>
+        </div>
+      </div>
       </div>
     </header>
 
@@ -628,7 +651,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
               <div class="card-title">Top Members</div>
               <div class="card-sub">By visit frequency this month</div>
             </div>
-            <div class="card-action">View all →</div>
+            <div class="card-action" onclick="showSection('members',document.querySelector('[onclick*=\'members\']'))" style="cursor:pointer">View all →</div>
           </div>
           <div class="member-list">
             <div class="member-row">
@@ -907,7 +930,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
             <div class="card">
               <div class="card-header">
                 <div><div class="card-title">Member Feedback</div><div class="card-sub">NPS + Recent comments</div></div>
-                <div class="card-action">View all →</div>
+                <div class="card-action" onclick="showSection('members',document.querySelector('[onclick*=\'members\']'))" style="cursor:pointer">View all →</div>
               </div>
               <!-- NPS -->
               <div style="margin-bottom:0.85rem">
@@ -1537,14 +1560,7 @@ function updateCalc() {
 setTimeout(updateCalc, 1000);
 
 
-function toggleDateMenu() {
-  var m = document.getElementById('dateMenu');
-  m.style.display = m.style.display === 'none' ? 'block' : 'none';
-}
-function setDate(label) {
-  document.getElementById('dateLabel').textContent = label;
-  document.getElementById('dateMenu').style.display = 'none';
-  document.querySelectorAll('.date-opt').forEach(function(o){ o.classList.remove('active'); });
+
   event.target.classList.add('active');
 }
 function toggleNotifs() {
@@ -1557,6 +1573,42 @@ function clearNotifs() {
   document.getElementById('notifPanel').style.display = 'none';
 }
 // Close menus on outside click
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#dateBtn') && !e.target.closest('#dateMenu')) {
+    var m = document.getElementById('dateMenu');
+    if(m) m.style.display = 'none';
+  }
+  if (!e.target.closest('#notifPanel') && !e.target.closest('[onclick="toggleNotifs()"]')) {
+    var p = document.getElementById('notifPanel');
+    if(p) p.style.display = 'none';
+  }
+});
+
+
+function toggleDateMenu(btn) {
+  var m = document.getElementById('dateMenu');
+  m.style.display = m.style.display === 'none' ? 'block' : 'none';
+}
+function setDate(label, el) {
+  document.getElementById('dateLabel').textContent = label;
+  document.getElementById('dateMenu').style.display = 'none';
+  document.querySelectorAll('.date-opt').forEach(function(o){ o.classList.remove('active'); });
+  if(el) el.classList.add('active');
+}
+function toggleNotifs() {
+  var p = document.getElementById('notifPanel');
+  p.style.display = p.style.display === 'none' ? 'block' : 'none';
+}
+function clearNotifs() {
+  document.querySelectorAll('.notif-item').forEach(function(n){
+    n.classList.remove('unread');
+    var dot = n.querySelector('.notif-dot');
+    if(dot) dot.style.opacity='0';
+  });
+  var badge = document.getElementById('notifBadge');
+  if(badge) badge.style.display = 'none';
+  document.getElementById('notifPanel').style.display = 'none';
+}
 document.addEventListener('click', function(e) {
   if (!e.target.closest('#dateBtn') && !e.target.closest('#dateMenu')) {
     var m = document.getElementById('dateMenu');
