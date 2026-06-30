@@ -97,9 +97,9 @@ body{background:white;}
 .pfeat{list-style:none;display:flex;flex-direction:column;gap:0.65rem;}
 .pfeat li{display:flex;gap:0.65rem;align-items:flex-start;font-size:0.88rem;color:#0D1B2A;}
 .plan.pro .pfeat li{color:rgba(255,255,255,0.78);}
-.pfeat li::before{content:"&#10003;";color:#165C32;font-weight:700;flex-shrink:0;margin-top:1px;}
+.pfeat li::before{content:"✓";color:#165C32;font-weight:700;flex-shrink:0;margin-top:1px;}
 .plan.pro .pfeat li::before{color:#3ab86a;}
-.pfeat li.locked::before{content:"&mdash;";color:#7A7A7A;}
+.pfeat li.locked::before{content:"—";color:#7A7A7A;}
 .pfeat li.locked{color:#7A7A7A!important;}
 .onboarding{margin-top:1.75rem;background:#8B0015;border-radius:8px;padding:1.2rem 1.6rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
 .roi-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;}
@@ -159,7 +159,7 @@ body{background:white;}
             <div class="ddot">TAP</div>
           </div>
           <div class="dsucc" id="dsucc">
-            <div class="dtick">&#10003;</div>
+            <div class="dtick">✓</div>
             <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.95rem;font-weight:900;color:white;text-transform:uppercase;">Enrolled!</div>
             <div style="font-size:0.46rem;color:rgba(255,255,255,0.35);text-align:center">Loyalty active &middot; No app needed</div>
           </div>
@@ -205,7 +205,7 @@ body{background:white;}
     <div class="plan reveal d1">
       <span class="pbadge basic">Basic</span>
       <div class="pprice">SGD 150<span style="font-size:1rem;font-weight:400">/mo</span></div>
-      <div class="ppsg">SGD 75/month with PSG grant</div>
+      <div class="ppsg">SGD 75/month (subject to PSG approval)</div>
       <ul class="pfeat">
         <li>Points, Stamp, or Tiered loyalty</li>
         <li>Tap volume &amp; unique visitor tracking</li>
@@ -220,7 +220,7 @@ body{background:white;}
     <div class="plan pro reveal d2">
       <span class="pbadge pro-b">Pro</span>
       <div class="pprice" style="color:#C9963A">SGD 350<span style="font-size:1rem;font-weight:400;color:rgba(255,255,255,0.4)">/mo</span></div>
-      <div class="ppsg">SGD 175/month with PSG grant</div>
+      <div class="ppsg">SGD 175/month (subject to PSG approval)</div>
       <ul class="pfeat">
         <li>Everything in Basic</li>
         <li>Churn risk alerts &amp; at-risk flagging</li>
@@ -279,8 +279,8 @@ body{background:white;}
     <input type="text" name="shop" placeholder="Shop name &amp; mall" required>
     <select name="plan" required>
       <option value="" disabled selected>Which plan interests you?</option>
-      <option value="Basic">Basic &mdash; SGD 150/month</option>
-      <option value="Pro">Pro &mdash; SGD 350/month</option>
+      <option value="Basic">Basic — SGD 150/month</option>
+      <option value="Pro">Pro — SGD 350/month</option>
       <option value="Unsure">Not sure yet</option>
     </select>
     <textarea name="message" placeholder="Tell us about your business" rows="3"></textarea>
