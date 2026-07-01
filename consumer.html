@@ -111,12 +111,12 @@ body{font-family:'Inter',sans-serif;background:#111;min-height:100vh;display:fle
 .tb-bronze{background:rgba(139,0,21,0.15);border:1px solid rgba(139,0,21,0.3);color:#ff8c8c;}
 .tb-silver{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.5);}
 .tb-gold{background:rgba(201,150,58,0.1);border:1px solid rgba(201,150,58,0.2);color:rgba(201,150,58,0.5);}
-.visit-row{display:flex;align-items:center;gap:0.85rem;padding:0.65rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.visit-row{display:flex;align-items:center;gap:0.9rem;padding:0.9rem 0;border-bottom:1px solid rgba(255,255,255,0.1);}
 .visit-row:last-child{border-bottom:none;}
-.vi-icon{width:32px;height:32px;border-radius:8px;background:rgba(139,0,21,0.12);display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;}
-.vi-title{font-size:0.8rem;font-weight:600;color:var(--off);}
-.vi-date{font-size:0.62rem;color:rgba(255,255,255,0.28);margin-top:0.1rem;}
-.vi-pts{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:900;color:var(--yellow);}
+.vi-icon{width:42px;height:42px;border-radius:10px;background:rgba(139,0,21,0.25);border:1.5px solid rgba(139,0,21,0.45);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.vi-title{font-size:1rem;font-weight:700;color:#ffffff;line-height:1.3;}
+.vi-date{font-size:0.82rem;color:rgba(255,255,255,0.65);margin-top:0.2rem;font-weight:500;}
+.vi-pts{font-family:'Barlow Condensed',sans-serif;font-size:1.35rem;font-weight:900;color:#f5c842;flex-shrink:0;}
 
 /* Rewards */
 .rl{display:flex;align-items:center;gap:0.85rem;padding:0.85rem;background:var(--card);border:1px solid var(--border);border-radius:10px;}
@@ -215,6 +215,16 @@ body{font-family:'Inter',sans-serif;background:#111;min-height:100vh;display:fle
 .mall-shops.open { display:flex !important; }
 .shop-row { background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:7px;padding:0.65rem 0.75rem;cursor:pointer;transition:border-color 0.2s; }
 .shop-row:hover { border-color:rgba(139,0,21,0.25); }
+.qs-row { display:flex;align-items:center;gap:0.65rem;padding:0.8rem 0.85rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;cursor:pointer;transition:border-color 0.15s; }
+.qs-row:hover { border-color:rgba(139,0,21,0.3); }
+.qs-icon { width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0; }
+.qs-info { flex:1;min-width:0; }
+.qs-name { font-size:0.95rem;font-weight:700;color:#ffffff; }
+.qs-sub { font-size:0.75rem;color:rgba(255,255,255,0.55);margin-top:0.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.qs-pts { font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:900;color:#f5c842;flex-shrink:0; }
+.qs-arrow { font-size:0.6rem;color:rgba(255,255,255,0.2);flex-shrink:0; }
+.sf-btn { font-size:0.6rem;font-weight:700;padding:0.25rem 0.55rem;border-radius:100px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:rgba(255,255,255,0.3);cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap; }
+.sf-btn.sf-active { background:rgba(139,0,21,0.2);border-color:rgba(139,0,21,0.4);color:#ff8c8c; }
 
 
 .mall-loyalty-strip { background:rgba(201,150,58,0.06); border:1px solid rgba(201,150,58,0.18); border-radius:8px; padding:0.75rem; margin-bottom:0.5rem; }
@@ -556,7 +566,7 @@ body{font-family:'Inter',sans-serif;background:#111;min-height:100vh;display:fle
             <div style="width:36px;height:36px;background:rgba(139,0,21,0.15);border:1px solid rgba(139,0,21,0.3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0">◎</div>
             <div>
               <div style="font-size:0.88rem;font-weight:700;color:var(--off)">East Area</div>
-              <div style="font-size:0.62rem;color:rgba(255,255,255,0.3)">Phase 1 Pilot · 8 malls · 1,260+ merchants</div>
+              <div style="font-size:0.62rem;color:rgba(255,255,255,0.3)">Phase 1 Pilot · 5 districts · 20 malls · 50 shops</div>
             </div>
           </div>
           <div style="display:flex;align-items:center;gap:0.5rem">
@@ -945,26 +955,26 @@ body{font-family:'Inter',sans-serif;background:#111;min-height:100vh;display:fle
 
     <!-- Recent activity -->
     <div>
-      <div class="eyebrow" style="margin-bottom:0.65rem">Recent Activity</div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.2rem">
+      <div class="eyebrow" style="margin-bottom:0.75rem;font-size:0.72rem;letter-spacing:0.12em;color:rgba(255,255,255,0.55)">Recent Activity</div>
+      <div style="background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);border-radius:16px;padding:0.5rem 1.25rem">
         <div class="visit-row">
-          <div class="vi-icon">▸</div>
-          <div><div class="vi-title">Shop A · Tampines Mall</div><div class="vi-date">Today · 7:32pm</div></div>
+          <div class="vi-icon">☕</div>
+          <div style="flex:1"><div class="vi-title">Brewtown Coffee · Tampines Mall</div><div class="vi-date">Today · 7:32pm</div></div>
           <div class="vi-pts">+60 pts</div>
         </div>
         <div class="visit-row">
-          <div class="vi-icon">▸</div>
-          <div><div class="vi-title">Shop B · Century Square</div><div class="vi-date">Yesterday · 2:15pm</div></div>
-          <div class="vi-pts">+30 pts</div>
+          <div class="vi-icon">💊</div>
+          <div style="flex:1"><div class="vi-title">VitaLife Health · Century Square</div><div class="vi-date">Yesterday · 2:15pm</div></div>
+          <div class="vi-pts">+80 pts</div>
         </div>
         <div class="visit-row">
-          <div class="vi-icon">▸</div>
-          <div><div class="vi-title">Shop C · Our Tampines Hub</div><div class="vi-date">Mon · 11:40am</div></div>
-          <div class="vi-pts">+35 pts</div>
+          <div class="vi-icon">🏋️</div>
+          <div style="flex:1"><div class="vi-title">Sport Central · Our Tampines Hub</div><div class="vi-date">Mon · 11:40am</div></div>
+          <div class="vi-pts">+55 pts</div>
         </div>
         <div class="visit-row" style="border-bottom:none">
-          <div class="vi-icon">▸</div>
-          <div><div class="vi-title">Shop A · Tampines Mall</div><div class="vi-date">Last Fri · 6:55pm</div></div>
+          <div class="vi-icon">👗</div>
+          <div style="flex:1"><div class="vi-title">FashionFwd · Tampines Mall</div><div class="vi-date">Last Fri · 6:55pm</div></div>
           <div class="vi-pts">+60 pts</div>
         </div>
       </div>
@@ -979,12 +989,112 @@ body{font-family:'Inter',sans-serif;background:#111;min-height:100vh;display:fle
   </div>
   <div class="bottom-nav">
     <div class="bn-item active" onclick="tab('s_home',this)"><div class="bn-icon">🏠</div><div class="bn-label">Home</div></div>
+    <div class="bn-item" onclick="tab('s_shops',this)"><div class="bn-icon">🏪</div><div class="bn-label">Shops</div></div>
     <div class="bn-item" onclick="tab('s_rewards',this)"><div class="bn-icon">🎁</div><div class="bn-label">Rewards</div></div>
     <div class="bn-item" onclick="tab('s_settings',this)"><div class="bn-icon">⚙️</div><div class="bn-label">Settings</div></div>
   </div>
 </div>
 
-<!-- REWARDS -->
+<!-- SHOPS -->
+<div class="screen" id="s_shops">
+  <!-- Header -->
+  <div style="background:#000;padding:1.25rem 1.25rem 0.9rem;border-bottom:1.5px solid rgba(255,255,255,0.1)">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:900;color:#ffffff;text-transform:uppercase;margin-bottom:0.75rem">🏪 Find a Shop</div>
+
+    <!-- BIG SEARCH BAR -->
+    <div style="position:relative;margin-bottom:0.75rem">
+      <span style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);font-size:1.2rem">🔍</span>
+      <input id="shopSearch" type="text" placeholder="Type a shop name or mall…" oninput="filterShops(this.value)"
+        style="width:100%;padding:1rem 1rem 1rem 3rem;background:rgba(255,255,255,0.08);border:2px solid rgba(255,255,255,0.25);border-radius:14px;color:#ffffff;font-family:'Inter',sans-serif;font-size:1.05rem;font-weight:600;outline:none;box-sizing:border-box;letter-spacing:0.01em">
+    </div>
+
+    <!-- BIG CATEGORY BUTTONS -->
+    <div style="display:flex;gap:0.5rem;overflow-x:auto;padding-bottom:0.1rem">
+      <button onclick="setShopFilter('all',this)" class="sf-btn sf-active" style="font-size:0.82rem;padding:0.45rem 1rem;border-radius:100px;white-space:nowrap">All</button>
+      <button onclick="setShopFilter('fb',this)" class="sf-btn" style="font-size:0.82rem;padding:0.45rem 1rem;border-radius:100px;white-space:nowrap">🍜 F&B</button>
+      <button onclick="setShopFilter('fashion',this)" class="sf-btn" style="font-size:0.82rem;padding:0.45rem 1rem;border-radius:100px;white-space:nowrap">👗 Fashion</button>
+      <button onclick="setShopFilter('beauty',this)" class="sf-btn" style="font-size:0.82rem;padding:0.45rem 1rem;border-radius:100px;white-space:nowrap">💄 Beauty</button>
+      <button onclick="setShopFilter('health',this)" class="sf-btn" style="font-size:0.82rem;padding:0.45rem 1rem;border-radius:100px;white-space:nowrap">💊 Health</button>
+      <button onclick="setShopFilter('services',this)" class="sf-btn" style="font-size:0.82rem;padding:0.45rem 1rem;border-radius:100px;white-space:nowrap">🔧 Services</button>
+    </div>
+  </div>
+
+  <div style="padding:1rem 1.25rem 5rem;display:flex;flex-direction:column;gap:1.4rem;overflow-y:auto">
+
+    <!-- Recently Visited -->
+    <div>
+      <div style="font-size:0.75rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:0.65rem">🕐 Recently Visited</div>
+      <div style="display:flex;flex-direction:column;gap:0.55rem" id="recentShopsList">
+        <div class="qs-row" onclick="quickShop('s01','Brewtown Coffee','Tampines Mall')">
+          <div class="qs-icon" style="background:rgba(139,0,21,0.25);border:1.5px solid rgba(139,0,21,0.4);font-size:1.1rem">☕</div>
+          <div class="qs-info"><div class="qs-name">Brewtown Coffee</div><div class="qs-sub">Tampines Mall · East · Today 7:32pm</div></div>
+          <div class="qs-pts">+60 pts</div>
+          <span style="font-size:1rem;color:rgba(255,255,255,0.4)">›</span>
+        </div>
+        <div class="qs-row" onclick="quickShop('s04','VitaLife Health','Century Square')">
+          <div class="qs-icon" style="background:rgba(139,0,21,0.25);border:1.5px solid rgba(139,0,21,0.4);font-size:1.1rem">💊</div>
+          <div class="qs-info"><div class="qs-name">VitaLife Health</div><div class="qs-sub">Century Square · East · Yesterday 2:15pm</div></div>
+          <div class="qs-pts">+80 pts</div>
+          <span style="font-size:1rem;color:rgba(255,255,255,0.4)">›</span>
+        </div>
+        <div class="qs-row" onclick="quickShop('s06','Sport Central','Our Tampines Hub')">
+          <div class="qs-icon" style="background:rgba(139,0,21,0.25);border:1.5px solid rgba(139,0,21,0.4);font-size:1.1rem">🏋️</div>
+          <div class="qs-info"><div class="qs-name">Sport Central</div><div class="qs-sub">Our Tampines Hub · East · Mon 11:40am</div></div>
+          <div class="qs-pts">+55 pts</div>
+          <span style="font-size:1rem;color:rgba(255,255,255,0.4)">›</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Most Visited -->
+    <div>
+      <div style="font-size:0.75rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:0.65rem">⭐ Most Visited</div>
+      <div style="display:flex;flex-direction:column;gap:0.55rem">
+        <div class="qs-row" onclick="quickShop('s01','Brewtown Coffee','Tampines Mall')">
+          <div class="qs-icon" style="background:rgba(139,0,21,0.25);border:1.5px solid rgba(139,0,21,0.4);font-size:1.1rem">☕</div>
+          <div class="qs-info"><div class="qs-name">Brewtown Coffee</div><div class="qs-sub">Tampines Mall · F&B</div></div>
+          <div style="text-align:right;flex-shrink:0"><div class="qs-pts">120 pts</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.5);margin-top:0.1rem">5 visits</div></div>
+          <span style="font-size:1rem;color:rgba(255,255,255,0.4)">›</span>
+        </div>
+        <div class="qs-row" onclick="quickShop('s04','VitaLife Health','Century Square')">
+          <div class="qs-icon" style="background:rgba(139,0,21,0.25);border:1.5px solid rgba(139,0,21,0.4);font-size:1.1rem">💊</div>
+          <div class="qs-info"><div class="qs-name">VitaLife Health</div><div class="qs-sub">Century Square · Health</div></div>
+          <div style="text-align:right;flex-shrink:0"><div class="qs-pts">80 pts</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.5);margin-top:0.1rem">4 visits</div></div>
+          <span style="font-size:1rem;color:rgba(255,255,255,0.4)">›</span>
+        </div>
+        <div class="qs-row" onclick="quickShop('s06','Sport Central','Our Tampines Hub')">
+          <div class="qs-icon" style="background:rgba(139,0,21,0.25);border:1.5px solid rgba(139,0,21,0.4);font-size:1.1rem">🏋️</div>
+          <div class="qs-info"><div class="qs-name">Sport Central</div><div class="qs-sub">Our Tampines Hub · Sports</div></div>
+          <div style="text-align:right;flex-shrink:0"><div class="qs-pts">55 pts</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.5);margin-top:0.1rem">3 visits</div></div>
+          <span style="font-size:1rem;color:rgba(255,255,255,0.4)">›</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALL SHOPS BY DISTRICT -->
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem">
+        <div style="font-size:0.75rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55)">📍 All Shops <span id="shopCount" style="color:rgba(255,255,255,0.3);font-weight:600"></span></div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:0.55rem" id="allShopsList"></div>
+
+      <div id="shopEmptyState" style="display:none;padding:2.5rem 1rem;text-align:center">
+        <div style="font-size:2rem;margin-bottom:0.6rem">🔍</div>
+        <div style="font-size:1rem;font-weight:700;color:rgba(255,255,255,0.5)">No shops found</div>
+        <div style="font-size:0.8rem;color:rgba(255,255,255,0.3);margin-top:0.3rem">Try a different name or category</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom-nav">
+    <div class="bn-item" onclick="tab('s_home',this)"><div class="bn-icon">🏠</div><div class="bn-label">Home</div></div>
+    <div class="bn-item active"><div class="bn-icon">🏪</div><div class="bn-label">Shops</div></div>
+    <div class="bn-item" onclick="tab('s_rewards',this)"><div class="bn-icon">🎁</div><div class="bn-label">Rewards</div></div>
+    <div class="bn-item" onclick="tab('s_settings',this)"><div class="bn-icon">⚙️</div><div class="bn-label">Settings</div></div>
+  </div>
+</div>
 <div class="screen" id="s_rewards">
   <div style="background:#000;padding:1.5rem 1.5rem 1rem;border-bottom:1px solid rgba(255,255,255,0.06)">
     <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;color:var(--off);text-transform:uppercase">Rewards</div>
@@ -1034,6 +1144,7 @@ body{font-family:'Inter',sans-serif;background:#111;min-height:100vh;display:fle
   </div>
   <div class="bottom-nav">
     <div class="bn-item" onclick="tab('s_home',this)"><div class="bn-icon">🏠</div><div class="bn-label">Home</div></div>
+    <div class="bn-item" onclick="tab('s_shops',this)"><div class="bn-icon">🏪</div><div class="bn-label">Shops</div></div>
     <div class="bn-item active"><div class="bn-icon">🎁</div><div class="bn-label">Rewards</div></div>
     <div class="bn-item" onclick="tab('s_settings',this)"><div class="bn-icon">⚙️</div><div class="bn-label">Settings</div></div>
   </div>
@@ -1075,6 +1186,7 @@ body{font-family:'Inter',sans-serif;background:#111;min-height:100vh;display:fle
   </div>
   <div class="bottom-nav">
     <div class="bn-item" onclick="tab('s_home',this)"><div class="bn-icon">🏠</div><div class="bn-label">Home</div></div>
+    <div class="bn-item" onclick="tab('s_shops',this)"><div class="bn-icon">🏪</div><div class="bn-label">Shops</div></div>
     <div class="bn-item" onclick="tab('s_rewards',this)"><div class="bn-icon">🎁</div><div class="bn-label">Rewards</div></div>
     <div class="bn-item active"><div class="bn-icon">⚙️</div><div class="bn-label">Settings</div></div>
   </div>
@@ -1266,6 +1378,7 @@ function tab(id,btn){
     document.querySelectorAll('.bn-item').forEach(function(b){b.classList.remove('active');});
     btn.classList.add('active');
   }
+  if(id==='s_shops') renderAllShops();
 }
 
 function vibe(p){if(navigator.vibrate)navigator.vibrate(p);}
@@ -1467,6 +1580,160 @@ document.addEventListener('DOMContentLoaded', function() {
   buildCountryDropdown('countryDropdown1', 'countrySelector1', 'phoneInput');
   buildCountryDropdown('countryDropdown2', 'countrySelector2', 'retInput');
 });
+
+// ── SHOPS ──
+// ── SHOPS DATA — 50 shops across 5 districts, all major SG malls ──
+var districtColors = {
+  'East':    { bg:'rgba(139,0,21,0.15)',  border:'rgba(139,0,21,0.45)',  emoji:'🌅', color:'#c0392b' },
+  'North':   { bg:'rgba(22,92,50,0.15)',  border:'rgba(22,92,50,0.45)',  emoji:'🌿', color:'#27ae60' },
+  'West':    { bg:'rgba(29,78,216,0.15)', border:'rgba(29,78,216,0.45)', emoji:'🌇', color:'#2980b9' },
+  'South':   { bg:'rgba(120,40,160,0.15)',border:'rgba(140,60,180,0.45)',emoji:'🌊', color:'#8e44ad' },
+  'Central': { bg:'rgba(180,100,0,0.15)', border:'rgba(200,130,0,0.45)', emoji:'🏙️', color:'#e67e22' },
+};
+
+var allShops = [
+  // ── EAST ──
+  { id:'s01', name:'Brewtown Coffee',     mall:'Tampines Mall',        district:'East', cat:'fb',       label:'F&B',     emoji:'☕', visits:5, pts:120, live:true  },
+  { id:'s02', name:'FashionFwd',          mall:'Tampines Mall',        district:'East', cat:'fashion',  label:'Fashion', emoji:'👗', visits:3, pts:60,  live:true  },
+  { id:'s03', name:'GlowUp Studio',       mall:'Tampines Mall',        district:'East', cat:'beauty',   label:'Beauty',  emoji:'💄', visits:2, pts:40,  live:true  },
+  { id:'s04', name:'VitaLife Health',     mall:'Century Square',       district:'East', cat:'health',   label:'Health',  emoji:'💊', visits:4, pts:80,  live:true  },
+  { id:'s05', name:'Noodle House',        mall:'Century Square',       district:'East', cat:'fb',       label:'F&B',     emoji:'🍜', visits:2, pts:35,  live:true  },
+  { id:'s06', name:'Sport Central',       mall:'Our Tampines Hub',     district:'East', cat:'services', label:'Sports',  emoji:'🏋️', visits:3, pts:55,  live:true  },
+  { id:'s07', name:'TechFix',             mall:'Our Tampines Hub',     district:'East', cat:'services', label:'Services',emoji:'🔧', visits:1, pts:20,  live:true  },
+  { id:'s08', name:'Sushi Kai',           mall:'Changi City Point',    district:'East', cat:'fb',       label:'F&B',     emoji:'🍣', visits:0, pts:0,   live:false },
+  { id:'s09', name:'Sole Story',          mall:'Changi City Point',    district:'East', cat:'fashion',  label:'Fashion', emoji:'👟', visits:0, pts:0,   live:false },
+  { id:'s10', name:'BeautyBar',           mall:'White Sands',          district:'East', cat:'beauty',   label:'Beauty',  emoji:'✨', visits:0, pts:0,   live:false },
+
+  // ── NORTH ──
+  { id:'s11', name:'Ah Lim Kopitiam',     mall:'Northpoint City',      district:'North', cat:'fb',       label:'F&B',     emoji:'☕', visits:0, pts:0,   live:false },
+  { id:'s12', name:'NorthStyle',          mall:'Northpoint City',      district:'North', cat:'fashion',  label:'Fashion', emoji:'👗', visits:0, pts:0,   live:false },
+  { id:'s13', name:'PharmaPlus',          mall:'Northpoint City',      district:'North', cat:'health',   label:'Health',  emoji:'💊', visits:0, pts:0,   live:false },
+  { id:'s14', name:'Grill & Co.',         mall:'Causeway Point',       district:'North', cat:'fb',       label:'F&B',     emoji:'🍖', visits:0, pts:0,   live:false },
+  { id:'s15', name:'Sportswear SG',       mall:'Causeway Point',       district:'North', cat:'fashion',  label:'Fashion', emoji:'🏃', visits:0, pts:0,   live:false },
+  { id:'s16', name:'Lush Salon',          mall:'Causeway Point',       district:'North', cat:'beauty',   label:'Beauty',  emoji:'💇', visits:0, pts:0,   live:false },
+  { id:'s17', name:'Digital Hub',         mall:'Sembawang Shopping',   district:'North', cat:'services', label:'Services',emoji:'💻', visits:0, pts:0,   live:false },
+  { id:'s18', name:'Prata Palace',        mall:'Sembawang Shopping',   district:'North', cat:'fb',       label:'F&B',     emoji:'🫓', visits:0, pts:0,   live:false },
+  { id:'s19', name:'Nature & Co.',        mall:'Yishun 10',            district:'North', cat:'health',   label:'Health',  emoji:'🌿', visits:0, pts:0,   live:false },
+  { id:'s20', name:'SnapShots Studio',    mall:'Yishun 10',            district:'North', cat:'services', label:'Services',emoji:'📸', visits:0, pts:0,   live:false },
+
+  // ── WEST ──
+  { id:'s21', name:'Wok Masters',         mall:'Jurong Point',         district:'West', cat:'fb',       label:'F&B',     emoji:'🥢', visits:0, pts:0,   live:false },
+  { id:'s22', name:'Canvas & Thread',     mall:'Jurong Point',         district:'West', cat:'fashion',  label:'Fashion', emoji:'🎨', visits:0, pts:0,   live:false },
+  { id:'s23', name:'SkinLab',             mall:'Jurong Point',         district:'West', cat:'beauty',   label:'Beauty',  emoji:'🧴', visits:0, pts:0,   live:false },
+  { id:'s24', name:'FitZone',             mall:'IMM',                  district:'West', cat:'services', label:'Sports',  emoji:'🏋️', visits:0, pts:0,   live:false },
+  { id:'s25', name:'Burger Barn',         mall:'IMM',                  district:'West', cat:'fb',       label:'F&B',     emoji:'🍔', visits:0, pts:0,   live:false },
+  { id:'s26', name:'GlassHouse Optics',   mall:'Westgate',             district:'West', cat:'services', label:'Services',emoji:'👓', visits:0, pts:0,   live:false },
+  { id:'s27', name:'Pink Peony',          mall:'Westgate',             district:'West', cat:'beauty',   label:'Beauty',  emoji:'🌸', visits:0, pts:0,   live:false },
+  { id:'s28', name:'Urban Threads',       mall:'JCube',                district:'West', cat:'fashion',  label:'Fashion', emoji:'🧵', visits:0, pts:0,   live:false },
+  { id:'s29', name:'Ramen Republic',      mall:'JCube',                district:'West', cat:'fb',       label:'F&B',     emoji:'🍜', visits:0, pts:0,   live:false },
+  { id:'s30', name:'MedExpress',          mall:'Bukit Panjang Plaza',  district:'West', cat:'health',   label:'Health',  emoji:'🏥', visits:0, pts:0,   live:false },
+
+  // ── SOUTH ──
+  { id:'s31', name:'Harbourfront Bites',  mall:'VivoCity',             district:'South', cat:'fb',       label:'F&B',     emoji:'🌊', visits:0, pts:0,   live:false },
+  { id:'s32', name:'Sentosa Style',       mall:'VivoCity',             district:'South', cat:'fashion',  label:'Fashion', emoji:'🏖️', visits:0, pts:0,   live:false },
+  { id:'s33', name:'Glow Collective',     mall:'VivoCity',             district:'South', cat:'beauty',   label:'Beauty',  emoji:'💅', visits:0, pts:0,   live:false },
+  { id:'s34', name:'Marine Health',       mall:'HarbourFront Centre',  district:'South', cat:'health',   label:'Health',  emoji:'💊', visits:0, pts:0,   live:false },
+  { id:'s35', name:'Deck & Dine',         mall:'HarbourFront Centre',  district:'South', cat:'fb',       label:'F&B',     emoji:'🍽️', visits:0, pts:0,   live:false },
+  { id:'s36', name:'Refresh Spa',         mall:'Mapletree Business City',district:'South',cat:'beauty',  label:'Beauty',  emoji:'🛁', visits:0, pts:0,   live:false },
+  { id:'s37', name:'Run SG',              mall:'Mapletree Business City',district:'South',cat:'services',label:'Sports',  emoji:'🏃', visits:0, pts:0,   live:false },
+  { id:'s38', name:'South Kopi',          mall:'Alexandra Retail Centre',district:'South',cat:'fb',      label:'F&B',     emoji:'☕', visits:0, pts:0,   live:false },
+  { id:'s39', name:'Ink & Thread',        mall:'Alexandra Retail Centre',district:'South',cat:'fashion', label:'Fashion', emoji:'🖋️', visits:0, pts:0,   live:false },
+  { id:'s40', name:'ClearVision',         mall:'Alexandra Retail Centre',district:'South',cat:'services',label:'Services',emoji:'👓', visits:0, pts:0,   live:false },
+
+  // ── CENTRAL ──
+  { id:'s41', name:'Orchard Bistro',      mall:'ION Orchard',          district:'Central', cat:'fb',       label:'F&B',     emoji:'🍷', visits:0, pts:0,   live:false },
+  { id:'s42', name:'Luxe Label',          mall:'ION Orchard',          district:'Central', cat:'fashion',  label:'Fashion', emoji:'👜', visits:0, pts:0,   live:false },
+  { id:'s43', name:'Prestige Skin',       mall:'ION Orchard',          district:'Central', cat:'beauty',   label:'Beauty',  emoji:'💎', visits:0, pts:0,   live:false },
+  { id:'s44', name:'The Protein Bar',     mall:'Plaza Singapura',      district:'Central', cat:'health',   label:'Health',  emoji:'💪', visits:0, pts:0,   live:false },
+  { id:'s45', name:'Café Monochrome',     mall:'Plaza Singapura',      district:'Central', cat:'fb',       label:'F&B',     emoji:'☕', visits:0, pts:0,   live:false },
+  { id:'s46', name:'Threads & Co.',       mall:'Bugis Junction',       district:'Central', cat:'fashion',  label:'Fashion', emoji:'🧶', visits:0, pts:0,   live:false },
+  { id:'s47', name:'Glow District',       mall:'Bugis Junction',       district:'Central', cat:'beauty',   label:'Beauty',  emoji:'✨', visits:0, pts:0,   live:false },
+  { id:'s48', name:'Pho Saigon',          mall:'Suntec City',          district:'Central', cat:'fb',       label:'F&B',     emoji:'🍲', visits:0, pts:0,   live:false },
+  { id:'s49', name:'ActiveWear SG',       mall:'Suntec City',          district:'Central', cat:'fashion',  label:'Fashion', emoji:'🏃', visits:0, pts:0,   live:false },
+  { id:'s50', name:'MindBody Studio',     mall:'Raffles City',         district:'Central', cat:'services', label:'Services',emoji:'🧘', visits:0, pts:0,   live:false },
+];
+
+var shopFilter = 'all';
+var shopQuery = '';
+
+function renderAllShops() {
+  var list = document.getElementById('allShopsList');
+  var empty = document.getElementById('shopEmptyState');
+  var count = document.getElementById('shopCount');
+  if (!list) return;
+
+  var filtered = allShops.filter(function(s) {
+    var matchCat = shopFilter === 'all' || s.cat === shopFilter;
+    var q = shopQuery.toLowerCase();
+    var matchQ = !q || s.name.toLowerCase().includes(q) || s.mall.toLowerCase().includes(q) || s.label.toLowerCase().includes(q) || s.district.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+
+  if (count) count.textContent = '· ' + filtered.length + ' shops';
+  if (filtered.length === 0) { list.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  var groups = {};
+  var districtOrder = ['East','North','West','South','Central'];
+  filtered.forEach(function(s) { if (!groups[s.district]) groups[s.district]=[]; groups[s.district].push(s); });
+
+  var html = '';
+  districtOrder.forEach(function(dist) {
+    if (!groups[dist] || groups[dist].length === 0) return;
+    var dc = districtColors[dist];
+    var liveCount = groups[dist].filter(function(s){ return s.live; }).length;
+    html += '<div style="margin-bottom:0.75rem">';
+    // District header
+    html += '<div style="display:flex;align-items:center;gap:0.6rem;padding:0.7rem 1rem;background:'+dc.bg+';border:2px solid '+dc.border+';border-radius:14px 14px 0 0">';
+    html += '<span style="font-size:1.2rem">'+dc.emoji+'</span>';
+    html += '<span style="font-size:1.05rem;font-weight:800;color:#ffffff">'+dist+'</span>';
+    html += '<span style="font-size:0.72rem;color:rgba(255,255,255,0.45);font-weight:600;margin-left:auto">'+groups[dist].length+' shops';
+    if (liveCount > 0) html += ' · <span style="color:#3ab86a">'+liveCount+' live</span>';
+    html += '</span></div>';
+    // Shop rows — same card style as Recent Activity
+    html += '<div style="border:2px solid '+dc.border+';border-top:none;border-radius:0 0 14px 14px;overflow:hidden">';
+    groups[dist].forEach(function(s, i) {
+      var isLast = i === groups[dist].length - 1;
+      html += '<div style="display:flex;align-items:center;gap:0.9rem;padding:0.85rem 1rem;background:'+(s.live?'rgba(255,255,255,0.04)':'rgba(255,255,255,0.02)')+';border-bottom:'+(isLast?'none':'1px solid rgba(255,255,255,0.07)')+';cursor:pointer;transition:background 0.15s" onclick="quickShop(\''+s.id+'\',\''+s.name+'\',\''+s.mall+'\')" onmouseover="this.style.background=\'rgba(255,255,255,0.07)\'" onmouseout="this.style.background=\''+(s.live?'rgba(255,255,255,0.04)':'rgba(255,255,255,0.02)')+'\'">';
+      // Icon
+      html += '<div style="width:42px;height:42px;border-radius:10px;background:'+dc.bg+';border:1.5px solid '+dc.border+';display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0">'+s.emoji+'</div>';
+      // Info
+      html += '<div style="flex:1;min-width:0">';
+      html += '<div style="font-size:0.95rem;font-weight:700;color:'+(s.live?'#ffffff':'rgba(255,255,255,0.45)')+';line-height:1.3">'+s.name+'</div>';
+      html += '<div style="font-size:0.75rem;color:rgba(255,255,255,0.45);margin-top:0.15rem">'+s.mall+' · '+s.label+'</div>';
+      html += '</div>';
+      // Right side
+      if (s.live && s.pts > 0) {
+        html += '<div style="text-align:right;flex-shrink:0"><div style="font-family:\'Barlow Condensed\',sans-serif;font-size:1.1rem;font-weight:900;color:#f5c842">'+s.pts+' pts</div><div style="font-size:0.72rem;color:rgba(255,255,255,0.45);margin-top:0.1rem">'+s.visits+' visits</div></div>';
+      } else if (!s.live) {
+        html += '<span style="font-size:0.7rem;font-weight:700;padding:0.25rem 0.65rem;border-radius:100px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.35);flex-shrink:0;white-space:nowrap">Coming Soon</span>';
+      }
+      html += '<span style="font-size:1.1rem;color:rgba(255,255,255,0.3);margin-left:0.5rem;flex-shrink:0">›</span>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+  list.innerHTML = html;
+}
+
+function filterShops(q) { shopQuery = q; renderAllShops(); }
+
+function setShopFilter(f, btn) {
+  shopFilter = f;
+  document.querySelectorAll('.sf-btn').forEach(function(b){ b.classList.remove('sf-active'); });
+  if (btn) btn.classList.add('sf-active');
+  renderAllShops();
+}
+
+function quickShop(id, name, mall) {
+  tab('s_home', document.querySelector('[onclick*="s_home"]'));
+  var eastContent = document.getElementById('east-content');
+  if (eastContent && !eastContent.classList.contains('open')) toggleArea('east');
+  setTimeout(function(){
+    var el = document.getElementById(id);
+    if (el) { el.scrollIntoView({behavior:'smooth', block:'center'}); if (!el.classList.contains('open')) el.classList.add('open'); }
+  }, 250);
+}
 
 // ── SURVEY ──
 var surveyRating = 0;
