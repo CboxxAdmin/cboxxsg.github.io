@@ -489,24 +489,24 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
     </div>
     <nav class="sidebar-nav">
       <div class="nav-section-label">Overview</div>
-      <a class="nav-item active" onclick="showSection('dashboard',this)"><span class="ni">📊</span> Dashboard</a>
-      <a class="nav-item" onclick="showSection('members',this)"><span class="ni">👥</span> Members <span class="nav-badge">247</span></a>
-      <a class="nav-item" onclick="showSection('taps',this)"><span class="ni">📍</span> Tap Activity</a>
+      <a class="nav-item active" onclick="showSection('dashboard',this)"><span class="ni">◈</span> Dashboard</a>
+      <a class="nav-item" onclick="showSection('members',this)"><span class="ni">◉</span> Members <span class="nav-badge">247</span></a>
+      <a class="nav-item" onclick="showSection('taps',this)"><span class="ni">◎</span> Tap Activity</a>
 
       <div class="nav-section-label" style="margin-top:0.75rem">Marketing</div>
-      <a class="nav-item" onclick="showSection('campaigns',this)"><span class="ni">📣</span> Campaigns</a>
-      <a class="nav-item" onclick="showSection('rewards',this)"><span class="ni">🎁</span> Rewards</a>
-      <a class="nav-item" onclick="showSection('automations',this)"><span class="ni">⚡</span> Automations</a>
+      <a class="nav-item" onclick="showSection('campaigns',this)"><span class="ni">▶</span> Campaigns</a>
+      <a class="nav-item" onclick="showSection('rewards',this)"><span class="ni">◇</span> Rewards</a>
+      <a class="nav-item" onclick="showSection('automations',this)"><span class="ni">▷</span> Automations</a>
 
       <div class="nav-section-label" style="margin-top:0.75rem">Intelligence</div>
-      <a class="nav-item" onclick="showSection('benchmarks',this)"><span class="ni">🏆</span> Benchmarks <span class="pro-badge">Pro</span></a>
-      <a class="nav-item" onclick="showSection('churn',this)"><span class="ni">⚠️</span> Churn Alerts <span class="pro-badge">Pro</span></a>
-      <a class="nav-item" onclick="showSection('segments',this)"><span class="ni">🗺️</span> Segments <span class="pro-badge">Pro</span></a>
+      <a class="nav-item" onclick="showSection('benchmarks',this)"><span class="ni">◆</span> Benchmarks <span class="pro-badge">Pro</span></a>
+      <a class="nav-item" onclick="showSection('churn',this)"><span class="ni">!</span> Churn Alerts <span class="pro-badge">Pro</span></a>
+      <a class="nav-item" onclick="showSection('segments',this)"><span class="ni">◈</span> Segments <span class="pro-badge">Pro</span></a>
 
       <div class="nav-section-label" style="margin-top:0.75rem">Settings</div>
-      <a class="nav-item" onclick="showSection('nfc',this)"><span class="ni">⚙️</span> NFC Tags</a>
-      <a class="nav-item" onclick="showSection('billing',this)"><span class="ni">💳</span> Billing</a>
-      <a class="nav-item" onclick="showSection('calculator',this)"><span class="ni">🧮</span> ROI Calculator</a>
+      <a class="nav-item" onclick="showSection('nfc',this)"><span class="ni">✦</span> NFC Tags</a>
+      <a class="nav-item" onclick="showSection('billing',this)"><span class="ni">▭</span> Billing</a>
+      <a class="nav-item" onclick="showSection('calculator',this)"><span class="ni">∑</span> ROI Calculator</a>
     </nav>
     <div class="sidebar-bottom">
       <div class="upgrade-box">
@@ -538,7 +538,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
       <div class="topbar-right">
         <div class="live-indicator"><div class="live-dot"></div> Live</div>
         <div style="position:relative;display:inline-block">
-        <div onclick="toggleNotifs()" style="position:relative;width:34px;height:34px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.9rem">🔔
+        <div onclick="toggleNotifs()" style="position:relative;width:34px;height:34px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.9rem">◈
           <div id="notifBadge" style="position:absolute;top:-4px;right:-4px;width:16px;height:16px;background:#8B0015;border-radius:50%;font-size:0.5rem;font-weight:700;color:white;display:flex;align-items:center;justify-content:center">3</div>
         </div>
         <div id="notifPanel" style="display:none;position:absolute;top:110%;right:0;background:#0D1520;border:1px solid rgba(255,255,255,0.1);border-radius:10px;width:290px;z-index:1000;box-shadow:0 8px 32px rgba(0,0,0,0.5);overflow:hidden">
@@ -560,7 +560,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
       <div class="dash-section active" id="sec-dashboard">
       <!-- CHURN ALERT -->
       <div class="churn-alert">
-        <div class="churn-icon">⚠️</div>
+        <div class="churn-icon">!</div>
         <div class="churn-text">
           <div class="churn-title">18 members at churn risk</div>
           <div class="churn-desc">Haven't visited in 21+ days. Last active between 22–28 days ago. Send a re-engagement campaign now to recover them.</div>
@@ -609,7 +609,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
 
         <!-- Churn risk -->
         <div style="background:rgba(139,0,21,0.08);border:1px solid rgba(139,0,21,0.28);border-radius:10px;padding:1.1rem;cursor:pointer;transition:all 0.2s" onclick="showSection('churn',document.querySelector('[onclick*=churn]'))" title="View churn alerts">
-          <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ff6b6b;margin-bottom:0.4rem">Churn Risk ⚠️</div>
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#ff6b6b;margin-bottom:0.4rem">Churn Risk !</div>
           <div style="font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:900;color:#ff6b6b;line-height:1">18</div>
           <div style="font-size:0.68rem;color:rgba(255,255,255,0.4);margin-top:0.2rem">members at risk</div>
           <div style="font-size:0.65rem;color:#ff6b6b;font-weight:600;margin-top:0.35rem">21+ days inactive</div>
@@ -657,27 +657,27 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
             <div class="member-row">
               <div class="member-avatar" style="background:#8B0015">SL</div>
               <div class="member-info"><div class="member-name">S. Lim</div><div class="member-meta">14 visits · Gold</div></div>
-              <div><div class="member-pts">840</div><div class="member-tier">🥇 Gold</div></div>
+              <div><div class="member-pts">840</div><div class="member-tier">Gold</div></div>
             </div>
             <div class="member-row">
               <div class="member-avatar" style="background:#165C32">RK</div>
               <div class="member-info"><div class="member-name">+65 8234 ····</div><div class="member-meta">11 visits · Gold</div></div>
-              <div><div class="member-pts">660</div><div class="member-tier">🥇 Gold</div></div>
+              <div><div class="member-pts">660</div><div class="member-tier">Gold</div></div>
             </div>
             <div class="member-row">
               <div class="member-avatar" style="background:#1d4ed8">AT</div>
               <div class="member-info"><div class="member-name">A. Tan</div><div class="member-meta">9 visits · Silver</div></div>
-              <div><div class="member-pts">540</div><div class="member-tier">🥈 Silver</div></div>
+              <div><div class="member-pts">540</div><div class="member-tier">Silver</div></div>
             </div>
             <div class="member-row">
               <div class="member-avatar" style="background:#6d28d9">MW</div>
               <div class="member-info"><div class="member-name">+65 8456 ····</div><div class="member-meta">8 visits · Silver</div></div>
-              <div><div class="member-pts">480</div><div class="member-tier">🥈 Silver</div></div>
+              <div><div class="member-pts">480</div><div class="member-tier">Silver</div></div>
             </div>
             <div class="member-row">
               <div class="member-avatar" style="background:#C9963A">NA</div>
               <div class="member-info"><div class="member-name">N. Ahmad</div><div class="member-meta">7 visits · Bronze</div></div>
-              <div><div class="member-pts">420</div><div class="member-tier">🥉 Bronze</div></div>
+              <div><div class="member-pts">420</div><div class="member-tier">Bronze</div></div>
             </div>
           </div>
         </div>
@@ -842,14 +842,14 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
               </div>
             </div>
             <div class="activity-item">
-              <div class="activity-icon" style="background:rgba(139,0,21,0.12)">👤</div>
+              <div class="activity-icon" style="background:rgba(139,0,21,0.12)">◉</div>
               <div class="activity-body">
                 <div class="activity-text"><strong>New enrollment</strong> · First-time visitor · Bronze tier</div>
                 <div class="activity-time">2 min ago</div>
               </div>
             </div>
             <div class="activity-item">
-              <div class="activity-icon" style="background:rgba(201,150,58,0.12)">⭐</div>
+              <div class="activity-icon" style="background:rgba(201,150,58,0.12)">★</div>
               <div class="activity-body">
                 <div class="activity-text"><strong>Reward redeemed</strong> · +65 9123 ···· · Free drink (200 pts)</div>
                 <div class="activity-time">5 min ago</div>
@@ -946,12 +946,12 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
               <div style="height:1px;background:rgba(255,255,255,0.06);margin-bottom:0.85rem"></div>
               <!-- Recent feedback -->
               <div class="feedback-row">
-                <div class="fb-icon" style="background:rgba(58,184,106,0.12)">⭐</div>
+                <div class="fb-icon" style="background:rgba(58,184,106,0.12)">★</div>
                 <div class="fb-text">"Love the tap system, so easy to earn points now"</div>
                 <div class="fb-time">2h ago</div>
               </div>
               <div class="feedback-row">
-                <div class="fb-icon" style="background:rgba(58,184,106,0.12)">⭐</div>
+                <div class="fb-icon" style="background:rgba(58,184,106,0.12)">★</div>
                 <div class="fb-text">"Finally a loyalty card that doesn't need an app"</div>
                 <div class="fb-time">5h ago</div>
               </div>
@@ -961,7 +961,7 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
                 <div class="fb-time">1d ago</div>
               </div>
               <div class="feedback-row">
-                <div class="fb-icon" style="background:rgba(139,0,21,0.12)">⚠️</div>
+                <div class="fb-icon" style="background:rgba(139,0,21,0.12)">!</div>
                 <div class="fb-text">"NFC tag didn't work the first time, had to tap twice"</div>
                 <div class="fb-time">2d ago</div>
               </div>
@@ -1050,22 +1050,22 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
         <div class="card-header"><div class="card-title">Reward Catalogue</div></div>
         <div style="display:flex;flex-direction:column;gap:0.75rem" id="rewardsList">
           <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="font-size:1.4rem">🍜</div>
+            <div style="font-size:1.4rem">▸</div>
             <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF">Free Soup Base</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Bronze tier · 200 pts · 12 redeemed this month</div></div>
             <div style="font-size:0.7rem;color:#3ab86a;font-weight:600">Active</div>
           </div>
           <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="font-size:1.4rem">🥢</div>
+            <div style="font-size:1.4rem">▸</div>
             <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF">10% Off Total Bill</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Silver tier · 500 pts · 8 redeemed this month</div></div>
             <div style="font-size:0.7rem;color:#3ab86a;font-weight:600">Active</div>
           </div>
           <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="font-size:1.4rem">🎂</div>
+            <div style="font-size:1.4rem">▸</div>
             <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF">Birthday Treat</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Silver tier · Birthday month · 3 redeemed this month</div></div>
             <div style="font-size:0.7rem;color:#3ab86a;font-weight:600">Active</div>
           </div>
           <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="font-size:1.4rem">👑</div>
+            <div style="font-size:1.4rem">▸</div>
             <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF">VIP Priority Table</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Gold tier · 0 redeemed this month</div></div>
             <div style="font-size:0.7rem;color:#C9963A;font-weight:600">Low usage</div>
           </div>
@@ -1110,17 +1110,17 @@ svg.line-chart { width: 100%; height: 100%; overflow: visible; }
         <div class="card-header"><div class="card-title">Installed Tags</div></div>
         <div style="display:flex;flex-direction:column;gap:0.75rem">
           <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="width:38px;height:38px;background:rgba(58,184,106,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem">📲</div>
+            <div style="width:38px;height:38px;background:rgba(58,184,106,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem">◎</div>
             <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF">Counter Tag #1 · Main entrance</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Installed 15 Jun · 847 lifetime taps · Last tap: 3 min ago</div></div>
             <div style="font-size:0.7rem;color:#3ab86a;font-weight:600">● Active</div>
           </div>
           <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="width:38px;height:38px;background:rgba(58,184,106,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem">📲</div>
+            <div style="width:38px;height:38px;background:rgba(58,184,106,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem">◎</div>
             <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF">Counter Tag #2 · Cashier</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Installed 15 Jun · 623 lifetime taps · Last tap: 12 min ago</div></div>
             <div style="font-size:0.7rem;color:#3ab86a;font-weight:600">● Active</div>
           </div>
           <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:8px">
-            <div style="width:38px;height:38px;background:rgba(58,184,106,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem">📲</div>
+            <div style="width:38px;height:38px;background:rgba(58,184,106,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem">◎</div>
             <div style="flex:1"><div style="font-size:0.85rem;font-weight:600;color:#E8E4DF">Table Tag #3 · Waiting area</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">Installed 18 Jun · 377 lifetime taps · Last tap: 28 min ago</div></div>
             <div style="font-size:0.7rem;color:#3ab86a;font-weight:600">● Active</div>
           </div>
@@ -1334,7 +1334,7 @@ var members = [
 
 function tierBadge(tier) {
   var colors = { Gold:'background:rgba(201,150,58,0.2);border:1px solid rgba(201,150,58,0.4);color:#C9963A', Silver:'background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.7)', Bronze:'background:rgba(139,0,21,0.15);border:1px solid rgba(139,0,21,0.3);color:#ff8c8c' };
-  var icons = { Gold:'🥇', Silver:'🥈', Bronze:'🥉' };
+  var icons = { Gold:'', Silver:'', Bronze:'' };
   return '<span style="'+colors[tier]+';font-size:0.6rem;font-weight:700;padding:0.18rem 0.5rem;border-radius:100px;display:inline-block">'+icons[tier]+' '+tier+'</span>';
 }
 
@@ -1358,13 +1358,13 @@ function filterMembers(v) { buildMemberTable(v); }
 // ── TAP FEED ──
 var tapActivities = [
   { icon:'✓', bg:'rgba(58,184,106,0.12)', text:'<strong>New tap</strong> · Returning member · +65 9123 ···· · 5th visit this month', time:'Just now' },
-  { icon:'👤', bg:'rgba(139,0,21,0.12)', text:'<strong>New enrollment</strong> · First-time visitor · Bronze tier', time:'2 min ago' },
-  { icon:'⭐', bg:'rgba(201,150,58,0.12)', text:'<strong>Reward redeemed</strong> · +65 9345 ···· · Free soup base (200 pts)', time:'5 min ago' },
+  { icon:'◉', bg:'rgba(139,0,21,0.12)', text:'<strong>New enrollment</strong> · First-time visitor · Bronze tier', time:'2 min ago' },
+  { icon:'★', bg:'rgba(201,150,58,0.12)', text:'<strong>Reward redeemed</strong> · +65 9345 ···· · Free soup base (200 pts)', time:'5 min ago' },
   { icon:'✓', bg:'rgba(58,184,106,0.12)', text:'<strong>New tap</strong> · +65 8234 ···· · Gold member · 11th visit', time:'8 min ago' },
   { icon:'🏆', bg:'rgba(29,78,216,0.12)', text:'<strong>Tier upgrade</strong> · +65 9567 ···· reached Silver tier', time:'12 min ago' },
   { icon:'✓', bg:'rgba(58,184,106,0.12)', text:'<strong>New tap</strong> · Returning member · 3rd visit this week', time:'15 min ago' },
-  { icon:'👤', bg:'rgba(139,0,21,0.12)', text:'<strong>New enrollment</strong> · First-time visitor · Enrolled via Counter Tag #2', time:'18 min ago' },
-  { icon:'⭐', bg:'rgba(201,150,58,0.12)', text:'<strong>Points earned</strong> · +65 8456 ···· · +60 pts · Total: 480 pts', time:'22 min ago' },
+  { icon:'◉', bg:'rgba(139,0,21,0.12)', text:'<strong>New enrollment</strong> · First-time visitor · Enrolled via Counter Tag #2', time:'18 min ago' },
+  { icon:'★', bg:'rgba(201,150,58,0.12)', text:'<strong>Points earned</strong> · +65 8456 ···· · +60 pts · Total: 480 pts', time:'22 min ago' },
 ];
 
 function buildTapFeed() {
@@ -1487,11 +1487,11 @@ peakShow.forEach(function(hi) {
 // ── LIVE ACTIVITY FEED ──
 var activities = [
   { icon: '✓', bg: 'rgba(58,184,106,0.12)', text: '<strong>New tap</strong> · Returning member · 3rd visit this week' },
-  { icon: '👤', bg: 'rgba(139,0,21,0.12)', text: '<strong>New enrollment</strong> · First-time visitor · Bronze tier' },
-  { icon: '⭐', bg: 'rgba(201,150,58,0.12)', text: '<strong>Points earned</strong> · 60 pts · Running total: 420 pts' },
+  { icon: '◉', bg: 'rgba(139,0,21,0.12)', text: '<strong>New enrollment</strong> · First-time visitor · Bronze tier' },
+  { icon: '★', bg: 'rgba(201,150,58,0.12)', text: '<strong>Points earned</strong> · 60 pts · Running total: 420 pts' },
   { icon: '✓', bg: 'rgba(58,184,106,0.12)', text: '<strong>New tap</strong> · Gold member · 12th visit this month' },
   { icon: '🏆', bg: 'rgba(29,78,216,0.12)', text: '<strong>Tier upgrade</strong> · Member reached Silver tier' },
-  { icon: '🎁', bg: 'rgba(201,150,58,0.12)', text: '<strong>Reward redeemed</strong> · Free item · 200 pts used' },
+  { icon: '◇', bg: 'rgba(201,150,58,0.12)', text: '<strong>Reward redeemed</strong> · Free item · 200 pts used' },
 ];
 var times = ['Just now', '1 min ago', '3 min ago', '5 min ago', '7 min ago', '9 min ago'];
 var feedIdx = 0;
@@ -1684,7 +1684,7 @@ function addReward() {
   var name = document.getElementById('rwdName').value || 'New Reward';
   var pts = document.getElementById('rwdPts').value || '0';
   var tier = document.querySelector('input[name="rwdTier"]:checked').value;
-  var tierLabel = tier === 'bronze' ? '🥉 Bronze' : tier === 'silver' ? '🥈 Silver' : '🥇 Gold';
+  var tierLabel = tier === 'bronze' ? 'Bronze' : tier === 'silver' ? 'Silver' : 'Gold';
   document.getElementById('addRewardModal').style.display = 'none';
   document.getElementById('rewardConfirmMsg').textContent = '"' + name + '" added for ' + tierLabel + ' members at ' + pts + ' pts.';
   document.getElementById('rewardAdded').style.display = 'flex';
@@ -1775,7 +1775,7 @@ document.querySelectorAll('.nav-item').forEach(function(el) {
     <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1rem;margin-bottom:1.25rem">
       <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.65rem">Message preview</div>
       <div style="background:#000;border-radius:8px;padding:0.85rem;font-size:0.82rem;color:rgba(255,255,255,0.7);line-height:1.6;border-left:3px solid #8B0015">
-        "Hi! We miss you at Demo Store 👋 It's been a while. Come back this week and earn <strong style="color:#C9963A">2x points</strong> on your next visit. Tap the NFC tag at our counter to redeem. Valid until Sunday."
+        "Hi! We miss you at Demo Store  It's been a while. Come back this week and earn <strong style="color:#C9963A">2x points</strong> on your next visit. Tap the NFC tag at our counter to redeem. Valid until Sunday."
       </div>
     </div>
 
@@ -1912,13 +1912,13 @@ document.querySelectorAll('.nav-item').forEach(function(el) {
       <label style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);display:block;margin-bottom:0.4rem">Tier required</label>
       <div style="display:flex;gap:0.65rem">
         <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:0.4rem;padding:0.65rem;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;cursor:pointer;font-size:0.82rem;color:#ff8c8c">
-          <input type="radio" name="rwdTier" value="bronze" checked style="accent-color:#8B0015"> 🥉 Bronze
+          <input type="radio" name="rwdTier" value="bronze" checked style="accent-color:#8B0015"> Bronze
         </label>
         <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:0.4rem;padding:0.65rem;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;cursor:pointer;font-size:0.82rem;color:rgba(255,255,255,0.5)">
-          <input type="radio" name="rwdTier" value="silver" style="accent-color:#8B0015"> 🥈 Silver
+          <input type="radio" name="rwdTier" value="silver" style="accent-color:#8B0015"> Silver
         </label>
         <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:0.4rem;padding:0.65rem;background:rgba(255,255,255,0.04);border:1.5px solid rgba(255,255,255,0.08);border-radius:8px;cursor:pointer;font-size:0.82rem;color:#C9963A">
-          <input type="radio" name="rwdTier" value="gold" style="accent-color:#8B0015"> 🥇 Gold
+          <input type="radio" name="rwdTier" value="gold" style="accent-color:#8B0015"> Gold
         </label>
       </div>
     </div>
@@ -1957,7 +1957,7 @@ document.querySelectorAll('.nav-item').forEach(function(el) {
 <!-- REWARD ADDED CONFIRMATION -->
 <div id="rewardAdded" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;align-items:center;justify-content:center;padding:1.5rem">
   <div style="background:#0D1520;border:1px solid rgba(201,150,58,0.3);border-radius:16px;padding:2rem;max-width:380px;width:100%;text-align:center">
-    <div style="font-size:2.5rem;margin-bottom:0.75rem">🎁</div>
+    <div style="font-size:2.5rem;margin-bottom:0.75rem">◇</div>
     <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:#E8E4DF;margin-bottom:0.35rem">Reward Added!</div>
     <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:1.25rem;line-height:1.5" id="rewardConfirmMsg">Your reward is now live for members.</p>
     <button onclick="document.getElementById('rewardAdded').style.display='none'" style="width:100%;padding:0.9rem;background:#8B0015;border:none;border-radius:8px;color:white;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer">Done</button>
