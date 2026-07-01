@@ -227,6 +227,48 @@ body{font-family:'Inter',sans-serif;background:#111;min-height:100vh;display:fle
 .ml-perk > div { flex:1; min-width:0; }
 .ml-perk-status { font-size:0.58rem; font-weight:700; padding:0.18rem 0.5rem; border-radius:100px; white-space:nowrap; flex-shrink:0; }
 
+
+/* Country selector */
+.phone-wrap { position: relative; }
+.country-selector {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  display: flex; align-items: center; padding: 0 0.75rem;
+  cursor: pointer; z-index: 10; gap: 0.3rem; min-width: 90px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+.country-selector .cs-flag { font-size: 1.1rem; }
+.country-selector .cs-code { font-size: 0.78rem; color: rgba(255,255,255,0.55); font-weight: 600; }
+.country-selector .cs-arrow { font-size: 0.55rem; color: rgba(255,255,255,0.3); }
+.phone-input-with-country { padding-left: 100px !important; }
+.country-dropdown {
+  display: none; position: absolute; top: 110%; left: 0;
+  background: #0D1520; border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px; width: 280px; max-height: 320px;
+  overflow-y: auto; z-index: 100; box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+.country-dropdown.open { display: block; }
+.cd-search {
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  position: sticky; top: 0; background: #0D1520; z-index: 1;
+}
+.cd-search input {
+  width: 100%; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;
+  padding: 0.4rem 0.75rem; color: #E8E4DF;
+  font-family: Inter, sans-serif; font-size: 0.82rem; outline: none;
+}
+.cd-item {
+  display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.55rem 0.85rem; cursor: pointer;
+  transition: background 0.15s; font-size: 0.82rem;
+}
+.cd-item:hover { background: rgba(255,255,255,0.05); }
+.cd-item.selected { background: rgba(139,0,21,0.1); }
+.cd-item .cd-flag { font-size: 1rem; flex-shrink: 0; }
+.cd-item .cd-name { color: rgba(255,255,255,0.7); flex: 1; }
+.cd-item .cd-dial { color: rgba(255,255,255,0.35); font-size: 0.75rem; }
+
 </style>
 </head>
 <body>
@@ -293,8 +335,16 @@ body{font-family:'Inter',sans-serif;background:#111;min-height:100vh;display:fle
     </div>
     <div>
       <div class="phone-wrap">
-        <div class="phone-flag">🇸🇬 <span>+65</span></div>
-        <input type="tel" class="phone-input" id="phoneInput" placeholder="8123 4567" maxlength="8" oninput="onPhone(this)" onkeydown="if(event.key==='Enter'&&!document.getElementById('phoneBtn').disabled)submitPhone()">
+        <div class="country-selector" id="countrySelector1">
+        <span class="cs-flag">🇸🇬</span>
+        <span class="cs-code">+65</span>
+        <span class="cs-arrow">▾</span>
+      </div>
+      <div class="country-dropdown" id="countryDropdown1">
+        <div class="cd-search"><input type="text" placeholder="Search country..."></div>
+        <div class="cd-list"></div>
+      </div>
+      <input type="tel" class="phone-input phone-input-with-country" id="phoneInput" placeholder="8123 4567" maxlength="8" oninput="onPhone(this)" onkeydown="if(event.key==='Enter'&&!document.getElementById('phoneBtn').disabled)submitPhone()">
       </div>
       <div class="input-hint" id="phoneHint">Enter your 8-digit Singapore mobile number</div>
     </div>
@@ -1040,8 +1090,16 @@ body{font-family:'Inter',sans-serif;background:#111;min-height:100vh;display:fle
     </div>
     <div>
       <div class="phone-wrap">
-        <div class="phone-flag">🇸🇬 <span>+65</span></div>
-        <input type="tel" class="phone-input" id="retInput" placeholder="8123 4567" maxlength="8" oninput="onRetPhone(this)">
+        <div class="country-selector" id="countrySelector2">
+        <span class="cs-flag">🇸🇬</span>
+        <span class="cs-code">+65</span>
+        <span class="cs-arrow">▾</span>
+      </div>
+      <div class="country-dropdown" id="countryDropdown2">
+        <div class="cd-search"><input type="text" placeholder="Search country..."></div>
+        <div class="cd-list"></div>
+      </div>
+      <input type="tel" class="phone-input phone-input-with-country" id="retInput" placeholder="8123 4567" maxlength="8" oninput="onRetPhone(this)">
       </div>
       <div class="input-hint">Your registered CBOXX number</div>
     </div>
@@ -1281,6 +1339,107 @@ function submitRet(){
 }
 
 
+
+
+// ── COUNTRY SELECTOR ──
+var countries = [
+  { flag: '🇸🇬', name: 'Singapore', dial: '+65', maxlen: 8 },
+  { flag: '🇲🇾', name: 'Malaysia', dial: '+60', maxlen: 10 },
+  { flag: '🇮🇩', name: 'Indonesia', dial: '+62', maxlen: 12 },
+  { flag: '🇵🇭', name: 'Philippines', dial: '+63', maxlen: 10 },
+  { flag: '🇹🇭', name: 'Thailand', dial: '+66', maxlen: 9 },
+  { flag: '🇻🇳', name: 'Vietnam', dial: '+84', maxlen: 10 },
+  { flag: '🇧🇳', name: 'Brunei', dial: '+673', maxlen: 7 },
+  { flag: '🇲🇲', name: 'Myanmar', dial: '+95', maxlen: 9 },
+  { flag: '🇰🇭', name: 'Cambodia', dial: '+855', maxlen: 9 },
+  { flag: '🇱🇦', name: 'Laos', dial: '+856', maxlen: 9 },
+  { flag: '🇨🇳', name: 'China', dial: '+86', maxlen: 11 },
+  { flag: '🇯🇵', name: 'Japan', dial: '+81', maxlen: 10 },
+  { flag: '🇰🇷', name: 'South Korea', dial: '+82', maxlen: 10 },
+  { flag: '🇮🇳', name: 'India', dial: '+91', maxlen: 10 },
+  { flag: '🇦🇺', name: 'Australia', dial: '+61', maxlen: 9 },
+  { flag: '🇬🇧', name: 'United Kingdom', dial: '+44', maxlen: 10 },
+  { flag: '🇺🇸', name: 'United States', dial: '+1', maxlen: 10 },
+  { flag: '🇨🇦', name: 'Canada', dial: '+1', maxlen: 10 },
+  { flag: '🇿🇦', name: 'South Africa', dial: '+27', maxlen: 9 },
+  { flag: '🇳🇿', name: 'New Zealand', dial: '+64', maxlen: 9 },
+  { flag: '🇭🇰', name: 'Hong Kong', dial: '+852', maxlen: 8 },
+  { flag: '🇹🇼', name: 'Taiwan', dial: '+886', maxlen: 9 },
+  { flag: '🇲🇴', name: 'Macau', dial: '+853', maxlen: 8 },
+  { flag: '🇧🇩', name: 'Bangladesh', dial: '+880', maxlen: 10 },
+  { flag: '🇵🇰', name: 'Pakistan', dial: '+92', maxlen: 10 },
+  { flag: '🇳🇵', name: 'Nepal', dial: '+977', maxlen: 10 },
+  { flag: '🇱🇰', name: 'Sri Lanka', dial: '+94', maxlen: 9 },
+  { flag: '🇲🇻', name: 'Maldives', dial: '+960', maxlen: 7 },
+  { flag: '🇩🇪', name: 'Germany', dial: '+49', maxlen: 11 },
+  { flag: '🇫🇷', name: 'France', dial: '+33', maxlen: 9 },
+  { flag: '🇮🇹', name: 'Italy', dial: '+39', maxlen: 10 },
+  { flag: '🇪🇸', name: 'Spain', dial: '+34', maxlen: 9 },
+  { flag: '🇸🇦', name: 'Saudi Arabia', dial: '+966', maxlen: 9 },
+  { flag: '🇦🇪', name: 'UAE', dial: '+971', maxlen: 9 },
+  { flag: '🇶🇦', name: 'Qatar', dial: '+974', maxlen: 8 },
+];
+
+var selectedCountry = countries[0]; // Default Singapore
+
+function buildCountryDropdown(dropdownId, selectorId, inputId) {
+  var dropdown = document.getElementById(dropdownId);
+  var selector = document.getElementById(selectorId);
+  if (!dropdown || !selector) return;
+
+  function renderList(filter) {
+    var items = dropdown.querySelector('.cd-list');
+    if (!items) return;
+    items.innerHTML = '';
+    var filtered = filter
+      ? countries.filter(function(c){ return c.name.toLowerCase().includes(filter.toLowerCase()) || c.dial.includes(filter); })
+      : countries;
+    filtered.forEach(function(c) {
+      var div = document.createElement('div');
+      div.className = 'cd-item' + (c === selectedCountry ? ' selected' : '');
+      div.innerHTML = '<span class="cd-flag">' + c.flag + '</span><span class="cd-name">' + c.name + '</span><span class="cd-dial">' + c.dial + '</span>';
+      div.onclick = function() {
+        selectedCountry = c;
+        // Update selector display
+        selector.querySelector('.cs-flag').textContent = c.flag;
+        selector.querySelector('.cs-code').textContent = c.dial;
+        // Update input maxlength
+        var input = document.getElementById(inputId);
+        if (input) { input.maxLength = c.maxlen; input.value = ''; input.placeholder = ''; }
+        dropdown.classList.remove('open');
+        renderList('');
+      };
+      items.appendChild(div);
+    });
+  }
+
+  // Search
+  var searchInput = dropdown.querySelector('.cd-search input');
+  if (searchInput) {
+    searchInput.addEventListener('input', function() { renderList(this.value); });
+  }
+
+  renderList('');
+
+  // Toggle dropdown
+  selector.addEventListener('click', function(e) {
+    e.stopPropagation();
+    dropdown.classList.toggle('open');
+    if (dropdown.classList.contains('open') && searchInput) {
+      setTimeout(function(){ searchInput.focus(); }, 100);
+    }
+  });
+
+  // Close on outside click
+  document.addEventListener('click', function() { dropdown.classList.remove('open'); });
+  dropdown.addEventListener('click', function(e) { e.stopPropagation(); });
+}
+
+// Init both phone selectors
+document.addEventListener('DOMContentLoaded', function() {
+  buildCountryDropdown('countryDropdown1', 'countrySelector1', 'phoneInput');
+  buildCountryDropdown('countryDropdown2', 'countrySelector2', 'retInput');
+});
 
 // ── SURVEY ──
 var surveyRating = 0;
