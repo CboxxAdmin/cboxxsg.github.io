@@ -99,7 +99,7 @@ body{background:#060C14;}
   <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="merchants.html">For Merchants</a></li><li><a href="eastarea.html" class="active">East Area</a></li><li><a href="about.html">Team</a></li><li><a href="merchants.html#contact" class="nav-cta">Join Pilot</a></li></ul>
   <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
 </nav>
-<div class="mobile-nav" id="mobileNav"><ul><li><a href="index.html">Home</a></li><li><a href="merchants.html">For Merchants</a></li><li><a href="eastarea.html">East Area</a></li><li><a href="about.html">Team</a></li><li><a href="merchants.html#contact" class="cta-m">Join Pilot</a></li></ul></div>
+<div class="mobile-nav" id="mobileNav"><ul><li><a href="index.html">Home</a></li><li><a href="merchants.html">For Merchants</a></li><li><a href="eastarea.html">East Area</a></li><li><a href="eastarea.html#expansion">Other Areas</a></li><li><a href="about.html">Team</a></li><li><a href="merchants.html#contact" class="cta-m">Join Pilot</a></li></ul></div>
 
 <div class="ea-hero">
   <span class="eyebrow reveal" style="color:#C9963A">Phase 1 Pilot</span>
@@ -232,5 +232,119 @@ function showD(id,btn){
   if(ces.length){var co=new IntersectionObserver(function(entries){if(entries[0].isIntersecting&&!counted){counted=true;ces.forEach(function(el){var t=parseFloat(el.dataset.count),sf=el.dataset.suffix||'',s=0,st=t/85;var tm=setInterval(function(){s=Math.min(s+st,t);el.textContent=Math.round(s).toLocaleString()+sf;if(s>=t)clearInterval(tm);},16);});}},{threshold:0.3});co.observe(ces[0].closest('section')||ces[0].parentElement);}
 })();
 </script>
+
+<!-- ── EXPANSION SECTION ── -->
+<section id="expansion" style="background:#0D1B2A;padding:5rem 2rem;">
+  <div style="max-width:1100px;margin:0 auto">
+    <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#8B0015;display:block;margin-bottom:0.75rem">Expansion Roadmap</span>
+    <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:900;text-transform:uppercase;color:#E8E4DF;line-height:1;margin-bottom:0.75rem">Beyond East.<br><span style="color:#8B0015">All of Singapore.</span></h2>
+    <p style="font-size:1rem;color:rgba(255,255,255,0.5);max-width:560px;line-height:1.7;margin-bottom:3rem">We started in the East Area deliberately. Tampines, Bedok, and Changi gave us a dense, walkable cluster of malls to test and learn from. Once we have proven the model here, we expand district by district.</p>
+
+    <!-- Why East First -->
+    <div style="background:rgba(139,0,21,0.08);border:1px solid rgba(139,0,21,0.2);border-radius:12px;padding:1.5rem 2rem;margin-bottom:3rem;max-width:720px">
+      <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#8B0015;margin-bottom:0.5rem">Why East Area first</div>
+      <p style="font-size:0.92rem;color:rgba(255,255,255,0.6);line-height:1.7">The East Area has one of the highest concentrations of standalone HDB town malls in Singapore — Tampines, Bedok, Pasir Ris, Changi. These are neighbourhood malls where the same residents shop regularly. High repeat foot traffic is exactly what a loyalty network needs to prove itself. We are not starting in Orchard Road. We are starting where loyalty actually matters.</p>
+    </div>
+
+    <!-- Region grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem">
+
+      <!-- East — active -->
+      <div style="background:rgba(139,0,21,0.12);border:1.5px solid rgba(139,0,21,0.4);border-radius:12px;padding:1.5rem;position:relative;overflow:hidden">
+        <div style="position:absolute;top:1rem;right:1rem;background:#8B0015;color:white;font-size:0.55rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:100px">Live Pilot</div>
+        <div style="font-size:1.8rem;margin-bottom:0.5rem">◎</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#E8E4DF;text-transform:uppercase;margin-bottom:0.35rem">East Area</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);line-height:1.6;margin-bottom:0.85rem">Tampines · Bedok · Pasir Ris · Changi</div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem">
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.5)">▣ Tampines Mall</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.5)">▣ Century Square</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.5)">▣ Our Tampines Hub</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.5)">▣ Bedok Mall</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.35)">+ 4 more malls</div>
+        </div>
+      </div>
+
+      <!-- North -->
+      <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.5rem;position:relative">
+        <div style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.3);font-size:0.55rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:100px">Planned</div>
+        <div style="font-size:1.8rem;margin-bottom:0.5rem">◈</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#E8E4DF;text-transform:uppercase;margin-bottom:0.35rem">North</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);line-height:1.6;margin-bottom:0.85rem">Woodlands · Yishun · Sembawang</div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem">
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">▣ Causeway Point</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">▣ Northpoint City</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">▣ Sun Plaza</div>
+        </div>
+        <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-size:0.65rem;color:rgba(255,255,255,0.25)">Express interest →</div>
+          <a href="mailto:info@cboxxsg.com?subject=Interest - North Area" style="font-size:0.72rem;color:#8B0015;text-decoration:none;font-weight:600">info@cboxxsg.com</a>
+        </div>
+      </div>
+
+      <!-- West -->
+      <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.5rem;position:relative">
+        <div style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.3);font-size:0.55rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:100px">Planned</div>
+        <div style="font-size:1.8rem;margin-bottom:0.5rem">◈</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#E8E4DF;text-transform:uppercase;margin-bottom:0.35rem">West</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);line-height:1.6;margin-bottom:0.85rem">Jurong · Clementi · Buona Vista</div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem">
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">▣ Jurong Point</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">▣ IMM</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">▣ West Mall</div>
+        </div>
+        <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-size:0.65rem;color:rgba(255,255,255,0.25)">Express interest →</div>
+          <a href="mailto:info@cboxxsg.com?subject=Interest - West Area" style="font-size:0.72rem;color:#8B0015;text-decoration:none;font-weight:600">info@cboxxsg.com</a>
+        </div>
+      </div>
+
+      <!-- Central -->
+      <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.5rem;position:relative">
+        <div style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.3);font-size:0.55rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:100px">Planned</div>
+        <div style="font-size:1.8rem;margin-bottom:0.5rem">◈</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#E8E4DF;text-transform:uppercase;margin-bottom:0.35rem">Central</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);line-height:1.6;margin-bottom:0.85rem">Bishan · Toa Payoh · Ang Mo Kio</div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem">
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">▣ Junction 8</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">▣ Bishan North SC</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">▣ AMK Hub</div>
+        </div>
+        <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-size:0.65rem;color:rgba(255,255,255,0.25)">Express interest →</div>
+          <a href="mailto:info@cboxxsg.com?subject=Interest - Central Area" style="font-size:0.72rem;color:#8B0015;text-decoration:none;font-weight:600">info@cboxxsg.com</a>
+        </div>
+      </div>
+
+      <!-- South -->
+      <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.5rem;position:relative">
+        <div style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.3);font-size:0.55rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:100px">Planned</div>
+        <div style="font-size:1.8rem;margin-bottom:0.5rem">◈</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#E8E4DF;text-transform:uppercase;margin-bottom:0.35rem">South</div>
+        <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);line-height:1.6;margin-bottom:0.85rem">Queenstown · Bukit Merah · Harbourfront</div>
+        <div style="display:flex;flex-direction:column;gap:0.3rem">
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">▣ VivoCity</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">▣ Queensway SC</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.4)">▣ Anchorpoint</div>
+        </div>
+        <div style="margin-top:1rem;padding-top:0.75rem;border-top:1px solid rgba(255,255,255,0.06)">
+          <div style="font-size:0.65rem;color:rgba(255,255,255,0.25)">Express interest →</div>
+          <a href="mailto:info@cboxxsg.com?subject=Interest - South Area" style="font-size:0.72rem;color:#8B0015;text-decoration:none;font-weight:600">info@cboxxsg.com</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div style="margin-top:2.5rem;padding:1.5rem 2rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem">
+      <div>
+        <div style="font-size:0.88rem;font-weight:700;color:#E8E4DF;margin-bottom:0.25rem">Is your area not listed?</div>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.4)">We are open to conversations with merchants, mall operators, and community spaces across Singapore.</div>
+      </div>
+      <a href="mailto:info@cboxxsg.com?subject=Interest - New Area" style="display:inline-block;background:#8B0015;color:white;padding:0.75rem 1.5rem;border-radius:6px;font-size:0.85rem;font-weight:700;text-decoration:none;white-space:nowrap">Get in touch →</a>
+    </div>
+
+  </div>
+</section>
+
 </body>
 </html>
