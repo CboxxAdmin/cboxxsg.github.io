@@ -1105,7 +1105,7 @@ body{font-family:'Inter',sans-serif;background:#111;min-height:100vh;display:fle
     </div>
     <div style="background:rgba(201,150,58,0.06);border:1px solid rgba(201,150,58,0.15);border-radius:8px;padding:0.85rem;text-align:center">
       <div style="font-size:0.65rem;font-weight:700;color:var(--yellow);margin-bottom:0.2rem">DEMO MODE</div>
-      <div style="font-size:0.72rem;color:rgba(255,255,255,0.4)">Enter any 8-digit number to see returning member screen</div>
+      <div style="font-size:0.72rem;color:rgba(255,255,255,0.4)">Enter any valid number to see returning member screen</div>
     </div>
     <button class="btn btn-red" id="retBtn" onclick="submitRet()" disabled style="font-size:1rem;padding:1.1rem">Check In & Earn Points →</button>
     <button class="btn btn-ghost" onclick="goTo('s1')">← Back</button>
@@ -1275,23 +1275,32 @@ function onPhone(input){
   var v=input.value.replace(/\D/g,'');input.value=v;
   var btn=document.getElementById('phoneBtn');
   var hint=document.getElementById('phoneHint');
-  if(v.length===8&&(v[0]==='8'||v[0]==='9'||v[0]==='6')){
+  var c=selectedCountry;
+  var maxlen=c.maxlen;
+  var minlen=c.minlen||maxlen;
+  var label=c.name+' mobile number';
+  var digitDesc=minlen===maxlen?maxlen+'-digit':minlen+'–'+maxlen+'-digit';
+  if(v.length>=minlen&&v.length<=maxlen){
     input.classList.add('valid');input.classList.remove('error');
     btn.disabled=false;hint.textContent='Looks good!';hint.classList.remove('err');
-  }else if(v.length===8){
+  }else if(v.length>maxlen){
     input.classList.add('error');input.classList.remove('valid');
-    btn.disabled=true;hint.textContent='Enter a valid SG mobile number';hint.classList.add('err');
+    btn.disabled=true;hint.textContent='Too many digits for '+c.name;hint.classList.add('err');
   }else{
     input.classList.remove('valid','error');btn.disabled=true;
-    hint.textContent='Enter your 8-digit Singapore mobile number';hint.classList.remove('err');
+    hint.textContent='Enter your '+digitDesc+' '+label;hint.classList.remove('err');
   }
 }
 
 function submitPhone(){
   var v=document.getElementById('phoneInput').value.replace(/\D/g,'');
-  if(v.length!==8)return;
+  var minlen=selectedCountry.minlen||selectedCountry.maxlen;
+  if(v.length<minlen||v.length>selectedCountry.maxlen)return;
   phoneNum=v;
-  document.getElementById('phoneDisplay').textContent='+65 '+v.slice(0,4)+' '+v.slice(4);
+  var dial=selectedCountry.dial;
+  // Format display: group into chunks of 4
+  var formatted=v.replace(/(\d{4})(?=\d)/g,'$1 ');
+  document.getElementById('phoneDisplay').textContent=dial+' '+formatted;
   goTo('s2b');
 }
 
@@ -1328,13 +1337,16 @@ function startEnrolled(){
 
 function onRetPhone(input){
   var v=input.value.replace(/\D/g,'');input.value=v;
-  document.getElementById('retBtn').disabled=v.length!==8;
+  var minlen=selectedCountry.minlen||selectedCountry.maxlen;
+  document.getElementById('retBtn').disabled=v.length<minlen||v.length>selectedCountry.maxlen;
 }
 
 function submitRet(){
   var v=document.getElementById('retInput').value;
-  if(v.length!==8)return;
-  document.getElementById('retPhoneShow').textContent=v.slice(0,4)+' '+v.slice(4);
+  var minlen=selectedCountry.minlen||selectedCountry.maxlen;
+  if(v.length<minlen)return;
+  var formatted=v.replace(/(\d{4})(?=\d)/g,'$1 ');
+  document.getElementById('retPhoneShow').textContent=formatted;
   goTo('s_returning');
 }
 
@@ -1344,13 +1356,13 @@ function submitRet(){
 // ── COUNTRY SELECTOR ──
 var countries = [
   { flag: '🇸🇬', name: 'Singapore', dial: '+65', maxlen: 8 },
-  { flag: '🇲🇾', name: 'Malaysia', dial: '+60', maxlen: 10 },
-  { flag: '🇮🇩', name: 'Indonesia', dial: '+62', maxlen: 12 },
+  { flag: '🇲🇾', name: 'Malaysia', dial: '+60', maxlen: 11, minlen: 9 },
+  { flag: '🇮🇩', name: 'Indonesia', dial: '+62', maxlen: 12, minlen: 9 },
   { flag: '🇵🇭', name: 'Philippines', dial: '+63', maxlen: 10 },
   { flag: '🇹🇭', name: 'Thailand', dial: '+66', maxlen: 9 },
-  { flag: '🇻🇳', name: 'Vietnam', dial: '+84', maxlen: 10 },
+  { flag: '🇻🇳', name: 'Vietnam', dial: '+84', maxlen: 10, minlen: 9 },
   { flag: '🇧🇳', name: 'Brunei', dial: '+673', maxlen: 7 },
-  { flag: '🇲🇲', name: 'Myanmar', dial: '+95', maxlen: 9 },
+  { flag: '🇲🇲', name: 'Myanmar', dial: '+95', maxlen: 9, minlen: 7 },
   { flag: '🇰🇭', name: 'Cambodia', dial: '+855', maxlen: 9 },
   { flag: '🇱🇦', name: 'Laos', dial: '+856', maxlen: 9 },
   { flag: '🇨🇳', name: 'China', dial: '+86', maxlen: 11 },
@@ -1403,9 +1415,24 @@ function buildCountryDropdown(dropdownId, selectorId, inputId) {
         // Update selector display
         selector.querySelector('.cs-flag').textContent = c.flag;
         selector.querySelector('.cs-code').textContent = c.dial;
-        // Update input maxlength
+        // Update input maxlength, placeholder, reset value
         var input = document.getElementById(inputId);
-        if (input) { input.maxLength = c.maxlen; input.value = ''; input.placeholder = ''; }
+        var minlen=c.minlen||c.maxlen;
+        var digitDesc=minlen===c.maxlen?c.maxlen+'-digit':minlen+'–'+c.maxlen+'-digit';
+        if (input) {
+          input.maxLength = c.maxlen;
+          input.value = '';
+          input.placeholder = digitDesc+' number';
+          input.classList.remove('valid','error');
+        }
+        // Update hint if this is the main phone input
+        if (inputId === 'phoneInput') {
+          var hint = document.getElementById('phoneHint');
+          var btn = document.getElementById('phoneBtn');
+          if (hint) hint.textContent = 'Enter your '+digitDesc+' '+c.name+' mobile number';
+          if (hint) hint.classList.remove('err');
+          if (btn) btn.disabled = true;
+        }
         dropdown.classList.remove('open');
         renderList('');
       };
