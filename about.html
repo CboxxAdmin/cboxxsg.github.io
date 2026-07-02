@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--red:#8B0015;--navy:#0D1B2A;--cream:#F2EDE5;--yellow:#C9963A;--green:#165C32;--mid:#7A7A7A;--white:#FFFFFF;--light:#F4F1EC;--black:#060C14;}
+:root{--red:#8B0015;--navy:#0D1B2A;--cream:#F2EDE5;--yellow:#C9963A;--green:#165C32;--mid:#5A5A5A;--white:#FFFFFF;--light:#F4F1EC;--black:#060C14;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'Inter',sans-serif;overflow-x:hidden;}
@@ -42,11 +42,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:#000000;backdrop-
 .btn-ghost:hover{border-color:#C9963A;color:#C9963A;}
 footer{background:#060C14;border-top:1px solid rgba(255,255,255,0.08);}
 .footer-inner{max-width:1100px;margin:0 auto;padding:3rem 5vw 2rem;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;}
-.footer-brand p{font-size:0.8rem;color:rgba(255,255,255,0.4);line-height:1.7;margin-top:0.75rem;max-width:220px;}
+.footer-brand p{font-size:0.8rem;color:rgba(255,255,255,0.65);line-height:1.7;margin-top:0.75rem;max-width:220px;}
 .footer-col h4{font-size:0.65rem;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:0.9rem;}
 .footer-col a{display:block;font-size:0.85rem;color:rgba(255,255,255,0.6);text-decoration:none;margin-bottom:0.55rem;transition:color 0.2s;}
 .footer-col a:hover{color:#ffffff;}
-.footer-col span{display:block;font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:0.45rem;line-height:1.5;}
+.footer-col span{display:block;font-size:0.82rem;color:rgba(255,255,255,0.65);margin-bottom:0.45rem;line-height:1.5;}
 .footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding:1.1rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;}
 .footer-bottom p{font-size:0.75rem;color:rgba(255,255,255,0.55);font-weight:500;}
 .footer-badge{font-size:0.68rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:100px;background:rgba(139,0,21,0.15);border:1px solid rgba(139,0,21,0.35);color:rgba(255,100,100,0.8);}
@@ -61,15 +61,20 @@ body{background:#F2EDE5;}
 .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
 .sstat{padding:1.5rem;background:#F2EDE5;border-radius:8px;border-left:4px solid #8B0015;margin-bottom:1rem;}
 .sstat-num{font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:900;color:#8B0015;line-height:1;margin-bottom:0.2rem;}
-.sstat-label{font-size:0.78rem;color:#7A7A7A;font-weight:500;}
-.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
-.tc{background:white;border-radius:10px;border:2px solid #0D1B2A;padding:1.75rem;transition:transform 0.2s,box-shadow 0.2s;}
-.tc:hover{transform:translateY(-4px);box-shadow:0 10px 35px rgba(13,27,42,0.1);}
-.tc.feat{border-color:#8B0015;}
+.sstat-label{font-size:0.78rem;color:#5A5A5A;font-weight:500;}
+.team-list{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;max-width:960px;margin:0 auto;}
+.tm-card{background:white;border-radius:14px;padding:2.25rem 1.75rem 2rem;text-align:center;width:200px;flex-shrink:0;transition:transform 0.2s,box-shadow 0.2s;}
+.tm-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(13,27,42,0.1);}
+.tm-avatar{width:90px;height:90px;border-radius:50%;border:3px solid #8B0015;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;font-weight:900;color:white;margin:0 auto 1.1rem;}
+.tm-card .tn{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:900;color:#0D1B2A;text-transform:uppercase;margin-bottom:0.3rem;}
+.tm-card .tr{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#8B0015;margin-bottom:0.85rem;}
+.tm-card .ttags{display:flex;flex-wrap:wrap;gap:0.3rem;justify-content:center;}
+.tm-card .ttag{font-size:0.6rem;padding:0.2rem 0.5rem;border-radius:100px;background:rgba(13,27,42,0.06);color:#0D1B2A;}
+@media(max-width:600px){.team-list{gap:1rem;}.tm-card{width:160px;}}
 .ti{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:900;color:white;margin-bottom:1.1rem;}
 .tn{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:900;color:#0D1B2A;text-transform:uppercase;margin-bottom:0.15rem;}
 .tr{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#8B0015;margin-bottom:0.85rem;}
-.tb{font-size:0.855rem;line-height:1.65;color:#7A7A7A;margin-bottom:1rem;}
+.tb{font-size:0.855rem;line-height:1.65;color:#5A5A5A;margin-bottom:1rem;}
 .ttags{display:flex;flex-wrap:wrap;gap:0.35rem;}
 .ttag{font-size:0.62rem;font-weight:600;padding:0.22rem 0.55rem;border-radius:100px;background:rgba(13,27,42,0.06);color:#0D1B2A;}
 .val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem;}
@@ -91,74 +96,36 @@ body{background:#F2EDE5;}
 
 <div class="about-hero">
   <span class="eyebrow reveal" style="color:#8B0015">The Team</span>
-  <h1 class="ah reveal">Built by founders<br>who move <em>fast.</em></h1>
-  <p class="asub reveal">Five co-founders across commercial, tech, ops, people, and creative. Singapore-based. Building Singapore's first NFC-powered district loyalty network.</p>
+  <h1 class="ah reveal">Built for Singapore's<br>small businesses.</h1>
+  <p class="asub reveal">CBOXX helps physical merchants grow by turning every customer visit into a lasting relationship — with one tap, no app, and no complexity.</p>
 </div>
 
 <section style="background:white;padding:6rem 5vw;">
-  <div class="story-grid">
-    <div class="reveal from-left">
-      <span class="eyebrow" style="color:#8B0015">Why We're Building This</span>
-      <h2 class="section-headline" style="color:#0D1B2A">The infrastructure physical retail never had.</h2>
-      <p style="font-size:0.92rem;color:#7A7A7A;line-height:1.75;margin-bottom:1rem">86.9% of Singapore's retail happens in physical stores. But the entire loyalty and data infrastructure was built for e-commerce. Physical merchants have been left behind.</p>
-      <p style="font-size:0.92rem;color:#7A7A7A;line-height:1.75;margin-bottom:1rem">We asked: what if every merchant in a mall could have the same loyalty and data capabilities as a major e-commerce brand, for SGD 100 to start?</p>
-      <p style="font-size:0.92rem;font-weight:600;color:#0D1B2A;line-height:1.75">The data is the real asset. The loyalty OS is how we earn the right to collect it.</p>
-    </div>
-    <div>
-      <div class="sstat reveal d1"><div class="sstat-num">Apr 2026</div><div class="sstat-label">CBOXX Pte. Ltd. incorporated</div></div>
-      <div class="sstat reveal d2"><div class="sstat-num">1,260+</div><div class="sstat-label">Target merchants across Singapore</div></div>
-      <div class="sstat reveal d3"><div class="sstat-num">5</div><div class="sstat-label">Co-founders across commercial, tech, ops, people, and creative</div></div>
-      <div class="sstat reveal d4"><div class="sstat-num">SGD 100</div><div class="sstat-label">What it costs a merchant to get started</div></div>
-    </div>
+  <div style="max-width:680px">
+    <span class="eyebrow reveal" style="color:#8B0015">Why We're Building This</span>
+    <h2 class="section-headline reveal" style="color:#0D1B2A">The infrastructure physical retail never had</h2>
+    <p class="reveal" style="font-size:0.95rem;color:#5A5A5A;line-height:1.8;margin-bottom:1rem">86.9% of Singapore's retail happens in physical stores. But the entire loyalty and data infrastructure was built for e-commerce. Physical merchants have been left behind.</p>
+    <p class="reveal" style="font-size:0.95rem;color:#5A5A5A;line-height:1.8;margin-bottom:1rem">We asked: what if every merchant in a mall could have the same loyalty and data capabilities as a major e-commerce brand, without the complexity or cost?</p>
+    <p class="reveal" style="font-size:0.95rem;font-weight:600;color:#0D1B2A;line-height:1.8">The data is the real asset. The loyalty OS is how we earn the right to collect it</p>
   </div>
 </section>
 
-<section style="background:#F2EDE5;padding:6rem 5vw;">
-  <span class="eyebrow reveal" style="color:#8B0015">Co-Founders</span>
-  <h2 class="section-headline reveal" style="color:#0D1B2A">The people<br>building this.</h2>
-  <div class="team-grid">
-    <div class="tc feat reveal d1">
-      <div class="ti" style="background:#8B0015">HO</div>
-      <div class="tn">Hakim Osman</div>
-      <div class="tr">Founder &amp; CEO</div>
-      <p class="tb">Finance student turned founder. Sets company direction, drives B2B merchant sales, investor relations, and leads frontend tech development. Building Singapore's physical commerce intelligence layer.</p>
-      <div class="ttags"><span class="ttag">B2B Sales</span><span class="ttag">Investor Relations</span><span class="ttag">Frontend Tech</span><span class="ttag">Strategy</span></div>
+<!-- VISION & MISSION -->
+<section style="background:#060C14;padding:6rem 5vw;">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;">
+
+    <div class="reveal from-left">
+      <span class="eyebrow" style="color:#C9963A;margin-bottom:0.65rem;display:block">Our Vision</span>
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;text-transform:uppercase;color:white;line-height:1.05;margin-bottom:1.25rem">A thriving Singapore where small businesses never get left behind</h2>
+      <p style="font-size:0.92rem;color:rgba(255,255,255,0.5);line-height:1.8">Behind every shop is an owner who wakes up early, stays late, and pours everything into what they built. We want to live in a Singapore where those people win — where the auntie running the kopitiam and the guy behind the bubble tea counter have every advantage they need to grow</p>
     </div>
-    <div class="tc reveal d1">
-      <div class="ti" style="background:#0D1B2A">DY</div>
-      <div class="tn">Dylan</div>
-      <div class="tr">Co-founder &amp; CTO</div>
-      <p class="tb">Owns the entire tech stack, NFC architecture, backend infrastructure, loyalty platform, and the data pipeline. Also serves as Company Secretary.</p>
-      <div class="ttags"><span class="ttag">NFC Architecture</span><span class="ttag">Backend</span><span class="ttag">Data</span></div>
+
+    <div class="reveal from-right">
+      <span class="eyebrow" style="color:#C9963A;margin-bottom:0.65rem;display:block">Our Mission</span>
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;text-transform:uppercase;color:white;line-height:1.05;margin-bottom:1.25rem">Help SMEs grow by turning every customer visit into a lasting relationship</h2>
+      <p style="font-size:0.92rem;color:rgba(255,255,255,0.5);line-height:1.8">Helping SMEs grow is not just what we do — it is why we exist. CBOXX gives small merchants the tools to retain customers, understand their business, and compete on their own terms. One tap, real loyalty, real growth</p>
     </div>
-    <div class="tc reveal d2">
-      <div class="ti" style="background:#165C32">ME</div>
-      <div class="tn">Melissa</div>
-      <div class="tr">Co-founder &amp; COO</div>
-      <p class="tb">Runs finance, operations, and governance. Originated the district loyalty concept at the core of CBOXX's network strategy.</p>
-      <div class="ttags"><span class="ttag">Operations</span><span class="ttag">Finance</span><span class="ttag">Governance</span></div>
-    </div>
-    <div class="tc reveal d3">
-      <div class="ti" style="background:#4C1D95">JA</div>
-      <div class="tn">Jason</div>
-      <div class="tr">Co-founder &amp; HR Lead</div>
-      <p class="tb">Oversees people operations, HR, and company structure. Supports merchant sales and manages key relationships. Builds the internal culture and accountability systems that keep CBOXX moving as we scale.</p>
-      <div class="ttags"><span class="ttag">People Ops</span><span class="ttag">HR</span><span class="ttag">Sales Support</span><span class="ttag">Relationship Management</span></div>
-    </div>
-    <div class="tc reveal d1">
-      <div class="ti" style="background:#C9963A">YC</div>
-      <div class="tn">Yao Cong</div>
-      <div class="tr">Creative Lead</div>
-      <p class="tb">Shapes the CBOXX brand from the ground up, visual identity, design language, and creative direction. Makes sure everything CBOXX puts in front of the world looks like it belongs there.</p>
-      <div class="ttags"><span class="ttag">Creative Direction</span><span class="ttag">Brand Identity</span><span class="ttag">Visual Design</span></div>
-    </div>
-    <div class="tc reveal d3" style="border-style:dashed;border-color:rgba(13,27,42,0.2);background:#F4F1EC;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
-      <div style="font-size:1.8rem;margin-bottom:0.75rem">&#129309;</div>
-      <div class="tn" style="font-size:1.1rem">We're hiring</div>
-      <div class="tr" style="margin-bottom:0.65rem">Join the founding team</div>
-      <p class="tb" style="font-size:0.82rem">Advisors, early team members, and merchant partners who believe in what we're building.</p>
-      <a href="mailto:info@cboxxsg.com" style="font-size:0.78rem;font-weight:600;color:#8B0015;text-decoration:none;margin-top:0.65rem">info@cboxxsg.com &rarr;</a>
-    </div>
+
   </div>
 </section>
 
@@ -172,6 +139,49 @@ body{background:#F2EDE5;}
     <div class="vc reveal d4"><div class="vicon">&#127759;</div><div class="vtitle">Built for Southeast Asia</div><p class="vbody">Starting in Singapore for infrastructure clarity, but this is a regional play from day one.</p></div>
     <div class="vc reveal d5"><div class="vicon">&#128274;</div><div class="vtitle">Privacy by design</div><p class="vbody">Consumer consent is explicit. Data is never sold. Trust is our moat.</p></div>
     <div class="vc reveal d6"><div class="vicon">&#128226;</div><div class="vtitle">Build in public</div><p class="vbody">We document the journey, the wins, the setbacks, the lessons. Building in public keeps us accountable.</p></div>
+  </div>
+</section>
+
+<section style="background:#F2EDE5;padding:6rem 5vw;">
+  <span class="eyebrow reveal" style="color:#8B0015">Co-Founders</span>
+  <h2 class="section-headline reveal" style="color:#0D1B2A">The people<br>building this.</h2>
+  <div class="team-list">
+    <div class="tm-card reveal d1">
+      <div class="tm-avatar" style="background:#8B0015">HO</div>
+      <div class="tn">Hakim Osman</div>
+      <div class="tr">Founder &amp; CEO</div>
+      <div class="ttags"><span class="ttag">Strategy</span><span class="ttag">B2B Sales</span><span class="ttag">Frontend</span></div>
+    </div>
+    <div class="tm-card reveal d2">
+      <div class="tm-avatar" style="background:#0D1B2A">DY</div>
+      <div class="tn">Dylan</div>
+      <div class="tr">Co-founder &amp; CTO</div>
+      <div class="ttags"><span class="ttag">NFC</span><span class="ttag">Backend</span><span class="ttag">Data</span></div>
+    </div>
+    <div class="tm-card reveal d3">
+      <div class="tm-avatar" style="background:#165C32">ME</div>
+      <div class="tn">Melissa</div>
+      <div class="tr">Co-founder &amp; COO</div>
+      <div class="ttags"><span class="ttag">Operations</span><span class="ttag">Finance</span></div>
+    </div>
+    <div class="tm-card reveal d4">
+      <div class="tm-avatar" style="background:#4C1D95">JA</div>
+      <div class="tn">Jason</div>
+      <div class="tr">Co-founder &amp; HR Lead</div>
+      <div class="ttags"><span class="ttag">People Ops</span><span class="ttag">HR</span></div>
+    </div>
+    <div class="tm-card reveal d5">
+      <div class="tm-avatar" style="background:#C9963A">YC</div>
+      <div class="tn">Yao Cong</div>
+      <div class="tr">Creative Lead</div>
+      <div class="ttags"><span class="ttag">Brand</span><span class="ttag">Design</span></div>
+    </div>
+    <div class="tm-card reveal d6" style="border:2px dashed rgba(13,27,42,0.2);background:#F4F1EC">
+      <div class="tm-avatar" style="background:rgba(13,27,42,0.08);color:#0D1B2A;border-color:rgba(13,27,42,0.2);font-size:1.5rem">+</div>
+      <div class="tn">We're Hiring</div>
+      <div class="tr">Join the Team</div>
+      <a href="mailto:info@cboxxsg.com" style="font-size:0.7rem;font-weight:700;color:#8B0015;text-decoration:none">info@cboxxsg.com →</a>
+    </div>
   </div>
 </section>
 
