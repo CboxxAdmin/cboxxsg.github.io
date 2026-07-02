@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--red:#8B0015;--navy:#0D1B2A;--cream:#F2EDE5;--yellow:#C9963A;--green:#165C32;--mid:#7A7A7A;--white:#FFFFFF;--light:#F4F1EC;--black:#060C14;}
+:root{--red:#8B0015;--navy:#0D1B2A;--cream:#F2EDE5;--yellow:#C9963A;--green:#165C32;--mid:#5A5A5A;--white:#FFFFFF;--light:#F4F1EC;--black:#060C14;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'Inter',sans-serif;overflow-x:hidden;}
@@ -42,11 +42,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:#000000;backdrop-
 .btn-ghost:hover{border-color:#C9963A;color:#C9963A;}
 footer{background:#060C14;border-top:1px solid rgba(255,255,255,0.08);}
 .footer-inner{max-width:1100px;margin:0 auto;padding:3rem 5vw 2rem;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;}
-.footer-brand p{font-size:0.8rem;color:rgba(255,255,255,0.4);line-height:1.7;margin-top:0.75rem;max-width:220px;}
+.footer-brand p{font-size:0.8rem;color:rgba(255,255,255,0.65);line-height:1.7;margin-top:0.75rem;max-width:220px;}
 .footer-col h4{font-size:0.65rem;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:0.9rem;}
 .footer-col a{display:block;font-size:0.85rem;color:rgba(255,255,255,0.6);text-decoration:none;margin-bottom:0.55rem;transition:color 0.2s;}
 .footer-col a:hover{color:#ffffff;}
-.footer-col span{display:block;font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:0.45rem;line-height:1.5;}
+.footer-col span{display:block;font-size:0.82rem;color:rgba(255,255,255,0.65);margin-bottom:0.45rem;line-height:1.5;}
 .footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding:1.1rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;}
 .footer-bottom p{font-size:0.75rem;color:rgba(255,255,255,0.55);font-weight:500;}
 .footer-badge{font-size:0.68rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:100px;background:rgba(139,0,21,0.15);border:1px solid rgba(139,0,21,0.35);color:rgba(255,100,100,0.8);}
@@ -83,12 +83,12 @@ body{background:#060C14;}
 .esub{font-size:0.48rem;color:rgba(255,255,255,0.35);text-align:center;}
 .pcard{display:none;width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:7px 9px;animation:popIn 0.35s ease both;}
 .pcrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;}
-.pclabel{font-size:0.43rem;color:rgba(255,255,255,0.28);text-transform:uppercase;letter-spacing:0.08em;}
+.pclabel{font-size:0.43rem;color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.08em;}
 .pcval{font-size:0.58rem;font-weight:600;color:rgba(255,255,255,0.65);}
 .pcpts{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:900;color:#C9963A;}
 .plive{display:flex;flex-direction:column;gap:3px;width:100%;margin-top:auto;}
 .lrow{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:5px;padding:3px 7px;}
-.llabel{font-size:0.42rem;color:rgba(255,255,255,0.28);}
+.llabel{font-size:0.42rem;color:rgba(255,255,255,0.55);}
 .lval{font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;font-weight:900;color:#C9963A;transition:color 0.2s;}
 .lval.bump{color:#3ab86a;}
 #stats{background:white;}
@@ -96,7 +96,7 @@ body{background:#060C14;}
 .si{padding:2.5rem 1.5rem;text-align:center;border-right:1px solid #F2EDE5;}
 .si:last-child{border-right:none;}
 .sn{font-family:'Barlow Condensed',sans-serif;font-size:2.8rem;font-weight:900;color:#0D1B2A;line-height:1;display:block;margin-bottom:0.35rem;}
-.sl{font-size:0.72rem;color:#7A7A7A;text-transform:uppercase;letter-spacing:0.05em;font-weight:500;}
+.sl{font-size:0.72rem;color:#5A5A5A;text-transform:uppercase;letter-spacing:0.05em;font-weight:500;}
 #how{background:#F2EDE5;padding:6rem 5vw;}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);margin-top:3rem;}
 .step{padding:2.5rem 2rem;}
@@ -116,12 +116,12 @@ body{background:#060C14;}
 .wbig{font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;line-height:1;margin-bottom:0.45rem;}
 .wtitle{font-weight:700;font-size:0.92rem;margin-bottom:0.45rem;}
 .wbody{font-size:0.875rem;line-height:1.65;}
-#govstrip{background:#080f1a;padding:2.25rem 5vw;border-top:1px solid rgba(255,255,255,0.04);}
-.ginner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;}
-.gleft{display:flex;align-items:center;gap:1.25rem;}
-.gicon{width:42px;height:42px;border-radius:8px;background:rgba(139,0,21,0.12);border:1px solid rgba(139,0,21,0.25);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
-.glink{display:inline-flex;align-items:center;gap:0.4rem;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);padding:0.55rem 1.1rem;border-radius:4px;font-size:0.78rem;font-weight:600;text-decoration:none;white-space:nowrap;transition:all 0.2s;flex-shrink:0;}
-.glink:hover{border-color:rgba(255,255,255,0.22);color:white;}
+
+
+
+
+
+
 #contact{background:#F2EDE5;padding:6rem 5vw;}
 .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
 .cform{display:flex;flex-direction:column;gap:0.9rem;}
@@ -131,9 +131,9 @@ body{background:#060C14;}
 .cform button{background:#8B0015;color:white;padding:0.95rem 2rem;border:none;border-radius:6px;font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:background 0.2s;}
 .cform button:hover{background:#7A0012;}
 .cinfo h3{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:#0D1B2A;text-transform:uppercase;line-height:1;margin-bottom:1rem;}
-.cinfo p{font-size:0.9rem;color:#7A7A7A;line-height:1.7;margin-bottom:1.5rem;}
-.cdet{font-size:0.85rem;color:#7A7A7A;margin-bottom:0.6rem;}
-.cdet a{color:#7A7A7A;}
+.cinfo p{font-size:0.9rem;color:#5A5A5A;line-height:1.7;margin-bottom:1.5rem;}
+.cdet{font-size:0.85rem;color:#5A5A5A;margin-bottom:0.6rem;}
+.cdet a{color:#5A5A5A;}
 #cta{background:#0D1B2A;text-align:center;padding:5rem 5vw;}
 #cta h2{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;text-transform:uppercase;color:white;margin-bottom:0.85rem;}
 #cta p{font-size:1rem;color:rgba(255,255,255,0.45);max-width:440px;margin:0 auto 2.5rem;line-height:1.65;}
@@ -161,8 +161,8 @@ body{background:#060C14;}
       <h1 class="hero-h reveal">Built with<br>merchants.<br><em>For merchants.</em></h1>
       <p class="hero-sub reveal">We partner with Singapore mall merchants to run a simple NFC loyalty programme. One tap at your counter. No app for your customers to download. We share what we learn together.</p>
       <div class="hero-btns reveal">
-        <a href="contact.html" class="btn-red">Contact Us &rarr;</a>
-        <a href="merchants.html" class="btn-ghost">For Merchants</a>
+        <a href="merchants.html" class="btn-red">For Merchants &rarr;</a>
+        <a href="areas.html" class="btn-ghost">Our Areas</a>
       </div>
     </div>
     <div class="phone-wrap reveal">
@@ -236,12 +236,12 @@ body{background:#060C14;}
     <div class="wcard reveal d1" style="background:#F2EDE5;border-left-color:#8B0015">
       <div class="wbig" style="color:#8B0015">55%</div>
       <div class="wtitle" style="color:#0D1B2A">of F&amp;B customers never return</div>
-      <p class="wbody" style="color:#7A7A7A">Not because the food was bad. Because nobody gave them a reason to come back.</p>
+      <p class="wbody" style="color:#5A5A5A">Not because the food was bad. Because nobody gave them a reason to come back.</p>
     </div>
     <div class="wcard reveal d2" style="background:#F2EDE5;border-left-color:#0D1B2A">
       <div class="wbig" style="color:#0D1B2A">SGD 0</div>
       <div class="wtitle" style="color:#0D1B2A">needed for app development</div>
-      <p class="wbody" style="color:#7A7A7A">No app to build. No QR codes. One NFC tag at your counter and you are live within a week.</p>
+      <p class="wbody" style="color:#5A5A5A">No app to build. No QR codes. One NFC tag at your counter and you are live within a week.</p>
     </div>
     <div class="wcard reveal d3" style="background:#0D1B2A;border-left-color:#C9963A">
       <div class="wbig" style="color:#C9963A">1</div>
@@ -252,24 +252,10 @@ body{background:#060C14;}
   <div style="margin-top:2.5rem"><a href="merchants.html" class="btn-red reveal">See how it works &rarr;</a></div>
 </section>
 
-<div id="govstrip" style="display:none">
-  <div class="ginner">
-    <div class="gleft">
-      <div class="gicon">&#127963;</div>
-      <div>
-        <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#C9963A;margin-bottom:0.2rem">Government &amp; Smart Nation</div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;font-weight:900;color:white;text-transform:uppercase;margin-bottom:0.15rem">CBOXX partners with IMDA &middot; URA &middot; STB &middot; MTI</div>
-        <div style="font-size:0.78rem;color:rgba(255,255,255,0.32);max-width:480px">Building Singapore's physical commerce intelligence layer aligned with the Smart Nation agenda.</div>
-      </div>
-    </div>
-    <a href="government.html" class="glink">View agency brief &rarr;</a>
-  </div>
-</div>
-
 <section id="contact" style="background:#F2EDE5;padding:6rem 5vw;text-align:center">
   <span class="eyebrow reveal" style="color:#8B0015">Get In Touch</span>
   <h2 class="section-headline reveal" style="color:#0D1B2A;max-width:560px;margin:0 auto 1rem">Want to bring CBOXX to your shop?</h2>
-  <p class="reveal" style="font-size:0.95rem;color:#7A7A7A;line-height:1.7;max-width:440px;margin:0 auto 2.5rem">We reply within 24 hours. No contracts, no commitments, just a conversation.</p>
+  <p class="reveal" style="font-size:0.95rem;color:#aaaaaa;line-height:1.7;max-width:440px;margin:0 auto 2.5rem">We reply within 24 hours. No contracts, no commitments, just a conversation.</p>
   <a href="contact.html" class="btn-red reveal">Send Us an Enquiry &rarr;</a>
 </section>
 
