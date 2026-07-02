@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--red:#8B0015;--navy:#0D1B2A;--cream:#F2EDE5;--yellow:#C9963A;--green:#165C32;--mid:#7A7A7A;--white:#FFFFFF;--light:#F4F1EC;--black:#060C14;}
+:root{--red:#8B0015;--navy:#0D1B2A;--cream:#F2EDE5;--yellow:#C9963A;--green:#165C32;--mid:#5A5A5A;--white:#FFFFFF;--light:#F4F1EC;--black:#060C14;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'Inter',sans-serif;overflow-x:hidden;}
@@ -43,11 +43,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:#000000;backdrop-
 .btn-ghost:hover{border-color:#C9963A;color:#C9963A;}
 footer{background:#060C14;border-top:1px solid rgba(255,255,255,0.08);}
 .footer-inner{max-width:1100px;margin:0 auto;padding:3rem 5vw 2rem;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2.5rem;}
-.footer-brand p{font-size:0.8rem;color:rgba(255,255,255,0.4);line-height:1.7;margin-top:0.75rem;max-width:220px;}
+.footer-brand p{font-size:0.8rem;color:rgba(255,255,255,0.65);line-height:1.7;margin-top:0.75rem;max-width:220px;}
 .footer-col h4{font-size:0.65rem;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:0.9rem;}
 .footer-col a{display:block;font-size:0.85rem;color:rgba(255,255,255,0.6);text-decoration:none;margin-bottom:0.55rem;transition:color 0.2s;}
 .footer-col a:hover{color:#ffffff;}
-.footer-col span{display:block;font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:0.45rem;line-height:1.5;}
+.footer-col span{display:block;font-size:0.82rem;color:rgba(255,255,255,0.65);margin-bottom:0.45rem;line-height:1.5;}
 .footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding:1.1rem 5vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;}
 .footer-bottom p{font-size:0.75rem;color:rgba(255,255,255,0.55);font-weight:500;}
 .footer-badge{font-size:0.68rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:100px;background:rgba(139,0,21,0.15);border:1px solid rgba(139,0,21,0.35);color:rgba(255,100,100,0.8);}
@@ -78,7 +78,7 @@ body{background:white;}
 .dcval{font-size:0.55rem;font-weight:600;color:rgba(255,255,255,0.65);}
 .dcpts{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:900;color:#C9963A;}
 .mtabs{display:flex;gap:0;border:2px solid #0D1B2A;border-radius:6px;overflow:hidden;width:fit-content;margin-bottom:2.5rem;}
-.mtab{padding:0.65rem 1.5rem;font-weight:700;font-size:0.85rem;cursor:pointer;background:transparent;border:none;color:#7A7A7A;font-family:'Inter',sans-serif;transition:all 0.2s;}
+.mtab{padding:0.65rem 1.5rem;font-weight:700;font-size:0.85rem;cursor:pointer;background:transparent;border:none;color:#5A5A5A;font-family:'Inter',sans-serif;transition:all 0.2s;}
 .mtab.active{background:#0D1B2A;color:white;}
 .mpanel{display:none;}
 .mpanel.active{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
@@ -87,13 +87,13 @@ body{background:white;}
 .mpname{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:white;text-transform:uppercase;margin-bottom:0.5rem;}
 .mpdesc{font-size:0.85rem;color:rgba(255,255,255,0.45);line-height:1.65;}
 .mpinfo h3{font-family:'Barlow Condensed',sans-serif;font-size:1.8rem;font-weight:900;color:#0D1B2A;text-transform:uppercase;margin-bottom:0.85rem;}
-.mpinfo p{font-size:0.9rem;color:#7A7A7A;line-height:1.7;margin-bottom:0.85rem;}
+.mpinfo p{font-size:0.9rem;color:#5A5A5A;line-height:1.7;margin-bottom:0.85rem;}
 .mpbest{display:inline-block;font-size:0.72rem;font-weight:700;background:rgba(139,0,21,0.08);color:#8B0015;padding:0.28rem 0.7rem;border-radius:4px;letter-spacing:0.05em;}
 .plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem;}
 .plan{padding:2.5rem;border-radius:8px;background:#F2EDE5;border:3px solid #0D1B2A;}
 .plan.pro{background:#0D1B2A;border-color:#8B0015;}
 .pbadge{display:inline-block;font-size:0.62rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:0.28rem 0.7rem;border-radius:100px;margin-bottom:0.85rem;}
-.pbadge.basic{background:#F4F1EC;color:#7A7A7A;}
+.pbadge.basic{background:#F4F1EC;color:#5A5A5A;}
 .pbadge.pro-b{background:#8B0015;color:white;}
 .pprice{font-family:'Barlow Condensed',sans-serif;font-size:2.8rem;font-weight:900;color:#0D1B2A;line-height:1;margin-bottom:0.2rem;}
 .plan.pro .pprice{color:white;}
@@ -104,8 +104,8 @@ body{background:white;}
 .plan.pro .pfeat li{color:rgba(255,255,255,0.78);}
 .pfeat li::before{content:"✓";color:#165C32;font-weight:700;flex-shrink:0;margin-top:1px;}
 .plan.pro .pfeat li::before{color:#3ab86a;}
-.pfeat li.locked::before{content:"";color:#7A7A7A;}
-.pfeat li.locked{color:#7A7A7A!important;}
+.pfeat li.locked::before{content:"";color:#5A5A5A;}
+.pfeat li.locked{color:#5A5A5A!important;}
 .onboarding{margin-top:1.75rem;background:#8B0015;border-radius:8px;padding:1.2rem 1.6rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
 .roi-wrap{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:start;}
 .roi-input-group{margin-bottom:1.5rem;}
@@ -157,7 +157,7 @@ body{background:white;}
 .mcform textarea{resize:vertical;}
 .mcform button{background:#8B0015;color:white;padding:0.95rem 2rem;border:none;border-radius:6px;font-family:'Inter',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;transition:background 0.2s;letter-spacing:0.02em;}
 .mcform button:hover{background:#7A0012;}
-.form-note{font-size:0.78rem;color:rgba(255,255,255,0.25);margin-top:0.4rem;}
+.form-note{font-size:0.78rem;color:rgba(255,255,255,0.55);margin-top:0.4rem;}
 .form-note a{color:rgba(255,255,255,0.35);}
 @media(max-width:768px){.contact-grid{grid-template-columns:1fr;gap:3rem;}}
 </style>
@@ -191,6 +191,24 @@ body{background:white;}
   <span class="eyebrow">Join the Pilot</span>
   <h1>Let's Get Your<br>Shop on CBOXX</h1>
   <p>Drop us a message and we'll follow up within 24 hours. No commitments, no contracts, just a conversation.</p>
+</section>
+
+<!-- TRUST STRIP -->
+<section style="background:#0D1B2A;padding:3rem 5vw;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06)">
+  <div style="max-width:800px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;text-align:center">
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:#C9963A">24 hrs</div>
+      <div style="font-size:0.78rem;color:rgba(255,255,255,0.65);margin-top:0.25rem">We reply within 24 hours</div>
+    </div>
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:#C9963A">No contracts</div>
+      <div style="font-size:0.78rem;color:rgba(255,255,255,0.65);margin-top:0.25rem">Flexible month to month</div>
+    </div>
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:#C9963A">SGD 150</div>
+      <div style="font-size:0.78rem;color:rgba(255,255,255,0.65);margin-top:0.25rem">To get your shop started</div>
+    </div>
+  </div>
 </section>
 
 <!-- CONTACT BODY -->
