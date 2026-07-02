@@ -62,8 +62,11 @@ body{background:#F2EDE5;}
 .sstat{padding:1.5rem;background:#F2EDE5;border-radius:8px;border-left:4px solid #8B0015;margin-bottom:1rem;}
 .sstat-num{font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:900;color:#8B0015;line-height:1;margin-bottom:0.2rem;}
 .sstat-label{font-size:0.78rem;color:#5A5A5A;font-weight:500;}
-.team-list{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;max-width:960px;margin:0 auto;}
-.tm-card{background:white;border-radius:14px;padding:2.25rem 1.75rem 2rem;text-align:center;width:200px;flex-shrink:0;transition:transform 0.2s,box-shadow 0.2s;}
+.team-list{display:flex;flex-wrap:nowrap;gap:1.5rem;overflow-x:auto;padding-bottom:1rem;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:rgba(139,0,21,0.3) transparent;}
+.team-list::-webkit-scrollbar{height:4px;}
+.team-list::-webkit-scrollbar-track{background:transparent;}
+.team-list::-webkit-scrollbar-thumb{background:rgba(139,0,21,0.3);border-radius:100px;}
+.tm-card{background:white;border-radius:14px;padding:2.25rem 1.75rem 2rem;text-align:center;width:200px;min-width:200px;flex-shrink:0;transition:transform 0.2s,box-shadow 0.2s;}
 .tm-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(13,27,42,0.1);}
 .tm-avatar{width:90px;height:90px;border-radius:50%;border:3px solid #8B0015;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;font-weight:900;color:white;margin:0 auto 1.1rem;}
 .tm-card .tn{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:900;color:#0D1B2A;text-transform:uppercase;margin-bottom:0.3rem;}
@@ -79,9 +82,9 @@ body{background:#F2EDE5;}
 .ttag{font-size:0.62rem;font-weight:600;padding:0.22rem 0.55rem;border-radius:100px;background:rgba(13,27,42,0.06);color:#0D1B2A;}
 .val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem;}
 .vc{padding:1.75rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:8px;border-top:3px solid #8B0015;}
-.vicon{font-size:1.6rem;margin-bottom:0.65rem;}
+.vicon{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:900;color:#FF1A3A;margin-bottom:0.65rem;line-height:1;}
 .vtitle{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;color:white;text-transform:uppercase;margin-bottom:0.45rem;}
-.vbody{font-size:0.84rem;color:rgba(255,255,255,0.45);line-height:1.65;}
+.vbody{font-size:0.84rem;color:rgba(255,255,255,0.65);line-height:1.7;}
 @media(max-width:768px){.story-grid{grid-template-columns:1fr;}.team-grid{grid-template-columns:1fr;}.val-grid{grid-template-columns:1fr;}}
 </style>
 <meta name="robots" content="index, follow">
@@ -97,7 +100,7 @@ body{background:#F2EDE5;}
 <div class="about-hero">
   <span class="eyebrow reveal" style="color:#8B0015">The Team</span>
   <h1 class="ah reveal">Built for Singapore's<br>small businesses.</h1>
-  <p class="asub reveal">CBOXX helps physical merchants grow by turning every customer visit into a lasting relationship — with one tap, no app, and no complexity.</p>
+  <p class="asub reveal">CBOXX helps physical merchants grow by turning every customer visit into a lasting relationship with one tap, no app, and no complexity.</p>
 </div>
 
 <section style="background:white;padding:6rem 5vw;">
@@ -117,13 +120,13 @@ body{background:#F2EDE5;}
     <div class="reveal from-left">
       <span class="eyebrow" style="color:#C9963A;margin-bottom:0.65rem;display:block">Our Vision</span>
       <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;text-transform:uppercase;color:white;line-height:1.05;margin-bottom:1.25rem">A thriving Singapore where small businesses never get left behind</h2>
-      <p style="font-size:0.92rem;color:rgba(255,255,255,0.5);line-height:1.8">Behind every shop is an owner who wakes up early, stays late, and pours everything into what they built. We want to live in a Singapore where those people win — where the auntie running the kopitiam and the guy behind the bubble tea counter have every advantage they need to grow</p>
+      <p style="font-size:0.92rem;color:rgba(255,255,255,0.5);line-height:1.8">Behind every shop is an owner who wakes up early, stays late, and pours everything into what they built. We want to live in a Singapore where those people win where the auntie running the kopitiam and the guy behind the bubble tea counter have every advantage they need to grow</p>
     </div>
 
     <div class="reveal from-right">
       <span class="eyebrow" style="color:#C9963A;margin-bottom:0.65rem;display:block">Our Mission</span>
       <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;text-transform:uppercase;color:white;line-height:1.05;margin-bottom:1.25rem">Help SMEs grow by turning every customer visit into a lasting relationship</h2>
-      <p style="font-size:0.92rem;color:rgba(255,255,255,0.5);line-height:1.8">Helping SMEs grow is not just what we do — it is why we exist. CBOXX gives small merchants the tools to retain customers, understand their business, and compete on their own terms. One tap, real loyalty, real growth</p>
+      <p style="font-size:0.92rem;color:rgba(255,255,255,0.5);line-height:1.8">Helping SMEs grow is not just what we do it is why we exist. CBOXX gives small merchants the tools to retain customers, understand their business, and compete on their own terms. One tap, real loyalty, real growth</p>
     </div>
 
   </div>
@@ -133,18 +136,18 @@ body{background:#F2EDE5;}
   <span class="eyebrow reveal" style="color:#C9963A">How We Build</span>
   <h2 class="section-headline reveal" style="color:white">What we believe.</h2>
   <div class="val-grid">
-    <div class="vc reveal d1"><div class="vicon">&#9889;</div><div class="vtitle">Move fast, learn faster</div><p class="vbody">We'd rather ship something imperfect and learn from real merchants than spend months building in isolation.</p></div>
-    <div class="vc reveal d2"><div class="vicon">&#128269;</div><div class="vtitle">Data over opinions</div><p class="vbody">Every product decision is grounded in what merchants actually need and what consumers actually do.</p></div>
-    <div class="vc reveal d3"><div class="vicon">&#129309;</div><div class="vtitle">Merchant-first</div><p class="vbody">If merchants don't win, we don't win. Every feature and price point runs through that filter.</p></div>
-    <div class="vc reveal d4"><div class="vicon">&#127759;</div><div class="vtitle">Built for Southeast Asia</div><p class="vbody">Starting in Singapore for infrastructure clarity, but this is a regional play from day one.</p></div>
-    <div class="vc reveal d5"><div class="vicon">&#128274;</div><div class="vtitle">Privacy by design</div><p class="vbody">Consumer consent is explicit. Data is never sold. Trust is our moat.</p></div>
-    <div class="vc reveal d6"><div class="vicon">&#128226;</div><div class="vtitle">Build in public</div><p class="vbody">We document the journey, the wins, the setbacks, the lessons. Building in public keeps us accountable.</p></div>
+    <div class="vc reveal d1"><div class="vicon">01</div><div class="vtitle">Simplicity by design</div><p class="vbody">We strip away complexity so merchants can focus on running their business, not managing software.</p></div>
+    <div class="vc reveal d2"><div class="vicon">02</div><div class="vtitle">Merchant outcomes first</div><p class="vbody">Every decision we make is measured against one question does this help merchants retain more customers?</p></div>
+    <div class="vc reveal d3"><div class="vicon">03</div><div class="vtitle">Partnership over transaction</div><p class="vbody">We are not just a platform. We grow when our merchants grow, and we take that responsibility seriously.</p></div>
+    <div class="vc reveal d4"><div class="vicon">04</div><div class="vtitle">Built for Southeast Asia</div><p class="vbody">Designed from the ground up for the dense, high-footfall retail environments that define our region.</p></div>
+    <div class="vc reveal d5"><div class="vicon">05</div><div class="vtitle">Responsible data practices</div><p class="vbody">Consumer consent is explicit and transparent. Data is never sold. We earn trust through how we handle information, not just what we promise.</p></div>
+    <div class="vc reveal d6"><div class="vicon">06</div><div class="vtitle">Long-term thinking</div><p class="vbody">We are building infrastructure meant to last not a quick loyalty gimmick, but the foundation of physical commerce intelligence in Singapore.</p></div>
   </div>
 </section>
 
 <section style="background:#F2EDE5;padding:6rem 5vw;">
-  <span class="eyebrow reveal" style="color:#8B0015">Co-Founders</span>
-  <h2 class="section-headline reveal" style="color:#0D1B2A">The people<br>building this.</h2>
+  <span class="eyebrow reveal" style="color:#8B0015">Team</span>
+  <h2 class="section-headline reveal" style="color:#0D1B2A">The people<br>building this</h2>
   <div class="team-list">
     <div class="tm-card reveal d1">
       <div class="tm-avatar" style="background:#8B0015">HO</div>
@@ -187,10 +190,9 @@ body{background:#F2EDE5;}
 
 <section style="background:#0D1B2A;text-align:center;padding:5rem 5vw;border-top:1px solid rgba(255,255,255,0.05);">
   <h2 class="section-headline reveal" style="color:white;font-size:clamp(2.5rem,5vw,4rem)">Work with us.</h2>
-  <p class="reveal" style="font-size:1rem;color:rgba(255,255,255,0.42);max-width:420px;margin:0 auto 2.5rem;line-height:1.65">Merchant, investor, advisor, or someone who believes physical retail deserves better tools.</p>
+  <p class="reveal" style="font-size:1rem;color:rgba(255,255,255,0.65);max-width:420px;margin:0 auto 2.5rem;line-height:1.65">Whether you're a merchant, investor, or advisor if you believe physical retail deserves better tools, we'd love to hear from you</p>
   <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap" class="reveal">
-    <a href="contact.html" class="btn-red">Join the pilot &rarr;</a>
-    <a href="mailto:info@cboxxsg.com" class="btn-ghost">Email us</a>
+    <a href="contact.html" class="btn-red">Contact Us &rarr;</a>
   </div>
 </section>
 
