@@ -256,7 +256,7 @@ body{background:#060C14;}
   padding: 0.2rem 0.55rem;
   border-radius: 100px;
 }
-.badge-live { background: #8B0015; color: white; }
+.badge-live { background: rgba(58,184,106,0.15); color: #3ab86a; border: 1px solid rgba(58,184,106,0.3); }
 .badge-planned { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.35); }
 .region-icon {
   font-size: 1.4rem;
@@ -482,7 +482,7 @@ body{background:#060C14;}
 
       <!-- EAST LIVE -->
       <div class="region-card active-card" onclick="toggleRegion(this,'East')">
-        <span class="region-badge badge-live">Live</span>
+        <span class="region-badge badge-live">Available</span>
         <div class="region-icon">🌅</div>
         <div class="region-name">East</div>
         <div class="region-districts">Tampines · Bedok · Paya Lebar · Changi</div>
@@ -498,7 +498,7 @@ body{background:#060C14;}
 
       <!-- NORTH -->
       <div class="region-card" onclick="toggleRegion(this,'North')">
-        <span class="region-badge badge-planned">Planned</span>
+        <span class="region-badge badge-live">Available</span>
         <div class="region-icon">🌿</div>
         <div class="region-name">North</div>
         <div class="region-districts">Yishun · Sembawang · Woodlands · Ang Mo Kio</div>
@@ -513,7 +513,7 @@ body{background:#060C14;}
 
       <!-- WEST -->
       <div class="region-card" onclick="toggleRegion(this,'West')">
-        <span class="region-badge badge-planned">Planned</span>
+        <span class="region-badge badge-live">Available</span>
         <div class="region-icon">🌇</div>
         <div class="region-name">West</div>
         <div class="region-districts">Jurong · Clementi · Bukit Panjang · Choa Chu Kang</div>
@@ -529,7 +529,7 @@ body{background:#060C14;}
 
       <!-- SOUTH -->
       <div class="region-card" onclick="toggleRegion(this,'South')">
-        <span class="region-badge badge-planned">Planned</span>
+        <span class="region-badge badge-live">Available</span>
         <div class="region-icon">🌊</div>
         <div class="region-name">South</div>
         <div class="region-districts">HarbourFront · Queenstown · Alexandra · Telok Blangah</div>
@@ -544,7 +544,7 @@ body{background:#060C14;}
 
       <!-- CENTRAL -->
       <div class="region-card" onclick="toggleRegion(this,'Central')">
-        <span class="region-badge badge-planned">Planned</span>
+        <span class="region-badge badge-live">Available</span>
         <div class="region-icon">🏙️</div>
         <div class="region-name">Central</div>
         <div class="region-districts">Orchard · Bugis · Suntec · Toa Payoh · Bishan</div>
