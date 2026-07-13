@@ -261,12 +261,9 @@ function MerchantCard({ merchant, index, onSwipe, isTop, onOpenMenu }) {
   const [gone, setGone] = useState(null);
   const [flipped, setFlipped] = useState(false);
   const [menuIndex, setMenuIndex] = useState(0);
-  const menuScrollRef = useRef(null);
-  const handleMenuScroll = () => {
-    const el = menuScrollRef.current;
-    if (!el || el.clientWidth === 0) return;
-    setMenuIndex(Math.round(el.scrollLeft / el.clientWidth));
-  };
+  const [menuDrag, setMenuDrag] = useState({ x: 0, active: false });
+  const menuStartX = useRef(0);
+  const menuWrapRef = useRef(null);
   const downPos = useRef({ x: 0, y: 0, time: 0 });
 
   const iconName = CATEGORIES.find((c) => c.key === merchant.cat)?.icon ?? "sparkles";
@@ -305,9 +302,32 @@ function MerchantCard({ merchant, index, onSwipe, isTop, onOpenMenu }) {
     if (moved < 8 && elapsed < 500 && cardRef.current) {
       const rect = cardRef.current.getBoundingClientRect();
       const relativeY = downPos.current.y - rect.top;
-      if (relativeY <= rect.height * 0.48) setFlipped(true);
+      if (relativeY <= rect.height * 0.48) { setFlipped(true); setMenuIndex(0); }
     }
     setDrag({ x: 0, active: false });
+  };
+
+  const menuLength = cardMenu.length;
+  const onMenuPointerDown = (e) => {
+    const clientX = e.clientX ?? e.touches?.[0]?.clientX ?? 0;
+    menuStartX.current = clientX;
+    setMenuDrag({ x: 0, active: true });
+    menuWrapRef.current?.setPointerCapture?.(e.pointerId);
+  };
+  const onMenuPointerMove = (e) => {
+    if (!menuDrag.active) return;
+    const x = (e.clientX ?? e.touches?.[0]?.clientX ?? 0) - menuStartX.current;
+    setMenuDrag({ x, active: true });
+  };
+  const onMenuPointerUp = () => {
+    if (!menuDrag.active) return;
+    const threshold = 55;
+    if (menuDrag.x < -threshold && menuIndex < menuLength - 1) {
+      setMenuIndex((i) => i + 1);
+    } else if (menuDrag.x > threshold && menuIndex > 0) {
+      setMenuIndex((i) => i - 1);
+    }
+    setMenuDrag({ x: 0, active: false });
   };
 
   const rotate = drag.x / 18;
@@ -328,7 +348,7 @@ function MerchantCard({ merchant, index, onSwipe, isTop, onOpenMenu }) {
         transform: `translate(${flyX}px, ${index * 8}px) rotate(${flyRot}deg) scale(${1 - index * 0.035})`,
         transition: drag.active ? "none" : "transform 320ms cubic-bezier(.2,.8,.3,1), opacity 320ms",
         opacity,
-        touchAction: flipped ? "pan-x" : "none",
+        touchAction: "none",
         cursor: isTop ? "grab" : "default",
         zIndex: 50 - index,
         perspective: 1200,
@@ -511,26 +531,28 @@ function MerchantCard({ merchant, index, onSwipe, isTop, onOpenMenu }) {
             </div>
           </div>
 
-          <div style={{ flex: 1, position: "relative" }}>
+          <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
             <div
-              ref={menuScrollRef}
-              onScroll={handleMenuScroll}
-              onPointerDown={(e) => e.stopPropagation()}
+              ref={menuWrapRef}
+              onPointerDown={(e) => { e.stopPropagation(); onMenuPointerDown(e); }}
+              onPointerMove={(e) => { e.stopPropagation(); onMenuPointerMove(e); }}
+              onPointerUp={(e) => { e.stopPropagation(); onMenuPointerUp(e); }}
+              onPointerLeave={(e) => { e.stopPropagation(); onMenuPointerUp(e); }}
               style={{
                 display: "flex",
                 height: "100%",
-                overflowX: "auto",
-                scrollSnapType: "x mandatory",
-                WebkitOverflowScrolling: "touch",
-                touchAction: "pan-x",
+                width: `${cardMenu.length * 100}%`,
+                transform: `translateX(calc(${-menuIndex * (100 / cardMenu.length)}% + ${menuDrag.x}px))`,
+                transition: menuDrag.active ? "none" : "transform 320ms cubic-bezier(.2,.8,.3,1)",
+                touchAction: "none",
+                cursor: "grab",
               }}
             >
               {cardMenu.map((item, i) => (
                 <div
                   key={i}
                   style={{
-                    flex: "0 0 100%",
-                    scrollSnapAlign: "start",
+                    flex: `0 0 ${100 / cardMenu.length}%`,
                     display: "flex",
                     flexDirection: "column",
                     padding: "12px 16px 8px",
@@ -539,7 +561,8 @@ function MerchantCard({ merchant, index, onSwipe, isTop, onOpenMenu }) {
                   <img
                     src={`https://picsum.photos/seed/${item.imgSeed}/500/360`}
                     alt=""
-                    style={{ width: "100%", height: 150, borderRadius: 14, objectFit: "cover", background: "#E3D9C4", flexShrink: 0 }}
+                    draggable={false}
+                    style={{ width: "100%", height: 150, borderRadius: 14, objectFit: "cover", background: "#E3D9C4", flexShrink: 0, pointerEvents: "none" }}
                   />
                   <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontWeight: 600, color: "#241512", margin: "12px 0 4px" }}>
                     {item.name}
@@ -553,6 +576,40 @@ function MerchantCard({ merchant, index, onSwipe, isTop, onOpenMenu }) {
                 </div>
               ))}
             </div>
+            {menuIndex > 0 && (
+              <button
+                onClick={(e) => { e.stopPropagation(); setMenuIndex((i) => Math.max(0, i - 1)); }}
+                onPointerDown={(e) => e.stopPropagation()}
+                aria-label="Previous item"
+                style={{
+                  position: "absolute", left: 0, top: 0, bottom: 0, width: "18%",
+                  border: "none", background: "linear-gradient(90deg, rgba(244,241,235,0.55), rgba(244,241,235,0))",
+                  display: "flex", alignItems: "center", justifyContent: "flex-start", paddingLeft: 4,
+                  cursor: "pointer", zIndex: 5,
+                }}
+              >
+                <div style={{ width: 26, height: 26, borderRadius: "50%", background: "rgba(255,255,255,0.85)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(33,29,23,0.15)" }}>
+                  <Icon name="chevron-down" size={16} color="#9C0018" style={{ transform: "rotate(90deg)" }} />
+                </div>
+              </button>
+            )}
+            {menuIndex < cardMenu.length - 1 && (
+              <button
+                onClick={(e) => { e.stopPropagation(); setMenuIndex((i) => Math.min(cardMenu.length - 1, i + 1)); }}
+                onPointerDown={(e) => e.stopPropagation()}
+                aria-label="Next item"
+                style={{
+                  position: "absolute", right: 0, top: 0, bottom: 0, width: "18%",
+                  border: "none", background: "linear-gradient(270deg, rgba(244,241,235,0.55), rgba(244,241,235,0))",
+                  display: "flex", alignItems: "center", justifyContent: "flex-end", paddingRight: 4,
+                  cursor: "pointer", zIndex: 5,
+                }}
+              >
+                <div style={{ width: 26, height: 26, borderRadius: "50%", background: "rgba(255,255,255,0.85)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(33,29,23,0.15)" }}>
+                  <Icon name="chevron-down" size={16} color="#9C0018" style={{ transform: "rotate(-90deg)" }} />
+                </div>
+              </button>
+            )}
           </div>
 
           <div style={{ display: "flex", justifyContent: "center", gap: 5, padding: "8px 0 12px" }}>
