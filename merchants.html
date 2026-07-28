@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Merchants — CBOXX</title>
+<meta name="description" content="An NFC loyalty system for independent shops. Set up in a day, no app for customers to download, pricing from SGD 150/month.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="canonical" href="https://cboxxsg.com/merchants.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+<style>
+.tabbtn{font-family:'Public Sans',sans-serif;font-size:0.88rem;font-weight:600;padding:0.6rem 1.2rem;border:1px solid var(--line);background:var(--white);cursor:pointer;color:var(--ink-soft)}
+.tabbtn.active{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.tabbtn:first-child{border-radius:6px 0 0 6px}
+.tabbtn:last-child{border-radius:0 6px 6px 0}
+.model-panel{display:none}
+.model-panel.active{display:block}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a href="index.html" class="brand"><img src="assets/img/logo-icon.png" alt="CBOXX"><span style="font-family:'Public Sans',sans-serif;font-weight:700;font-size:1.05rem">cboxx</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="merchants.html" class="active">For Merchants</a>
+      <a href="areas.html">Areas</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile-nav" id="mobileNav">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="merchants.html">For Merchants</a></li>
+    <li><a href="areas.html">Areas</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact</a></li>
+  </ul>
+</div>
+
+<section class="section" style="padding-bottom:3rem">
+  <div class="wrap">
+    <span class="eyebrow">For merchants</span>
+    <h1 style="max-width:20ch">Loyalty software you don't have to build yourself.</h1>
+    <p class="lede">One NFC tag at your counter. No app for customers, no dev work for you. We handle setup and stay on to help you use what it tells you.</p>
+    <a href="#pricing" class="btn btn-primary" style="margin-top:1.5rem">See pricing</a>
+  </div>
+</section>
+
+<section class="section section-line">
+  <div class="wrap">
+    <span class="eyebrow">Choose a model</span>
+    <h2>Three ways to run loyalty. Switch anytime.</h2>
+    <div style="display:flex;margin:2rem 0 2.5rem">
+      <button class="tabbtn active" data-tab="points" onclick="showTab('points',this)">Points</button>
+      <button class="tabbtn" data-tab="stamp" onclick="showTab('stamp',this)">Stamp card</button>
+      <button class="tabbtn" data-tab="tier" onclick="showTab('tier',this)">Tiered</button>
+    </div>
+
+    <div class="model-panel active" id="tab-points">
+      <div class="grid-2">
+        <div><h3>Points</h3><p style="color:var(--ink-soft)">Customers earn points per tap and redeem them for whatever reward you set: a free item, a discount, an exclusive offer. You decide the rate and the reward.</p></div>
+        <div><p class="tag">Best for: cafés, bubble tea, nail bars, salons, shops customers visit weekly</p></div>
+      </div>
+    </div>
+    <div class="model-panel" id="tab-stamp">
+      <div class="grid-2">
+        <div><h3>Stamp card</h3><p style="color:var(--ink-soft)">The digital version of the paper stamp card, minus the lost cards and the fake stamps. Set how many taps earn a reward.</p></div>
+        <div><p class="tag">Best for: F&amp;B, coffee, desserts, hawker stalls</p></div>
+      </div>
+    </div>
+    <div class="model-panel" id="tab-tier">
+      <div class="grid-2">
+        <div><h3>Tiered membership</h3><p style="color:var(--ink-soft)">Bronze, Silver, Gold. Customers move up by visiting more, and your best customers get your best perks.</p></div>
+        <div><p class="tag">Best for: retail, beauty, healthcare, fitness</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="section section-line" style="background:var(--paper-dim)">
+  <div class="wrap">
+    <span class="eyebrow">Pricing</span>
+    <h2>Two plans. No hidden fees.</h2>
+    <div class="grid-2" style="margin-top:2.5rem">
+      <div class="card">
+        <p class="tag" style="margin-bottom:1rem">Monthly</p>
+        <div style="font-family:'Source Serif 4',serif;font-size:2.2rem;font-weight:500">SGD 150<span style="font-size:1rem;color:var(--ink-soft);font-family:'Public Sans',sans-serif"> /mo</span></div>
+        <ul style="margin-top:1.2rem;display:flex;flex-direction:column;gap:0.6rem">
+          <li style="color:var(--ink-soft);font-size:0.92rem">Full loyalty system: points, stamp, or tiered</li>
+          <li style="color:var(--ink-soft);font-size:0.92rem">NFC tap tracking and redemption</li>
+          <li style="color:var(--ink-soft);font-size:0.92rem">Repeat-rate and peak-hours dashboard</li>
+          <li style="color:var(--ink-soft);font-size:0.92rem">Campaign messages to your members</li>
+          <li style="color:var(--ink-soft);font-size:0.92rem">Cancel anytime</li>
+        </ul>
+      </div>
+      <div class="card" style="border-color:var(--red)">
+        <p class="tag" style="margin-bottom:1rem;background:var(--red);color:white;border-color:var(--red)">Yearly</p>
+        <div style="font-family:'Source Serif 4',serif;font-size:2.2rem;font-weight:500">SGD 1,200<span style="font-size:1rem;color:var(--ink-soft);font-family:'Public Sans',sans-serif"> /yr</span></div>
+        <p style="font-size:0.85rem;color:var(--red);font-weight:600;margin-top:0.4rem">Two months free vs. paying monthly</p>
+        <ul style="margin-top:1.2rem;display:flex;flex-direction:column;gap:0.6rem">
+          <li style="color:var(--ink-soft);font-size:0.92rem">Everything in Monthly</li>
+          <li style="color:var(--ink-soft);font-size:0.92rem">Priority onboarding</li>
+          <li style="color:var(--ink-soft);font-size:0.92rem">A quarterly review of what's working</li>
+          <li style="color:var(--ink-soft);font-size:0.92rem">Rate locked in for the year</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:1.5rem;color:var(--ink-soft);font-size:0.9rem">Plus a one-time SGD 100 setup fee, which covers the NFC tag, installation, and getting your staff comfortable with it.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">Rough math</span>
+    <h2>Is this worth it for your shop?</h2>
+    <p class="lede" style="margin-bottom:2rem">Move the sliders to see what a modest repeat-visit lift could be worth. These are illustrative assumptions, not a guarantee. The real number depends on your shop.</p>
+    <div class="grid-2">
+      <div>
+        <div class="form-field">
+          <label>Daily customers</label>
+          <input type="range" min="20" max="500" value="80" id="rc1" oninput="calcROI()">
+          <div id="rv1" style="font-family:'Source Serif 4',serif;font-size:1.3rem;color:var(--red)">80 / day</div>
+        </div>
+        <div class="form-field">
+          <label>Average spend per visit (SGD)</label>
+          <input type="range" min="5" max="200" value="25" id="rc2" oninput="calcROI()">
+          <div id="rv2" style="font-family:'Source Serif 4',serif;font-size:1.3rem;color:var(--red)">SGD 25</div>
+        </div>
+        <div class="form-field">
+          <label>Expected repeat-rate lift</label>
+          <input type="range" min="5" max="40" value="15" id="rc3" oninput="calcROI()">
+          <div id="rv3" style="font-family:'Source Serif 4',serif;font-size:1.3rem;color:var(--red)">+15%</div>
+        </div>
+      </div>
+      <div class="card" style="background:var(--ink);border-color:var(--ink)">
+        <div style="display:flex;justify-content:space-between;padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.12)"><span style="color:rgba(250,247,241,0.6);font-size:0.88rem">Additional visits / month</span><span id="rr1" style="color:white;font-weight:600">0</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.7rem 0;border-bottom:1px solid rgba(255,255,255,0.12)"><span style="color:rgba(250,247,241,0.6);font-size:0.88rem">Additional revenue / month</span><span id="rr2" style="color:white;font-weight:600">SGD 0</span></div>
+        <div style="display:flex;justify-content:space-between;padding:0.7rem 0"><span style="color:rgba(250,247,241,0.6);font-size:0.88rem">Net after Basic plan cost</span><span id="rr3" style="color:#e8bfa0;font-weight:700;font-size:1.15rem">SGD 0</span></div>
+        <p style="font-size:0.72rem;color:rgba(250,247,241,0.4);margin-top:1rem">Assumes 25% of daily customers enrol and the repeat-lift applies to that enrolled group only, 26 trading days/month.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-line" style="background:var(--ink);color:var(--paper)">
+  <div class="wrap" style="text-align:center">
+    <h2 style="color:var(--paper)">Want to see it running in your shop?</h2>
+    <p style="color:rgba(250,247,241,0.6);max-width:50ch;margin:0 auto 1.75rem">Send us a message and we'll walk you through setup, usually live within a week.</p>
+    <a href="contact.html" class="btn btn-primary">Get in touch</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="brand" style="margin-bottom:0.9rem"><img src="assets/img/logo-icon.png" alt="CBOXX" style="height:24px"><span style="font-family:'Public Sans',sans-serif;font-weight:700">cboxx</span></a>
+      <p>A loyalty network built for Singapore's independent shops.</p>
+    </div>
+    <div>
+      <h4>Platform</h4>
+      <a href="index.html">Home</a>
+      <a href="areas.html">Areas</a>
+    </div>
+    <div>
+      <h4>Merchants</h4>
+      <a href="merchants.html">How it works</a>
+      <a href="merchants.html#pricing">Pricing</a>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <a href="about.html">About</a>
+      <a href="mailto:info@cboxxsg.com">info@cboxxsg.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 CBOXX Pte. Ltd.</p>
+    <p><a href="mailto:info@cboxxsg.com">info@cboxxsg.com</a></p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+function showTab(name, btn){
+  document.querySelectorAll('.tabbtn').forEach(function(b){b.classList.remove('active');});
+  document.querySelectorAll('.model-panel').forEach(function(p){p.classList.remove('active');});
+  btn.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+function calcROI(){
+  var c = parseInt(document.getElementById('rc1').value);
+  var s = parseInt(document.getElementById('rc2').value);
+  var i = parseInt(document.getElementById('rc3').value);
+  document.getElementById('rv1').textContent = c + ' / day';
+  document.getElementById('rv2').textContent = 'SGD ' + s;
+  document.getElementById('rv3').textContent = '+' + i + '%';
+  var enrolled = Math.round(c * 0.25);
+  var baseVisits = enrolled * 26;
+  var addVisits = Math.round(baseVisits * (i/100));
+  var addRev = addVisits * s;
+  var net = addRev - 150;
+  document.getElementById('rr1').textContent = addVisits.toLocaleString();
+  document.getElementById('rr2').textContent = 'SGD ' + addRev.toLocaleString();
+  document.getElementById('rr3').textContent = (net>0?'+':'') + 'SGD ' + net.toLocaleString();
+}
+calcROI();
+</script>
+</body>
+</html>
