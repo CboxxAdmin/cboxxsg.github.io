@@ -1,142 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){var d=document.documentElement;d.classList.add("js");var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){d.classList.add("dark")}})()</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CBOXX: a loyalty network for Singapore's local shops</title>
-<meta name="description" content="CBOXX helps Singapore's independent shops turn first-time visitors into regulars, with an NFC loyalty card and a dashboard merchants actually understand.">
+<title>CBOXX</title>
+<meta name="description" content="CBOXX: a swipe-to-discover app for customers, and a loyalty network for the independent shops they find.">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="canonical" href="https://cboxxsg.com/">
-<meta property="og:title" content="CBOXX: a loyalty network for Singapore's local shops">
-<meta property="og:description" content="Turn first-time visitors into regulars with an NFC loyalty card built for independent shops.">
+<meta property="og:title" content="CBOXX">
+<meta property="og:description" content="A swipe-to-discover app for customers, and a loyalty network for the independent shops they find.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cboxxsg.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
 
-<header class="site-header">
-  <div class="bar">
-    <a href="index.html" class="brand"><img src="assets/img/logo-icon.png" alt="CBOXX"><span style="font-family:'Public Sans',sans-serif;font-weight:700;font-size:1.05rem">cboxx</span></a>
-    <nav class="nav-links">
-      <a href="index.html" class="active">Home</a>
-      <a href="merchants.html">For Merchants</a>
-      <a href="areas.html">Areas</a>
-      <a href="about.html">About</a>
-      <a href="contact.html" class="nav-cta">Contact</a>
-    </nav>
-    <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
+<div class="gate">
+  <a href="merchants.html" class="gate-half gate-left" aria-label="For Merchants">
+    <div class="gate-content">
+      <span class="gate-eyebrow">Run a shop</span>
+      <h1 class="gate-title">For Merchants</h1>
+      <p class="gate-sub">Get discovered nearby, and turn first visits into regulars.</p>
+    </div>
+  </a>
+  <div class="gate-logo">
+    <img src="assets/img/logo-icon.png" alt="CBOXX">
+    <span>cboxx</span>
   </div>
-</header>
-<div class="mobile-nav" id="mobileNav">
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="merchants.html">For Merchants</a></li>
-    <li><a href="areas.html">Areas</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="contact.html" class="nav-cta">Contact</a></li>
-  </ul>
+  <a href="app.html" class="gate-half gate-right" aria-label="For the App">
+    <div class="gate-content">
+      <span class="gate-eyebrow">Find a shop</span>
+      <h1 class="gate-title">For the App</h1>
+      <p class="gate-sub">Swipe to discover shops near you, and get walked straight there.</p>
+    </div>
+  </a>
 </div>
 
-<section class="section" style="padding-top:5rem;padding-bottom:4rem">
-  <div class="wrap grid-2" style="align-items:center">
-    <div class="reveal">
-      <span class="eyebrow">Singapore · Independent retail</span>
-      <h1>Most people who walk into your shop once never come back.</h1>
-      <p class="lede">CBOXX is a loyalty card for shops that don't have time to build one themselves. Customers tap an NFC card at the counter, earn a reward, and you get a plain-English record of who's actually returning.</p>
-      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.75rem">
-        <a href="merchants.html" class="btn btn-primary">See how it works</a>
-        <a href="contact.html" class="btn btn-outline">Talk to us</a>
-      </div>
-    </div>
-    <div class="reveal" style="border:1px solid var(--line);border-radius:8px;padding:2rem;background:var(--white)">
-      <div class="eyebrow" style="margin-bottom:1.2rem">What a customer sees</div>
-      <ol style="display:flex;flex-direction:column;gap:1rem;padding:0;margin:0;list-style:none">
-        <li style="display:flex;gap:0.9rem"><span style="font-family:'Source Serif 4',serif;color:var(--red);font-weight:600">1</span><span>They tap the card at the counter. No app to download.</span></li>
-        <li style="display:flex;gap:0.9rem"><span style="font-family:'Source Serif 4',serif;color:var(--red);font-weight:600">2</span><span>A point, stamp, or tier updates right there.</span></li>
-        <li style="display:flex;gap:0.9rem"><span style="font-family:'Source Serif 4',serif;color:var(--red);font-weight:600">3</span><span>They come back to redeem it, and you get to see that visit happen.</span></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<section class="section section-line">
-  <div class="wrap">
-    <span class="eyebrow">The problem</span>
-    <h2 style="max-width:20ch">Physical retail runs on repeat customers. Most shops have no way to see who they are.</h2>
-    <p class="prose lede">E-commerce brands know exactly who buys from them twice. A neighbourhood café or hair salon usually doesn't, because there's no receipt trail that says "this customer has been here six times this year." CBOXX exists to close that gap, for shops that don't have an in-house tech team to build it themselves.</p>
-  </div>
-</section>
-
-<section class="section section-line" style="background:var(--paper-dim)">
-  <div class="wrap">
-    <span class="eyebrow">How it works</span>
-    <h2>Four things happen, in this order</h2>
-    <div class="grid-3" style="margin-top:2.5rem;grid-template-columns:repeat(4,1fr)">
-      <div class="reveal"><h3>Get a card reader</h3><p style="color:var(--ink-soft);font-size:0.92rem">We set up an NFC tag at your counter. No hardware to buy, no app for staff to learn.</p></div>
-      <div class="reveal"><h3>Customers tap in</h3><p style="color:var(--ink-soft);font-size:0.92rem">First tap enrols them. No sign-up form, no phone number required unless you want one.</p></div>
-      <div class="reveal"><h3>Loyalty runs itself</h3><p style="color:var(--ink-soft);font-size:0.92rem">Points, a stamp card, or a tier system, whichever fits how your customers actually behave.</p></div>
-      <div class="reveal"><h3>You see the pattern</h3><p style="color:var(--ink-soft);font-size:0.92rem">A dashboard shows repeat rate, peak hours, and who's about to stop coming back.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section section-line">
-  <div class="wrap">
-    <span class="eyebrow">Built for</span>
-    <h2>Any shop that sees the same street, different faces</h2>
-    <p class="lede" style="margin-bottom:2rem">Cafés, hair salons, clinics, gyms, tailors, bubble tea counters, tuition centres. Basically anywhere a customer might come back next week if you give them a reason to.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:0.6rem">
-      <span class="tag">F&amp;B</span><span class="tag">Beauty &amp; wellness</span><span class="tag">Healthcare</span>
-      <span class="tag">Fitness</span><span class="tag">Retail</span><span class="tag">Services</span>
-      <span class="tag">Tuition</span><span class="tag">Entertainment</span>
-    </div>
-  </div>
-</section>
-
-<section class="section" style="background:var(--ink);color:var(--paper);text-align:left">
-  <div class="wrap grid-2" style="align-items:center">
-    <div class="reveal">
-      <h2 style="color:var(--paper)">If you're a shop owner reading this, that's exactly who we built it for.</h2>
-      <p style="color:rgba(250,247,241,0.65);max-width:var(--measure)">No contracts longer than a month, no dev team required on your end. We'll walk you through setup ourselves.</p>
-    </div>
-    <div class="reveal" style="text-align:left">
-      <a href="contact.html" class="btn btn-primary" style="font-size:1rem;padding:1rem 2rem">Get in touch</a>
-    </div>
-  </div>
-</section>
-
-<footer class="site-footer">
-  <div class="footer-grid">
-    <div>
-      <a href="index.html" class="brand" style="margin-bottom:0.9rem"><img src="assets/img/logo-icon.png" alt="CBOXX" style="height:24px"><span style="font-family:'Public Sans',sans-serif;font-weight:700">cboxx</span></a>
-      <p>A loyalty network built for Singapore's independent shops.</p>
-    </div>
-    <div>
-      <h4>Platform</h4>
-      <a href="index.html">Home</a>
-      <a href="areas.html">Areas</a>
-    </div>
-    <div>
-      <h4>Merchants</h4>
-      <a href="merchants.html">How it works</a>
-      <a href="merchants.html#pricing">Pricing</a>
-    </div>
-    <div>
-      <h4>Company</h4>
-      <a href="about.html">About</a>
-      <a href="mailto:info@cboxxsg.com">info@cboxxsg.com</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2026 CBOXX Pte. Ltd.</p>
-    <p><a href="mailto:info@cboxxsg.com">info@cboxxsg.com</a></p>
-  </div>
-</footer>
-
-<script src="assets/js/main.js"></script>
 </body>
 </html>

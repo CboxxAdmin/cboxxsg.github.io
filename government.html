@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){var d=document.documentElement;d.classList.add("js");var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){d.classList.add("dark")}})()</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Agencies & Partners — CBOXX</title>
@@ -8,21 +9,23 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
 
 <header class="site-header">
   <div class="bar">
-    <a href="index.html" class="brand"><img src="assets/img/logo-icon.png" alt="CBOXX"><span style="font-family:'Public Sans',sans-serif;font-weight:700;font-size:1.05rem">cboxx</span></a>
+    <a href="index.html" class="brand"><img src="assets/img/logo-icon.png" alt="CBOXX"><span style="font-family:'Inter',sans-serif;font-weight:700;font-size:1.05rem">cboxx</span></a>
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="merchants.html">For Merchants</a>
+      <a href="app.html">For the App</a>
       <a href="areas.html">Areas</a>
       <a href="about.html">About</a>
       <a href="contact.html" class="nav-cta">Contact</a>
     </nav>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><svg viewBox="0 0 24 24" class="icon-sun"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M2.5 12h2M19.5 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg><svg viewBox="0 0 24 24" class="icon-moon"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z"/></svg></button>
     <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -30,6 +33,7 @@
   <ul>
     <li><a href="index.html">Home</a></li>
     <li><a href="merchants.html">For Merchants</a></li>
+    <li><a href="app.html">For the App</a></li>
     <li><a href="areas.html">Areas</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="contact.html" class="nav-cta">Contact</a></li>
@@ -37,31 +41,52 @@
 </div>
 
 <section class="section" style="padding-bottom:3rem">
-  <div class="wrap">
+  <div class="wrap reveal">
     <span class="eyebrow">For agencies &amp; partners · Not for public distribution</span>
     <h1 style="max-width:22ch">What CBOXX's tap data could be useful for, and what it isn't yet.</h1>
-    <p class="lede">CBOXX is an early-stage NFC loyalty product for independent Singapore retailers. This page is a straightforward brief for anyone in government or an agency who's landed here, not a claim of an existing partnership.</p>
+    <p class="lede">CBOXX is an early-stage discovery and loyalty product for independent Singapore retailers, a swipe-to-discover app paired with an NFC loyalty card. This page is a straightforward brief for anyone in government or an agency who's landed here, not a claim of an existing partnership.</p>
   </div>
 </section>
 
-<section class="section section-line">
-  <div class="wrap">
+<section class="section section-line" style="background:var(--red-soft)">
+  <div class="wrap reveal" style="max-width:640px;text-align:center;margin:0 auto">
     <span class="eyebrow">Where we actually are</span>
     <h2>Early stage, being upfront about it</h2>
-    <div class="prose">
-      <p>We are not currently a pre-approved vendor under any government grant scheme, and we don't have a formal data-sharing arrangement with IMDA, URA, STB, or MTI. If any of those would be useful to your agency, we'd welcome the conversation. That's what this page is for, not a claim that it's already happened.</p>
-    </div>
+    <p style="color:var(--ink-soft)">We are not currently a pre-approved vendor under any government grant scheme, and we don't have a formal data-sharing arrangement with IMDA, URA, STB, or MTI. If any of those would be useful to your agency, we'd welcome the conversation. That's what this page is for, not a claim that it's already happened.</p>
   </div>
 </section>
 
 <section class="section section-line" style="background:var(--paper-dim)">
   <div class="wrap">
-    <span class="eyebrow">What the data could show</span>
-    <h2>If the network grows, this is the kind of signal it would produce</h2>
-    <div class="grid-3" style="margin-top:2.5rem">
-      <div class="card"><h3>Footfall by district and hour</h3><p>Tap volume per merchant, aggregated by area and time of day. A live, bottom-up view that today mostly gets estimated through surveys.</p></div>
-      <div class="card"><h3>Cross-category spending patterns</h3><p>How the same customer moves between F&amp;B, retail, and services within a neighbourhood. Visible once enough merchants in one area are on the network.</p></div>
-      <div class="card"><h3>Repeat-visit trends over time</h3><p>A rolling view of whether independent retail in a given area is retaining customers or losing them, month over month.</p></div>
+    <div class="reveal" style="max-width:560px;text-align:center;margin:0 auto">
+      <span class="eyebrow">What the data could show</span>
+      <h2>If the network grows, this is the kind of signal it would produce</h2>
+    </div>
+    <div class="switcher reveal" style="margin-top:2.5rem">
+      <div class="switcher-tabs">
+        <button class="switcher-tab active" data-target="wds-1"><span class="switcher-num">1</span>Footfall by district</button>
+        <button class="switcher-tab" data-target="wds-2"><span class="switcher-num">2</span>Cross-category spending</button>
+        <button class="switcher-tab" data-target="wds-3"><span class="switcher-num">3</span>Repeat-visit trends</button>
+        <button class="switcher-tab" data-target="wds-4"><span class="switcher-num">4</span>Interest vs. footfall</button>
+      </div>
+      <div class="switcher-panel-wrap">
+        <div class="switcher-panel active" id="wds-1">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11.8A7 7 0 0 0 5 9.2C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.2" r="2.3"/></svg></div>
+          <h3>Footfall by district and hour</h3><p>Tap volume per merchant, aggregated by area and time of day. A live, bottom-up view that today mostly gets estimated through surveys.</p>
+        </div>
+        <div class="switcher-panel" id="wds-2">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M7 8h13M17 4l3 4-3 4M17 16H4M7 20l-3-4 3-4"/></svg></div>
+          <h3>Cross-category spending patterns</h3><p>How the same customer moves between F&amp;B, retail, and services within a neighbourhood. Visible once enough merchants in one area are on the network.</p>
+        </div>
+        <div class="switcher-panel" id="wds-3">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M3 17l5-5.5 4 3 6-7.5M18 7h3v3"/></svg></div>
+          <h3>Repeat-visit trends over time</h3><p>A rolling view of whether independent retail in a given area is retaining customers or losing them, month over month.</p>
+        </div>
+        <div class="switcher-panel" id="wds-4">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 3.5 20 8v8L12 20.5 4 16V8Z"/><path d="M8.5 13.5 11 16l5-5.5"/></svg></div>
+          <h3>Swipe interest vs. actual footfall</h3><p>Where declared interest (a swipe right) does and doesn't turn into a real visit. A gap that's normally invisible until someone walks in.</p>
+        </div>
+      </div>
     </div>
     <p style="color:var(--ink-soft);font-size:0.85rem;margin-top:1.5rem">None of this is available yet at a scale worth reporting on. We're a handful of merchants in, not a network. It's the direction the data points if the network grows, described honestly rather than dressed up.</p>
   </div>
@@ -69,18 +94,20 @@
 
 <section class="section">
   <div class="wrap">
-    <span class="eyebrow">If you want to talk</span>
-    <h2>Reach out directly</h2>
-    <p class="lede">If your agency has a genuine use case (a grant scheme, a data need, a pilot), email us and we'll have a real conversation about where we are and what's realistic.</p>
-    <a href="contact.html" class="btn btn-primary" style="margin-top:1rem">Contact us</a>
+    <div class="card reveal" style="text-align:center;padding:2.5rem">
+      <span class="eyebrow">If you want to talk</span>
+      <h2>Reach out directly</h2>
+      <p class="lede" style="margin:0 auto 1.2rem">If your agency has a genuine use case (a grant scheme, a data need, a pilot), email us and we'll have a real conversation about where we are and what's realistic.</p>
+      <a href="contact.html" class="btn btn-primary">Contact us</a>
+    </div>
   </div>
 </section>
 
 <footer class="site-footer">
   <div class="footer-grid">
     <div>
-      <a href="index.html" class="brand" style="margin-bottom:0.9rem"><img src="assets/img/logo-icon.png" alt="CBOXX" style="height:24px"><span style="font-family:'Public Sans',sans-serif;font-weight:700">cboxx</span></a>
-      <p>A loyalty network built for Singapore's independent shops.</p>
+      <a href="index.html" class="brand" style="margin-bottom:0.9rem"><img src="assets/img/logo-icon.png" alt="CBOXX" style="height:24px"><span style="font-family:'Inter',sans-serif;font-weight:700">cboxx</span></a>
+      <p>Discover shops nearby, and keep them as regulars. Built for Singapore's independent retailers.</p>
     </div>
     <div>
       <h4>Platform</h4>

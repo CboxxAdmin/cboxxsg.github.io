@@ -1,25 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
+<script>document.documentElement.classList.add("js")</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About — CBOXX</title>
-<meta name="description" content="CBOXX is a small Singapore-based team building loyalty infrastructure for independent shops.">
+<meta name="description" content="CBOXX is a small Singapore-based team building discovery and loyalty infrastructure for independent shops.">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="canonical" href="https://cboxxsg.com/about.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;500;600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
 
 <header class="site-header">
   <div class="bar">
-    <a href="index.html" class="brand"><img src="assets/img/logo-icon.png" alt="CBOXX"><span style="font-family:'Public Sans',sans-serif;font-weight:700;font-size:1.05rem">cboxx</span></a>
+    <a href="index.html" class="brand"><img src="assets/img/logo-icon.png" alt="CBOXX"><span style="font-family:'Inter',sans-serif;font-weight:700;font-size:1.05rem">cboxx</span></a>
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="merchants.html">For Merchants</a>
+      <a href="app.html">For the App</a>
       <a href="areas.html">Areas</a>
       <a href="about.html" class="active">About</a>
       <a href="contact.html" class="nav-cta">Contact</a>
@@ -31,60 +33,82 @@
   <ul>
     <li><a href="index.html">Home</a></li>
     <li><a href="merchants.html">For Merchants</a></li>
+    <li><a href="app.html">For the App</a></li>
     <li><a href="areas.html">Areas</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="contact.html" class="nav-cta">Contact</a></li>
   </ul>
 </div>
 
-<section class="section" style="padding-bottom:3rem">
+<section class="section hero-photo-section photo-team photo-force" style="padding-bottom:3rem;padding-top:3.5rem">
   <div class="wrap">
     <span class="eyebrow">About</span>
-    <h1 style="max-width:18ch">A small team, working on one problem.</h1>
-    <p class="lede">CBOXX started because we kept noticing the same thing across the shops we spent time in ourselves: good products, friendly owners, and no system for turning a first visit into a habit. Everything sold to SMEs for this was either built for chains with a marketing department, or too complicated to set up over a weekend.</p>
+    <h1 style="max-width:20ch">A small team, working on two connected problems.</h1>
+    <p class="lede">CBOXX started because we kept noticing the same thing across the shops we spent time in ourselves: good products, friendly owners, no way for people nearby to discover them, and no system for turning a first visit into a habit. Everything sold to SMEs for this was either built for chains with a marketing department, or too complicated to set up over a weekend.</p>
   </div>
 </section>
 
-<section class="section-line">
-  <div class="wrap" style="padding-top:3rem;padding-bottom:3rem">
-    <img src="assets/img/team-at-work.jpg" alt="Working on CBOXX" style="border-radius:8px;width:100%;max-height:420px;object-fit:cover">
-  </div>
-</section>
-
-<section class="section section-line">
+<section class="section section-line" style="background:var(--red-soft)">
   <div class="wrap grid-2">
     <div class="reveal">
+      <div style="width:118px;height:118px;position:relative;margin-bottom:1.2rem" role="img" aria-label="86.9 percent">
+        <svg viewBox="0 0 120 120" style="transform:rotate(-90deg)">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="var(--paper-dim)" stroke-width="12"/>
+          <circle class="stat-ring-fill" cx="60" cy="60" r="50" fill="none" stroke="var(--red)" stroke-width="12" stroke-linecap="round" stroke-dasharray="314.16"/>
+        </svg>
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+          <span style="font-size:1.5rem;font-weight:800;color:var(--ink)" data-count-to="86.9" data-count-suffix="%">0%</span>
+        </div>
+      </div>
       <span class="eyebrow">Why this, why now</span>
-      <h2 style="max-width:16ch">86.9% of Singapore retail still happens in physical stores.</h2>
+      <h2 style="max-width:16ch">of Singapore retail still happens in physical stores.</h2>
     </div>
     <div class="reveal prose">
       <p>Almost none of the tooling built over the last decade was aimed at that reality, because most loyalty and customer-data infrastructure was built for e-commerce, where every purchase already comes with an account and a receipt trail. A neighbourhood shop has neither.</p>
-      <p>We started by asking what the simplest version of e-commerce-grade loyalty would look like for a shop with no engineering team: one card, one tap, and a dashboard that answers one question: <em>are people coming back?</em></p>
+      <p>We started by asking what the simplest version of e-commerce-grade discovery and loyalty would look like for a shop with no engineering team: one swipe to get found, one tap to be remembered, and a dashboard that answers one question: <em>are people coming back?</em></p>
     </div>
   </div>
 </section>
 
 <section class="section section-line" style="background:var(--paper-dim)">
   <div class="wrap">
-    <span class="eyebrow">What we believe</span>
-    <h2>A short list of things we won't compromise on</h2>
-    <div class="grid-3" style="margin-top:2.5rem">
-      <div class="card"><h3>Setup takes a day, not a quarter</h3><p>If it needs a developer on your side, we've failed at the one job we have.</p></div>
-      <div class="card"><h3>We don't sell your customers' data</h3><p>Consent is explicit. What we collect is used to help your shop, not to build a data product we sell elsewhere.</p></div>
-      <div class="card"><h3>We stay after the sale</h3><p>We'd rather have fewer merchants who we actually help than a long list of accounts nobody's using.</p></div>
+    <div class="reveal" style="max-width:520px;text-align:center;margin:0 auto">
+      <span class="eyebrow">What we believe</span>
+      <h2>A short list of things we won't compromise on</h2>
+    </div>
+    <div class="switcher reveal" style="margin-top:2.5rem">
+      <div class="switcher-tabs">
+        <button class="switcher-tab active" data-target="wwb-1"><span class="switcher-num">1</span>Setup takes a day</button>
+        <button class="switcher-tab" data-target="wwb-2"><span class="switcher-num">2</span>We stay after the sale</button>
+      </div>
+      <div class="switcher-panel-wrap">
+        <div class="switcher-panel active" id="wwb-1">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></div>
+          <h3>Setup takes a day, not a quarter</h3><p>If it needs a developer on your side, we've failed at the one job we have.</p>
+        </div>
+        <div class="switcher-panel" id="wwb-2">
+          <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 20.2s-7.2-4.3-7.2-9.9a4.3 4.3 0 0 1 7.2-3.2 4.3 4.3 0 0 1 7.2 3.2c0 5.6-7.2 9.9-7.2 9.9Z"/></svg></div>
+          <h3>We stay after the sale</h3><p>We'd rather have fewer merchants who we actually help than a long list of accounts nobody's using.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="wrap">
-    <span class="eyebrow">Founder</span>
-    <div style="display:flex;gap:1.75rem;align-items:flex-start;flex-wrap:wrap">
-      <div style="width:84px;height:84px;border-radius:50%;background:var(--red);color:white;display:flex;align-items:center;justify-content:center;font-family:'Source Serif 4',serif;font-size:1.7rem;flex-shrink:0">HO</div>
+<section class="section section-line">
+  <div class="wrap" style="max-width:640px">
+    <span class="eyebrow">About us</span>
+    <h2 style="margin-bottom:1.5rem">Meet the founder</h2>
+    <div class="card reveal" style="display:flex;gap:1.75rem;align-items:flex-start;flex-wrap:wrap;padding:2.2rem">
+      <img src="assets/img/founder-hakim-osman.jpg" alt="Hakim Osman" style="width:84px;height:84px;border-radius:50%;object-fit:cover;object-position:center 15%;flex-shrink:0">
       <div style="max-width:56ch">
         <h3 style="margin-bottom:0.15rem">Hakim Osman</h3>
-        <p class="tag" style="margin-bottom:0.9rem">Founder</p>
-        <p style="color:var(--ink-soft)">Started CBOXX after seeing the same pattern across independent shops: strong regulars, but no system to grow that base beyond word of mouth. Based in Singapore, working directly with the first merchants on the network.</p>
+        <span class="eyebrow" style="margin-bottom:0.9rem">Founder &amp; CEO</span>
+        <blockquote style="border-left:2px solid var(--red);padding-left:1rem;margin:0 0 1rem">
+          <p style="color:var(--ink);font-style:italic;margin:0">"I kept walking into shops I really liked, the kind with a great owner and real character, and then just... never going back. Not on purpose. I'd just forget. So we built the simplest thing we could think of to fix that, and we stuck around after launch to make sure it actually helps the person running the shop, not just looks good in a pitch deck."</p>
+        </blockquote>
+        <p style="color:var(--ink-soft);margin:0 0 1.1rem">It's a small team of us here in Singapore, splitting the work between building the product, running the day-to-day, and actually talking to merchants ourselves. If something's confusing or breaks, you're messaging one of us directly, not a support queue.</p>
+        <a href="contact.html" style="color:var(--red);font-weight:600;font-size:0.9rem;text-decoration:none">Work with us →</a>
       </div>
     </div>
   </div>
@@ -93,8 +117,8 @@
 <footer class="site-footer">
   <div class="footer-grid">
     <div>
-      <a href="index.html" class="brand" style="margin-bottom:0.9rem"><img src="assets/img/logo-icon.png" alt="CBOXX" style="height:24px"><span style="font-family:'Public Sans',sans-serif;font-weight:700">cboxx</span></a>
-      <p>A loyalty network built for Singapore's independent shops.</p>
+      <a href="index.html" class="brand" style="margin-bottom:0.9rem"><img src="assets/img/logo-icon.png" alt="CBOXX" style="height:24px"><span style="font-family:'Inter',sans-serif;font-weight:700">cboxx</span></a>
+      <p>Discover shops nearby, and keep them as regulars. Built for Singapore's independent retailers.</p>
     </div>
     <div>
       <h4>Platform</h4>
