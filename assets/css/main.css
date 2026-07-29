@@ -300,25 +300,21 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
 @media (prefers-reduced-motion: reduce) { .gate-tap-hint svg { animation: none; } }
 .gate-logo {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3;
-  display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
-  padding: 1.1rem 1.5rem; margin: -1.1rem -1.5rem;
-  cursor: grab; touch-action: none; -webkit-user-select: none; user-select: none;
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex; flex-direction: column; align-items: center; gap: 0.6rem; pointer-events: none;
 }
-.gate-logo.dragging { transition: none; cursor: grabbing; }
-.gate-logo img { height: 44px; width: auto; filter: drop-shadow(0 2px 10px rgba(0,0,0,0.25)); -webkit-user-drag: none; pointer-events: none; }
-.gate-logo span { font-size: 1.3rem; font-weight: 800; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.4); pointer-events: none; }
+.gate-logo img { height: 44px; width: auto; filter: drop-shadow(0 2px 10px rgba(0,0,0,0.25)); }
+.gate-logo span { font-size: 1.3rem; font-weight: 800; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.4); }
 @media (max-width: 719px) {
   /* On the stacked mobile layout the logo's resting position straddles the
-     seam between the light and dark halves; a chip keeps it one legible unit
-     wherever it's dragged, instead of the icon and text splitting across
-     the two background colors. */
+     seam between the light and dark halves; a chip keeps it legible as one
+     unit instead of the icon and text splitting across the two colors. */
   .gate-logo {
     background: rgba(110, 112, 122, 0.45); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
     border-radius: 20px; border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    padding: 1.1rem 1.5rem;
   }
 }
-@media (prefers-reduced-motion: reduce) { .gate, .gate-half::before, .gate-logo { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .gate, .gate-half::before { transition: none; } }
 
 .step-row {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
