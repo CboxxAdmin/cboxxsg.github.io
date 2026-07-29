@@ -36,34 +36,60 @@
   var gateLogo = document.getElementById('gateLogo');
   if (gateLogo) {
     var dragging = false, startX = 0, startY = 0, curX = 0, curY = 0, gateBox = null;
-    gateLogo.addEventListener('pointerdown', function (e) {
+
+    var pointFromEvent = function (e) {
+      if (e.touches && e.touches.length) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      if (e.changedTouches && e.changedTouches.length) return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+      return { x: e.clientX, y: e.clientY };
+    };
+
+    var startDrag = function (e) {
       dragging = true;
       gateLogo.classList.add('dragging');
-      gateLogo.setPointerCapture(e.pointerId);
-      startX = e.clientX - curX;
-      startY = e.clientY - curY;
+      var p = pointFromEvent(e);
+      startX = p.x - curX;
+      startY = p.y - curY;
       gateBox = gateLogo.parentElement.getBoundingClientRect();
-    });
-    gateLogo.addEventListener('pointermove', function (e) {
+    };
+
+    var moveDrag = function (e) {
       if (!dragging) return;
-      curX = e.clientX - startX;
-      curY = e.clientY - startY;
+      e.preventDefault();
+      var p = pointFromEvent(e);
+      curX = p.x - startX;
+      curY = p.y - startY;
       var half = gateLogo.offsetWidth / 2;
       var maxX = gateBox.width / 2 - half;
       var maxY = gateBox.height / 2 - half;
       curX = Math.max(-maxX, Math.min(maxX, curX));
       curY = Math.max(-maxY, Math.min(maxY, curY));
       gateLogo.style.transform = 'translate(calc(-50% + ' + curX + 'px), calc(-50% + ' + curY + 'px))';
-    });
-    var releaseGateLogo = function () {
+    };
+
+    var endDrag = function () {
       if (!dragging) return;
       dragging = false;
       curX = 0; curY = 0;
       gateLogo.classList.remove('dragging');
       gateLogo.style.transform = '';
     };
-    gateLogo.addEventListener('pointerup', releaseGateLogo);
-    gateLogo.addEventListener('pointercancel', releaseGateLogo);
+
+    gateLogo.addEventListener('touchstart', startDrag, { passive: true });
+    gateLogo.addEventListener('touchmove', moveDrag, { passive: false });
+    gateLogo.addEventListener('touchend', endDrag);
+    gateLogo.addEventListener('touchcancel', endDrag);
+
+    gateLogo.addEventListener('mousedown', function (e) {
+      startDrag(e);
+      var onMove = function (ev) { moveDrag(ev); };
+      var onUp = function () {
+        endDrag();
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+      };
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
   }
 
   document.querySelectorAll('.switcher').forEach(function (root) {
