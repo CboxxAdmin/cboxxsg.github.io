@@ -144,6 +144,8 @@ html.dark .theme-toggle .icon-moon { display: block; }
 @media (max-width: 860px) {
   .nav-links { display: none; }
   .nav-burger { display: flex; }
+  .site-header .bar { position: relative; justify-content: flex-end; }
+  .brand { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 }
 
 /* ---------- buttons ---------- */
@@ -245,8 +247,10 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
 .photo-team::before { background-image: url('../img/hero-team.jpg'); background-position: 78% 46%; animation: none; filter: blur(2px); transform: scale(1.02); }
 @media (max-width: 719px) {
   /* Mobile's narrow portrait viewport crops this image on the X axis instead
-     of the Y axis (opposite of desktop), so it needs its own position. */
-  .photo-team::before { background-position: 50% 40%; }
+     of the Y axis (opposite of desktop), so it needs its own position. Sizing
+     slightly under a full height-match trades a thin letterboxed strip for
+     noticeably less horizontal crop (a "zoom out"). */
+  .photo-team::before { background-position: 50% 40%; background-size: auto 88%; background-repeat: no-repeat; background-color: #131417; }
 }
 .photo-street::before { background-image: url('../img/hero-street-shops.jpg'); background-position: 35% 55%; }
 .photo-app::before { background-image: url('../img/hero-app-phone.jpg'); background-position: center 35%; }
