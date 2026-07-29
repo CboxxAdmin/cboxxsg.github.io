@@ -243,6 +243,11 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
 .photo-cafe::before { background-image: url('../img/hero-cafe-interior.jpg'); background-position: center 55%; }
 .photo-brand::before { background-image: url('../img/hero-brand-shoot.jpg'); background-position: 78% 22%; }
 .photo-team::before { background-image: url('../img/hero-team.jpg'); background-position: 78% 46%; animation: none; filter: blur(2px); transform: scale(1.02); }
+@media (max-width: 719px) {
+  /* Mobile's narrow portrait viewport crops this image on the X axis instead
+     of the Y axis (opposite of desktop), so it needs its own position. */
+  .photo-team::before { background-position: 50% 40%; }
+}
 .photo-street::before { background-image: url('../img/hero-street-shops.jpg'); background-position: 35% 55%; }
 .photo-app::before { background-image: url('../img/hero-app-phone.jpg'); background-position: center 35%; }
 
@@ -303,6 +308,16 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
 .gate-logo.dragging { transition: none; cursor: grabbing; }
 .gate-logo img { height: 44px; width: auto; filter: drop-shadow(0 2px 10px rgba(0,0,0,0.25)); -webkit-user-drag: none; pointer-events: none; }
 .gate-logo span { font-size: 1.3rem; font-weight: 800; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.4); pointer-events: none; }
+@media (max-width: 719px) {
+  /* On the stacked mobile layout the logo's resting position straddles the
+     seam between the light and dark halves; a chip keeps it one legible unit
+     wherever it's dragged, instead of the icon and text splitting across
+     the two background colors. */
+  .gate-logo {
+    background: rgba(110, 112, 122, 0.45); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border-radius: 20px; border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  }
+}
 @media (prefers-reduced-motion: reduce) { .gate, .gate-half::before, .gate-logo { transition: none; } }
 
 .step-row {
