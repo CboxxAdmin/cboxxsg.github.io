@@ -20,10 +20,16 @@
   var mobileNav = document.getElementById('mobileNav');
   if (burger && mobileNav) {
     burger.addEventListener('click', function () {
-      mobileNav.classList.toggle('open');
+      var isOpen = mobileNav.classList.toggle('open');
+      burger.classList.toggle('open', isOpen);
+      burger.setAttribute('aria-expanded', isOpen);
     });
     mobileNav.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () { mobileNav.classList.remove('open'); });
+      a.addEventListener('click', function () {
+        mobileNav.classList.remove('open');
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+      });
     });
   }
 
