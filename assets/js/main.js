@@ -3,6 +3,11 @@
 // confirmed running. Without JS, .reveal has no opacity/transform applied
 // at all — nothing depends on an observer firing to become visible.
 (function () {
+  // iOS Safari only applies :active styles to a tap if some element on the
+  // page has a touchstart listener — this is that listener. Lets the gate's
+  // hold-to-preview split (mirrored from :hover) actually fire on touch.
+  document.addEventListener('touchstart', function () {}, { passive: true });
+
   var themeToggle = document.getElementById('themeToggle');
   if (themeToggle) {
     themeToggle.addEventListener('click', function () {

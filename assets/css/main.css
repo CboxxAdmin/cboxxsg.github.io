@@ -254,12 +254,12 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
   position: relative; min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
   transition: grid-template-columns 0.5s cubic-bezier(0.16,1,0.3,1);
 }
-.gate:has(.gate-left:hover) { grid-template-columns: 58fr 42fr; }
-.gate:has(.gate-right:hover) { grid-template-columns: 42fr 58fr; }
+.gate:has(.gate-left:hover), .gate:has(.gate-left:active) { grid-template-columns: 58fr 42fr; }
+.gate:has(.gate-right:hover), .gate:has(.gate-right:active) { grid-template-columns: 42fr 58fr; }
 @media (max-width: 719px) {
   .gate { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
-  .gate:has(.gate-left:hover) { grid-template-columns: 1fr; grid-template-rows: 58fr 42fr; }
-  .gate:has(.gate-right:hover) { grid-template-columns: 1fr; grid-template-rows: 42fr 58fr; }
+  .gate:has(.gate-left:hover), .gate:has(.gate-left:active) { grid-template-columns: 1fr; grid-template-rows: 58fr 42fr; }
+  .gate:has(.gate-right:hover), .gate:has(.gate-right:active) { grid-template-columns: 1fr; grid-template-rows: 42fr 58fr; }
 }
 .gate-half {
   position: relative; display: flex; align-items: center; justify-content: center;
@@ -267,9 +267,9 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
 }
 .gate-half::before {
   content: ''; position: absolute; inset: 0; background-size: cover; background-position: center;
-  transform: scale(1.05); transition: transform 0.5s ease;
+  transform: scale(1.05); transition: transform 0.15s ease;
 }
-.gate-half:hover::before { transform: scale(1); }
+.gate-half:hover::before, .gate-half:active::before { transform: scale(1); }
 .gate-left::before { background-image: url('../img/hero-hawker-singapore.jpg'); background-position: center 40%; }
 .gate-right::before { background-image: url('../img/hero-app-phone.jpg'); }
 .gate-half::after { content: ''; position: absolute; inset: 0; }
