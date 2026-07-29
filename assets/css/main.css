@@ -250,7 +250,7 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
      of the Y axis (opposite of desktop), so it needs its own position. Sizing
      slightly under a full height-match trades a thin letterboxed strip for
      noticeably less horizontal crop (a "zoom out"). */
-  .photo-team::before { background-position: 50% 40%; background-size: auto 88%; background-repeat: no-repeat; background-color: #131417; }
+  .photo-team::before { background-position: 50% 40%; background-size: auto 76%; background-repeat: no-repeat; background-color: #131417; }
 }
 .photo-street::before { background-image: url('../img/hero-street-shops.jpg'); background-position: 35% 55%; }
 .photo-app::before { background-image: url('../img/hero-app-phone.jpg'); background-position: center 35%; }
