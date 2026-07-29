@@ -244,17 +244,11 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
 .photo-storefront::before { background-image: url('../img/hero-storefront.jpg'); background-position: center 45%; }
 .photo-cafe::before { background-image: url('../img/hero-cafe-interior.jpg'); background-position: center 55%; }
 .photo-brand::before { background-image: url('../img/hero-brand-shoot.jpg'); background-position: 78% 22%; }
-.photo-team::before {
-  background-image: url('../img/hero-team.jpg'); background-position: 78% 46%; animation: none;
-  filter: blur(2px); transform: scale(1.02);
-  background-size: 90% auto; background-repeat: no-repeat; background-color: #131417;
-}
+.photo-team::before { background-image: url('../img/hero-team.jpg'); background-position: 78% 46%; animation: none; filter: blur(2px); transform: scale(1.02); }
 @media (max-width: 719px) {
   /* Mobile's narrow portrait viewport crops this image on the X axis instead
-     of the Y axis (opposite of desktop), so it needs its own position. Sizing
-     slightly under a full height-match trades a thin letterboxed strip for
-     noticeably less horizontal crop (a "zoom out"). */
-  .photo-team::before { background-position: 50% 40%; background-size: auto 76%; background-repeat: no-repeat; background-color: #131417; }
+     of the Y axis (opposite of desktop), so it needs its own position. */
+  .photo-team::before { background-position: 50% 40%; }
 }
 .photo-street::before { background-image: url('../img/hero-street-shops.jpg'); background-position: 35% 55%; }
 .photo-app::before { background-image: url('../img/hero-app-phone.jpg'); background-position: center 35%; }
