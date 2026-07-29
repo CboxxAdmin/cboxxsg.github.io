@@ -244,7 +244,7 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
 .photo-storefront::before { background-image: url('../img/hero-storefront.jpg'); background-position: center 45%; }
 .photo-cafe::before { background-image: url('../img/hero-cafe-interior.jpg'); background-position: center 55%; }
 .photo-brand::before { background-image: url('../img/hero-brand-shoot.jpg'); background-position: 78% 22%; }
-.photo-team::before { background-image: url('../img/hero-team.jpg'); background-position: 78% 46%; animation: none; filter: blur(2px); transform: scale(1.02); }
+.photo-team::before { background-image: url('../img/hero-team.jpg'); background-position: 78% 50%; animation: none; filter: blur(2px); transform: scale(1.02); }
 @media (max-width: 719px) {
   /* Mobile's narrow portrait viewport crops this image on the X axis instead
      of the Y axis (opposite of desktop), so it needs its own position. */
