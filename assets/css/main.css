@@ -250,9 +250,8 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
    bug: invisible against a near-white body, a stark seam against a near-
    black one. Grid (not flex-basis %) sizes the two halves together in a
    single pass, which also avoids sub-pixel gaps between them. */
-html:has(.gate) { overflow: hidden; }
 .gate {
-  position: fixed; inset: 0; display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
   transition: grid-template-columns 0.5s cubic-bezier(0.16,1,0.3,1);
 }
 .gate:has(.gate-left:hover) { grid-template-columns: 58fr 42fr; }
