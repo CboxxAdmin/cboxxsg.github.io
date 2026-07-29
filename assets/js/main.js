@@ -33,6 +33,39 @@
     });
   }
 
+  var gateLogo = document.getElementById('gateLogo');
+  if (gateLogo) {
+    var dragging = false, startX = 0, startY = 0, curX = 0, curY = 0, gateBox = null;
+    gateLogo.addEventListener('pointerdown', function (e) {
+      dragging = true;
+      gateLogo.classList.add('dragging');
+      gateLogo.setPointerCapture(e.pointerId);
+      startX = e.clientX - curX;
+      startY = e.clientY - curY;
+      gateBox = gateLogo.parentElement.getBoundingClientRect();
+    });
+    gateLogo.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      curX = e.clientX - startX;
+      curY = e.clientY - startY;
+      var half = gateLogo.offsetWidth / 2;
+      var maxX = gateBox.width / 2 - half;
+      var maxY = gateBox.height / 2 - half;
+      curX = Math.max(-maxX, Math.min(maxX, curX));
+      curY = Math.max(-maxY, Math.min(maxY, curY));
+      gateLogo.style.transform = 'translate(calc(-50% + ' + curX + 'px), calc(-50% + ' + curY + 'px))';
+    });
+    var releaseGateLogo = function () {
+      if (!dragging) return;
+      dragging = false;
+      curX = 0; curY = 0;
+      gateLogo.classList.remove('dragging');
+      gateLogo.style.transform = '';
+    };
+    gateLogo.addEventListener('pointerup', releaseGateLogo);
+    gateLogo.addEventListener('pointercancel', releaseGateLogo);
+  }
+
   document.querySelectorAll('.switcher').forEach(function (root) {
     var tabs = root.querySelectorAll('.switcher-tab');
     tabs.forEach(function (tab) {
