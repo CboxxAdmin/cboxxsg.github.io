@@ -145,7 +145,7 @@ html.dark .theme-toggle .icon-moon { display: block; }
   .nav-links { display: none; }
   .nav-burger { display: flex; }
   .site-header .bar { position: relative; justify-content: flex-end; }
-  .brand { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+  .site-header .brand { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
 }
 
 /* ---------- buttons ---------- */
