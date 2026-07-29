@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBOXX Consumer Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #E9E2D3; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+  #root { padding: 24px 0; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/plain" id="app-source">
+const { useState, useRef, useCallback, useEffect } = React;
+
+/* Lucide icon shim. Uses lucide.createElement() imperatively inside a ref-owned
+   container so React never has to reconcile a node that Lucide replaced behind its back
+   (the DOM-replacement approach used by lucide.createIcons() conflicts with React). */
+function toPascalCase(kebab) {
+  return kebab.split("-").map((s) => s.charAt(0).toUpperCase() + s.slice(1)).join("");
+}
+function Icon({ name, size = 16, color, strokeWidth = 2, style = {} }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (!ref.current) return;
+    const pascal = toPascalCase(name);
+    const iconNode = window.lucide && window.lucide[pascal];
+    ref.current.innerHTML = "";
+    if (iconNode) {
+      const svg = window.lucide.createElement(iconNode);
+      svg.setAttribute("width", size);
+      svg.setAttribute("height", size);
+      svg.setAttribute("stroke", color || "currentColor");
+      svg.setAttribute("stroke-width", strokeWidth);
+      svg.style.display = "block";
+      ref.current.appendChild(svg);
+    }
+  }, [name, size, color, strokeWidth]);
+  return <span ref={ref} style={{ display: "inline-flex", width: size, height: size, flexShrink: 0, ...style }} />;
+}
+
+
+/* ---------- design tokens ----------
+  bg (shophouse plaster)  #F4F1EB
+  ink (near-black)        #211D17
+  teal (primary/deep)     #9C0018
+  teal-tint (chip bg)     #EAE6DE
+  gold (cta/accent)       #D4A832
+  shutter-red (warn/pass) #7A0013
+  surface                 #FFFFFF
+  display font: Fraunces  |  body: Work Sans  |  mono/utility: IBM Plex Mono
+------------------------------------ */
+
+const REGIONS = ["Central", "East", "North", "West", "South"];
+
+const CATEGORIES = [
+  { key: "fnb", label: "F&B", icon: "utensils-crossed" },
+  { key: "fashion", label: "Fashion", icon: "shirt" },
+  { key: "beauty", label: "Beauty", icon: "sparkles" },
+  { key: "health", label: "Health", icon: "heart-pulse" },
+  { key: "services", label: "Services", icon: "wrench" },
+  { key: "sports", label: "Sports", icon: "dumbbell" },
+  { key: "retail", label: "Retail", icon: "shopping-bag" },
+  { key: "entertainment", label: "Entertainment", icon: "party-popper" },
+];
+
+const LOGO_MARK = "data:image/png;base64,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";
+
+const CARD_PALETTE = [
+  ["#9C0018", "#C23A2E"],
+  ["#165932", "#2E8058"],
+  ["#D4A832", "#EAC873"],
+  ["#7A0013", "#A8384A"],
+];
+
+const MERCHANTS = [
+  { id: 1, name: "Siti Prata Corner", cat: "fnb", region: "Central", offers: ["$1 off any noodle bowl", "Free upsize on weekdays"], distance: "0.6 km", distanceKm: 0.6, tier: "Basic", priceRange: 2 },
+  { id: 2, name: "Ravi's Alterations", cat: "fashion", region: "Central", offers: ["15% off alterations", "Buy 2 get 1 free accessories"], distance: "0.9 km", distanceKm: 0.9, tier: "Basic", priceRange: 3 },
+  { id: 3, name: "Heartland Spa", cat: "beauty", region: "Central", offers: ["$20 off first facial", "15% off haircut", "Free add-on with treatment"], distance: "1.3 km", distanceKm: 1.3, tier: "Pro", priceRange: 4 },
+  { id: 4, name: "Nanyang Dental Clinic", cat: "health", region: "Central", offers: ["Free posture screening", "$10 off consultation"], distance: "1.7 km", distanceKm: 1.7, tier: "Basic", priceRange: 1 },
+  { id: 5, name: "Happy Laundromat", cat: "services", region: "Central", offers: ["$5 off key duplication", "Free printing over $10 spend"], distance: "2.1 km", distanceKm: 2.1, tier: "Basic", priceRange: 2 },
+  { id: 6, name: "Family Gym", cat: "sports", region: "Central", offers: ["3-day trial pass free", "Buy 5 sessions get 1 free"], distance: "0.2 km", distanceKm: 0.2, tier: "Pro", priceRange: 3 },
+  { id: 7, name: "Uncle Lim Florist", cat: "retail", region: "Central", offers: ["10% off first purchase", "Free gift wrap"], distance: "0.6 km", distanceKm: 0.6, tier: "Basic", priceRange: 4 },
+  { id: 8, name: "Mama Sari Escape Room", cat: "entertainment", region: "Central", offers: ["1 free hour, weekday", "20% off group booking"], distance: "1.0 km", distanceKm: 1.0, tier: "Basic", priceRange: 1 },
+  { id: 9, name: "Wei's Bakery", cat: "fnb", region: "Central", offers: ["$1 off any noodle bowl", "Free upsize on weekdays", "Free drink with any main"], distance: "1.3 km", distanceKm: 1.3, tier: "Pro", priceRange: 3 },
+  { id: 10, name: "Neighbourhood Batik Studio", cat: "fashion", region: "Central", offers: ["15% off alterations", "$10 off first order"], distance: "1.7 km", distanceKm: 1.7, tier: "Basic", priceRange: 3 },
+  { id: 11, name: "Golden Hair Salon", cat: "beauty", region: "Central", offers: ["$20 off first facial", "Free scalp treatment with cut"], distance: "2.1 km", distanceKm: 2.1, tier: "Basic", priceRange: 4 },
+  { id: 12, name: "Sunrise Physio", cat: "health", region: "Central", offers: ["Free posture screening", "$15 off checkup"], distance: "0.2 km", distanceKm: 0.2, tier: "Pro", priceRange: 2 },
+  { id: 13, name: "Fortune Mover", cat: "services", region: "Central", offers: ["$5 off key duplication", "Free quote on-site"], distance: "0.6 km", distanceKm: 0.6, tier: "Basic", priceRange: 2 },
+  { id: 14, name: "Auntie Mei Cycling Shop", cat: "sports", region: "Central", offers: ["3-day trial pass free", "$5 off court booking"], distance: "1.0 km", distanceKm: 1.0, tier: "Basic", priceRange: 3 },
+  { id: 15, name: "Kumar's Toy Store", cat: "retail", region: "Central", offers: ["10% off first purchase", "$3 off min $20 spend", "5% off all items"], distance: "1.3 km", distanceKm: 1.3, tier: "Pro", priceRange: 4 },
+  { id: 16, name: "The Corner Bakery", cat: "fnb", region: "East", offers: ["1-for-1 kopi-o, all day", "$2 off combo"], distance: "1.7 km", distanceKm: 1.7, tier: "Basic", priceRange: 1 },
+  { id: 17, name: "Old Town Boutique", cat: "fashion", region: "East", offers: ["15% off alterations", "$10 off first order"], distance: "2.1 km", distanceKm: 2.1, tier: "Basic", priceRange: 2 },
+  { id: 18, name: "Lucky Beauty Studio", cat: "beauty", region: "East", offers: ["$20 off first facial", "Free scalp treatment with cut", "15% off haircut"], distance: "0.3 km", distanceKm: 0.3, tier: "Pro", priceRange: 3 },
+  { id: 19, name: "Blessing Pharmacy", cat: "health", region: "East", offers: ["Free posture screening", "$15 off checkup"], distance: "0.6 km", distanceKm: 0.6, tier: "Basic", priceRange: 4 },
+  { id: 20, name: "Ah Bee Tuition Centre", cat: "services", region: "East", offers: ["$5 off key duplication", "Free quote on-site"], distance: "1.0 km", distanceKm: 1.0, tier: "Basic", priceRange: 1 },
+  { id: 21, name: "Siti Badminton Court", cat: "sports", region: "East", offers: ["3-day trial pass free", "$5 off court booking", "Free locker rental this month"], distance: "1.4 km", distanceKm: 1.4, tier: "Pro", priceRange: 3 },
+  { id: 22, name: "Ravi's Bookshop", cat: "retail", region: "East", offers: ["10% off first purchase", "$3 off min $20 spend"], distance: "1.7 km", distanceKm: 1.7, tier: "Basic", priceRange: 3 },
+  { id: 23, name: "Heartland Arcade", cat: "entertainment", region: "East", offers: ["1 free hour, weekday", "Buy 2hr get 30min free"], distance: "2.1 km", distanceKm: 2.1, tier: "Basic", priceRange: 4 },
+  { id: 24, name: "Nanyang Chicken Rice Stall", cat: "fnb", region: "East", offers: ["1-for-1 kopi-o, all day", "$2 off combo", "5% off for members"], distance: "0.3 km", distanceKm: 0.3, tier: "Pro", priceRange: 2 },
+  { id: 25, name: "Happy Fabric Store", cat: "fashion", region: "East", offers: ["15% off alterations", "$5 off shoe repair"], distance: "0.7 km", distanceKm: 0.7, tier: "Basic", priceRange: 2 },
+  { id: 26, name: "Family Barbershop", cat: "beauty", region: "East", offers: ["$20 off first facial", "Free add-on with treatment"], distance: "1.0 km", distanceKm: 1.0, tier: "Basic", priceRange: 3 },
+  { id: 27, name: "Uncle Lim Wellness Centre", cat: "health", region: "East", offers: ["Free posture screening", "Free follow-up session"], distance: "1.4 km", distanceKm: 1.4, tier: "Pro", priceRange: 4 },
+  { id: 28, name: "Mama Sari Print Shop", cat: "services", region: "East", offers: ["$5 off key duplication", "$10 off screen repair"], distance: "1.8 km", distanceKm: 1.8, tier: "Basic", priceRange: 1 },
+  { id: 29, name: "Wei's Yoga Studio", cat: "sports", region: "East", offers: ["3-day trial pass free", "10% off membership"], distance: "2.1 km", distanceKm: 2.1, tier: "Basic", priceRange: 2 },
+  { id: 30, name: "Neighbourhood Grocer", cat: "retail", region: "East", offers: ["10% off first purchase", "5% off all items", "Free gift wrap"], distance: "0.3 km", distanceKm: 0.3, tier: "Pro", priceRange: 3 },
+  { id: 31, name: "Golden Chicken Rice Stall", cat: "fnb", region: "North", offers: ["10% off set meals", "1-for-1 kopi-o, all day"], distance: "0.7 km", distanceKm: 0.7, tier: "Basic", priceRange: 4 },
+  { id: 32, name: "Sunrise Alterations", cat: "fashion", region: "North", offers: ["15% off alterations", "$5 off shoe repair"], distance: "1.0 km", distanceKm: 1.0, tier: "Basic", priceRange: 1 },
+  { id: 33, name: "Fortune Spa", cat: "beauty", region: "North", offers: ["$20 off first facial", "Free add-on with treatment"], distance: "1.4 km", distanceKm: 1.4, tier: "Pro", priceRange: 3 },
+  { id: 34, name: "Auntie Mei Dental Clinic", cat: "health", region: "North", offers: ["Free posture screening", "Free follow-up session"], distance: "1.8 km", distanceKm: 1.8, tier: "Basic", priceRange: 3 },
+  { id: 35, name: "Kumar's Laundromat", cat: "services", region: "North", offers: ["$5 off key duplication", "$10 off screen repair"], distance: "2.1 km", distanceKm: 2.1, tier: "Basic", priceRange: 4 },
+  { id: 36, name: "The Corner Gym", cat: "sports", region: "North", offers: ["3-day trial pass free", "10% off membership", "15% off gear"], distance: "0.3 km", distanceKm: 0.3, tier: "Pro", priceRange: 2 },
+  { id: 37, name: "Old Town Florist", cat: "retail", region: "North", offers: ["10% off first purchase", "5% off all items"], distance: "0.7 km", distanceKm: 0.7, tier: "Basic", priceRange: 2 },
+  { id: 38, name: "Lucky Escape Room", cat: "entertainment", region: "North", offers: ["1 free hour, weekday", "20% off group booking"], distance: "1.1 km", distanceKm: 1.1, tier: "Basic", priceRange: 3 },
+  { id: 39, name: "Blessing Zi Char Stall", cat: "fnb", region: "North", offers: ["10% off set meals", "1-for-1 kopi-o, all day"], distance: "1.4 km", distanceKm: 1.4, tier: "Pro", priceRange: 4 },
+  { id: 40, name: "Ah Bee Batik Studio", cat: "fashion", region: "North", offers: ["15% off alterations", "Free hemming with purchase"], distance: "1.8 km", distanceKm: 1.8, tier: "Basic", priceRange: 1 },
+  { id: 41, name: "Siti Hair Salon", cat: "beauty", region: "North", offers: ["$20 off first facial", "20% off first visit"], distance: "2.2 km", distanceKm: 2.2, tier: "Basic", priceRange: 2 },
+  { id: 42, name: "Ravi's Physio", cat: "health", region: "North", offers: ["Free posture screening", "Free eye test", "$10 off consultation"], distance: "0.3 km", distanceKm: 0.3, tier: "Pro", priceRange: 3 },
+  { id: 43, name: "Heartland Mover", cat: "services", region: "North", offers: ["$5 off key duplication", "10% off dry cleaning"], distance: "0.7 km", distanceKm: 0.7, tier: "Basic", priceRange: 4 },
+  { id: 44, name: "Nanyang Cycling Shop", cat: "sports", region: "North", offers: ["3-day trial pass free", "15% off gear"], distance: "1.1 km", distanceKm: 1.1, tier: "Basic", priceRange: 1 },
+  { id: 45, name: "Happy Toy Store", cat: "retail", region: "North", offers: ["10% off first purchase", "$3 off min $20 spend", "Buy 1 get 1 50% off"], distance: "1.4 km", distanceKm: 1.4, tier: "Pro", priceRange: 3 },
+  { id: 46, name: "Family Zi Char Stall", cat: "fnb", region: "West", offers: ["Free drink with any main", "5% off for members"], distance: "1.8 km", distanceKm: 1.8, tier: "Basic", priceRange: 3 },
+  { id: 47, name: "Uncle Lim Boutique", cat: "fashion", region: "West", offers: ["15% off alterations", "Free hemming with purchase"], distance: "2.2 km", distanceKm: 2.2, tier: "Basic", priceRange: 4 },
+  { id: 48, name: "Mama Sari Beauty Studio", cat: "beauty", region: "West", offers: ["$20 off first facial", "20% off first visit"], distance: "0.4 km", distanceKm: 0.4, tier: "Pro", priceRange: 2 },
+  { id: 49, name: "Wei's Pharmacy", cat: "health", region: "West", offers: ["Free posture screening", "Free eye test"], distance: "0.7 km", distanceKm: 0.7, tier: "Basic", priceRange: 2 },
+  { id: 50, name: "Neighbourhood Tuition Centre", cat: "services", region: "West", offers: ["$5 off key duplication", "10% off dry cleaning"], distance: "1.1 km", distanceKm: 1.1, tier: "Basic", priceRange: 3 },
+  { id: 51, name: "Golden Badminton Court", cat: "sports", region: "West", offers: ["3-day trial pass free", "15% off gear", "$5 off court booking"], distance: "1.5 km", distanceKm: 1.5, tier: "Pro", priceRange: 4 },
+  { id: 52, name: "Sunrise Bookshop", cat: "retail", region: "West", offers: ["10% off first purchase", "$3 off min $20 spend"], distance: "1.8 km", distanceKm: 1.8, tier: "Basic", priceRange: 1 },
+  { id: 53, name: "Fortune Arcade", cat: "entertainment", region: "West", offers: ["1 free hour, weekday", "Free snack combo with entry"], distance: "2.2 km", distanceKm: 2.2, tier: "Basic", priceRange: 2 },
+  { id: 54, name: "Auntie Mei Bubble Tea Bar", cat: "fnb", region: "West", offers: ["Free drink with any main", "5% off for members", "$2 off combo"], distance: "0.4 km", distanceKm: 0.4, tier: "Pro", priceRange: 3 },
+  { id: 55, name: "Kumar's Fabric Store", cat: "fashion", region: "West", offers: ["15% off alterations", "10% off custom fitting"], distance: "0.8 km", distanceKm: 0.8, tier: "Basic", priceRange: 4 },
+  { id: 56, name: "The Corner Barbershop", cat: "beauty", region: "West", offers: ["$20 off first facial", "10% off packages"], distance: "1.1 km", distanceKm: 1.1, tier: "Basic", priceRange: 1 },
+  { id: 57, name: "Old Town Wellness Centre", cat: "health", region: "West", offers: ["Free posture screening", "10% off first visit", "5% off vitamins"], distance: "1.5 km", distanceKm: 1.5, tier: "Pro", priceRange: 3 },
+  { id: 58, name: "Lucky Print Shop", cat: "services", region: "West", offers: ["$5 off key duplication", "First lesson free"], distance: "1.9 km", distanceKm: 1.9, tier: "Basic", priceRange: 3 },
+  { id: 59, name: "Blessing Yoga Studio", cat: "sports", region: "West", offers: ["3-day trial pass free", "10% off membership"], distance: "2.2 km", distanceKm: 2.2, tier: "Basic", priceRange: 4 },
+  { id: 60, name: "Ah Bee Grocer", cat: "retail", region: "West", offers: ["10% off first purchase", "Free delivery over $30", "$3 off min $20 spend"], distance: "0.4 km", distanceKm: 0.4, tier: "Pro", priceRange: 2 },
+  { id: 61, name: "Siti Bubble Tea Bar", cat: "fnb", region: "South", offers: ["$2 off combo", "Free drink with any main"], distance: "0.8 km", distanceKm: 0.8, tier: "Basic", priceRange: 2 },
+  { id: 62, name: "Ravi's Alterations", cat: "fashion", region: "South", offers: ["15% off alterations", "10% off custom fitting"], distance: "1.1 km", distanceKm: 1.1, tier: "Basic", priceRange: 3 },
+  { id: 63, name: "Heartland Spa", cat: "beauty", region: "South", offers: ["$20 off first facial", "10% off packages", "Free scalp treatment with cut"], distance: "1.5 km", distanceKm: 1.5, tier: "Pro", priceRange: 4 },
+  { id: 64, name: "Nanyang Dental Clinic", cat: "health", region: "South", offers: ["Free posture screening", "10% off first visit"], distance: "1.9 km", distanceKm: 1.9, tier: "Basic", priceRange: 1 },
+  { id: 65, name: "Happy Laundromat", cat: "services", region: "South", offers: ["$5 off key duplication", "First lesson free"], distance: "2.2 km", distanceKm: 2.2, tier: "Basic", priceRange: 2 },
+  { id: 66, name: "Family Gym", cat: "sports", region: "South", offers: ["3-day trial pass free", "10% off membership", "Free first class"], distance: "0.4 km", distanceKm: 0.4, tier: "Pro", priceRange: 3 },
+  { id: 67, name: "Uncle Lim Florist", cat: "retail", region: "South", offers: ["10% off first purchase", "Free delivery over $30"], distance: "0.8 km", distanceKm: 0.8, tier: "Basic", priceRange: 4 },
+  { id: 68, name: "Mama Sari Escape Room", cat: "entertainment", region: "South", offers: ["1 free hour, weekday", "Free drink with entry"], distance: "1.2 km", distanceKm: 1.2, tier: "Basic", priceRange: 1 },
+  { id: 69, name: "Wei's Noodle House", cat: "fnb", region: "South", offers: ["$2 off combo", "Free drink with any main", "Free upsize on weekdays"], distance: "1.5 km", distanceKm: 1.5, tier: "Pro", priceRange: 3 },
+  { id: 70, name: "Neighbourhood Batik Studio", cat: "fashion", region: "South", offers: ["15% off alterations", "20% off ready-made"], distance: "1.9 km", distanceKm: 1.9, tier: "Basic", priceRange: 3 },
+  { id: 71, name: "Golden Hair Salon", cat: "beauty", region: "South", offers: ["$20 off first facial", "15% off haircut"], distance: "2.3 km", distanceKm: 2.3, tier: "Basic", priceRange: 4 },
+  { id: 72, name: "Sunrise Physio", cat: "health", region: "South", offers: ["Free posture screening", "5% off vitamins", "Free eye test"], distance: "0.4 km", distanceKm: 0.4, tier: "Pro", priceRange: 2 },
+  { id: 73, name: "Fortune Mover", cat: "services", region: "South", offers: ["$5 off key duplication", "10% off dry cleaning"], distance: "0.8 km", distanceKm: 0.8, tier: "Basic", priceRange: 2 },
+  { id: 74, name: "Auntie Mei Cycling Shop", cat: "sports", region: "South", offers: ["3-day trial pass free", "Free locker rental this month"], distance: "1.2 km", distanceKm: 1.2, tier: "Basic", priceRange: 3 },
+  { id: 75, name: "Kumar's Toy Store", cat: "retail", region: "South", offers: ["10% off first purchase", "Buy 1 get 1 50% off"], distance: "1.6 km", distanceKm: 1.6, tier: "Pro", priceRange: 4 },
+];
+
+// Digital menu templates by category. Prices scale with each shop's price range (1-4 = $ to $$$$).
+const MENU_TEMPLATES = {
+  fnb: [
+    { name: "Kopi-O / Teh-O", base: 1.4, desc: "Old-school brew, no frills, no fuss." },
+    { name: "Set meal of the day", base: 6.5, desc: "Chef's pick, changes daily." },
+    { name: "Signature noodle bowl", base: 5.8, desc: "The dish regulars order every time." },
+    { name: "Side of fries / vegetables", base: 3.2, desc: "A simple side to round out your meal." },
+    { name: "Iced dessert", base: 3.8, desc: "Cool down with this local favourite." },
+    { name: "Bottled drink", base: 2.2, desc: "Grab-and-go, ice cold." },
+  ],
+  fashion: [
+    { name: "Standard alteration (hem/waist)", base: 12, desc: "Quick fix, done while you wait." },
+    { name: "Custom fitting session", base: 25, desc: "Tailored to your exact measurements." },
+    { name: "Ready-made top", base: 28, desc: "Off-the-rack, ready today." },
+    { name: "Shoe repair (sole/heel)", base: 15, desc: "Bring old favourites back to life." },
+    { name: "Accessory add-on", base: 9, desc: "The finishing touch for any outfit." },
+  ],
+  beauty: [
+    { name: "Classic facial", base: 48, desc: "A refresh for tired, stressed skin." },
+    { name: "Haircut & style", base: 22, desc: "Fresh look, same-day appointment." },
+    { name: "Manicure", base: 18, desc: "Neat, quick, and long-lasting." },
+    { name: "Scalp treatment", base: 35, desc: "Deep clean for a healthier scalp." },
+    { name: "Express touch-up", base: 15, desc: "In and out in under 20 minutes." },
+  ],
+  health: [
+    { name: "General consultation", base: 30, desc: "Talk through any concern, big or small." },
+    { name: "Posture / body screening", base: 20, desc: "Spot issues before they become pain." },
+    { name: "Follow-up session", base: 25, desc: "Continue your treatment plan." },
+    { name: "Eye test", base: 15, desc: "Quick check for your current prescription." },
+    { name: "Basic supplement pack", base: 18, desc: "Everyday essentials, pharmacist-picked." },
+  ],
+  services: [
+    { name: "Key duplication (per key)", base: 5, desc: "Spare keys made in minutes." },
+    { name: "Dry cleaning (per item)", base: 6.5, desc: "Careful handling for delicate fabrics." },
+    { name: "Phone screen repair", base: 45, desc: "Cracked screen fixed same-day." },
+    { name: "Print job (per 10 pages)", base: 2, desc: "Fast, affordable prints on the spot." },
+    { name: "Tuition session (1hr)", base: 35, desc: "One-on-one, focused on your pace." },
+  ],
+  sports: [
+    { name: "Single class drop-in", base: 18, desc: "Try a class, no commitment needed." },
+    { name: "Monthly membership", base: 65, desc: "Unlimited access, best value." },
+    { name: "Court booking (1hr)", base: 12, desc: "Reserve your slot in advance." },
+    { name: "Personal training session", base: 55, desc: "One-on-one coaching, tailored to you." },
+    { name: "Gear rental", base: 8, desc: "Forgot your gear? We've got you covered." },
+  ],
+  retail: [
+    { name: "Everyday grocery basket", base: 14, desc: "Pantry staples, always in stock." },
+    { name: "Household item", base: 9, desc: "Practical picks for the home." },
+    { name: "Gift-wrapped bundle", base: 20, desc: "Ready to give, no extra effort." },
+    { name: "Pet food (small pack)", base: 11, desc: "Trusted by neighbourhood pet owners." },
+    { name: "Fresh flower bunch", base: 16, desc: "Cut fresh, delivered with care." },
+  ],
+  entertainment: [
+    { name: "1hr room booking (per pax)", base: 10, desc: "Your own space for an hour of fun." },
+    { name: "Group package (4 pax)", base: 38, desc: "Best for birthdays and get-togethers." },
+    { name: "Snack combo", base: 8, desc: "Fuel up mid-session." },
+    { name: "Extended hour add-on", base: 12, desc: "Having fun? Stay a little longer." },
+    { name: "Birthday party package", base: 88, desc: "Everything sorted for the big day." },
+  ],
+};
+
+function getMenuForMerchant(merchant) {
+  const items = MENU_TEMPLATES[merchant.cat] || MENU_TEMPLATES.retail;
+  const multiplier = { 1: 0.7, 2: 1, 3: 1.5, 4: 2.3 }[merchant.priceRange] || 1;
+  return items.map((item, i) => ({
+    name: item.name,
+    desc: item.desc,
+    price: Math.round(item.base * multiplier * 100) / 100,
+    imgSeed: `cboxxitem${merchant.id}-${i}`,
+  }));
+}
+
+const LOYALTY_REWARDS = [
+
+
+  { id: "r1", name: "Free kopi-o after 10 taps", cost: 100, merchant: "Siti Prata Corner" },
+  { id: "r2", name: "$10 tailoring credit", cost: 250, merchant: "Ravi's Alterations" },
+  { id: "r3", name: "Free facial add-on", cost: 400, merchant: "Heartland Spa" },
+  { id: "r4", name: "1 free gym week", cost: 600, merchant: "Family Gym" },
+];
+
+function useSwipeQueue(items, filterKey) {
+  const [queue, setQueue] = useState(items);
+  const [saved, setSaved] = useState([]);
+  useEffect(() => {
+    setQueue(items);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterKey]);
+  const advance = useCallback((direction, item) => {
+    setQueue((q) => q.filter((m) => m.id !== item.id));
+    if (direction === "right") setSaved((s) => [...s, item]);
+  }, []);
+  return { queue, saved, advance, setSaved };
+}
+
+function MerchantCard({ merchant, index, onSwipe, isTop, onOpenMenu }) {
+  const cardRef = useRef(null);
+  const [drag, setDrag] = useState({ x: 0, active: false });
+  const startX = useRef(0);
+  const [gone, setGone] = useState(null);
+  const [flipped, setFlipped] = useState(false);
+  const [menuIndex, setMenuIndex] = useState(0);
+  const [menuDrag, setMenuDrag] = useState({ x: 0, active: false });
+  const menuStartX = useRef(0);
+  const menuWrapRef = useRef(null);
+  const downPos = useRef({ x: 0, y: 0, time: 0 });
+
+  const iconName = CATEGORIES.find((c) => c.key === merchant.cat)?.icon ?? "sparkles";
+  const [c1, c2] = CARD_PALETTE[merchant.id % CARD_PALETTE.length];
+  const cardMenu = getMenuForMerchant(merchant);
+
+  const onPointerDown = (e) => {
+    if (!isTop || flipped) return;
+    const clientX = e.clientX ?? e.touches?.[0]?.clientX ?? 0;
+    const clientY = e.clientY ?? e.touches?.[0]?.clientY ?? 0;
+    startX.current = clientX;
+    downPos.current = { x: clientX, y: clientY, time: Date.now() };
+    setDrag({ x: 0, active: true });
+    cardRef.current?.setPointerCapture?.(e.pointerId);
+  };
+  const onPointerMove = (e) => {
+    if (!drag.active || flipped) return;
+    const x = (e.clientX ?? e.touches?.[0]?.clientX ?? 0) - startX.current;
+    setDrag({ x, active: true });
+  };
+  const releaseTo = (direction) => {
+    setGone(direction);
+    setTimeout(() => onSwipe(direction, merchant), 220);
+  };
+  const onPointerUp = (e) => {
+    if (!drag.active || flipped) return;
+    if (drag.x > 90) { releaseTo("right"); return; }
+    if (drag.x < -90) { releaseTo("left"); return; }
+
+    // Not a swipe — check if this was a quick tap (vs. an aborted drag) landing on the photo,
+    // which flips the card to reveal the menu.
+    const clientX = e.clientX ?? e.changedTouches?.[0]?.clientX ?? downPos.current.x;
+    const clientY = e.clientY ?? e.changedTouches?.[0]?.clientY ?? downPos.current.y;
+    const moved = Math.hypot(clientX - downPos.current.x, clientY - downPos.current.y);
+    const elapsed = Date.now() - downPos.current.time;
+    if (moved < 8 && elapsed < 500 && cardRef.current) {
+      const rect = cardRef.current.getBoundingClientRect();
+      const relativeY = downPos.current.y - rect.top;
+      if (relativeY <= rect.height * 0.48) { setFlipped(true); setMenuIndex(0); }
+    }
+    setDrag({ x: 0, active: false });
+  };
+
+  const menuLength = cardMenu.length;
+  const onMenuPointerDown = (e) => {
+    const clientX = e.clientX ?? e.touches?.[0]?.clientX ?? 0;
+    menuStartX.current = clientX;
+    setMenuDrag({ x: 0, active: true });
+    menuWrapRef.current?.setPointerCapture?.(e.pointerId);
+  };
+  const onMenuPointerMove = (e) => {
+    if (!menuDrag.active) return;
+    const x = (e.clientX ?? e.touches?.[0]?.clientX ?? 0) - menuStartX.current;
+    setMenuDrag({ x, active: true });
+  };
+  const onMenuPointerUp = () => {
+    if (!menuDrag.active) return;
+    const threshold = 55;
+    if (menuDrag.x < -threshold && menuIndex < menuLength - 1) {
+      setMenuIndex((i) => i + 1);
+    } else if (menuDrag.x > threshold && menuIndex > 0) {
+      setMenuIndex((i) => i - 1);
+    }
+    setMenuDrag({ x: 0, active: false });
+  };
+
+  const rotate = drag.x / 18;
+  const flyX = gone === "right" ? 480 : gone === "left" ? -480 : drag.x;
+  const flyRot = gone === "right" ? 20 : gone === "left" ? -20 : rotate;
+  const opacity = gone ? 0 : 1;
+
+  return (
+    <div
+      ref={cardRef}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerLeave={onPointerUp}
+      style={{
+        position: "absolute",
+        inset: 0,
+        transform: `translate(${flyX}px, ${index * 8}px) rotate(${flyRot}deg) scale(${1 - index * 0.035})`,
+        transition: drag.active ? "none" : "transform 320ms cubic-bezier(.2,.8,.3,1), opacity 320ms",
+        opacity,
+        touchAction: "none",
+        cursor: isTop ? "grab" : "default",
+        zIndex: 50 - index,
+        perspective: 1200,
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "relative",
+          transformStyle: "preserve-3d",
+          transition: "transform 480ms cubic-bezier(.3,.7,.4,1)",
+          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+        }}
+      >
+        {/* FRONT FACE */}
+        <div
+          style={{
+            position: "absolute", inset: 0,
+            backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden",
+            borderRadius: 20,
+            overflow: "hidden",
+            background: "#FFFFFF",
+            boxShadow: "0 18px 40px -14px rgba(33,29,23,0.35)",
+            display: "flex",
+            flexDirection: "column",
+            border: "1px solid rgba(33,29,23,0.06)",
+          }}
+        >
+          <div
+            style={{
+              height: "48%",
+              background: `linear-gradient(135deg, ${c1}, ${c2})`,
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+            }}
+          >
+            <img
+              src={`https://picsum.photos/seed/cboxx${merchant.id}/500/400`}
+              alt=""
+              style={{
+                position: "absolute", inset: 0, width: "100%", height: "100%",
+                objectFit: "cover", mixBlendMode: "luminosity", opacity: 0.55,
+              }}
+            />
+            <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${c1}cc, ${c2}cc)` }} />
+            <Icon name={iconName} size={64} color="rgba(255,255,255,0.92)" strokeWidth={1.4} style={{ position: "relative" }} />
+            <div
+              style={{
+                position: "absolute",
+                top: 14,
+                left: 14,
+                background: "rgba(255,255,255,0.9)",
+                color: "#211D17",
+                fontFamily: "'IBM Plex Mono', monospace",
+                fontSize: 11,
+                letterSpacing: 0.4,
+                padding: "4px 9px",
+                borderRadius: 999,
+                textTransform: "uppercase",
+              }}
+            >
+              {CATEGORIES.find((c) => c.key === merchant.cat)?.label}
+            </div>
+            {merchant.tier === "Pro" && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: 14,
+                  right: 14,
+                  background: "#D4A832",
+                  color: "#211D17",
+                  fontFamily: "'IBM Plex Mono', monospace",
+                  fontSize: 10.5,
+                  fontWeight: 600,
+                  padding: "4px 8px",
+                  borderRadius: 999,
+                }}
+              >
+                PRO PARTNER
+              </div>
+            )}
+            <div
+              style={{
+                position: "absolute", bottom: 12, right: 12,
+                display: "flex", alignItems: "center", gap: 5,
+                background: "rgba(33,29,23,0.55)", color: "#F4F1EB",
+                fontFamily: "'Work Sans', sans-serif", fontSize: 10.5, fontWeight: 600,
+                padding: "5px 10px", borderRadius: 999,
+              }}
+            >
+              <Icon name="chevron-down" size={11} style={{ transform: "rotate(-90deg)" }} />
+              Tap photo for menu
+            </div>
+            {drag.active && drag.x > 40 && (
+              <div style={{ position: "absolute", inset: 0, border: "5px solid #165932", borderRadius: 20, opacity: Math.min(drag.x / 100, 1) }} />
+            )}
+            {drag.active && drag.x < -40 && (
+              <div style={{ position: "absolute", inset: 0, border: "5px solid #7A0013", borderRadius: 20, opacity: Math.min(-drag.x / 100, 1) }} />
+            )}
+          </div>
+          <div style={{ flex: 1, padding: "16px 18px", display: "flex", flexDirection: "column", gap: 6 }}>
+            <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 21, fontWeight: 600, color: "#211D17", margin: 0, lineHeight: 1.15 }}>
+              {merchant.name}
+            </h3>
+            <div style={{ display: "flex", alignItems: "center", gap: 5, color: "#6B6357", fontFamily: "'Work Sans', sans-serif", fontSize: 12.5 }}>
+              <Icon name="map-pin" size={13} />
+              <span>{merchant.region}</span>
+              <span style={{ opacity: 0.5 }}>·</span>
+              <span style={{ fontFamily: "'IBM Plex Mono', monospace" }}>{merchant.distance}</span>
+              <span style={{ opacity: 0.5 }}>·</span>
+              <PriceTag priceRange={merchant.priceRange} />
+            </div>
+            <div
+              style={{
+                marginTop: 8,
+                background: "#F4F1EB",
+                border: "1px dashed #C9BFA8",
+                borderRadius: 10,
+                padding: "8px 12px",
+                display: "flex",
+                flexDirection: "column",
+                gap: 5,
+              }}
+            >
+              {merchant.offers.map((offer, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 6 }}>
+                  <span style={{ color: "#D4A832", fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, lineHeight: "18px", flexShrink: 0 }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span style={{ fontFamily: "'Work Sans', sans-serif", fontSize: 13, color: "#9C0018", fontWeight: 600, lineHeight: 1.3 }}>
+                    {offer}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* BACK FACE — digital menu, revealed by tapping the photo; swipe horizontally to browse items */}
+        <div
+          style={{
+            position: "absolute", inset: 0,
+            backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
+            borderRadius: 20,
+            overflow: "hidden",
+            background: "#F4F1EB",
+            boxShadow: "0 18px 40px -14px rgba(33,29,23,0.35)",
+            border: "1px solid rgba(33,29,23,0.06)",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div style={{ background: "#9C0018", padding: "12px 14px", display: "flex", alignItems: "center", gap: 10 }}>
+            <button
+              onClick={(e) => { e.stopPropagation(); setFlipped(false); }}
+              onPointerDown={(e) => e.stopPropagation()}
+              style={{
+                background: "rgba(244,241,235,0.14)", border: "none", borderRadius: "50%",
+                width: 28, height: 28, display: "flex", alignItems: "center", justifyContent: "center",
+                cursor: "pointer", flexShrink: 0,
+              }}
+            >
+              <Icon name="chevron-down" size={15} color="#F4F1EB" style={{ transform: "rotate(90deg)" }} />
+            </button>
+            <div style={{ minWidth: 0 }}>
+              <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 16, color: "#F4F1EB", margin: 0, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                {merchant.name}
+              </h3>
+              <div style={{ display: "flex", alignItems: "center", gap: 7, marginTop: 2 }}>
+                <PriceTag priceRange={merchant.priceRange} />
+                <span style={{ fontSize: 10.5, color: "rgba(244,241,235,0.7)", fontFamily: "'Work Sans', sans-serif" }}>
+                  Digital menu · {menuIndex + 1}/{cardMenu.length}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
+            <div
+              ref={menuWrapRef}
+              onPointerDown={(e) => { e.stopPropagation(); onMenuPointerDown(e); }}
+              onPointerMove={(e) => { e.stopPropagation(); onMenuPointerMove(e); }}
+              onPointerUp={(e) => { e.stopPropagation(); onMenuPointerUp(e); }}
+              onPointerLeave={(e) => { e.stopPropagation(); onMenuPointerUp(e); }}
+              style={{
+                display: "flex",
+                height: "100%",
+                width: `${cardMenu.length * 100}%`,
+                transform: `translateX(calc(${-menuIndex * (100 / cardMenu.length)}% + ${menuDrag.x}px))`,
+                transition: menuDrag.active ? "none" : "transform 320ms cubic-bezier(.2,.8,.3,1)",
+                touchAction: "none",
+                cursor: "grab",
+              }}
+            >
+              {cardMenu.map((item, i) => (
+                <div
+                  key={i}
+                  style={{
+                    flex: `0 0 ${100 / cardMenu.length}%`,
+                    display: "flex",
+                    flexDirection: "column",
+                    padding: "12px 16px 8px",
+                  }}
+                >
+                  <img
+                    src={`https://picsum.photos/seed/${item.imgSeed}/500/360`}
+                    alt=""
+                    draggable={false}
+                    style={{ width: "100%", height: 150, borderRadius: 14, objectFit: "cover", background: "#E3D9C4", flexShrink: 0, pointerEvents: "none" }}
+                  />
+                  <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontWeight: 600, color: "#241512", margin: "12px 0 4px" }}>
+                    {item.name}
+                  </h4>
+                  <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: 12.5, color: "#6B6357", margin: "0 0 10px", lineHeight: 1.4 }}>
+                    {item.desc}
+                  </p>
+                  <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 17, fontWeight: 700, color: "#9C0018" }}>
+                    ${item.price.toFixed(2)}
+                  </span>
+                </div>
+              ))}
+            </div>
+            {menuIndex > 0 && (
+              <button
+                onClick={(e) => { e.stopPropagation(); setMenuIndex((i) => Math.max(0, i - 1)); }}
+                onPointerDown={(e) => e.stopPropagation()}
+                aria-label="Previous item"
+                style={{
+                  position: "absolute", left: 0, top: 0, bottom: 0, width: "18%",
+                  border: "none", background: "linear-gradient(90deg, rgba(244,241,235,0.55), rgba(244,241,235,0))",
+                  display: "flex", alignItems: "center", justifyContent: "flex-start", paddingLeft: 4,
+                  cursor: "pointer", zIndex: 5,
+                }}
+              >
+                <div style={{ width: 26, height: 26, borderRadius: "50%", background: "rgba(255,255,255,0.85)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(33,29,23,0.15)" }}>
+                  <Icon name="chevron-down" size={16} color="#9C0018" style={{ transform: "rotate(90deg)" }} />
+                </div>
+              </button>
+            )}
+            {menuIndex < cardMenu.length - 1 && (
+              <button
+                onClick={(e) => { e.stopPropagation(); setMenuIndex((i) => Math.min(cardMenu.length - 1, i + 1)); }}
+                onPointerDown={(e) => e.stopPropagation()}
+                aria-label="Next item"
+                style={{
+                  position: "absolute", right: 0, top: 0, bottom: 0, width: "18%",
+                  border: "none", background: "linear-gradient(270deg, rgba(244,241,235,0.55), rgba(244,241,235,0))",
+                  display: "flex", alignItems: "center", justifyContent: "flex-end", paddingRight: 4,
+                  cursor: "pointer", zIndex: 5,
+                }}
+              >
+                <div style={{ width: 26, height: 26, borderRadius: "50%", background: "rgba(255,255,255,0.85)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 8px rgba(33,29,23,0.15)" }}>
+                  <Icon name="chevron-down" size={16} color="#9C0018" style={{ transform: "rotate(-90deg)" }} />
+                </div>
+              </button>
+            )}
+          </div>
+
+          <div style={{ display: "flex", justifyContent: "center", gap: 5, padding: "8px 0 12px" }}>
+            {cardMenu.map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  width: i === menuIndex ? 14 : 5, height: 5, borderRadius: 999,
+                  background: i === menuIndex ? "#9C0018" : "#D9CFC0",
+                  transition: "width 200ms",
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PriceTag({ priceRange, color = "#D4A832", dim = "rgba(244,241,235,0.4)" }) {
+  return (
+    <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, letterSpacing: 0.5 }}>
+      {[1, 2, 3, 4].map((i) => (
+        <span key={i} style={{ color: i <= priceRange ? color : dim }}>$</span>
+      ))}
+    </span>
+  );
+}
+
+function MenuModal({ merchant, onClose }) {
+  const menu = getMenuForMerchant(merchant);
+  return (
+    <div
+      style={{
+        position: "absolute", inset: 0, background: "rgba(33,29,23,0.55)",
+        display: "flex", alignItems: "flex-end", zIndex: 300, borderRadius: 32,
+      }}
+    >
+      <div
+        style={{
+          width: "100%", background: "#F4F1EB", borderTopLeftRadius: 22, borderTopRightRadius: 22,
+          padding: "18px 18px 20px", maxHeight: "82%", display: "flex", flexDirection: "column",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 2 }}>
+          <div>
+            <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, color: "#241512", margin: 0 }}>{merchant.name}</h3>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 4 }}>
+              <PriceTag priceRange={merchant.priceRange} color="#9C0018" dim="#D9CFC0" />
+              <span style={{ fontSize: 11.5, color: "#6B6357", fontFamily: "'Work Sans', sans-serif" }}>Digital menu</span>
+            </div>
+          </div>
+          <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: "#6B6357" }}>
+            <Icon name="x" size={18} />
+          </button>
+        </div>
+
+        <div style={{ overflowY: "auto", marginTop: 12, display: "flex", flexDirection: "column" }}>
+          {menu.map((item, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex", alignItems: "center", gap: 12,
+                padding: "11px 2px", borderBottom: i < menu.length - 1 ? "1px dashed #E3D9C4" : "none",
+              }}
+            >
+              <img
+                src={`https://picsum.photos/seed/${item.imgSeed}/140/140`}
+                alt=""
+                style={{ width: 58, height: 58, borderRadius: 12, objectFit: "cover", flexShrink: 0, background: "#EAE6DE" }}
+              />
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <span style={{ display: "block", fontFamily: "'Fraunces', serif", fontSize: 14.5, fontWeight: 600, color: "#241512" }}>
+                  {item.name}
+                </span>
+                <span style={{ display: "block", fontFamily: "'Work Sans', sans-serif", fontSize: 11.5, color: "#6B6357", marginTop: 2, lineHeight: 1.3 }}>
+                  {item.desc}
+                </span>
+              </div>
+              <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13.5, fontWeight: 700, color: "#9C0018", flexShrink: 0 }}>
+                ${item.price.toFixed(2)}
+              </span>
+            </div>
+          ))}
+        </div>
+        <p style={{ fontSize: 10.5, color: "#B3AA97", marginTop: 10, fontFamily: "'Work Sans', sans-serif" }}>
+          Indicative pricing for illustration — actual menu set by merchant.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function QRRedeem({ merchant, offer, onClose }) {
+  const [seconds, setSeconds] = useState(600);
+  useState(() => {
+    const t = setInterval(() => setSeconds((s) => (s > 0 ? s - 1 : 0)), 1000);
+    return () => clearInterval(t);
+  });
+  const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
+  const ss = String(seconds % 60).padStart(2, "0");
+
+  // deterministic pseudo-QR pattern, purely illustrative
+  const cells = [];
+  let seed = merchant.id * 977 + 13;
+  for (let i = 0; i < 121; i++) {
+    seed = (seed * 9301 + 49297) % 233280;
+    cells.push(seed / 233280 > 0.52);
+  }
+
+  return (
+    <div
+      style={{
+        position: "absolute",
+        inset: 0,
+        background: "rgba(33,29,23,0.55)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 200,
+        borderRadius: 28,
+      }}
+    >
+      <div
+        style={{
+          width: "84%",
+          background: "#FFFFFF",
+          borderRadius: 18,
+          padding: "22px 20px 18px",
+          textAlign: "center",
+          position: "relative",
+          boxShadow: "0 20px 50px rgba(0,0,0,0.35)",
+        }}
+      >
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute",
+            top: 12,
+            right: 12,
+            background: "none",
+            border: "none",
+            color: "#6B6357",
+            cursor: "pointer",
+          }}
+        >
+          <Icon name="x" size={18} />
+        </button>
+        <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, letterSpacing: 1, color: "#6B6357", margin: "0 0 4px", textTransform: "uppercase" }}>
+          Show at counter
+        </p>
+        <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, fontWeight: 600, margin: "0 0 14px", color: "#211D17" }}>
+          {merchant.name}
+        </h4>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(11, 1fr)",
+            gap: 2,
+            width: 154,
+            height: 154,
+            margin: "0 auto 14px",
+            background: "#211D17",
+            padding: 8,
+            borderRadius: 8,
+          }}
+        >
+          {cells.map((on, i) => (
+            <div key={i} style={{ background: on ? "#F4F1EB" : "#211D17", borderRadius: 1 }} />
+          ))}
+        </div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, color: "#7A0013", fontFamily: "'IBM Plex Mono', monospace", fontSize: 13 }}>
+          <Icon name="clock" size={14} />
+          <span>Expires in {mm}:{ss}</span>
+        </div>
+        <p style={{ fontFamily: "'Work Sans', sans-serif", fontSize: 12.5, color: "#6B6357", marginTop: 10 }}>
+          {offer}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ConsumerDashboard() {
+  const [activeCats, setActiveCats] = useState(new Set());
+  const [mainView, setMainView] = useState("feed"); // feed | savedTab | profileTab
+  const [feedMode, setFeedMode] = useState("discover"); // discover | loyalty (TikTok-style top switch)
+  const [redeemTarget, setRedeemTarget] = useState(null);
+  const [menuTarget, setMenuTarget] = useState(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const [lastAction, setLastAction] = useState(null);
+  const [region, setRegion] = useState("Central");
+  const [regionPicker, setRegionPicker] = useState(false);
+  const [liveMode, setLiveMode] = useState(false);
+  const [search, setSearch] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [points, setPoints] = useState(340);
+  const [redeemedRewards, setRedeemedRewards] = useState(new Set());
+  const [contactForm, setContactForm] = useState({ name: "", email: "", message: "" });
+  const [contactSent, setContactSent] = useState(false);
+  const [phoneNumber] = useState("+65 9123 4567"); // sample — set at NFC tap 2FA, never used as the stored ID
+  const [memberIdHash, setMemberIdHash] = useState("computing…");
+
+  useEffect(() => {
+    let cancelled = false;
+    async function hashPhone() {
+      try {
+        const enc = new TextEncoder().encode(phoneNumber);
+        const digest = await crypto.subtle.digest("SHA-256", enc);
+        const hex = Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
+        if (!cancelled) setMemberIdHash(hex.slice(0, 20));
+      } catch {
+        if (!cancelled) setMemberIdHash("hash unavailable");
+      }
+    }
+    hashPhone();
+    return () => { cancelled = true; };
+  }, [phoneNumber]);
+
+  const filtered = MERCHANTS
+    .filter((m) => (liveMode ? true : m.region === region))
+    .filter((m) => (activeCats.size ? activeCats.has(m.cat) : true))
+    .filter((m) => (search.trim() ? (m.name + " " + m.offers.join(" ")).toLowerCase().includes(search.toLowerCase()) : true))
+    .slice()
+    .sort((a, b) => (liveMode ? a.distanceKm - b.distanceKm : 0));
+
+  const filterKey = `${region}|${liveMode}|${Array.from(activeCats).sort().join(",")}|${search.trim().toLowerCase()}`;
+  const { queue, saved, advance } = useSwipeQueue(filtered, filterKey);
+
+  const [pendingCats, setPendingCats] = useState(new Set());
+  const togglePendingCat = (key) => {
+    setPendingCats((prev) => {
+      const next = new Set(prev);
+      next.has(key) ? next.delete(key) : next.add(key);
+      return next;
+    });
+  };
+  const openFilterModal = () => {
+    setPendingCats(new Set(activeCats));
+    setShowFilters(true);
+  };
+  const applyFilters = () => {
+    setActiveCats(new Set(pendingCats));
+    setShowFilters(false);
+  };
+  const clearPendingFilters = () => setPendingCats(new Set());
+
+  const handleSwipe = (direction, merchant) => {
+    advance(direction, merchant);
+    setLastAction({ direction, name: merchant.name });
+    setTimeout(() => setLastAction(null), 1400);
+  };
+
+  const redeemReward = (reward) => {
+    if (redeemedRewards.has(reward.id) || points < reward.cost) return;
+    setPoints((p) => p - reward.cost);
+    setRedeemedRewards((s) => new Set(s).add(reward.id));
+  };
+
+  const submitContact = () => {
+    if (!contactForm.name.trim() || !contactForm.email.trim() || !contactForm.message.trim()) return;
+    setContactSent(true);
+    setTimeout(() => {
+      setContactSent(false);
+      setContactForm({ name: "", email: "", message: "" });
+    }, 2400);
+  };
+
+  const nextTier = 500;
+  const tierProgress = Math.min(points / nextTier, 1);
+
+  return (
+    <div
+      style={{
+        fontFamily: "'Work Sans', sans-serif",
+        width: 375,
+        maxWidth: "100%",
+        margin: "0 auto",
+        background: "#F4F1EB",
+        borderRadius: 32,
+        overflow: "hidden",
+        border: "10px solid #211D17",
+        boxShadow: "0 30px 60px -20px rgba(33,29,23,0.5)",
+        minHeight: 740,
+        display: "flex",
+        flexDirection: "column",
+        position: "relative",
+      }}
+    >
+      <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet" />
+
+      {/* brand strip: logomark + wordmark */}
+      <div style={{ background: "#241512", padding: "10px 16px 9px", display: "flex", alignItems: "center", gap: 8 }}>
+        <img src={LOGO_MARK} alt="CBOXX" style={{ height: 24, width: "auto", display: "block", flexShrink: 0 }} />
+        <span
+          style={{
+            fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, fontSize: 20,
+            letterSpacing: 1.5, color: "#F4F1EB", textTransform: "uppercase", lineHeight: 1,
+          }}
+        >
+          CBOXX
+        </span>
+        <span
+          style={{
+            fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, color: "rgba(244,241,235,0.5)",
+            marginLeft: "auto", textTransform: "uppercase", letterSpacing: 0.5,
+          }}
+        >
+          Pte. Ltd.
+        </span>
+      </div>
+
+      {/* top bar: location + search */}
+      <div style={{ background: "#9C0018", padding: "14px 16px 0" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+          <button
+            onClick={() => setRegionPicker((s) => !s)}
+            style={{
+              display: "flex", alignItems: "center", gap: 5,
+              background: liveMode ? "rgba(226,163,59,0.22)" : "rgba(247,241,230,0.12)",
+              border: liveMode ? "1px solid rgba(226,163,59,0.5)" : "none",
+              borderRadius: 999, padding: "6px 10px 6px 8px", color: "#F4F1EB", cursor: "pointer",
+            }}
+          >
+            {liveMode ? (
+              <span style={{ position: "relative", display: "inline-flex", width: 8, height: 8 }}>
+                <span style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "#D4A832", animation: "cboxx-pulse 1.6s ease-out infinite" }} />
+                <span style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "#D4A832" }} />
+              </span>
+            ) : (
+              <Icon name="map-pin" size={13} />
+            )}
+            <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11.5, fontWeight: 600 }}>
+              {liveMode ? "Live Nearby" : region}
+            </span>
+            <Icon name="chevron-down" size={13} style={{ transform: regionPicker ? "rotate(180deg)" : "none", transition: "transform 160ms" }} />
+          </button>
+          <style>{`@keyframes cboxx-pulse { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(2.6); opacity: 0; } }`}</style>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 8, flex: searchOpen ? 1 : "none", marginLeft: searchOpen ? 10 : 0, transition: "flex 200ms" }}>
+            {searchOpen && (
+              <input
+                autoFocus
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search merchants, promos..."
+                style={{
+                  flex: 1, background: "rgba(247,241,230,0.14)", border: "none", borderRadius: 999,
+                  padding: "7px 12px", color: "#F4F1EB", fontSize: 12.5, fontFamily: "'Work Sans', sans-serif", outline: "none",
+                }}
+              />
+            )}
+            <button
+              onClick={() => { setSearchOpen((s) => !s); if (searchOpen) setSearch(""); }}
+              style={{
+                background: searchOpen ? "#D4A832" : "rgba(247,241,230,0.12)", border: "none", borderRadius: "50%",
+                width: 30, height: 30, display: "flex", alignItems: "center", justifyContent: "center",
+                color: searchOpen ? "#211D17" : "#F4F1EB", cursor: "pointer", flexShrink: 0,
+              }}
+            >
+              {searchOpen ? <Icon name="x" size={14} /> : <Icon name="search" size={14} />}
+            </button>
+          </div>
+        </div>
+
+        {regionPicker && (
+          <div style={{ display: "flex", gap: 6, paddingBottom: 10, flexWrap: "wrap" }}>
+            <button
+              onClick={() => { setLiveMode(true); setRegionPicker(false); }}
+              style={{
+                display: "flex", alignItems: "center", gap: 5, border: "none", borderRadius: 999,
+                padding: "6px 12px", fontSize: 12, fontWeight: 700, cursor: "pointer",
+                fontFamily: "'Work Sans', sans-serif",
+                background: liveMode ? "#D4A832" : "rgba(226,163,59,0.18)",
+                color: liveMode ? "#211D17" : "#D4A832",
+              }}
+            >
+              <Icon name="navigation" size={12} />
+              Live Nearby
+            </button>
+            {REGIONS.map((r) => (
+              <button
+                key={r}
+                onClick={() => { setRegion(r); setLiveMode(false); setRegionPicker(false); }}
+                style={{
+                  border: "none", borderRadius: 999, padding: "6px 12px", fontSize: 12, fontWeight: 600,
+                  cursor: "pointer", fontFamily: "'Work Sans', sans-serif",
+                  background: !liveMode && r === region ? "#D4A832" : "rgba(247,241,230,0.14)",
+                  color: !liveMode && r === region ? "#211D17" : "#F4F1EB",
+                }}
+              >
+                {r}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* TikTok-style top tab switcher: Discover / Loyalty */}
+        <div style={{ display: "flex", gap: 26, paddingBottom: 0 }}>
+          {[
+            { key: "discover", label: "Discover" },
+            { key: "loyalty", label: "Loyalty" },
+          ].map(({ key, label }) => (
+            <button
+              key={key}
+              onClick={() => setFeedMode(key)}
+              style={{
+                background: "none", border: "none", cursor: "pointer", padding: "0 0 11px",
+                fontFamily: "'Fraunces', serif", fontSize: 16.5,
+                fontWeight: feedMode === key ? 700 : 500,
+                color: feedMode === key ? "#F4F1EB" : "rgba(247,241,230,0.5)",
+                borderBottom: feedMode === key ? "2.5px solid #D4A832" : "2.5px solid transparent",
+                transition: "color 150ms",
+              }}
+            >
+              {label}
+            </button>
+          ))}
+          {feedMode === "discover" && (
+            <button
+              onClick={openFilterModal}
+              style={{
+                marginLeft: "auto", background: "none", border: "none", cursor: "pointer",
+                color: activeCats.size ? "#D4A832" : "rgba(247,241,230,0.6)", paddingBottom: 8,
+                display: "flex", alignItems: "center", gap: 4, fontSize: 11.5, fontFamily: "'Work Sans', sans-serif", fontWeight: 600,
+              }}
+            >
+              Filter{activeCats.size ? ` (${activeCats.size})` : ""}
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* category filter modal (discover only) — staged: pick, then Apply as a separate step */}
+      {feedMode === "discover" && showFilters && (
+        <div
+          style={{
+            position: "absolute", inset: 0, background: "rgba(33,29,23,0.55)",
+            display: "flex", alignItems: "flex-end", zIndex: 300, borderRadius: 32,
+          }}
+        >
+          <div
+            style={{
+              width: "100%", background: "#F4F1EB", borderTopLeftRadius: 22, borderTopRightRadius: 22,
+              padding: "18px 18px 16px", maxHeight: "78%", display: "flex", flexDirection: "column",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
+              <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 17, color: "#241512", margin: 0 }}>Filter by category</h3>
+              <button
+                onClick={() => setShowFilters(false)}
+                style={{ background: "none", border: "none", cursor: "pointer", color: "#6B6357" }}
+              >
+                <Icon name="x" size={18} />
+              </button>
+            </div>
+            <p style={{ fontSize: 11.5, color: "#6B6357", margin: "2px 0 12px" }}>
+              Pick one or more categories, then apply.
+            </p>
+
+            <div style={{ overflowY: "auto", display: "flex", flexDirection: "column", gap: 0, borderTop: "1px solid #E3D9C4" }}>
+              {CATEGORIES.map(({ key, label, icon: catIconName }) => {
+                const active = pendingCats.has(key);
+                return (
+                  <button
+                    key={key}
+                    onClick={() => togglePendingCat(key)}
+                    style={{
+                      display: "flex", alignItems: "center", gap: 12, border: "none",
+                      borderBottom: "1px solid #E3D9C4", background: "none", cursor: "pointer",
+                      padding: "13px 4px", textAlign: "left", width: "100%",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 34, height: 34, borderRadius: 9, flexShrink: 0,
+                        background: active ? "#9C0018" : "#EAE6DE",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                      }}
+                    >
+                      <Icon name={catIconName} size={16} color={active ? "#F4F1EB" : "#9C0018"} />
+                    </div>
+                    <span style={{ flex: 1, fontFamily: "'Work Sans', sans-serif", fontSize: 14, fontWeight: 600, color: "#241512" }}>
+                      {label}
+                    </span>
+                    <div
+                      style={{
+                        width: 20, height: 20, borderRadius: 6, flexShrink: 0,
+                        border: active ? "none" : "1.5px solid #C9BFA8",
+                        background: active ? "#165932" : "transparent",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                      }}
+                    >
+                      {active && <Icon name="check" size={13} color="#F4F1EB" />}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div style={{ display: "flex", gap: 10, marginTop: 14 }}>
+              <button
+                onClick={clearPendingFilters}
+                style={{
+                  flex: 1, border: "1.5px solid #C9BFA8", borderRadius: 12, padding: "12px 0",
+                  background: "none", color: "#6B6357", fontFamily: "'Work Sans', sans-serif",
+                  fontSize: 13, fontWeight: 600, cursor: "pointer",
+                }}
+              >
+                Clear all
+              </button>
+              <button
+                onClick={applyFilters}
+                style={{
+                  flex: 2, border: "none", borderRadius: 12, padding: "12px 0",
+                  background: "#9C0018", color: "#F4F1EB", fontFamily: "'Work Sans', sans-serif",
+                  fontSize: 13, fontWeight: 700, cursor: "pointer",
+                }}
+              >
+                Apply{pendingCats.size ? ` (${pendingCats.size})` : ""}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* body */}
+      <div style={{ flex: 1, position: "relative", padding: 18 }}>
+        {mainView === "feed" && feedMode === "discover" && (
+          <>
+            <div style={{ position: "relative", height: 470 }}>
+              {queue.length === 0 && (
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    borderRadius: 20,
+                    border: "1.5px dashed #C9BFA8",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: 8,
+                    color: "#6B6357",
+                    textAlign: "center",
+                    padding: 24,
+                  }}
+                >
+                  <Icon name="compass" size={26} />
+                  <p style={{ fontFamily: "'Fraunces', serif", fontSize: 16, color: "#211D17", margin: 0 }}>
+                    {liveMode ? "Nothing nearby right now" : `Nothing here in ${region} right now`}
+                  </p>
+                  <p style={{ fontSize: 12.5, margin: 0 }}>Try another region, clear your filters, or search something else.</p>
+                </div>
+              )}
+              {queue.slice(0, 3).map((m, i) => (
+                <MerchantCard key={m.id} merchant={m} index={i} isTop={i === 0} onSwipe={handleSwipe} onOpenMenu={setMenuTarget} />
+              ))}
+            </div>
+
+            {queue.length > 0 && (
+              <div style={{ display: "flex", justifyContent: "center", gap: 22, marginTop: 18 }}>
+                <button
+                  onClick={() => handleSwipe("left", queue[0])}
+                  style={{
+                    width: 52, height: 52, borderRadius: "50%", border: "1.5px solid #E3D9C4",
+                    background: "#FFFFFF", color: "#7A0013", display: "flex", alignItems: "center",
+                    justifyContent: "center", cursor: "pointer", boxShadow: "0 6px 16px rgba(33,29,23,0.1)",
+                  }}
+                >
+                  <Icon name="x" size={22} />
+                </button>
+                <button
+                  onClick={() => handleSwipe("right", queue[0])}
+                  style={{
+                    width: 52, height: 52, borderRadius: "50%", border: "none",
+                    background: "#165932", color: "#F4F1EB", display: "flex", alignItems: "center",
+                    justifyContent: "center", cursor: "pointer", boxShadow: "0 6px 16px rgba(22,89,50,0.35)",
+                  }}
+                >
+                  <Icon name="heart" size={22} />
+                </button>
+              </div>
+            )}
+
+            {lastAction && (
+              <div
+                style={{
+                  position: "absolute", bottom: 84, left: "50%", transform: "translateX(-50%)",
+                  background: "#211D17", color: "#F4F1EB", padding: "8px 16px", borderRadius: 999,
+                  fontSize: 12.5, fontFamily: "'Work Sans', sans-serif", whiteSpace: "nowrap",
+                }}
+              >
+                {lastAction.direction === "right" ? `Saved ${lastAction.name}` : `Passed on ${lastAction.name}`}
+              </div>
+            )}
+          </>
+        )}
+
+        {mainView === "feed" && feedMode === "loyalty" && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <div style={{ background: "#9C0018", borderRadius: 18, padding: 18, color: "#F4F1EB" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <div>
+                  <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, letterSpacing: 1, opacity: 0.7, margin: 0, textTransform: "uppercase" }}>
+                    Points balance
+                  </p>
+                  <p style={{ fontFamily: "'Fraunces', serif", fontSize: 30, fontWeight: 700, margin: "2px 0 0" }}>{points}</p>
+                </div>
+                <Icon name="award" size={30} color="#D4A832" strokeWidth={1.6} />
+              </div>
+              <div style={{ marginTop: 14 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, opacity: 0.75, marginBottom: 5, fontFamily: "'Work Sans', sans-serif" }}>
+                  <span>Heartland Member</span>
+                  <span>{Math.max(nextTier - points, 0)} pts to Neighbourhood Gold</span>
+                </div>
+                <div style={{ height: 6, background: "rgba(247,241,230,0.18)", borderRadius: 999, overflow: "hidden" }}>
+                  <div style={{ height: "100%", width: `${tierProgress * 100}%`, background: "#D4A832", borderRadius: 999 }} />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 16.5, color: "#211D17", margin: "0 0 10px" }}>
+                Redeem with points
+              </h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {LOYALTY_REWARDS.map((reward) => {
+                  const redeemed = redeemedRewards.has(reward.id);
+                  const affordable = points >= reward.cost;
+                  return (
+                    <div
+                      key={reward.id}
+                      style={{
+                        display: "flex", alignItems: "center", gap: 12, background: "#FFFFFF",
+                        borderRadius: 14, padding: 12, border: "1px solid rgba(33,29,23,0.06)",
+                        opacity: redeemed ? 0.55 : 1,
+                      }}
+                    >
+                      <div style={{ width: 40, height: 40, borderRadius: 10, background: "#EAE6DE", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden", position: "relative" }}>
+                        <img
+                          src={`https://picsum.photos/seed/cboxxreward${reward.id}/100/100`}
+                          alt=""
+                          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.35 }}
+                        />
+                        <Icon name="gift" size={18} color="#9C0018" style={{ position: "relative" }} />
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <p style={{ margin: 0, fontFamily: "'Fraunces', serif", fontSize: 13.5, fontWeight: 600, color: "#211D17" }}>{reward.name}</p>
+                        <p style={{ margin: "2px 0 0", fontSize: 11.5, color: "#6B6357" }}>{reward.merchant}</p>
+                      </div>
+                      <button
+                        onClick={() => redeemReward(reward)}
+                        disabled={redeemed || !affordable}
+                        style={{
+                          border: "none", borderRadius: 10, padding: "7px 11px", fontSize: 11,
+                          fontWeight: 700, cursor: redeemed || !affordable ? "default" : "pointer",
+                          fontFamily: "'IBM Plex Mono', monospace", flexShrink: 0,
+                          background: redeemed ? "#EAE6DE" : affordable ? "#D4A832" : "#EDE7D8",
+                          color: redeemed ? "#9C0018" : affordable ? "#211D17" : "#B3AA97",
+                          display: "flex", alignItems: "center", gap: 4,
+                        }}
+                      >
+                        {redeemed ? <><Icon name="check" size={12} /> DONE</> : `${reward.cost} PTS`}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {mainView === "savedTab" && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 18, color: "#211D17", margin: "2px 0 6px" }}>
+              Saved for you ({saved.length})
+            </h3>
+            {saved.length === 0 && (
+              <p style={{ fontSize: 13, color: "#6B6357" }}>Swipe right on a promo in Discover to save it here.</p>
+            )}
+            {saved.map((m) => {
+              const iconName = CATEGORIES.find((c) => c.key === m.cat)?.icon ?? "sparkles";
+              return (
+                <div
+                  key={m.id}
+                  style={{
+                    background: "#FFFFFF", borderRadius: 14, padding: 12,
+                    border: "1px solid rgba(33,29,23,0.06)", display: "flex", flexDirection: "column", gap: 9,
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <div style={{ width: 36, height: 36, borderRadius: 9, background: "#EAE6DE", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden", position: "relative" }}>
+                      <img
+                        src={`https://picsum.photos/seed/cboxx${m.id}/100/100`}
+                        alt=""
+                        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.35 }}
+                      />
+                      <Icon name={iconName} size={17} color="#9C0018" style={{ position: "relative" }} />
+                    </div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <p style={{ margin: 0, fontFamily: "'Fraunces', serif", fontSize: 14.5, fontWeight: 600, color: "#211D17" }}>{m.name}</p>
+                      <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 1 }}>
+                        <p style={{ margin: 0, fontSize: 11, color: "#6B6357" }}>{m.offers.length} offer{m.offers.length > 1 ? "s" : ""}</p>
+                        <span style={{ opacity: 0.4, fontSize: 11 }}>·</span>
+                        <PriceTag priceRange={m.priceRange} color="#9C0018" dim="#D9CFC0" />
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setMenuTarget(m)}
+                      style={{
+                        border: "1px solid #E3D9C4", background: "none", borderRadius: 8, padding: "5px 9px",
+                        fontSize: 10.5, fontWeight: 700, color: "#9C0018", cursor: "pointer", flexShrink: 0,
+                        fontFamily: "'IBM Plex Mono', monospace",
+                      }}
+                    >
+                      MENU
+                    </button>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    {m.offers.map((offer, i) => (
+                      <div
+                        key={i}
+                        style={{
+                          display: "flex", alignItems: "center", gap: 8, background: "#F4F1EB",
+                          borderRadius: 9, padding: "7px 8px 7px 10px",
+                        }}
+                      >
+                        <p style={{ flex: 1, margin: 0, fontSize: 12, color: "#241512", lineHeight: 1.3 }}>{offer}</p>
+                        <button
+                          onClick={() => setRedeemTarget({ merchant: m, offer })}
+                          style={{
+                            background: "#D4A832", border: "none", borderRadius: 8, padding: "6px 10px",
+                            fontSize: 10.5, fontWeight: 700, color: "#211D17", cursor: "pointer", flexShrink: 0,
+                            fontFamily: "'IBM Plex Mono', monospace",
+                          }}
+                        >
+                          REDEEM
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {mainView === "profileTab" && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 18, color: "#211D17", margin: "2px 0 0" }}>Your CBOXX</h3>
+            <div style={{ background: "#9C0018", borderRadius: 16, padding: 16, color: "#F4F1EB" }}>
+              <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, letterSpacing: 1, opacity: 0.7, margin: 0, textTransform: "uppercase" }}>
+                Member
+              </p>
+              <p style={{ fontFamily: "'Fraunces', serif", fontSize: 20, margin: "4px 0 2px" }}>
+                {phoneNumber.slice(0, phoneNumber.length - 4).replace(/\d/g, "•")}{phoneNumber.slice(-4)}
+              </p>
+              <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, opacity: 0.6, margin: "0 0 10px", wordBreak: "break-all" }}>
+                ID (SHA-256): {memberIdHash}…
+              </p>
+              <div style={{ display: "flex", gap: 18 }}>
+                <div>
+                  <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 18, margin: 0, fontWeight: 600 }}>{saved.length}</p>
+                  <p style={{ fontSize: 10.5, opacity: 0.75, margin: 0 }}>Saved</p>
+                </div>
+                <div>
+                  <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 18, margin: 0, fontWeight: 600 }}>{redeemedRewards.size}</p>
+                  <p style={{ fontSize: 10.5, opacity: 0.75, margin: 0 }}>Rewards redeemed</p>
+                </div>
+                <div>
+                  <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 18, margin: 0, fontWeight: 600 }}>{region}</p>
+                  <p style={{ fontSize: 10.5, opacity: 0.75, margin: 0 }}>Home region</p>
+                </div>
+              </div>
+            </div>
+            <p style={{ fontSize: 11.5, color: "#6B6357", lineHeight: 1.5 }}>
+              Entry via NFC tap or QR triggers a one-time phone verification. Your phone number is never stored or used as your ID directly — only its SHA-256 hash is, shown above. This session is illustrative only — no real member data.
+            </p>
+          </div>
+        )}
+
+        {mainView === "contactTab" && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <div>
+              <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 18, color: "#241512", margin: "2px 0 6px" }}>Contact us</h3>
+              <p style={{ fontSize: 12.5, color: "#6B6357", margin: 0, lineHeight: 1.5 }}>
+                We build your customer base, not just your loyalty programme. Questions about a promo, a merchant, or your account — reach out below.
+              </p>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <a
+                href="mailto:info@cboxxsg.com"
+                style={{
+                  display: "flex", alignItems: "center", gap: 12, background: "#FFFFFF", borderRadius: 14,
+                  padding: 12, border: "1px solid rgba(33,29,23,0.06)", textDecoration: "none",
+                }}
+              >
+                <div style={{ width: 40, height: 40, borderRadius: 10, background: "#EAE6DE", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <Icon name="mail" size={18} color="#9C0018" />
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ margin: 0, fontFamily: "'Work Sans', sans-serif", fontSize: 13, fontWeight: 600, color: "#241512" }}>Email</p>
+                  <p style={{ margin: "1px 0 0", fontSize: 12, color: "#6B6357" }}>info@cboxxsg.com</p>
+                </div>
+              </a>
+              <div
+                style={{
+                  display: "flex", alignItems: "center", gap: 12, background: "#FFFFFF", borderRadius: 14,
+                  padding: 12, border: "1px solid rgba(33,29,23,0.06)",
+                }}
+              >
+                <div style={{ width: 40, height: 40, borderRadius: 10, background: "#EAE6DE", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <Icon name="map-pin" size={18} color="#9C0018" />
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ margin: 0, fontFamily: "'Work Sans', sans-serif", fontSize: 13, fontWeight: 600, color: "#241512" }}>CBOXX Pte. Ltd.</p>
+                  <p style={{ margin: "1px 0 0", fontSize: 12, color: "#6B6357" }}>Singapore · UEN 202619369N</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h4 style={{ fontFamily: "'Fraunces', serif", fontSize: 14.5, color: "#241512", margin: "4px 0 10px" }}>Send a message</h4>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <input
+                  value={contactForm.name}
+                  onChange={(e) => setContactForm((f) => ({ ...f, name: e.target.value }))}
+                  placeholder="Your name"
+                  style={{
+                    border: "1px solid #E3D9C4", borderRadius: 10, padding: "10px 12px", fontSize: 13,
+                    fontFamily: "'Work Sans', sans-serif", outline: "none", background: "#FFFFFF", color: "#241512",
+                  }}
+                />
+                <input
+                  value={contactForm.email}
+                  onChange={(e) => setContactForm((f) => ({ ...f, email: e.target.value }))}
+                  placeholder="Your email"
+                  style={{
+                    border: "1px solid #E3D9C4", borderRadius: 10, padding: "10px 12px", fontSize: 13,
+                    fontFamily: "'Work Sans', sans-serif", outline: "none", background: "#FFFFFF", color: "#241512",
+                  }}
+                />
+                <textarea
+                  value={contactForm.message}
+                  onChange={(e) => setContactForm((f) => ({ ...f, message: e.target.value }))}
+                  placeholder="How can we help?"
+                  rows={3}
+                  style={{
+                    border: "1px solid #E3D9C4", borderRadius: 10, padding: "10px 12px", fontSize: 13,
+                    fontFamily: "'Work Sans', sans-serif", outline: "none", resize: "none", background: "#FFFFFF", color: "#241512",
+                  }}
+                />
+                <button
+                  onClick={submitContact}
+                  style={{
+                    display: "flex", alignItems: "center", justifyContent: "center", gap: 7,
+                    border: "none", borderRadius: 10, padding: "11px 0", fontSize: 13, fontWeight: 700,
+                    fontFamily: "'Work Sans', sans-serif", cursor: "pointer",
+                    background: contactSent ? "#165932" : "#9C0018", color: "#F4F1EB",
+                    transition: "background 200ms",
+                  }}
+                >
+                  {contactSent ? <><Icon name="check" size={15} /> Message sent</> : <><Icon name="send" size={14} /> Send message</>}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* bottom nav */}
+      <div style={{ display: "flex", borderTop: "1px solid rgba(33,29,23,0.08)", background: "#FFFFFF" }}>
+        {[
+          { key: "feed", label: feedMode === "loyalty" ? "Loyalty" : "Discover", icon: feedMode === "loyalty" ? "award" : "compass" },
+          { key: "savedTab", label: "Saved", icon: "bookmark" },
+          { key: "contactTab", label: "Contact", icon: "message-circle" },
+          { key: "profileTab", label: "Profile", icon: "user" },
+        ].map(({ key, label, icon }) => (
+          <button
+            key={key}
+            onClick={() => setMainView(key)}
+            style={{
+              flex: 1, border: "none", background: "none", padding: "10px 0 12px",
+              display: "flex", flexDirection: "column", alignItems: "center", gap: 3,
+              color: mainView === key ? "#9C0018" : "#B3AA97", cursor: "pointer",
+            }}
+          >
+            <Icon name={icon} size={19} />
+            <span style={{ fontSize: 10.5, fontFamily: "'Work Sans', sans-serif", fontWeight: 600 }}>{label}</span>
+          </button>
+        ))}
+      </div>
+
+      {redeemTarget && (
+        <QRRedeem merchant={redeemTarget.merchant} offer={redeemTarget.offer} onClose={() => setRedeemTarget(null)} />
+      )}
+      {menuTarget && <MenuModal merchant={menuTarget} onClose={() => setMenuTarget(null)} />}
+    </div>
+  );
+}
+
+
+function App() {
+  return <ConsumerDashboard />;
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+</script>
+
+<script>
+  var src = document.getElementById("app-source").textContent;
+  var compiled = Babel.transform(src, {
+    presets: [["react", { runtime: "classic" }]]
+  }).code;
+  (0, eval)(compiled);
+</script>
+</body>
+</html>
