@@ -49,7 +49,7 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (!reduceMotion && 'IntersectionObserver' in window) {
-    var reveals = document.querySelectorAll('.reveal');
+    var reveals = document.querySelectorAll('.reveal, .pop-card');
     reveals.forEach(function (el, i) {
       el.style.transitionDelay = (i % 4) * 70 + 'ms';
     });
@@ -63,8 +63,79 @@
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
     reveals.forEach(function (el) { io.observe(el); });
   } else {
-    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in-view'); });
+    document.querySelectorAll('.reveal, .pop-card').forEach(function (el) { el.classList.add('in-view'); });
   }
+
+  // ---------- swipe-demo: draggable card stack, mirrors the app's own gesture ----------
+  document.querySelectorAll('.swipe-demo').forEach(function (demo) {
+    var cards = Array.from(demo.querySelectorAll('.swipe-card'));
+    var order = cards.map(function (_, i) { return i; });
+    var dots = demo.parentElement.querySelectorAll('.swipe-dot');
+    var dragging = false, startX = 0, curX = 0, activeCard = null;
+
+    function layout() {
+      order.forEach(function (cardIndex, pos) {
+        cards[cardIndex].dataset.pos = pos;
+      });
+      dots.forEach(function (d, i) { d.classList.toggle('active', i === order[0]); });
+    }
+    layout();
+
+    function advance(dir) {
+      var frontIndex = order[0];
+      var front = cards[frontIndex];
+      front.classList.add(dir > 0 ? 'fly-right' : 'fly-left');
+      front.style.transform = '';
+      order.push(order.shift());
+      layout();
+      setTimeout(function () { front.classList.remove('fly-right', 'fly-left'); }, 360);
+    }
+
+    function startDrag(clientX) {
+      dragging = true; startX = clientX; curX = 0;
+      activeCard = cards[order[0]];
+      activeCard.classList.add('dragging');
+    }
+    function moveDrag(clientX) {
+      if (!dragging) return;
+      curX = clientX - startX;
+      activeCard.style.transform = 'translateX(' + curX + 'px) rotate(' + (curX / 18) + 'deg)';
+    }
+    function endDrag() {
+      if (!dragging) return;
+      dragging = false;
+      activeCard.classList.remove('dragging');
+      if (Math.abs(curX) > 70) {
+        advance(curX);
+      } else {
+        activeCard.style.transform = '';
+      }
+    }
+
+    demo.addEventListener('mousedown', function (e) {
+      startDrag(e.clientX);
+      var onMove = function (ev) { moveDrag(ev.clientX); };
+      var onUp = function () {
+        endDrag();
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+      };
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+    demo.addEventListener('touchstart', function (e) { startDrag(e.touches[0].clientX); }, { passive: true });
+    demo.addEventListener('touchmove', function (e) {
+      moveDrag(e.touches[0].clientX);
+      if (dragging) e.preventDefault();
+    }, { passive: false });
+    demo.addEventListener('touchend', endDrag);
+    demo.addEventListener('touchcancel', endDrag);
+
+    var prevBtn = demo.parentElement.querySelector('#swipePrev');
+    var nextBtn = demo.parentElement.querySelector('#swipeNext');
+    if (nextBtn) nextBtn.addEventListener('click', function () { advance(1); });
+    if (prevBtn) prevBtn.addEventListener('click', function () { advance(-1); });
+  });
 
   // Count-up animation for stat numbers, e.g. the About-page progress ring.
   document.querySelectorAll('[data-count-to]').forEach(function (el) {

@@ -55,10 +55,15 @@
         <a href="#how-it-works" class="btn btn-outline">See how it works</a>
       </div>
     </div>
-    <div class="step-row">
-      <div class="step"><div class="num">1</div>Swipe through shops near you, based on what you're into.</div>
-      <div class="step"><div class="num">2</div>Like one, and get walked straight to the door.</div>
-      <div class="step"><div class="num">3</div>Tap in when you arrive. No account, no forms.</div>
+    <div class="swipe-demo" id="heroSwipe">
+      <div class="swipe-card" data-pos="0"><div class="num">1</div><p>Swipe through shops near you, based on what you're into.</p></div>
+      <div class="swipe-card" data-pos="1"><div class="num">2</div><p>Like one, and get walked straight to the door.</p></div>
+      <div class="swipe-card" data-pos="2"><div class="num">3</div><p>Tap in when you arrive. No account, no forms.</p></div>
+    </div>
+    <div class="swipe-controls">
+      <button class="swipe-btn" id="swipePrev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="swipe-dots" id="swipeDots"><span class="swipe-dot active"></span><span class="swipe-dot"></span><span class="swipe-dot"></span></div>
+      <button class="swipe-btn" id="swipeNext" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
   </div>
 </section>
@@ -70,14 +75,14 @@
       <h2 style="max-width:22ch">Bookmarking a shop never actually works.</h2>
       <p class="prose lede">You walk past somewhere that looks good, mean to come back, and never do. There's no easy way to keep track of shops you like, near where you are.</p>
     </div>
-    <div class="reveal" style="border:1px solid var(--line);border-radius:var(--radius);background:var(--white);box-shadow:var(--shadow-sm);overflow:hidden">
-      <div style="padding:1.4rem 1.6rem;border-bottom:1px solid var(--line)">
-        <p style="margin:0;font-size:0.85rem;font-weight:600;color:var(--ink-soft)">Without CBOXX</p>
-        <p style="margin:0.3rem 0 0;color:var(--ink-soft)">A screenshot you'll never find again, or a name you half-remember. The shop stays a stranger.</p>
+    <div class="pop-stack">
+      <div class="pop-card pop-no">
+        <p class="pop-label">WITHOUT CBOXX</p>
+        <p>A screenshot you'll never find again, or a name you half-remember. The shop stays a stranger.</p>
       </div>
-      <div style="padding:1.4rem 1.6rem;background:var(--red-soft)">
-        <p style="margin:0;font-size:0.85rem;font-weight:600;color:var(--red)">With CBOXX</p>
-        <p style="margin:0.3rem 0 0;color:var(--ink)">Swipe right once, get directions on the spot. Tap in, and it remembers you're a regular from then on.</p>
+      <div class="pop-card pop-yes">
+        <p class="pop-label">WITH CBOXX</p>
+        <p>Swipe right once, get directions on the spot. Tap in, and it remembers you're a regular from then on.</p>
       </div>
     </div>
   </div>
