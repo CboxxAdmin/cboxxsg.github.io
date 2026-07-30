@@ -12,14 +12,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css">
-<style>
-.tabbtn{font-size:0.88rem;font-weight:600;padding:0.6rem 1.2rem;border:1px solid var(--line);background:var(--white);cursor:pointer;color:var(--ink-soft)}
-.tabbtn.active{background:var(--ink);color:var(--white);border-color:var(--ink)}
-.tabbtn:first-child{border-radius:6px 0 0 6px}
-.tabbtn:last-child{border-radius:0 6px 6px 0}
-.model-panel{display:none}
-.model-panel.active{display:block}
-</style>
 </head>
 <body>
 
@@ -74,39 +66,6 @@
         <p style="font-size:1.1rem;margin:0"><strong style="color:var(--ink)">Live location.</strong> <span style="color:var(--ink-soft)">You show up to people close enough to actually walk over right now.</span></p>
         <p style="font-size:1.1rem;margin:0"><strong style="color:var(--ink)">Matched to interest.</strong> <span style="color:var(--ink-soft)">Your shop surfaces because someone's swipe history already points at what you sell.</span></p>
         <p style="font-size:1.1rem;margin:0"><strong style="color:var(--ink)">Straight to your door.</strong> <span style="color:var(--ink-soft)">Swipe right and directions open right away.</span></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section section-line" style="background:var(--red-soft)">
-  <div class="wrap">
-    <div class="reveal" style="max-width:520px;text-align:center;margin:0 auto">
-      <span class="eyebrow">Choose a model</span>
-      <h2>Once they've visited, three ways to run loyalty</h2>
-    </div>
-    <div style="display:flex;justify-content:center;margin:2rem 0 2.5rem">
-      <button class="tabbtn active" data-tab="points" onclick="showTab('points',this)">Points</button>
-      <button class="tabbtn" data-tab="stamp" onclick="showTab('stamp',this)">Stamp card</button>
-      <button class="tabbtn" data-tab="tier" onclick="showTab('tier',this)">Tiered</button>
-    </div>
-
-    <div class="model-panel active" id="tab-points">
-      <div class="grid-2">
-        <div><h3>Points</h3><p style="color:var(--ink-soft)">Customers earn points per tap and redeem them for whatever reward you set: a free item, a discount, an exclusive offer. You decide the rate and the reward.</p></div>
-        <div><p class="tag">Best for: cafés, bubble tea, nail bars, salons, shops customers visit weekly</p></div>
-      </div>
-    </div>
-    <div class="model-panel" id="tab-stamp">
-      <div class="grid-2">
-        <div><h3>Stamp card</h3><p style="color:var(--ink-soft)">The digital version of the paper stamp card, minus the lost cards and the fake stamps. Set how many taps earn a reward.</p></div>
-        <div><p class="tag">Best for: F&amp;B, coffee, desserts, hawker stalls</p></div>
-      </div>
-    </div>
-    <div class="model-panel" id="tab-tier">
-      <div class="grid-2">
-        <div><h3>Tiered membership</h3><p style="color:var(--ink-soft)">Bronze, Silver, Gold. Customers move up by visiting more, and your best customers get your best perks.</p></div>
-        <div><p class="tag">Best for: retail, beauty, healthcare, fitness</p></div>
       </div>
     </div>
   </div>
@@ -190,13 +149,6 @@
   </div>
 </section>
 
-<section class="section section-line cta-photo-section" style="color:var(--band-text)">
-  <div class="wrap reveal" style="text-align:center;position:relative;z-index:2">
-    <h2 style="color:var(--band-text)">Want to see it running in your shop?</h2>
-    <p style="color:color-mix(in srgb, var(--band-text) 60%, transparent);max-width:50ch;margin:0 auto 1.75rem">Send us a message and we'll walk you through setup, usually live within a week.</p>
-    <a href="contact.html" class="btn btn-primary">Get in touch</a>
-  </div>
-</section>
 
 <footer class="site-footer">
   <div class="footer-grid">
@@ -228,12 +180,6 @@
 
 <script src="assets/js/main.js"></script>
 <script>
-function showTab(name, btn){
-  document.querySelectorAll('.tabbtn').forEach(function(b){b.classList.remove('active');});
-  document.querySelectorAll('.model-panel').forEach(function(p){p.classList.remove('active');});
-  btn.classList.add('active');
-  document.getElementById('tab-'+name).classList.add('active');
-}
 function calcROI(){
   var c = parseInt(document.getElementById('rc1').value);
   var s = parseInt(document.getElementById('rc2').value);
