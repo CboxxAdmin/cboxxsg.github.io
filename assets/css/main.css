@@ -23,6 +23,10 @@
   --measure: 62ch;
   --shadow-sm: 0 1px 2px rgba(20,22,26,0.04), 0 1px 1px rgba(20,22,26,0.03);
   --shadow-md: 0 4px 16px rgba(20,22,26,0.06), 0 1px 2px rgba(20,22,26,0.04);
+  --step-1: #2a78d6;
+  --step-2: #eb6834;
+  --step-3: #1baf7a;
+  --step-4: #eda100;
   font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
@@ -41,6 +45,10 @@ html.dark {
   --on-primary: #0F1013;
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.4), 0 1px 1px rgba(0,0,0,0.3);
   --shadow-md: 0 8px 24px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.4);
+  --step-1: #3987e5;
+  --step-2: #d95926;
+  --step-3: #199e70;
+  --step-4: #c98500;
 }
 html.dark body { background: var(--paper); }
 html.dark img { opacity: 0.94; }
@@ -418,33 +426,35 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
 .timeline::after {
   content: ''; position: absolute; top: 22px; left: 12.5%; width: 10px; height: 10px;
   margin-top: -5px; margin-left: -5px; border-radius: 50%; z-index: 0;
-  background: var(--red); opacity: 0;
-  box-shadow: 0 0 12px 3px color-mix(in srgb, var(--red) 65%, transparent);
+  background: var(--step-1); opacity: 0;
   animation: timelineDotMove 6s linear infinite;
 }
 @keyframes timelineDotMove {
-  0% { left: 12.5%; opacity: 0; }
-  4%, 96% { opacity: 1; }
-  100% { left: 87.5%; opacity: 0; }
+  0%   { left: 12.5%; opacity: 0; background: var(--step-1); box-shadow: 0 0 12px 3px color-mix(in srgb, var(--step-1) 65%, transparent); }
+  4%   { opacity: 1; }
+  33%  { background: var(--step-2); box-shadow: 0 0 12px 3px color-mix(in srgb, var(--step-2) 65%, transparent); }
+  66%  { background: var(--step-3); box-shadow: 0 0 12px 3px color-mix(in srgb, var(--step-3) 65%, transparent); }
+  96%  { opacity: 1; background: var(--step-4); box-shadow: 0 0 12px 3px color-mix(in srgb, var(--step-4) 65%, transparent); }
+  100% { left: 87.5%; opacity: 0; background: var(--step-4); }
 }
 .timeline-step { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.9rem; }
 .timeline-num {
   position: relative; z-index: 1; width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
   background: var(--white); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
-  display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 800; color: var(--red);
+  display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 800;
   animation: timelineLightUp 6s ease-in-out infinite;
 }
-.timeline-step:nth-child(1) .timeline-num { animation-delay: 0s; }
-.timeline-step:nth-child(2) .timeline-num { animation-delay: 2s; }
-.timeline-step:nth-child(3) .timeline-num { animation-delay: 4s; }
-.timeline-step:nth-child(4) .timeline-num { animation-delay: 5.76s; }
+.timeline-step:nth-child(1) .timeline-num { --step-color: var(--step-1); color: var(--step-1); animation-delay: 0s; }
+.timeline-step:nth-child(2) .timeline-num { --step-color: var(--step-2); color: var(--step-2); animation-delay: 2s; }
+.timeline-step:nth-child(3) .timeline-num { --step-color: var(--step-3); color: var(--step-3); animation-delay: 4s; }
+.timeline-step:nth-child(4) .timeline-num { --step-color: var(--step-4); color: var(--step-4); animation-delay: 5.76s; }
 @keyframes timelineLightUp {
-  0%, 8% { background: var(--white); color: var(--red); transform: scale(1); box-shadow: var(--shadow-sm); }
+  0%, 8% { background: var(--white); color: var(--step-color); transform: scale(1); box-shadow: var(--shadow-sm); }
   14%, 20% {
-    background: var(--red); color: #fff; transform: scale(1.14);
-    box-shadow: 0 0 0 8px color-mix(in srgb, var(--red) 22%, transparent), var(--shadow-md);
+    background: var(--step-color); color: #fff; transform: scale(1.14);
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--step-color) 22%, transparent), var(--shadow-md);
   }
-  30%, 100% { background: var(--white); color: var(--red); transform: scale(1); box-shadow: var(--shadow-sm); }
+  30%, 100% { background: var(--white); color: var(--step-color); transform: scale(1); box-shadow: var(--shadow-sm); }
 }
 .timeline-step h3 { margin-bottom: 0.35rem; }
 .timeline-step p { color: var(--ink-soft); margin: 0; font-size: 0.92rem; }
