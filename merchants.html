@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="assets/css/main.css">
 <style>
 .say-yes-split { position: relative; }
-.say-yes-split::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: var(--line); }
+.say-yes-split::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: var(--ink-faint); opacity: 0.5; }
 @media (max-width: 860px) { .say-yes-split::before { display: none; } }
 </style>
 </head>
@@ -55,7 +55,7 @@
   </div>
 </section>
 
-<section class="section" style="background:linear-gradient(to bottom, var(--paper) 0, var(--paper-dimmer) 100px, var(--paper-dimmer) calc(100% - 100px), var(--paper) 100%)">
+<section class="section" style="background:linear-gradient(to bottom, var(--paper) 0, var(--paper-dimmer) 100px, var(--paper-dimmer) calc(100% - 60px), var(--paper-dim) 100%)">
   <div class="wrap grid-2 say-yes-split" style="gap:3rem;align-items:start">
     <div class="reveal">
       <h2>What happens after you say yes</h2>
@@ -76,7 +76,7 @@
   </div>
 </section>
 
-<section id="pricing" class="section" style="background:linear-gradient(to bottom, var(--paper) 0, var(--paper-dim) 100px, var(--paper-dim) calc(100% - 100px), var(--paper) 100%)">
+<section id="pricing" class="section" style="background:linear-gradient(to bottom, var(--paper-dim) 0, var(--paper-dim) calc(100% - 100px), var(--paper) 100%)">
   <div class="wrap">
     <div class="reveal" style="max-width:640px">
       <span class="eyebrow">What you get</span>
