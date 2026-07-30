@@ -253,6 +253,20 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
 .photo-street::before { background-image: url('../img/hero-street-shops.jpg'); background-position: 35% 55%; }
 .photo-app::before { background-image: url('../img/hero-app-phone.jpg'); background-position: center 35%; }
 
+/* ---------- cta-photo-section: fixed-dark band with a real photo behind the
+   text, independent of light/dark theme (mirrors --band's own behavior) ---------- */
+.cta-photo-section {
+  position: relative; overflow: hidden; padding-top: 4.5rem; padding-bottom: 4.5rem;
+}
+.cta-photo-section::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background-image: url('../img/hero-cta-team.jpg'); background-size: cover; background-position: center 15%;
+}
+.cta-photo-section::after {
+  content: ''; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, rgba(20,22,26,0.88), rgba(20,22,26,0.82));
+}
+
 /* ---------- split gate (index.html) ----------
    position:fixed + inset:0 pins this to the literal viewport edges, so
    there is no percentage/vh rounding gap for any page background (light
@@ -396,17 +410,20 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
 @keyframes switchIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ---------- timeline (sequential steps, all visible, no interaction) ---------- */
-.timeline { max-width: 640px; margin: 0 auto; position: relative; }
-.timeline::before { content: ''; position: absolute; left: 21px; top: 8px; bottom: 8px; width: 1px; background: var(--line); }
-.timeline-step { position: relative; display: flex; gap: 1.4rem; padding-bottom: 2.4rem; }
-.timeline-step:last-child { padding-bottom: 0; }
+.timeline { max-width: 100%; margin: 0 auto; position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.2rem; }
+.timeline::before { content: ''; position: absolute; left: 44px; right: 44px; top: 22px; height: 1px; background: var(--line); z-index: 0; }
+.timeline-step { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.9rem; }
 .timeline-num {
   position: relative; z-index: 1; width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
   background: var(--white); border: 1px solid var(--line); box-shadow: var(--shadow-sm);
   display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 800; color: var(--red);
 }
 .timeline-step h3 { margin-bottom: 0.35rem; }
-.timeline-step p { color: var(--ink-soft); margin: 0; }
+.timeline-step p { color: var(--ink-soft); margin: 0; font-size: 0.92rem; }
+@media (max-width: 860px) {
+  .timeline { grid-template-columns: 1fr; gap: 2.2rem; }
+  .timeline::before { display: none; }
+}
 
 /* ---------- swipe-demo (draggable card stack, mirrors the app's own gesture) ---------- */
 .swipe-demo { position: relative; max-width: 340px; height: 195px; margin: 2.5rem auto 0; }
