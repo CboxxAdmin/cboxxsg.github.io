@@ -9,6 +9,7 @@
   --ink-faint: #8A909C;
   --paper: #F7F7F5;
   --paper-dim: #D3D3D3;
+  --paper-dimmer: #B8B8B8;
   --line: rgba(20, 22, 26, 0.10);
   --red: #4A6FA5;
   --red-dark: #3A5A85;
@@ -36,6 +37,7 @@ html.dark {
   --ink-faint: #767C86;
   --paper: #0F1013;
   --paper-dim: #17181C;
+  --paper-dimmer: #060607;
   --line: rgba(255, 255, 255, 0.16);
   --red: #7EA0D6;
   --red-dark: #9BBAE3;
