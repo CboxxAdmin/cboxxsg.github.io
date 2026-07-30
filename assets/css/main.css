@@ -251,7 +251,7 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
   .photo-team::before { background-position: 50% 40%; }
 }
 .photo-street::before { background-image: url('../img/hero-street-shops.jpg'); background-position: 35% 55%; }
-.photo-app::before { background-image: url('../img/hero-brand-shoot.jpg'); background-position: center 16%; }
+.photo-app::before { background-image: url('../img/hero-app-phone.jpg'); background-position: center 35%; }
 
 /* ---------- cta-photo-section: fixed-dark band with a real photo behind the
    text, independent of light/dark theme (mirrors --band's own behavior) ---------- */
