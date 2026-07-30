@@ -66,12 +66,17 @@
     document.querySelectorAll('.reveal, .pop-card').forEach(function (el) { el.classList.add('in-view'); });
   }
 
-  // ---------- swipe-demo: draggable card stack, mirrors the app's own gesture ----------
+  // ---------- swipe-demo: draggable card stack, mirrors the app's own gesture.
+  // The whole hero section is the drag surface (not just the card box), so it
+  // reads as "swipe anywhere here" the way the real app would feel. A touch
+  // still has to prove it's a horizontal swipe (not a vertical scroll) before
+  // it hijacks the gesture, so scrolling past the section is never broken. ----------
   document.querySelectorAll('.swipe-demo').forEach(function (demo) {
+    var zone = demo.closest('section') || demo.parentElement;
     var cards = Array.from(demo.querySelectorAll('.swipe-card'));
     var order = cards.map(function (_, i) { return i; });
     var dots = demo.parentElement.querySelectorAll('.swipe-dot');
-    var dragging = false, startX = 0, curX = 0, activeCard = null;
+    var dragging = false, locked = false, startX = 0, startY = 0, curX = 0, activeCard = null;
 
     function layout() {
       order.forEach(function (cardIndex, pos) {
@@ -91,19 +96,27 @@
       setTimeout(function () { front.classList.remove('fly-right', 'fly-left'); }, 360);
     }
 
-    function startDrag(clientX) {
-      dragging = true; startX = clientX; curX = 0;
+    function startDrag(clientX, clientY) {
+      dragging = true; locked = false; startX = clientX; startY = clientY; curX = 0;
       activeCard = cards[order[0]];
-      activeCard.classList.add('dragging');
     }
-    function moveDrag(clientX) {
-      if (!dragging) return;
-      curX = clientX - startX;
+    function moveDrag(clientX, clientY) {
+      if (!dragging) return false;
+      var dx = clientX - startX, dy = clientY - startY;
+      if (!locked) {
+        if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return false;
+        if (Math.abs(dy) > Math.abs(dx)) { dragging = false; return false; }
+        locked = true;
+        activeCard.classList.add('dragging');
+      }
+      curX = dx;
       activeCard.style.transform = 'translateX(' + curX + 'px) rotate(' + (curX / 18) + 'deg)';
+      return true;
     }
     function endDrag() {
       if (!dragging) return;
       dragging = false;
+      if (!locked) return;
       activeCard.classList.remove('dragging');
       if (Math.abs(curX) > 70) {
         advance(curX);
@@ -112,9 +125,10 @@
       }
     }
 
-    demo.addEventListener('mousedown', function (e) {
-      startDrag(e.clientX);
-      var onMove = function (ev) { moveDrag(ev.clientX); };
+    zone.addEventListener('mousedown', function (e) {
+      if (e.target.closest('a, button')) return;
+      startDrag(e.clientX, e.clientY);
+      var onMove = function (ev) { moveDrag(ev.clientX, ev.clientY); };
       var onUp = function () {
         endDrag();
         document.removeEventListener('mousemove', onMove);
@@ -123,13 +137,16 @@
       document.addEventListener('mousemove', onMove);
       document.addEventListener('mouseup', onUp);
     });
-    demo.addEventListener('touchstart', function (e) { startDrag(e.touches[0].clientX); }, { passive: true });
-    demo.addEventListener('touchmove', function (e) {
-      moveDrag(e.touches[0].clientX);
-      if (dragging) e.preventDefault();
+    zone.addEventListener('touchstart', function (e) {
+      if (e.target.closest('a, button')) return;
+      startDrag(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+    zone.addEventListener('touchmove', function (e) {
+      var isHorizontalDrag = moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+      if (isHorizontalDrag) e.preventDefault();
     }, { passive: false });
-    demo.addEventListener('touchend', endDrag);
-    demo.addEventListener('touchcancel', endDrag);
+    zone.addEventListener('touchend', endDrag);
+    zone.addEventListener('touchcancel', endDrag);
 
     var prevBtn = demo.parentElement.querySelector('#swipePrev');
     var nextBtn = demo.parentElement.querySelector('#swipeNext');
