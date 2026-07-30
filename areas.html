@@ -4,7 +4,7 @@
 <script>(function(){var d=document.documentElement;d.classList.add("js");var t=localStorage.getItem("theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){d.classList.add("dark")}})()</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Areas — CBOXX</title>
+<title>Areas | CBOXX</title>
 <meta name="description" content="CBOXX is rolling out across Singapore, area by area. Register your interest to hear when we launch near you.">
 <meta name="robots" content="index, follow">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
@@ -141,7 +141,7 @@ function submitInterest(e){
   var areas = [];
   document.querySelectorAll('input[name="area"]:checked').forEach(function(cb){areas.push(cb.value);});
   var msg = document.getElementById('iMsg').value;
-  var subject = encodeURIComponent('CBOXX area interest — ' + (areas.length?areas.join(', '):'General') + ' — ' + name);
+  var subject = encodeURIComponent('CBOXX area interest: ' + (areas.length?areas.join(', '):'General') + ' for ' + name);
   var body = encodeURIComponent('Name: '+name+'\nEmail: '+email+'\nShop: '+shop+'\nAreas: '+(areas.length?areas.join(', '):'Not specified')+'\n\nMessage:\n'+(msg||'None'));
   window.location.href = 'mailto:info@cboxxsg.com?subject='+subject+'&body='+body;
   document.getElementById('interestForm').style.display = 'none';
