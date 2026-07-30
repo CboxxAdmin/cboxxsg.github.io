@@ -78,22 +78,11 @@
     var dots = demo.parentElement.querySelectorAll('.swipe-dot');
     var dragging = false, locked = false, startX = 0, startY = 0, curX = 0, activeCard = null;
 
-    var bgPhotos = null;
-    try { bgPhotos = JSON.parse(demo.dataset.bgPhotos || 'null'); } catch (e) {}
-    var bgTarget = bgPhotos && demo.closest('.hero-photo-section');
-
     function layout() {
       order.forEach(function (cardIndex, pos) {
         cards[cardIndex].dataset.pos = pos;
       });
       dots.forEach(function (d, i) { d.classList.toggle('active', i === order[0]); });
-      if (bgTarget) {
-        var photo = bgPhotos[order[0]];
-        if (photo) {
-          bgTarget.style.setProperty('--hero-bg', "url('" + photo.src + "')");
-          bgTarget.style.setProperty('--hero-bg-pos', photo.pos || 'center 30%');
-        }
-      }
     }
     layout();
 
