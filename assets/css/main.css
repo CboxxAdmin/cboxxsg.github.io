@@ -456,7 +456,7 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
   }
   30%, 100% { background: var(--white); color: var(--step-color); transform: scale(1); box-shadow: var(--shadow-sm); }
 }
-.timeline-step h3 { margin-bottom: 0.35rem; }
+.timeline-step h3 { margin-bottom: 0.35rem; font-size: 1.5rem; }
 .timeline-step p { color: var(--ink-soft); margin: 0; font-size: 0.92rem; }
 @media (max-width: 860px) {
   .timeline { grid-template-columns: 1fr; gap: 2.2rem; }
