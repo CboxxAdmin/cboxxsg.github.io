@@ -282,7 +282,7 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
   background: linear-gradient(180deg, rgba(20,22,26,0.88), rgba(20,22,26,0.82));
 }
 @media (max-width: 719px) {
-  .cta-photo-section::before { background-size: contain; background-position: center; background-color: var(--band); }
+  .cta-photo-section::before { background-size: cover; background-position: center 30%; }
 }
 
 /* ---------- split gate (index.html) ----------
