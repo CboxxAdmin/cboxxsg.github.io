@@ -245,7 +245,8 @@ hr.rule { border: none; border-top: 1px solid var(--line); margin: 3rem 0; }
 html.dark .hero-photo-section::before, html.dark .hero-photo-section::after { display: none; }
 /* .photo-force pages (the App page) are dark by identity, not by user toggle — keep their photo. */
 html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section.photo-force::after { display: block; }
-.hero-photo-section h1, .hero-photo-section .lede, .hero-photo-section .eyebrow { text-shadow: 0 1px 3px color-mix(in srgb, var(--paper) 70%, transparent), 0 2px 24px var(--paper); }
+.hero-photo-section h1, .hero-photo-section h2, .hero-photo-section .lede, .hero-photo-section .eyebrow { text-shadow: 0 1px 3px color-mix(in srgb, var(--paper) 70%, transparent), 0 2px 24px var(--paper); }
+.hero-photo-section [data-count-to] { text-shadow: 0 1px 3px color-mix(in srgb, var(--paper) 70%, transparent), 0 2px 24px var(--paper); }
 
 @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.045); } }
 @media (prefers-reduced-motion: reduce) { .hero-photo-section::before { animation: none; } }
