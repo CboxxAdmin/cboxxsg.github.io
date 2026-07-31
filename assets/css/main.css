@@ -270,7 +270,7 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
 }
 .cta-photo-section::before {
   content: ''; position: absolute; inset: 0; z-index: 0;
-  background-image: url('../img/team-three-suits.jpg'); background-size: cover; background-position: center 25%;
+  background-image: url('../img/team-three-suits.jpg'); background-size: cover; background-position: center 10%;
 }
 .cta-photo-section::after {
   content: ''; position: absolute; inset: 0; z-index: 1;
