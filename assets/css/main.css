@@ -270,11 +270,14 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
 }
 .cta-photo-section::before {
   content: ''; position: absolute; inset: 0; z-index: 0;
-  background-image: url('../img/team-three-suits.jpg'); background-size: cover; background-position: 68% 12%;
+  background-image: url('../img/team-three-suits.jpg'); background-size: cover; background-position: 78% 22%;
 }
 .cta-photo-section::after {
   content: ''; position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(180deg, rgba(20,22,26,0.88), rgba(20,22,26,0.82));
+}
+@media (max-width: 719px) {
+  .cta-photo-section::before { background-size: contain; background-position: center; background-color: var(--band); }
 }
 
 /* ---------- split gate (index.html) ----------
