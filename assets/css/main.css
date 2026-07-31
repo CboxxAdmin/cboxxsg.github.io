@@ -282,6 +282,7 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
   background: linear-gradient(180deg, rgba(20,22,26,0.88), rgba(20,22,26,0.82));
 }
 @media (max-width: 719px) {
+  .cta-photo-section { padding-top: 3.5rem; padding-bottom: 3.5rem; }
   .cta-photo-section::before { background-size: cover; background-position: center 30%; }
 }
 
