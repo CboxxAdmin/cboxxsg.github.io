@@ -430,22 +430,30 @@ html.dark .hero-photo-section.photo-force::before, html.dark .hero-photo-section
 
 /* ---------- timeline (sequential steps, all visible, no interaction) ---------- */
 .timeline { max-width: none; margin: 0 auto; padding: 0 6vw; position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.2rem; box-sizing: border-box; }
-.timeline::before { content: ''; position: absolute; left: 12.5%; right: 12.5%; top: 22px; height: 1px; background: var(--line); z-index: 0; }
-/* traveling glow: a small dot that runs left-to-right along the connector
+.timeline::before {
+  content: ''; position: absolute; left: 12.5%; right: 12.5%; top: 22px; height: 4px; margin-top: -2px;
+  border-radius: 999px; z-index: 0;
+  background: linear-gradient(to right, var(--step-1), var(--step-2), var(--step-3), var(--step-4));
+  opacity: 0.3; transition: opacity 0.25s ease;
+}
+/* traveling glow: a dot that runs left-to-right along the connector
    line, in step with each .timeline-num's own light-up pulse below, then
-   loops — runs continuously on its own, no interaction needed to trigger it. */
+   loops — runs continuously on its own, no interaction needed to trigger it.
+   Hovering the timeline pauses both so the motion reads as responsive. */
 .timeline::after {
-  content: ''; position: absolute; top: 22px; left: 12.5%; width: 10px; height: 10px;
-  margin-top: -5px; margin-left: -5px; border-radius: 50%; z-index: 0;
+  content: ''; position: absolute; top: 22px; left: 12.5%; width: 16px; height: 16px;
+  margin-top: -8px; margin-left: -8px; border-radius: 50%; z-index: 0;
   background: var(--step-1); opacity: 0;
   animation: timelineDotMove 6s linear infinite;
 }
+.timeline:hover::before { opacity: 0.55; }
+.timeline:hover::after, .timeline:hover .timeline-num { animation-play-state: paused; }
 @keyframes timelineDotMove {
-  0%   { left: 12.5%; opacity: 0; background: var(--step-1); box-shadow: 0 0 12px 3px color-mix(in srgb, var(--step-1) 65%, transparent); }
+  0%   { left: 12.5%; opacity: 0; background: var(--step-1); box-shadow: 0 0 6px 2px color-mix(in srgb, var(--step-1) 90%, transparent), 0 0 20px 6px color-mix(in srgb, var(--step-1) 55%, transparent); }
   4%   { opacity: 1; }
-  33%  { background: var(--step-2); box-shadow: 0 0 12px 3px color-mix(in srgb, var(--step-2) 65%, transparent); }
-  66%  { background: var(--step-3); box-shadow: 0 0 12px 3px color-mix(in srgb, var(--step-3) 65%, transparent); }
-  96%  { opacity: 1; background: var(--step-4); box-shadow: 0 0 12px 3px color-mix(in srgb, var(--step-4) 65%, transparent); }
+  33%  { background: var(--step-2); box-shadow: 0 0 6px 2px color-mix(in srgb, var(--step-2) 90%, transparent), 0 0 20px 6px color-mix(in srgb, var(--step-2) 55%, transparent); }
+  66%  { background: var(--step-3); box-shadow: 0 0 6px 2px color-mix(in srgb, var(--step-3) 90%, transparent), 0 0 20px 6px color-mix(in srgb, var(--step-3) 55%, transparent); }
+  96%  { opacity: 1; background: var(--step-4); box-shadow: 0 0 6px 2px color-mix(in srgb, var(--step-4) 90%, transparent), 0 0 20px 6px color-mix(in srgb, var(--step-4) 55%, transparent); }
   100% { left: 87.5%; opacity: 0; background: var(--step-4); }
 }
 .timeline-step { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.9rem; }
