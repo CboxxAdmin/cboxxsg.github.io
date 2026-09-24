@@ -1479,10 +1479,94 @@ const payErr = {
   fontWeight: 600,
   margin: "4px 0 0"
 };
+
+/* ---------- Saved account: payment methods kept on this device ----------
+   Demo stores only brand, last 4 digits, expiry and name. Never the full card number or CVC.
+   Live version: save cards with Stripe (SetupIntent) and keep only Stripe's payment method ID. */
+const ACCOUNT_KEY = "seaport:account";
+function loadAccount() {
+  try {
+    return JSON.parse(localStorage.getItem(ACCOUNT_KEY)) || {
+      cards: [],
+      defaultKey: null
+    };
+  } catch {
+    return {
+      cards: [],
+      defaultKey: null
+    };
+  }
+}
+function saveAccount(a) {
+  try {
+    localStorage.setItem(ACCOUNT_KEY, JSON.stringify(a));
+  } catch {}
+}
+function defaultSavedCard(acc = loadAccount()) {
+  if (!acc.cards.length) return null;
+  return acc.cards.find(c => c.id === acc.defaultKey) || acc.cards[0];
+}
+// Which payment option each checkout starts on.
+function defaultMethodKey() {
+  const acc = loadAccount();
+  if (acc.defaultKey && acc.defaultKey.startsWith("card_") && acc.cards.some(c => c.id === acc.defaultKey)) return "saved";
+  if (acc.defaultKey && PAY_METHODS.some(m => m.key === acc.defaultKey)) return acc.defaultKey;
+  return acc.cards.length ? "saved" : "card";
+}
+function payMethodInfo(key) {
+  if (key === "saved") {
+    const c = defaultSavedCard();
+    return {
+      key: "saved",
+      label: c ? `${c.brand} •••• ${c.last4}` : "Saved card",
+      sub: c ? `Saved card, expires ${c.exp}` : "",
+      icon: "credit-card"
+    };
+  }
+  return PAY_METHODS.find(m => m.key === key) || PAY_METHODS[0];
+}
+function rememberCard(card, makeDefault = false) {
+  const digits = (card.number || "").replace(/\D/g, "");
+  if (!luhnOk(digits)) return null;
+  const acc = loadAccount();
+  const entry = {
+    id: `card_${digits.slice(-4)}_${card.expiry.replace(/\D/g, "")}`,
+    brand: cardBrand(digits) || "Card",
+    last4: digits.slice(-4),
+    exp: card.expiry.replace(/\s/g, ""),
+    name: card.name.trim()
+  };
+  if (!acc.cards.some(c => c.id === entry.id)) acc.cards.push(entry);
+  if (makeDefault || !acc.defaultKey) acc.defaultKey = entry.id;
+  saveAccount(acc);
+  return entry;
+}
+// Called when a payment succeeds: saves a new card if the box was ticked, and returns the receipt label.
+function settleMethod(method, card) {
+  if (method === "saved") {
+    const c = defaultSavedCard();
+    return c ? `${c.brand} ending ${c.last4}` : "Saved card";
+  }
+  if (method === "card") {
+    if (card.save !== false) rememberCard(card);
+    return `${cardBrand(card.number) || "Card"} ending ${card.number.replace(/\D/g, "").slice(-4)}`;
+  }
+  return payMethodInfo(method).label;
+}
+function accountNumber(e164) {
+  let h = 2166136261;
+  for (const ch of e164) {
+    h ^= ch.charCodeAt(0);
+    h = Math.imul(h, 16777619) >>> 0;
+  }
+  const n = String(h).padStart(10, "0") + String(h * 7 % 99991).padStart(5, "0");
+  return `SP ${n.slice(0, 4)} ${n.slice(4, 8)} ${n.slice(8, 12)}`;
+}
 function CardForm({
   card,
   setCard,
-  errors
+  errors,
+  hideSave
 }) {
   const brand = cardBrand(card.number);
   const set = (k, v) => setCard(c => ({
@@ -1610,7 +1694,25 @@ function CardForm({
     id: "cc-name-err",
     role: "alert",
     style: payErr
-  }, errors.name)));
+  }, errors.name)), !hideSave && /*#__PURE__*/React.createElement("label", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      fontSize: 13,
+      color: "var(--ink)",
+      cursor: "pointer"
+    }
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    checked: card.save !== false,
+    onChange: e => set("save", e.target.checked),
+    style: {
+      width: 18,
+      height: 18,
+      accentColor: "#9C0018"
+    }
+  }), "Save this card to My account for faster checkout"));
 }
 function PayMethodPicker({
   value,
@@ -1635,7 +1737,7 @@ function PayMethodPicker({
       flexDirection: "column",
       gap: 6
     }
-  }, PAY_METHODS.map(m => {
+  }, [...(defaultSavedCard() ? [payMethodInfo("saved")] : []), ...PAY_METHODS].map(m => {
     const checked = value === m.key;
     return /*#__PURE__*/React.createElement("label", {
       key: m.key,
@@ -1682,12 +1784,23 @@ function PayMethodPicker({
       }
     }, /*#__PURE__*/React.createElement("span", {
       style: {
-        display: "block",
+        display: "flex",
+        alignItems: "center",
+        gap: 6,
         fontSize: 13.5,
         fontWeight: 600,
         color: "var(--ink)"
       }
-    }, m.label), /*#__PURE__*/React.createElement("span", {
+    }, m.label, m.key === "saved" && /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 10,
+        fontWeight: 800,
+        color: "var(--green-ink)",
+        background: "var(--chip)",
+        borderRadius: 4,
+        padding: "1px 5px"
+      }
+    }, "SAVED")), /*#__PURE__*/React.createElement("span", {
       style: {
         display: "block",
         fontSize: 11.5,
@@ -1796,7 +1909,7 @@ function MenuModal({
   const [offer, setOffer] = useState(initialOffer || null);
   const [receipt, setReceipt] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
-  const [method, setMethod] = useState("card");
+  const [method, setMethod] = useState(defaultMethodKey);
   const [card, setCard] = useState({
     number: "",
     expiry: "",
@@ -2034,7 +2147,7 @@ function MenuModal({
         saving,
         total,
         points,
-        method: method === "card" ? `${cardBrand(card.number) || "Card"} ending ${card.number.replace(/\D/g, "").slice(-4)}` : PAY_METHODS.find(m => m.key === method).label,
+        method: settleMethod(method, card),
         paidAt: new Date().toISOString(),
         demo: true
       };
@@ -2390,7 +2503,7 @@ function MenuModal({
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "credit-card",
     size: 17
-  }), " ", tooSmall ? `Minimum payment is ${money(PAYMENTS.minimumCharge)}` : busy ? "Processing..." : stripeMode || method === "card" ? `Pay ${money(total)}` : `Pay ${money(total)} with ${PAY_METHODS.find(m => m.key === method).label}`), !canCharge && /*#__PURE__*/React.createElement("p", {
+  }), " ", tooSmall ? `Minimum payment is ${money(PAYMENTS.minimumCharge)}` : busy ? "Processing..." : stripeMode || method === "card" ? `Pay ${money(total)}` : `Pay ${money(total)} with ${payMethodInfo(method).label}`), !canCharge && /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 11.5,
       color: "var(--muted)",
@@ -2420,7 +2533,7 @@ function MenuModal({
       margin: 0,
       color: "var(--ink)"
     }
-  }, method === "card" ? "Processing payment..." : `Waiting for ${PAY_METHODS.find(m => m.key === method).label}...`)), step === "error" && /*#__PURE__*/React.createElement("div", {
+  }, method === "card" || method === "saved" ? "Processing payment..." : `Waiting for ${payMethodInfo(method).label}...`)), step === "error" && /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "24px 4px 4px"
     }
@@ -2694,6 +2807,630 @@ function flagEmoji(cc) {
   if (!cc || cc.length !== 2) return "";
   return cc.toUpperCase().replace(/./g, ch => String.fromCodePoint(127397 + ch.charCodeAt(0)));
 }
+
+/* ---------- Registration page languages ----------
+   Every string on the sign up screens, in 16 languages. Country names come from the browser in the chosen language. */
+const REG_LANGS = [["en", "English"], ["zh-Hans", "简体中文"], ["zh-Hant", "繁體中文"], ["ja", "日本語"], ["ko", "한국어"], ["ms", "Bahasa Melayu"], ["id", "Bahasa Indonesia"], ["th", "ไทย"], ["vi", "Tiếng Việt"], ["ta", "தமிழ்"], ["hi", "हिन्दी"], ["fr", "Français"], ["de", "Deutsch"], ["es", "Español"], ["ru", "Русский"], ["ar", "العربية"]];
+const RTL_LANGS = ["ar"];
+const REG_I18N = {
+  en: {
+    welcome: "Welcome to Singapore",
+    intro: "Register with your mobile number to unlock deals at local food stalls, attractions and shops during your trip.",
+    checkTitle: "Check your messages",
+    sent: "We sent a 6 digit code to {phone}.",
+    step: "Step {n} of 2",
+    country: "Country or region",
+    countryOpen: "Type a country or code, e.g. Japan or +81",
+    countryChoose: "Choose your country",
+    noMatch: "No country matches \"{q}\". Try another name or the dial code.",
+    mobile: "Mobile number",
+    help: "Your home number or a local SIM both work. You can also type the full number starting with +.",
+    sms: "Send me deals by SMS during my trip (optional)",
+    send: "Send code",
+    sending: "Sending code...",
+    privacy: "We use your number to verify you and keep your points. Your member ID is a SHA-256 hash of it, not the number itself. Standard SMS rates from your carrier may apply.",
+    code: "6 digit code",
+    verify: "Verify and start exploring",
+    checking: "Checking...",
+    change: "Change number",
+    resendIn: "Resend code in {s}s",
+    resend: "Resend code",
+    demo: "Demo preview: SMS sending isn't connected yet, so any 6 digit code will work.",
+    eEmpty: "Enter your mobile number.",
+    eLandline: "This looks like a landline. Use a mobile number that can receive SMS.",
+    eShort: "This number is too short for the country selected.",
+    eLong: "This number is too long for the country selected.",
+    eCC: "That country code isn't recognised. Check the digits after the +.",
+    eInvalid: "This isn't a valid number for the country selected. Check the country and try again.",
+    ePlus: "Start with + and your country code, for example +44.",
+    eDigits: "Enter 7 to 15 digits after the +.",
+    eCode: "Enter the 6 digit code from the SMS.",
+    language: "Language"
+  },
+  "zh-Hans": {
+    welcome: "欢迎来到新加坡",
+    intro: "用手机号码注册，即可在旅途中享受本地小贩摊位、景点和商店的优惠。",
+    checkTitle: "请查看短信",
+    sent: "我们已向 {phone} 发送了 6 位验证码。",
+    step: "第 {n} 步，共 2 步",
+    country: "国家或地区",
+    countryOpen: "输入国家或区号，例如 日本 或 +81",
+    countryChoose: "选择你的国家",
+    noMatch: "没有与“{q}”匹配的国家。请尝试其他名称或区号。",
+    mobile: "手机号码",
+    help: "使用本国号码或本地 SIM 卡均可。也可以输入以 + 开头的完整号码。",
+    sms: "旅途中通过短信给我发送优惠（可选）",
+    send: "发送验证码",
+    sending: "正在发送...",
+    privacy: "我们使用你的号码进行验证并保存你的积分。你的会员 ID 是号码的 SHA-256 哈希值，而不是号码本身。运营商可能会收取标准短信费用。",
+    code: "6 位验证码",
+    verify: "验证并开始探索",
+    checking: "正在验证...",
+    change: "更换号码",
+    resendIn: "{s} 秒后可重新发送",
+    resend: "重新发送验证码",
+    demo: "演示版：短信功能尚未接通，输入任意 6 位数字即可。",
+    eEmpty: "请输入你的手机号码。",
+    eLandline: "这看起来是固定电话号码。请使用可以接收短信的手机号码。",
+    eShort: "对于所选国家，这个号码太短了。",
+    eLong: "对于所选国家，这个号码太长了。",
+    eCC: "无法识别该国家代码。请检查 + 后面的数字。",
+    eInvalid: "这不是所选国家的有效号码。请检查国家后重试。",
+    ePlus: "请以 + 和国家代码开头，例如 +44。",
+    eDigits: "请在 + 后输入 7 到 15 位数字。",
+    eCode: "请输入短信中的 6 位验证码。",
+    language: "语言"
+  },
+  "zh-Hant": {
+    welcome: "歡迎來到新加坡",
+    intro: "用手機號碼註冊，即可在旅途中享受本地小販攤位、景點和商店的優惠。",
+    checkTitle: "請查看簡訊",
+    sent: "我們已向 {phone} 發送了 6 位驗證碼。",
+    step: "第 {n} 步，共 2 步",
+    country: "國家或地區",
+    countryOpen: "輸入國家或區號，例如 日本 或 +81",
+    countryChoose: "選擇你的國家",
+    noMatch: "沒有與「{q}」相符的國家。請嘗試其他名稱或區號。",
+    mobile: "手機號碼",
+    help: "使用本國號碼或本地 SIM 卡均可。也可以輸入以 + 開頭的完整號碼。",
+    sms: "旅途中透過簡訊傳送優惠給我（選填）",
+    send: "發送驗證碼",
+    sending: "正在發送...",
+    privacy: "我們使用你的號碼進行驗證並保存你的積分。你的會員 ID 是號碼的 SHA-256 雜湊值，而不是號碼本身。電信業者可能會收取標準簡訊費用。",
+    code: "6 位驗證碼",
+    verify: "驗證並開始探索",
+    checking: "正在驗證...",
+    change: "更換號碼",
+    resendIn: "{s} 秒後可重新發送",
+    resend: "重新發送驗證碼",
+    demo: "展示版：簡訊功能尚未接通，輸入任意 6 位數字即可。",
+    eEmpty: "請輸入你的手機號碼。",
+    eLandline: "這看起來是市話號碼。請使用可以接收簡訊的手機號碼。",
+    eShort: "對於所選國家，這個號碼太短了。",
+    eLong: "對於所選國家，這個號碼太長了。",
+    eCC: "無法識別該國家代碼。請檢查 + 後面的數字。",
+    eInvalid: "這不是所選國家的有效號碼。請檢查國家後再試一次。",
+    ePlus: "請以 + 和國家代碼開頭，例如 +44。",
+    eDigits: "請在 + 後輸入 7 到 15 位數字。",
+    eCode: "請輸入簡訊中的 6 位驗證碼。",
+    language: "語言"
+  },
+  ja: {
+    welcome: "シンガポールへようこそ",
+    intro: "携帯電話番号で登録すると、旅行中に地元の屋台、観光スポット、ショップのお得な特典を利用できます。",
+    checkTitle: "メッセージを確認してください",
+    sent: "{phone} に6桁のコードを送信しました。",
+    step: "ステップ {n}/2",
+    country: "国または地域",
+    countryOpen: "国名または国番号を入力（例：日本、+81）",
+    countryChoose: "国を選択",
+    noMatch: "「{q}」に一致する国はありません。別の名前か国番号をお試しください。",
+    mobile: "携帯電話番号",
+    help: "ご自身の番号でも、現地のSIMでも利用できます。+から始まる完全な番号も入力できます。",
+    sms: "旅行中にSMSでお得情報を受け取る（任意）",
+    send: "コードを送信",
+    sending: "送信中...",
+    privacy: "番号は本人確認とポイントの保存に使用します。会員IDは番号そのものではなく、番号のSHA-256ハッシュです。通信事業者の標準SMS料金がかかる場合があります。",
+    code: "6桁のコード",
+    verify: "確認して探索を始める",
+    checking: "確認中...",
+    change: "番号を変更",
+    resendIn: "{s}秒後に再送信できます",
+    resend: "コードを再送信",
+    demo: "デモ版：SMS送信はまだ接続されていないため、任意の6桁の数字で進めます。",
+    eEmpty: "携帯電話番号を入力してください。",
+    eLandline: "固定電話の番号のようです。SMSを受信できる携帯電話番号を使用してください。",
+    eShort: "選択した国の番号としては短すぎます。",
+    eLong: "選択した国の番号としては長すぎます。",
+    eCC: "その国番号は認識できません。+の後の数字を確認してください。",
+    eInvalid: "選択した国の有効な番号ではありません。国を確認してもう一度お試しください。",
+    ePlus: "+と国番号から入力してください（例：+44）。",
+    eDigits: "+の後に7〜15桁の数字を入力してください。",
+    eCode: "SMSに記載された6桁のコードを入力してください。",
+    language: "言語"
+  },
+  ko: {
+    welcome: "싱가포르에 오신 것을 환영합니다",
+    intro: "휴대폰 번호로 가입하고 여행 중 현지 호커 노점, 관광지, 상점의 혜택을 받아보세요.",
+    checkTitle: "메시지를 확인하세요",
+    sent: "{phone}(으)로 6자리 코드를 보냈습니다.",
+    step: "2단계 중 {n}단계",
+    country: "국가 또는 지역",
+    countryOpen: "국가명 또는 국가 번호 입력 (예: 일본, +81)",
+    countryChoose: "국가를 선택하세요",
+    noMatch: "\"{q}\"와(과) 일치하는 국가가 없습니다. 다른 이름이나 국가 번호로 검색해 보세요.",
+    mobile: "휴대폰 번호",
+    help: "본국 번호나 현지 SIM 모두 사용할 수 있습니다. +로 시작하는 전체 번호를 입력해도 됩니다.",
+    sms: "여행 중 SMS로 혜택 받기 (선택)",
+    send: "코드 보내기",
+    sending: "보내는 중...",
+    privacy: "번호는 본인 확인과 포인트 보관에 사용됩니다. 회원 ID는 번호 자체가 아닌 번호의 SHA-256 해시입니다. 통신사의 표준 SMS 요금이 부과될 수 있습니다.",
+    code: "6자리 코드",
+    verify: "인증하고 둘러보기 시작",
+    checking: "확인 중...",
+    change: "번호 변경",
+    resendIn: "{s}초 후 다시 보내기",
+    resend: "코드 다시 보내기",
+    demo: "데모: SMS 발송이 아직 연결되지 않아 아무 6자리 숫자나 입력하면 됩니다.",
+    eEmpty: "휴대폰 번호를 입력하세요.",
+    eLandline: "유선 전화번호로 보입니다. SMS를 받을 수 있는 휴대폰 번호를 사용하세요.",
+    eShort: "선택한 국가의 번호로는 너무 짧습니다.",
+    eLong: "선택한 국가의 번호로는 너무 깁니다.",
+    eCC: "인식할 수 없는 국가 번호입니다. + 뒤의 숫자를 확인하세요.",
+    eInvalid: "선택한 국가의 유효한 번호가 아닙니다. 국가를 확인하고 다시 시도하세요.",
+    ePlus: "+와 국가 번호로 시작하세요. 예: +44",
+    eDigits: "+ 뒤에 7~15자리 숫자를 입력하세요.",
+    eCode: "SMS로 받은 6자리 코드를 입력하세요.",
+    language: "언어"
+  },
+  ms: {
+    welcome: "Selamat datang ke Singapura",
+    intro: "Daftar dengan nombor telefon bimbit anda untuk menikmati tawaran di gerai makanan, tarikan dan kedai tempatan sepanjang perjalanan anda.",
+    checkTitle: "Semak mesej anda",
+    sent: "Kami telah menghantar kod 6 digit ke {phone}.",
+    step: "Langkah {n} daripada 2",
+    country: "Negara atau wilayah",
+    countryOpen: "Taip negara atau kod, contohnya Jepun atau +81",
+    countryChoose: "Pilih negara anda",
+    noMatch: "Tiada negara yang sepadan dengan \"{q}\". Cuba nama lain atau kod dail.",
+    mobile: "Nombor telefon bimbit",
+    help: "Nombor dari negara anda atau SIM tempatan boleh digunakan. Anda juga boleh menaip nombor penuh bermula dengan +.",
+    sms: "Hantar tawaran melalui SMS semasa perjalanan saya (pilihan)",
+    send: "Hantar kod",
+    sending: "Menghantar kod...",
+    privacy: "Kami menggunakan nombor anda untuk mengesahkan anda dan menyimpan mata ganjaran anda. ID ahli anda ialah cincangan SHA-256 nombor itu, bukan nombor itu sendiri. Caj SMS standard pembawa anda mungkin dikenakan.",
+    code: "Kod 6 digit",
+    verify: "Sahkan dan mula meneroka",
+    checking: "Menyemak...",
+    change: "Tukar nombor",
+    resendIn: "Hantar semula kod dalam {s}s",
+    resend: "Hantar semula kod",
+    demo: "Pratonton demo: penghantaran SMS belum disambungkan, jadi sebarang kod 6 digit boleh digunakan.",
+    eEmpty: "Masukkan nombor telefon bimbit anda.",
+    eLandline: "Ini kelihatan seperti nombor talian tetap. Gunakan nombor telefon bimbit yang boleh menerima SMS.",
+    eShort: "Nombor ini terlalu pendek untuk negara yang dipilih.",
+    eLong: "Nombor ini terlalu panjang untuk negara yang dipilih.",
+    eCC: "Kod negara itu tidak dikenali. Semak digit selepas +.",
+    eInvalid: "Ini bukan nombor yang sah untuk negara yang dipilih. Semak negara dan cuba lagi.",
+    ePlus: "Mulakan dengan + dan kod negara anda, contohnya +44.",
+    eDigits: "Masukkan 7 hingga 15 digit selepas +.",
+    eCode: "Masukkan kod 6 digit daripada SMS.",
+    language: "Bahasa"
+  },
+  id: {
+    welcome: "Selamat datang di Singapura",
+    intro: "Daftar dengan nomor ponsel Anda untuk mendapatkan penawaran di warung makan, tempat wisata, dan toko lokal selama perjalanan Anda.",
+    checkTitle: "Periksa pesan Anda",
+    sent: "Kami telah mengirim kode 6 digit ke {phone}.",
+    step: "Langkah {n} dari 2",
+    country: "Negara atau wilayah",
+    countryOpen: "Ketik negara atau kode, misalnya Jepang atau +81",
+    countryChoose: "Pilih negara Anda",
+    noMatch: "Tidak ada negara yang cocok dengan \"{q}\". Coba nama lain atau kode telepon.",
+    mobile: "Nomor ponsel",
+    help: "Nomor dari negara Anda atau SIM lokal bisa digunakan. Anda juga bisa mengetik nomor lengkap yang diawali dengan +.",
+    sms: "Kirimi saya penawaran lewat SMS selama perjalanan (opsional)",
+    send: "Kirim kode",
+    sending: "Mengirim kode...",
+    privacy: "Kami menggunakan nomor Anda untuk verifikasi dan menyimpan poin Anda. ID anggota Anda adalah hash SHA-256 dari nomor tersebut, bukan nomornya sendiri. Tarif SMS standar dari operator Anda mungkin berlaku.",
+    code: "Kode 6 digit",
+    verify: "Verifikasi dan mulai menjelajah",
+    checking: "Memeriksa...",
+    change: "Ganti nomor",
+    resendIn: "Kirim ulang kode dalam {s} dtk",
+    resend: "Kirim ulang kode",
+    demo: "Pratinjau demo: pengiriman SMS belum terhubung, jadi kode 6 digit apa pun bisa digunakan.",
+    eEmpty: "Masukkan nomor ponsel Anda.",
+    eLandline: "Ini tampaknya nomor telepon rumah. Gunakan nomor ponsel yang bisa menerima SMS.",
+    eShort: "Nomor ini terlalu pendek untuk negara yang dipilih.",
+    eLong: "Nomor ini terlalu panjang untuk negara yang dipilih.",
+    eCC: "Kode negara tersebut tidak dikenali. Periksa angka setelah +.",
+    eInvalid: "Ini bukan nomor yang valid untuk negara yang dipilih. Periksa negara lalu coba lagi.",
+    ePlus: "Awali dengan + dan kode negara Anda, misalnya +44.",
+    eDigits: "Masukkan 7 sampai 15 angka setelah +.",
+    eCode: "Masukkan kode 6 digit dari SMS.",
+    language: "Bahasa"
+  },
+  th: {
+    welcome: "ยินดีต้อนรับสู่สิงคโปร์",
+    intro: "ลงทะเบียนด้วยหมายเลขโทรศัพท์มือถือเพื่อรับดีลจากร้านอาหารริมทาง สถานที่ท่องเที่ยว และร้านค้าท้องถิ่นตลอดการเดินทาง",
+    checkTitle: "ตรวจสอบข้อความของคุณ",
+    sent: "เราได้ส่งรหัส 6 หลักไปที่ {phone} แล้ว",
+    step: "ขั้นตอนที่ {n} จาก 2",
+    country: "ประเทศหรือภูมิภาค",
+    countryOpen: "พิมพ์ชื่อประเทศหรือรหัส เช่น ญี่ปุ่น หรือ +81",
+    countryChoose: "เลือกประเทศของคุณ",
+    noMatch: "ไม่พบประเทศที่ตรงกับ \"{q}\" ลองใช้ชื่ออื่นหรือรหัสโทรศัพท์",
+    mobile: "หมายเลขโทรศัพท์มือถือ",
+    help: "ใช้ได้ทั้งเบอร์จากประเทศของคุณหรือซิมท้องถิ่น หรือพิมพ์เบอร์เต็มที่ขึ้นต้นด้วย + ก็ได้",
+    sms: "ส่งดีลให้ฉันทาง SMS ระหว่างการเดินทาง (ไม่บังคับ)",
+    send: "ส่งรหัส",
+    sending: "กำลังส่งรหัส...",
+    privacy: "เราใช้หมายเลขของคุณเพื่อยืนยันตัวตนและเก็บคะแนนสะสม รหัสสมาชิกของคุณคือค่าแฮช SHA-256 ของหมายเลข ไม่ใช่ตัวหมายเลขเอง อาจมีค่าบริการ SMS ตามอัตรามาตรฐานของผู้ให้บริการ",
+    code: "รหัส 6 หลัก",
+    verify: "ยืนยันและเริ่มสำรวจ",
+    checking: "กำลังตรวจสอบ...",
+    change: "เปลี่ยนหมายเลข",
+    resendIn: "ส่งรหัสอีกครั้งได้ใน {s} วินาที",
+    resend: "ส่งรหัสอีกครั้ง",
+    demo: "เวอร์ชันสาธิต: ยังไม่ได้เชื่อมต่อการส่ง SMS จึงใช้รหัส 6 หลักใดก็ได้",
+    eEmpty: "กรุณาใส่หมายเลขโทรศัพท์มือถือ",
+    eLandline: "หมายเลขนี้ดูเหมือนเป็นโทรศัพท์บ้าน กรุณาใช้หมายเลขมือถือที่รับ SMS ได้",
+    eShort: "หมายเลขนี้สั้นเกินไปสำหรับประเทศที่เลือก",
+    eLong: "หมายเลขนี้ยาวเกินไปสำหรับประเทศที่เลือก",
+    eCC: "ไม่รู้จักรหัสประเทศนี้ กรุณาตรวจสอบตัวเลขหลัง +",
+    eInvalid: "หมายเลขนี้ไม่ถูกต้องสำหรับประเทศที่เลือก กรุณาตรวจสอบประเทศแล้วลองอีกครั้ง",
+    ePlus: "เริ่มด้วย + และรหัสประเทศ เช่น +44",
+    eDigits: "ใส่ตัวเลข 7 ถึง 15 หลักหลัง +",
+    eCode: "กรุณาใส่รหัส 6 หลักจาก SMS",
+    language: "ภาษา"
+  },
+  vi: {
+    welcome: "Chào mừng đến Singapore",
+    intro: "Đăng ký bằng số điện thoại di động để nhận ưu đãi tại các quầy ăn, điểm tham quan và cửa hàng địa phương trong suốt chuyến đi.",
+    checkTitle: "Kiểm tra tin nhắn của bạn",
+    sent: "Chúng tôi đã gửi mã 6 chữ số đến {phone}.",
+    step: "Bước {n}/2",
+    country: "Quốc gia hoặc khu vực",
+    countryOpen: "Nhập tên quốc gia hoặc mã, ví dụ Nhật Bản hoặc +81",
+    countryChoose: "Chọn quốc gia của bạn",
+    noMatch: "Không có quốc gia nào khớp với \"{q}\". Hãy thử tên khác hoặc mã quay số.",
+    mobile: "Số điện thoại di động",
+    help: "Có thể dùng số ở nước bạn hoặc SIM địa phương. Bạn cũng có thể nhập số đầy đủ bắt đầu bằng +.",
+    sms: "Gửi ưu đãi cho tôi qua SMS trong chuyến đi (không bắt buộc)",
+    send: "Gửi mã",
+    sending: "Đang gửi mã...",
+    privacy: "Chúng tôi dùng số của bạn để xác minh và lưu điểm thưởng. ID thành viên của bạn là mã băm SHA-256 của số đó, không phải chính số điện thoại. Có thể áp dụng cước SMS tiêu chuẩn của nhà mạng.",
+    code: "Mã 6 chữ số",
+    verify: "Xác minh và bắt đầu khám phá",
+    checking: "Đang kiểm tra...",
+    change: "Đổi số",
+    resendIn: "Gửi lại mã sau {s} giây",
+    resend: "Gửi lại mã",
+    demo: "Bản xem thử: chưa kết nối gửi SMS nên mã 6 chữ số bất kỳ đều dùng được.",
+    eEmpty: "Nhập số điện thoại di động của bạn.",
+    eLandline: "Đây có vẻ là số điện thoại cố định. Hãy dùng số di động có thể nhận SMS.",
+    eShort: "Số này quá ngắn đối với quốc gia đã chọn.",
+    eLong: "Số này quá dài đối với quốc gia đã chọn.",
+    eCC: "Không nhận diện được mã quốc gia. Kiểm tra các chữ số sau dấu +.",
+    eInvalid: "Đây không phải là số hợp lệ của quốc gia đã chọn. Kiểm tra quốc gia và thử lại.",
+    ePlus: "Bắt đầu bằng + và mã quốc gia, ví dụ +44.",
+    eDigits: "Nhập từ 7 đến 15 chữ số sau dấu +.",
+    eCode: "Nhập mã 6 chữ số trong SMS.",
+    language: "Ngôn ngữ"
+  },
+  ta: {
+    welcome: "சிங்கப்பூருக்கு வரவேற்கிறோம்",
+    intro: "உங்கள் பயணத்தின் போது உள்ளூர் உணவுக் கடைகள், சுற்றுலாத் தலங்கள் மற்றும் கடைகளில் சலுகைகளைப் பெற, உங்கள் கைபேசி எண்ணுடன் பதிவு செய்யுங்கள்.",
+    checkTitle: "உங்கள் செய்திகளைப் பாருங்கள்",
+    sent: "{phone} எண்ணுக்கு 6 இலக்கக் குறியீட்டை அனுப்பியுள்ளோம்.",
+    step: "படி {n} / 2",
+    country: "நாடு அல்லது பிராந்தியம்",
+    countryOpen: "நாட்டின் பெயர் அல்லது குறியீட்டை உள்ளிடவும், எ.கா. ஜப்பான் அல்லது +81",
+    countryChoose: "உங்கள் நாட்டைத் தேர்ந்தெடுக்கவும்",
+    noMatch: "\"{q}\" உடன் பொருந்தும் நாடு இல்லை. வேறு பெயர் அல்லது அழைப்புக் குறியீட்டை முயற்சிக்கவும்.",
+    mobile: "கைபேசி எண்",
+    help: "உங்கள் நாட்டு எண் அல்லது உள்ளூர் SIM இரண்டும் வேலை செய்யும். + உடன் தொடங்கும் முழு எண்ணையும் உள்ளிடலாம்.",
+    sms: "பயணத்தின் போது SMS மூலம் சலுகைகளை அனுப்பவும் (விருப்பத்தேர்வு)",
+    send: "குறியீட்டை அனுப்பு",
+    sending: "அனுப்புகிறது...",
+    privacy: "உங்களைச் சரிபார்க்கவும் உங்கள் புள்ளிகளைச் சேமிக்கவும் உங்கள் எண்ணைப் பயன்படுத்துகிறோம். உங்கள் உறுப்பினர் ID என்பது எண்ணின் SHA-256 ஹாஷ், எண் அல்ல. உங்கள் சேவை வழங்குநரின் நிலையான SMS கட்டணம் விதிக்கப்படலாம்.",
+    code: "6 இலக்கக் குறியீடு",
+    verify: "சரிபார்த்து ஆராயத் தொடங்கு",
+    checking: "சரிபார்க்கிறது...",
+    change: "எண்ணை மாற்று",
+    resendIn: "{s} வினாடிகளில் மீண்டும் அனுப்பலாம்",
+    resend: "குறியீட்டை மீண்டும் அனுப்பு",
+    demo: "டெமோ: SMS அனுப்புதல் இன்னும் இணைக்கப்படவில்லை, எனவே எந்த 6 இலக்கக் குறியீடும் வேலை செய்யும்.",
+    eEmpty: "உங்கள் கைபேசி எண்ணை உள்ளிடவும்.",
+    eLandline: "இது தரைவழி எண் போல் தெரிகிறது. SMS பெறக்கூடிய கைபேசி எண்ணைப் பயன்படுத்தவும்.",
+    eShort: "தேர்ந்தெடுத்த நாட்டிற்கு இந்த எண் மிகவும் குறுகியது.",
+    eLong: "தேர்ந்தெடுத்த நாட்டிற்கு இந்த எண் மிகவும் நீளமானது.",
+    eCC: "அந்த நாட்டுக் குறியீடு அடையாளம் காணப்படவில்லை. + க்குப் பின் உள்ள இலக்கங்களைச் சரிபார்க்கவும்.",
+    eInvalid: "தேர்ந்தெடுத்த நாட்டிற்கு இது சரியான எண் அல்ல. நாட்டைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.",
+    ePlus: "+ மற்றும் உங்கள் நாட்டுக் குறியீட்டுடன் தொடங்கவும், எ.கா. +44.",
+    eDigits: "+ க்குப் பின் 7 முதல் 15 இலக்கங்களை உள்ளிடவும்.",
+    eCode: "SMS இல் வந்த 6 இலக்கக் குறியீட்டை உள்ளிடவும்.",
+    language: "மொழி"
+  },
+  hi: {
+    welcome: "सिंगापुर में आपका स्वागत है",
+    intro: "अपनी यात्रा के दौरान स्थानीय फ़ूड स्टॉल, पर्यटन स्थलों और दुकानों पर ऑफ़र पाने के लिए अपने मोबाइल नंबर से रजिस्टर करें।",
+    checkTitle: "अपने संदेश देखें",
+    sent: "हमने {phone} पर 6 अंकों का कोड भेजा है।",
+    step: "चरण {n} / 2",
+    country: "देश या क्षेत्र",
+    countryOpen: "देश का नाम या कोड लिखें, जैसे जापान या +81",
+    countryChoose: "अपना देश चुनें",
+    noMatch: "\"{q}\" से मेल खाता कोई देश नहीं मिला। कोई दूसरा नाम या डायल कोड आज़माएँ।",
+    mobile: "मोबाइल नंबर",
+    help: "आपके देश का नंबर या स्थानीय सिम, दोनों चलेंगे। आप + से शुरू होने वाला पूरा नंबर भी लिख सकते हैं।",
+    sms: "यात्रा के दौरान मुझे SMS से ऑफ़र भेजें (वैकल्पिक)",
+    send: "कोड भेजें",
+    sending: "कोड भेजा जा रहा है...",
+    privacy: "हम आपके नंबर का उपयोग आपकी पुष्टि करने और आपके पॉइंट सहेजने के लिए करते हैं। आपका सदस्य ID नंबर का SHA-256 हैश है, स्वयं नंबर नहीं। आपके मोबाइल ऑपरेटर की सामान्य SMS दरें लागू हो सकती हैं।",
+    code: "6 अंकों का कोड",
+    verify: "पुष्टि करें और घूमना शुरू करें",
+    checking: "जाँच हो रही है...",
+    change: "नंबर बदलें",
+    resendIn: "{s} सेकंड में कोड दोबारा भेजें",
+    resend: "कोड दोबारा भेजें",
+    demo: "डेमो: SMS भेजना अभी जुड़ा नहीं है, इसलिए कोई भी 6 अंकों का कोड चलेगा।",
+    eEmpty: "अपना मोबाइल नंबर दर्ज करें।",
+    eLandline: "यह लैंडलाइन नंबर लगता है। ऐसा मोबाइल नंबर इस्तेमाल करें जिस पर SMS आ सके।",
+    eShort: "चुने गए देश के लिए यह नंबर बहुत छोटा है।",
+    eLong: "चुने गए देश के लिए यह नंबर बहुत लंबा है।",
+    eCC: "यह देश कोड पहचाना नहीं गया। + के बाद के अंक जाँचें।",
+    eInvalid: "यह चुने गए देश का मान्य नंबर नहीं है। देश जाँचें और फिर से कोशिश करें।",
+    ePlus: "+ और अपने देश के कोड से शुरू करें, जैसे +44।",
+    eDigits: "+ के बाद 7 से 15 अंक दर्ज करें।",
+    eCode: "SMS में आया 6 अंकों का कोड दर्ज करें।",
+    language: "भाषा"
+  },
+  fr: {
+    welcome: "Bienvenue à Singapour",
+    intro: "Inscrivez-vous avec votre numéro de mobile pour profiter d'offres dans les stands de street food, attractions et boutiques locales pendant votre séjour.",
+    checkTitle: "Consultez vos messages",
+    sent: "Nous avons envoyé un code à 6 chiffres au {phone}.",
+    step: "Étape {n} sur 2",
+    country: "Pays ou région",
+    countryOpen: "Saisissez un pays ou un indicatif, par ex. Japon ou +81",
+    countryChoose: "Choisissez votre pays",
+    noMatch: "Aucun pays ne correspond à « {q} ». Essayez un autre nom ou l'indicatif.",
+    mobile: "Numéro de mobile",
+    help: "Votre numéro habituel ou une carte SIM locale fonctionnent tous les deux. Vous pouvez aussi saisir le numéro complet commençant par +.",
+    sms: "M'envoyer des offres par SMS pendant mon séjour (facultatif)",
+    send: "Envoyer le code",
+    sending: "Envoi du code...",
+    privacy: "Nous utilisons votre numéro pour vous vérifier et conserver vos points. Votre identifiant de membre est un hachage SHA-256 du numéro, pas le numéro lui-même. Les tarifs SMS standard de votre opérateur peuvent s'appliquer.",
+    code: "Code à 6 chiffres",
+    verify: "Valider et commencer à explorer",
+    checking: "Vérification...",
+    change: "Changer de numéro",
+    resendIn: "Renvoyer le code dans {s} s",
+    resend: "Renvoyer le code",
+    demo: "Version de démonstration : l'envoi de SMS n'est pas encore connecté, n'importe quel code à 6 chiffres fonctionne.",
+    eEmpty: "Saisissez votre numéro de mobile.",
+    eLandline: "Ce numéro semble être une ligne fixe. Utilisez un numéro de mobile pouvant recevoir des SMS.",
+    eShort: "Ce numéro est trop court pour le pays sélectionné.",
+    eLong: "Ce numéro est trop long pour le pays sélectionné.",
+    eCC: "Cet indicatif pays n'est pas reconnu. Vérifiez les chiffres après le +.",
+    eInvalid: "Ce numéro n'est pas valide pour le pays sélectionné. Vérifiez le pays et réessayez.",
+    ePlus: "Commencez par + et l'indicatif de votre pays, par exemple +44.",
+    eDigits: "Saisissez 7 à 15 chiffres après le +.",
+    eCode: "Saisissez le code à 6 chiffres reçu par SMS.",
+    language: "Langue"
+  },
+  de: {
+    welcome: "Willkommen in Singapur",
+    intro: "Registriere dich mit deiner Handynummer und sichere dir während deiner Reise Angebote an Essensständen, Sehenswürdigkeiten und in lokalen Geschäften.",
+    checkTitle: "Prüfe deine Nachrichten",
+    sent: "Wir haben einen 6-stelligen Code an {phone} gesendet.",
+    step: "Schritt {n} von 2",
+    country: "Land oder Region",
+    countryOpen: "Land oder Vorwahl eingeben, z. B. Japan oder +81",
+    countryChoose: "Wähle dein Land",
+    noMatch: "Kein Land passt zu „{q}“. Versuche einen anderen Namen oder die Vorwahl.",
+    mobile: "Handynummer",
+    help: "Deine eigene Nummer oder eine lokale SIM funktionieren beide. Du kannst auch die vollständige Nummer mit + eingeben.",
+    sms: "Schickt mir während meiner Reise Angebote per SMS (optional)",
+    send: "Code senden",
+    sending: "Code wird gesendet...",
+    privacy: "Wir nutzen deine Nummer, um dich zu verifizieren und deine Punkte zu speichern. Deine Mitglieds-ID ist ein SHA-256-Hash der Nummer, nicht die Nummer selbst. Es können die üblichen SMS-Gebühren deines Anbieters anfallen.",
+    code: "6-stelliger Code",
+    verify: "Bestätigen und loslegen",
+    checking: "Wird geprüft...",
+    change: "Nummer ändern",
+    resendIn: "Code in {s} s erneut senden",
+    resend: "Code erneut senden",
+    demo: "Demo-Vorschau: Der SMS-Versand ist noch nicht angebunden, daher funktioniert jeder 6-stellige Code.",
+    eEmpty: "Gib deine Handynummer ein.",
+    eLandline: "Das sieht nach einer Festnetznummer aus. Verwende eine Handynummer, die SMS empfangen kann.",
+    eShort: "Diese Nummer ist für das gewählte Land zu kurz.",
+    eLong: "Diese Nummer ist für das gewählte Land zu lang.",
+    eCC: "Diese Ländervorwahl ist unbekannt. Prüfe die Ziffern nach dem +.",
+    eInvalid: "Das ist keine gültige Nummer für das gewählte Land. Prüfe das Land und versuche es erneut.",
+    ePlus: "Beginne mit + und deiner Ländervorwahl, zum Beispiel +44.",
+    eDigits: "Gib nach dem + 7 bis 15 Ziffern ein.",
+    eCode: "Gib den 6-stelligen Code aus der SMS ein.",
+    language: "Sprache"
+  },
+  es: {
+    welcome: "Bienvenido a Singapur",
+    intro: "Regístrate con tu número de móvil para conseguir ofertas en puestos de comida, atracciones y tiendas locales durante tu viaje.",
+    checkTitle: "Revisa tus mensajes",
+    sent: "Hemos enviado un código de 6 dígitos al {phone}.",
+    step: "Paso {n} de 2",
+    country: "País o región",
+    countryOpen: "Escribe un país o prefijo, p. ej. Japón o +81",
+    countryChoose: "Elige tu país",
+    noMatch: "Ningún país coincide con «{q}». Prueba otro nombre o el prefijo.",
+    mobile: "Número de móvil",
+    help: "Sirve tu número habitual o una SIM local. También puedes escribir el número completo empezando por +.",
+    sms: "Enviarme ofertas por SMS durante mi viaje (opcional)",
+    send: "Enviar código",
+    sending: "Enviando código...",
+    privacy: "Usamos tu número para verificarte y guardar tus puntos. Tu ID de miembro es un hash SHA-256 del número, no el número en sí. Pueden aplicarse las tarifas estándar de SMS de tu operador.",
+    code: "Código de 6 dígitos",
+    verify: "Verificar y empezar a explorar",
+    checking: "Comprobando...",
+    change: "Cambiar número",
+    resendIn: "Reenviar código en {s} s",
+    resend: "Reenviar código",
+    demo: "Vista previa de demostración: el envío de SMS aún no está conectado, así que cualquier código de 6 dígitos funciona.",
+    eEmpty: "Introduce tu número de móvil.",
+    eLandline: "Parece un número fijo. Usa un número de móvil que pueda recibir SMS.",
+    eShort: "Este número es demasiado corto para el país seleccionado.",
+    eLong: "Este número es demasiado largo para el país seleccionado.",
+    eCC: "No se reconoce ese prefijo de país. Revisa los dígitos después del +.",
+    eInvalid: "Este no es un número válido para el país seleccionado. Revisa el país e inténtalo de nuevo.",
+    ePlus: "Empieza por + y el prefijo de tu país, por ejemplo +44.",
+    eDigits: "Introduce de 7 a 15 dígitos después del +.",
+    eCode: "Introduce el código de 6 dígitos del SMS.",
+    language: "Idioma"
+  },
+  ru: {
+    welcome: "Добро пожаловать в Сингапур",
+    intro: "Зарегистрируйтесь по номеру мобильного телефона, чтобы получать скидки в местных уличных кафе, достопримечательностях и магазинах во время поездки.",
+    checkTitle: "Проверьте сообщения",
+    sent: "Мы отправили 6-значный код на номер {phone}.",
+    step: "Шаг {n} из 2",
+    country: "Страна или регион",
+    countryOpen: "Введите страну или код, например Япония или +81",
+    countryChoose: "Выберите страну",
+    noMatch: "Нет стран, соответствующих «{q}». Попробуйте другое название или телефонный код.",
+    mobile: "Номер мобильного телефона",
+    help: "Подойдёт ваш домашний номер или местная SIM-карта. Можно также ввести полный номер, начиная с +.",
+    sms: "Присылать мне предложения по SMS во время поездки (необязательно)",
+    send: "Отправить код",
+    sending: "Отправляем код...",
+    privacy: "Мы используем ваш номер для подтверждения личности и хранения ваших баллов. Ваш ID участника является хешем SHA-256 номера, а не самим номером. Может взиматься стандартная плата оператора за SMS.",
+    code: "6-значный код",
+    verify: "Подтвердить и начать",
+    checking: "Проверяем...",
+    change: "Изменить номер",
+    resendIn: "Отправить код повторно через {s} с",
+    resend: "Отправить код повторно",
+    demo: "Демо-версия: отправка SMS пока не подключена, поэтому подойдёт любой 6-значный код.",
+    eEmpty: "Введите номер мобильного телефона.",
+    eLandline: "Похоже, это стационарный номер. Используйте мобильный номер, который принимает SMS.",
+    eShort: "Этот номер слишком короткий для выбранной страны.",
+    eLong: "Этот номер слишком длинный для выбранной страны.",
+    eCC: "Код страны не распознан. Проверьте цифры после +.",
+    eInvalid: "Это недействительный номер для выбранной страны. Проверьте страну и попробуйте снова.",
+    ePlus: "Начните с + и кода вашей страны, например +44.",
+    eDigits: "Введите от 7 до 15 цифр после +.",
+    eCode: "Введите 6-значный код из SMS.",
+    language: "Язык"
+  },
+  ar: {
+    welcome: "أهلاً بك في سنغافورة",
+    intro: "سجّل برقم هاتفك المحمول لتحصل على عروض في أكشاك الطعام والمعالم السياحية والمتاجر المحلية طوال رحلتك.",
+    checkTitle: "تحقّق من رسائلك",
+    sent: "أرسلنا رمزاً مكوناً من 6 أرقام إلى {phone}.",
+    step: "الخطوة {n} من 2",
+    country: "الدولة أو المنطقة",
+    countryOpen: "اكتب اسم الدولة أو رمزها، مثل اليابان أو +81",
+    countryChoose: "اختر دولتك",
+    noMatch: "لا توجد دولة تطابق \"{q}\". جرّب اسماً آخر أو رمز الاتصال.",
+    mobile: "رقم الهاتف المحمول",
+    help: "يمكنك استخدام رقمك في بلدك أو شريحة محلية. يمكنك أيضاً كتابة الرقم كاملاً بدءاً بـ +.",
+    sms: "أرسلوا لي العروض عبر الرسائل النصية أثناء رحلتي (اختياري)",
+    send: "إرسال الرمز",
+    sending: "جارٍ إرسال الرمز...",
+    privacy: "نستخدم رقمك للتحقق منك وحفظ نقاطك. معرّف العضوية الخاص بك هو تجزئة SHA-256 للرقم وليس الرقم نفسه. قد تُطبّق رسوم الرسائل النصية العادية لدى مشغّل شبكتك.",
+    code: "رمز من 6 أرقام",
+    verify: "تحقّق وابدأ الاستكشاف",
+    checking: "جارٍ التحقق...",
+    change: "تغيير الرقم",
+    resendIn: "إعادة إرسال الرمز بعد {s} ثانية",
+    resend: "إعادة إرسال الرمز",
+    demo: "نسخة تجريبية: لم يتم ربط إرسال الرسائل النصية بعد، لذا يعمل أي رمز من 6 أرقام.",
+    eEmpty: "أدخل رقم هاتفك المحمول.",
+    eLandline: "يبدو أن هذا رقم هاتف أرضي. استخدم رقم هاتف محمول يمكنه استقبال الرسائل النصية.",
+    eShort: "هذا الرقم قصير جداً بالنسبة للدولة المختارة.",
+    eLong: "هذا الرقم طويل جداً بالنسبة للدولة المختارة.",
+    eCC: "رمز الدولة هذا غير معروف. تحقّق من الأرقام بعد +.",
+    eInvalid: "هذا ليس رقماً صالحاً للدولة المختارة. تحقّق من الدولة وحاول مرة أخرى.",
+    ePlus: "ابدأ بـ + ورمز دولتك، مثل +44.",
+    eDigits: "أدخل من 7 إلى 15 رقماً بعد +.",
+    eCode: "أدخل الرمز المكوّن من 6 أرقام الوارد في الرسالة النصية.",
+    language: "اللغة"
+  }
+};
+const LANG_KEY = "seaport:lang";
+function initialRegLang() {
+  try {
+    const s = localStorage.getItem(LANG_KEY);
+    if (s && REG_I18N[s]) return s;
+  } catch {}
+  const langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"];
+  for (const l of langs) {
+    const low = l.toLowerCase();
+    if (low.startsWith("zh")) return /tw|hk|mo|hant/.test(low) ? "zh-Hant" : "zh-Hans";
+    const base = low.split("-")[0];
+    if (REG_I18N[base]) return base;
+  }
+  return "en";
+}
+const makeT = lang => (key, vars = {}) => {
+  const str = REG_I18N[lang] && REG_I18N[lang][key] || REG_I18N.en[key] || key;
+  return str.replace(/\{(\w+)\}/g, (_, k) => vars[k] !== undefined ? vars[k] : "");
+};
+function LanguagePicker({
+  lang,
+  setLang,
+  t
+}) {
+  return /*#__PURE__*/React.createElement("label", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 4,
+      background: "rgba(244,241,235,0.12)",
+      borderRadius: 999,
+      padding: "0 2px 0 8px",
+      color: "#F4F1EB",
+      minHeight: 32,
+      flexShrink: 1,
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "languages",
+    size: 15
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: "absolute",
+      width: 1,
+      height: 1,
+      overflow: "hidden",
+      clip: "rect(0 0 0 0)"
+    }
+  }, t("language")), /*#__PURE__*/React.createElement("select", {
+    value: lang,
+    onChange: e => setLang(e.target.value),
+    "aria-label": t("language"),
+    className: "hub-link",
+    style: {
+      background: "transparent",
+      color: "#F4F1EB",
+      border: "none",
+      fontSize: 12.5,
+      fontWeight: 700,
+      fontFamily: "'Work Sans', sans-serif",
+      padding: "6px 0",
+      cursor: "pointer",
+      width: 92,
+      textOverflow: "ellipsis"
+    }
+  }, REG_LANGS.map(([k, l]) => /*#__PURE__*/React.createElement("option", {
+    key: k,
+    value: k,
+    style: {
+      color: "#211D17"
+    }
+  }, l))));
+}
 function countryName(cc) {
   try {
     return new Intl.DisplayNames(["en"], {
@@ -2703,13 +3440,27 @@ function countryName(cc) {
     return cc;
   }
 }
-function buildCountryList() {
+function buildCountryList(lang = "en") {
   if (!LPN) return [];
-  return LPN.getCountries().map(cc => ({
-    cc,
-    name: countryName(cc),
-    dial: LPN.getCountryCallingCode(cc)
-  })).sort((a, b) => a.name.localeCompare(b.name));
+  let dn = null;
+  try {
+    dn = new Intl.DisplayNames([lang, "en"], {
+      type: "region"
+    });
+  } catch {}
+  return LPN.getCountries().map(cc => {
+    const en = countryName(cc);
+    let name = en;
+    try {
+      name = dn && dn.of(cc) || en;
+    } catch {}
+    return {
+      cc,
+      name,
+      en,
+      dial: LPN.getCountryCallingCode(cc)
+    };
+  }).sort((a, b) => a.name.localeCompare(b.name, lang));
 }
 function guessCountry(list) {
   const langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
@@ -2726,7 +3477,7 @@ function checkNumber(raw, cc) {
   const value = raw.trim();
   if (!value.replace(/\D/g, "")) return {
     ok: false,
-    error: "Enter your mobile number."
+    error: "eEmpty"
   };
   const intl = value.startsWith("+");
   if (LPN) {
@@ -2736,7 +3487,7 @@ function checkNumber(raw, cc) {
         if (p.getType() === "FIXED_LINE") {
           return {
             ok: false,
-            error: "This looks like a landline. Use a mobile number that can receive SMS."
+            error: "eLandline"
           };
         }
         return {
@@ -2753,19 +3504,19 @@ function checkNumber(raw, cc) {
     } catch {}
     if (reason === "TOO_SHORT") return {
       ok: false,
-      error: "This number is too short for the country selected."
+      error: "eShort"
     };
     if (reason === "TOO_LONG") return {
       ok: false,
-      error: "This number is too long for the country selected."
+      error: "eLong"
     };
     if (reason === "INVALID_COUNTRY") return {
       ok: false,
-      error: "That country code isn't recognised. Check the digits after the +."
+      error: "eCC"
     };
     return {
       ok: false,
-      error: "This isn't a valid number for the country selected. Check the country and try again."
+      error: "eInvalid"
     };
   }
 
@@ -2773,11 +3524,11 @@ function checkNumber(raw, cc) {
   const digits = value.replace(/\D/g, "");
   if (!intl) return {
     ok: false,
-    error: "Start with + and your country code, for example +44."
+    error: "ePlus"
   };
   if (digits.length < 7 || digits.length > 15) return {
     ok: false,
-    error: "Enter 7 to 15 digits after the +."
+    error: "eDigits"
   };
   return {
     ok: true,
@@ -2852,7 +3603,7 @@ function filterCountries(list, query) {
   const scored = [];
   for (const c of list) {
     const name = normalise(c.name);
-    const aliases = COUNTRY_ALIASES[c.cc] || [];
+    const aliases = [...(COUNTRY_ALIASES[c.cc] || []), ...(c.en && c.en !== c.name ? [normalise(c.en)] : [])];
     let score = -1;
     if (isDial) {
       if (c.dial === digits) score = 0;else if (c.dial.startsWith(digits)) score = 1;
@@ -2872,7 +3623,8 @@ function filterCountries(list, query) {
 function CountryPicker({
   countries,
   value,
-  onChange
+  onChange,
+  t = makeT("en")
 }) {
   const selected = countries.find(c => c.cc === value);
   const [open, setOpen] = useState(false);
@@ -2918,7 +3670,7 @@ function CountryPicker({
       if (open && query && results[active]) choose(results[active]);else setOpen(false);
     }
   };
-  const shown = open ? query : selected ? `${selected.name} (+${selected.dial})` : "";
+  const shown = open ? query : selected ? `${selected.name} (\u200E+${selected.dial})` : "";
   return /*#__PURE__*/React.createElement("div", {
     style: {
       position: "relative"
@@ -2965,7 +3717,7 @@ function CountryPicker({
     autoCorrect: "off",
     spellCheck: false,
     value: shown,
-    placeholder: open ? "Type a country or code, e.g. Japan or +81" : "Choose your country",
+    placeholder: open ? t("countryOpen") : t("countryChoose"),
     onFocus: () => {
       setOpen(true);
       setQuery("");
@@ -3035,7 +3787,9 @@ function CountryPicker({
       fontSize: 13.5,
       color: "var(--muted)"
     }
-  }, "No country matches \"", query, "\". Try the English name or the dial code."), results.map((c, i) => {
+  }, t("noMatch", {
+    q: query
+  })), results.map((c, i) => {
     const isActive = i === active;
     const isSelected = c.cc === value;
     return /*#__PURE__*/React.createElement("li", {
@@ -3093,7 +3847,19 @@ function CountryPicker({
 function RegistrationScreen({
   onComplete
 }) {
-  const countries = React.useMemo(buildCountryList, []);
+  const [lang, setLangState] = useState(initialRegLang);
+  const t = React.useMemo(() => makeT(lang), [lang]);
+  const setLang = l => {
+    setLangState(l);
+    try {
+      localStorage.setItem(LANG_KEY, l);
+    } catch {}
+  };
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+  const rtl = RTL_LANGS.includes(lang);
+  const countries = React.useMemo(() => buildCountryList(lang), [lang]);
   const [cc, setCc] = useState(() => guessCountry(countries));
   const [phone, setPhone] = useState("");
   const [error, setError] = useState("");
@@ -3123,7 +3889,7 @@ function RegistrationScreen({
   const sendCode = () => {
     const result = checkNumber(phone, cc);
     if (!result.ok) {
-      setError(result.error);
+      setError(t(result.error));
       return;
     }
     setError("");
@@ -3140,7 +3906,7 @@ function RegistrationScreen({
   };
   const confirmCode = () => {
     if (!/^\d{6}$/.test(code)) {
-      setCodeError("Enter the 6 digit code from the SMS.");
+      setCodeError(t("eCode"));
       return;
     }
     setCodeError("");
@@ -3206,9 +3972,23 @@ function RegistrationScreen({
     }
   }, "Seaport"), /*#__PURE__*/React.createElement("span", {
     style: {
-      marginLeft: "auto"
+      marginLeft: "auto",
+      display: "flex",
+      alignItems: "center",
+      gap: 8
     }
-  }, /*#__PURE__*/React.createElement(ThemeToggle, null))), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(LanguagePicker, {
+    lang: lang,
+    setLang: setLang,
+    t: t
+  }), /*#__PURE__*/React.createElement(ThemeToggle, null))), /*#__PURE__*/React.createElement("div", {
+    dir: rtl ? "rtl" : "ltr",
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement("div", {
     style: {
       background: "#9C0018",
       color: "#F4F1EB",
@@ -3222,18 +4002,24 @@ function RegistrationScreen({
       margin: 0,
       fontWeight: 700
     }
-  }, step === "phone" ? "Welcome to Singapore" : "Check your messages"), /*#__PURE__*/React.createElement("p", {
+  }, step === "phone" ? t("welcome") : t("checkTitle")), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 14,
       lineHeight: 1.55,
       margin: "10px 0 0",
       opacity: 0.88
     }
-  }, step === "phone" ? "Register with your mobile number to unlock deals at local food stalls, attractions and shops during your trip." : /*#__PURE__*/React.createElement(React.Fragment, null, "We sent a 6 digit code to ", /*#__PURE__*/React.createElement("strong", {
-    style: {
-      whiteSpace: "nowrap"
-    }
-  }, verified && verified.display), "."))), /*#__PURE__*/React.createElement("div", {
+  }, step === "phone" ? t("intro") : (() => {
+    const parts = t("sent", {
+      phone: "\u0000"
+    }).split("\u0000");
+    return /*#__PURE__*/React.createElement(React.Fragment, null, parts[0], /*#__PURE__*/React.createElement("strong", {
+      dir: "ltr",
+      style: {
+        whiteSpace: "nowrap"
+      }
+    }, verified && verified.display), parts[1]);
+  })())), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "22px 22px 28px",
       display: "flex",
@@ -3247,7 +4033,9 @@ function RegistrationScreen({
       fontSize: 12.5,
       color: "var(--muted)"
     }
-  }, "Step ", step === "phone" ? 1 : 2, " of 2"), step === "phone" && /*#__PURE__*/React.createElement("form", {
+  }, t("step", {
+    n: step === "phone" ? 1 : 2
+  })), step === "phone" && /*#__PURE__*/React.createElement("form", {
     onSubmit: e => {
       e.preventDefault();
       sendCode();
@@ -3261,9 +4049,10 @@ function RegistrationScreen({
   }, countries.length > 0 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     htmlFor: "reg-country",
     style: regLabel
-  }, "Country or region"), /*#__PURE__*/React.createElement(CountryPicker, {
+  }, t("country")), /*#__PURE__*/React.createElement(CountryPicker, {
     countries: countries,
     value: cc,
+    t: t,
     onChange: v => {
       setCc(v);
       setError("");
@@ -3271,7 +4060,7 @@ function RegistrationScreen({
   })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     htmlFor: "reg-phone",
     style: regLabel
-  }, "Mobile number"), /*#__PURE__*/React.createElement("div", {
+  }, t("mobile")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       gap: 8,
@@ -3303,7 +4092,8 @@ function RegistrationScreen({
     onBlur: onPhoneBlur,
     "aria-invalid": error ? "true" : "false",
     "aria-describedby": error ? "reg-phone-help reg-phone-error" : "reg-phone-help",
-    placeholder: "Mobile number",
+    placeholder: t("mobile"),
+    dir: "ltr",
     style: {
       ...regInput,
       borderColor: error ? "var(--accent-ink)" : "rgba(var(--line-rgb),0.18)"
@@ -3316,7 +4106,7 @@ function RegistrationScreen({
       margin: "6px 0 0",
       lineHeight: 1.5
     }
-  }, "Your home number or a local SIM both work. You can also type the full number starting with +."), error && /*#__PURE__*/React.createElement("p", {
+  }, t("help")), error && /*#__PURE__*/React.createElement("p", {
     id: "reg-phone-error",
     role: "alert",
     style: {
@@ -3348,12 +4138,12 @@ function RegistrationScreen({
       accentColor: "#9C0018",
       flexShrink: 0
     }
-  }), /*#__PURE__*/React.createElement("span", null, "Send me deals by SMS during my trip (optional)")), /*#__PURE__*/React.createElement("button", {
+  }), /*#__PURE__*/React.createElement("span", null, t("sms"))), /*#__PURE__*/React.createElement("button", {
     type: "submit",
     className: "reg-btn",
     disabled: busy,
     style: regPrimaryBtn(!busy)
-  }, busy ? "Sending code..." : /*#__PURE__*/React.createElement(React.Fragment, null, "Send code ", /*#__PURE__*/React.createElement(Icon, {
+  }, busy ? t("sending") : /*#__PURE__*/React.createElement(React.Fragment, null, t("send"), " ", /*#__PURE__*/React.createElement(Icon, {
     name: "message-square",
     size: 16
   }))), /*#__PURE__*/React.createElement("p", {
@@ -3363,7 +4153,7 @@ function RegistrationScreen({
       margin: 0,
       lineHeight: 1.5
     }
-  }, "We use your number to verify you and keep your points. Your member ID is a SHA-256 hash of it, not the number itself. Standard SMS rates from your carrier may apply.")), step === "code" && /*#__PURE__*/React.createElement("form", {
+  }, t("privacy"))), step === "code" && /*#__PURE__*/React.createElement("form", {
     onSubmit: e => {
       e.preventDefault();
       confirmCode();
@@ -3377,7 +4167,7 @@ function RegistrationScreen({
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
     htmlFor: "reg-code",
     style: regLabel
-  }, "6 digit code"), /*#__PURE__*/React.createElement("input", {
+  }, t("code")), /*#__PURE__*/React.createElement("input", {
     id: "reg-code",
     className: "reg-field",
     type: "text",
@@ -3414,7 +4204,7 @@ function RegistrationScreen({
     className: "reg-btn",
     disabled: busy,
     style: regPrimaryBtn(!busy)
-  }, busy ? "Checking..." : "Verify and start exploring"), /*#__PURE__*/React.createElement("div", {
+  }, busy ? t("checking") : t("verify")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       justifyContent: "space-between",
@@ -3439,7 +4229,7 @@ function RegistrationScreen({
       fontSize: 13,
       fontFamily: "'Work Sans', sans-serif"
     }
-  }, "Change number"), /*#__PURE__*/React.createElement("button", {
+  }, t("change")), /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "reg-link",
     disabled: resendIn > 0,
@@ -3456,7 +4246,9 @@ function RegistrationScreen({
       fontSize: 13,
       fontFamily: "'Work Sans', sans-serif"
     }
-  }, resendIn > 0 ? `Resend code in ${resendIn}s` : "Resend code")), /*#__PURE__*/React.createElement("p", {
+  }, resendIn > 0 ? t("resendIn", {
+    s: resendIn
+  }) : t("resend"))), /*#__PURE__*/React.createElement("p", {
     style: {
       fontSize: 12,
       color: "var(--muted)",
@@ -3466,7 +4258,7 @@ function RegistrationScreen({
       borderRadius: 10,
       padding: "10px 12px"
     }
-  }, "Demo preview: SMS sending isn't connected yet, so any 6 digit code will work."))));
+  }, t("demo"))))));
 }
 
 /* ---------- home hub: the page after sign up ---------- */
@@ -3723,7 +4515,30 @@ function HomeHub({
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "calendar-days",
     size: 15
-  }), " My trip calendar")), /*#__PURE__*/React.createElement("nav", {
+  }), " My trip calendar"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => onOpen("account"),
+    className: "hub-link",
+    style: {
+      marginTop: 14,
+      marginLeft: 8,
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 6,
+      minHeight: 36,
+      padding: "0 12px",
+      borderRadius: 999,
+      border: "1.5px solid rgba(244,241,235,0.35)",
+      background: "rgba(244,241,235,0.12)",
+      color: "#F4F1EB",
+      fontSize: 12.5,
+      fontWeight: 700,
+      cursor: "pointer",
+      fontFamily: "'Work Sans', sans-serif"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "user",
+    size: 15
+  }), " My account")), /*#__PURE__*/React.createElement("nav", {
     "aria-label": "Sections",
     style: {
       padding: "18px 16px 8px",
@@ -6462,7 +7277,7 @@ function EsimBuySheet({
 }) {
   const pr = ESIM_PROVIDERS[plan.p];
   const [step, setStep] = useState("review"); // review | pay | wallet | qrpay | processing | 3ds | declined | done
-  const [method, setMethod] = useState("card");
+  const [method, setMethod] = useState(defaultMethodKey);
   const [card, setCard] = useState({
     number: "",
     expiry: "",
@@ -6477,7 +7292,7 @@ function EsimBuySheet({
   const [receipt, setReceipt] = useState(null);
   const [countdown, setCountdown] = useState(300);
   const timers = useRef([]);
-  const methodInfo = PAY_METHODS.find(m => m.key === method);
+  const methodInfo = payMethodInfo(method);
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
   useEffect(() => {
     if (!Object.keys(cardErrors).length) return;
@@ -6505,7 +7320,7 @@ function EsimBuySheet({
   const finish = () => {
     const r = {
       ref: "ES" + Date.now().toString(36).toUpperCase().slice(-6),
-      method: method === "card" ? `${cardBrand(card.number) || "Card"} ending ${card.number.replace(/\D/g, "").slice(-4)}` : methodInfo.label,
+      method: settleMethod(method, card),
       email: email.trim(),
       paidAt: new Date().toISOString(),
       seed: Date.now() % 97
@@ -6556,6 +7371,8 @@ function EsimBuySheet({
       setCardErrors(errs);
       if (Object.keys(errs).length) return;
       runProcessing(SIM_CARDS[card.number.replace(/\D/g, "")]);
+    } else if (method === "saved") {
+      runProcessing(null);
     } else if (method === "apple_pay" || method === "google_pay") {
       setStep("wallet");
     } else {
@@ -7901,7 +8718,7 @@ function TopUpSheet({
 }) {
   const [amount, setAmount] = useState(50);
   const [custom, setCustom] = useState("");
-  const [method, setMethod] = useState("card");
+  const [method, setMethod] = useState(defaultMethodKey);
   const [card, setCard] = useState({
     number: "",
     expiry: "",
@@ -7913,7 +8730,7 @@ function TopUpSheet({
   const [msg, setMsg] = useState("");
   const value = custom ? Math.round(parseFloat(custom) * 100) / 100 : amount;
   const valid = value >= 5 && value <= 1000;
-  const m = PAY_METHODS.find(x => x.key === method);
+  const m = payMethodInfo(method);
   useEffect(() => {
     if (!Object.keys(cardErrors).length) return;
     const now = validateCard(card);
@@ -7940,7 +8757,7 @@ function TopUpSheet({
         return;
       }
       setStep("done");
-      onDone(value, method === "card" ? `${cardBrand(card.number) || "Card"} ending ${card.number.replace(/\D/g, "").slice(-4)}` : m.label);
+      onDone(value, settleMethod(method, card));
     }, 1500);
   };
   const primary = {
@@ -9886,7 +10703,7 @@ function EventSheet({
   const [tier, setTier] = useState("Standard");
   const [qty, setQty] = useState(1);
   const [step, setStep] = useState("detail"); // detail | pay | processing | declined | done
-  const [method, setMethod] = useState("card");
+  const [method, setMethod] = useState(defaultMethodKey);
   const [card, setCard] = useState({
     number: "",
     expiry: "",
@@ -9899,7 +10716,7 @@ function EventSheet({
   const unit = tier === "VIP" && ev.vip ? ev.vip : ev.price;
   const total = Math.round(unit * qty * 100) / 100;
   const free = ev.price === 0;
-  const m = PAY_METHODS.find(x => x.key === method);
+  const m = payMethodInfo(method);
   useEffect(() => {
     if (!Object.keys(cardErrors).length) return;
     const now = validateCard(card);
@@ -9934,7 +10751,7 @@ function EventSheet({
         time,
         dateLabel,
         date,
-        method: method === "card" ? `${cardBrand(card.number) || "Card"} ending ${card.number.replace(/\D/g, "").slice(-4)}` : m.label
+        method: settleMethod(method, card)
       };
       setTicket(t);
       setStep("done");
@@ -11385,6 +12202,1775 @@ function CalendarPage({
     it: it
   }))))));
 }
+
+/* ---------- Help desk content ---------- */
+const EMERGENCY = [{
+  label: "Police",
+  num: "999",
+  note: "Crime, danger, anything urgent",
+  icon: "shield-alert",
+  urgent: true
+}, {
+  label: "Ambulance and fire",
+  num: "995",
+  note: "Life threatening, fires",
+  icon: "ambulance",
+  urgent: true
+}, {
+  label: "Police SMS",
+  num: "71999",
+  note: "If it's unsafe to call",
+  icon: "message-square",
+  sms: true
+}, {
+  label: "Non-emergency ambulance",
+  num: "1777",
+  note: "Not life threatening, a fee applies",
+  icon: "ambulance"
+}, {
+  label: "Police hotline",
+  num: "1800 255 0000",
+  note: "Non-urgent, lost items, reports",
+  icon: "phone"
+}];
+const HOSPITALS = [{
+  name: "Singapore General Hospital",
+  area: "Outram, near Chinatown",
+  q: "Singapore General Hospital Emergency"
+}, {
+  name: "Tan Tock Seng Hospital",
+  area: "Novena",
+  q: "Tan Tock Seng Hospital Emergency"
+}, {
+  name: "Raffles Hospital (private)",
+  area: "Bugis, near Kampong Glam",
+  q: "Raffles Hospital Singapore"
+}];
+const DESTINATIONS = [{
+  name: "Gardens by the Bay",
+  area: "Marina Bay",
+  mrt: "Gardens by the Bay",
+  lines: ["TE22"],
+  alt: "Or Bayfront (CE1, DT16)",
+  keys: "gardens supertree flower dome cloud forest"
+}, {
+  name: "Marina Bay Sands",
+  area: "Marina Bay",
+  mrt: "Bayfront",
+  lines: ["CE1", "DT16"],
+  keys: "mbs skypark casino shoppes spectra"
+}, {
+  name: "Merlion Park",
+  area: "Marina Bay",
+  mrt: "Raffles Place",
+  lines: ["EW14", "NS26"],
+  keys: "merlion fullerton esplanade"
+}, {
+  name: "Chinatown",
+  area: "Chinatown",
+  mrt: "Chinatown",
+  lines: ["NE4", "DT19"],
+  keys: "chinatown temple maxwell pagoda buddha tooth"
+}, {
+  name: "Little India",
+  area: "Little India",
+  mrt: "Little India",
+  lines: ["NE7", "DT12"],
+  keys: "little india tekka mustafa serangoon"
+}, {
+  name: "Haji Lane and Kampong Glam",
+  area: "Kampong Glam",
+  mrt: "Bugis",
+  lines: ["EW12", "DT14"],
+  keys: "haji lane arab street sultan mosque bugis kampong glam"
+}, {
+  name: "Orchard Road",
+  area: "Orchard",
+  mrt: "Orchard",
+  lines: ["NS22", "TE14"],
+  keys: "orchard shopping ion mall"
+}, {
+  name: "Clarke Quay",
+  area: "Marina Bay",
+  mrt: "Clarke Quay",
+  lines: ["NE5"],
+  keys: "clarke quay river nightlife boat quay"
+}, {
+  name: "Botanic Gardens",
+  area: "Orchard",
+  mrt: "Botanic Gardens",
+  lines: ["CC19", "DT9"],
+  keys: "botanic orchid garden"
+}, {
+  name: "Sentosa",
+  area: "Sentosa",
+  mrt: "HarbourFront",
+  lines: ["NE1", "CC29"],
+  alt: "Then the Sentosa Express from VivoCity, or walk the Sentosa Boardwalk",
+  keys: "sentosa beach universal palawan siloso vivocity harbourfront"
+}, {
+  name: "Singapore Zoo and Mandai",
+  area: "Mandai",
+  mrt: "Khatib",
+  lines: ["NS14"],
+  alt: "Then the Mandai shuttle bus from Khatib",
+  keys: "zoo night safari bird paradise river wonders mandai"
+}, {
+  name: "Changi Airport",
+  area: "Changi",
+  mrt: "Changi Airport",
+  lines: ["CG2"],
+  alt: "Change at Tanah Merah (EW4) for the airport branch",
+  keys: "airport changi jewel flight terminal"
+}];
+const mapsUrl = q => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(q + ", Singapore")}&travelmode=transit`;
+const PHRASES = [{
+  en: "Hello",
+  zh: "你好",
+  py: "nǐ hǎo",
+  ms: "Helo",
+  ta: "வணக்கம்",
+  tr: "vaṇakkam"
+}, {
+  en: "Thank you",
+  zh: "谢谢",
+  py: "xièxie",
+  ms: "Terima kasih",
+  ta: "நன்றி",
+  tr: "nandri"
+}, {
+  en: "Excuse me",
+  zh: "不好意思",
+  py: "bù hǎo yìsi",
+  ms: "Maaf",
+  ta: "மன்னிக்கவும்",
+  tr: "mannikkavum"
+}, {
+  en: "How much is this?",
+  zh: "这个多少钱？",
+  py: "zhège duōshǎo qián?",
+  ms: "Berapa harga ini?",
+  ta: "இது எவ்வளவு?",
+  tr: "idhu evvaḷavu?"
+}, {
+  en: "Can I pay by card?",
+  zh: "可以刷卡吗？",
+  py: "kěyǐ shuākǎ ma?",
+  ms: "Boleh bayar dengan kad?",
+  ta: "கார்டில் பணம் செலுத்தலாமா?",
+  tr: "kārṭil paṇam celuttalāmā?"
+}, {
+  en: "Not spicy, please",
+  zh: "不要辣",
+  py: "bú yào là",
+  ms: "Jangan pedas",
+  ta: "காரம் வேண்டாம்",
+  tr: "kāram vēṇṭām"
+}, {
+  en: "Takeaway, please",
+  zh: "打包",
+  py: "dǎbāo",
+  ms: "Bungkus",
+  ta: "பார்சல்",
+  tr: "pārsal"
+}, {
+  en: "I'm allergic to peanuts",
+  zh: "我对花生过敏",
+  py: "wǒ duì huāshēng guòmǐn",
+  ms: "Saya alah kepada kacang tanah",
+  ta: "எனக்கு நிலக்கடலை ஒவ்வாமை",
+  tr: "enakku nilakkaḍalai ovvāmai"
+}, {
+  en: "Where is the toilet?",
+  zh: "厕所在哪里？",
+  py: "cèsuǒ zài nǎlǐ?",
+  ms: "Di mana tandas?",
+  ta: "கழிப்பறை எங்கே?",
+  tr: "kazhipparai eṅgē?"
+}, {
+  en: "Where is the MRT station?",
+  zh: "地铁站在哪里？",
+  py: "dìtiě zhàn zài nǎlǐ?",
+  ms: "Di mana stesen MRT?",
+  ta: "MRT நிலையம் எங்கே?",
+  tr: "MRT nilaiyam eṅgē?"
+}, {
+  en: "I need a doctor",
+  zh: "我需要医生",
+  py: "wǒ xūyào yīshēng",
+  ms: "Saya perlukan doktor",
+  ta: "எனக்கு மருத்துவர் வேண்டும்",
+  tr: "enakku maruttuvar vēṇṭum"
+}, {
+  en: "Help!",
+  zh: "救命！",
+  py: "jiùmìng!",
+  ms: "Tolong!",
+  ta: "உதவி!",
+  tr: "udavi!"
+}];
+const LOCAL_WORDS = [["Chope", "Reserve a seat, often with a tissue packet on the table"], ["Dabao / Tapao", "Takeaway"], ["Kopi", "Coffee with condensed milk"], ["Kopi O", "Black coffee with sugar"], ["Kopi C", "Coffee with evaporated milk and sugar"], ["Teh", "Tea with condensed milk"], ["Kosong", "Zero, as in no sugar"], ["Siew dai", "Less sweet"], ["Peng", "Iced, as in Kopi Peng"], ["Makan", "Eat, or food"], ["Shiok", "Delicious, amazing"], ["Can or not?", "Is that possible?"], ["Alamak", "Oh no!"]];
+const TL = [{
+  key: "zh",
+  label: "Chinese",
+  g: "zh-CN",
+  voice: "zh-CN"
+}, {
+  key: "ms",
+  label: "Malay",
+  g: "ms",
+  voice: "ms-MY"
+}, {
+  key: "ta",
+  label: "Tamil",
+  g: "ta",
+  voice: "ta-IN"
+}];
+const GOOGLE_TL = [["en", "English"], ["zh-CN", "Chinese"], ["ms", "Malay"], ["ta", "Tamil"], ["ja", "Japanese"], ["ko", "Korean"], ["th", "Thai"], ["id", "Indonesian"], ["vi", "Vietnamese"], ["fr", "French"], ["de", "German"], ["es", "Spanish"], ["hi", "Hindi"], ["ar", "Arabic"]];
+function speak(text, lang) {
+  try {
+    if (!("speechSynthesis" in window)) return false;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang;
+    u.rate = 0.9;
+    const v = window.speechSynthesis.getVoices().find(x => x.lang && x.lang.toLowerCase().startsWith(lang.slice(0, 2).toLowerCase()));
+    if (v) u.voice = v;
+    window.speechSynthesis.speak(u);
+    return true;
+  } catch {
+    return false;
+  }
+}
+function EmergencyCard() {
+  return /*#__PURE__*/React.createElement("section", {
+    "aria-labelledby": "sos-h",
+    style: {
+      background: "linear-gradient(135deg, #9C0018, #5A000E)",
+      color: "#FFFFFF",
+      borderRadius: 16,
+      padding: "14px 14px 12px"
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    id: "sos-h",
+    style: {
+      margin: 0,
+      fontSize: 13,
+      letterSpacing: 1,
+      textTransform: "uppercase",
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      fontFamily: "'IBM Plex Mono', monospace"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "siren",
+    size: 15
+  }), " Emergency"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      gap: 8,
+      marginTop: 10
+    }
+  }, EMERGENCY.filter(e => e.urgent).map(e => /*#__PURE__*/React.createElement("a", {
+    key: e.num,
+    href: `tel:${e.num.replace(/\s/g, "")}`,
+    className: "hub-link",
+    style: {
+      textDecoration: "none",
+      background: "#FFFFFF",
+      color: "#9C0018",
+      borderRadius: 12,
+      padding: "10px 12px",
+      display: "block"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "block",
+      fontFamily: "'IBM Plex Mono', monospace",
+      fontSize: 26,
+      fontWeight: 800,
+      lineHeight: 1
+    }
+  }, e.num), /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "block",
+      fontSize: 12.5,
+      fontWeight: 700,
+      color: "#211D17",
+      marginTop: 4
+    }
+  }, e.label)))), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "10px 0 0",
+      fontSize: 11.5,
+      opacity: 0.85,
+      lineHeight: 1.45
+    }
+  }, "Calls work from any phone, including foreign SIMs. Tap to call. These work without internet or AI."));
+}
+function NavigatorPanel() {
+  const [q, setQ] = useState("");
+  const qn = q.trim().toLowerCase();
+  const results = qn ? DESTINATIONS.filter(d => (d.name + " " + d.area + " " + d.keys).toLowerCase().includes(qn) || qn.split(/\s+/).every(w => (d.name + " " + d.keys).toLowerCase().includes(w))) : DESTINATIONS.slice(0, 6);
+  const card = {
+    background: "var(--surface)",
+    borderRadius: 14,
+    padding: "12px 12px",
+    border: "1.5px solid rgba(var(--line-rgb),0.08)"
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "nav-q",
+    style: payLabel
+  }, "Where do you want to go?"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "relative"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: {
+      position: "absolute",
+      left: 12,
+      top: "50%",
+      transform: "translateY(-50%)",
+      color: "var(--muted)",
+      display: "flex"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "search",
+    size: 16
+  })), /*#__PURE__*/React.createElement("input", {
+    id: "nav-q",
+    className: "reg-field",
+    value: q,
+    onChange: e => setQ(e.target.value),
+    placeholder: "e.g. Gardens by the Bay, airport, zoo",
+    style: {
+      ...payField,
+      paddingLeft: 38
+    }
+  }))), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 12,
+      color: "var(--muted)"
+    }
+  }, qn ? `${results.length} match${results.length !== 1 ? "es" : ""}` : "Popular places"), results.map(d => /*#__PURE__*/React.createElement("article", {
+    key: d.name,
+    style: card
+  }, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      margin: 0,
+      fontSize: 14.5,
+      fontWeight: 700,
+      color: "var(--ink)"
+    }
+  }, d.name), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "6px 0 0",
+      fontSize: 12.5,
+      color: "var(--ink)",
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      flexWrap: "wrap"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "train-front",
+    size: 14,
+    color: "var(--accent-ink)"
+  }), " Nearest MRT: ", /*#__PURE__*/React.createElement("strong", null, d.mrt), " ", d.lines.map(l => /*#__PURE__*/React.createElement(MrtBadge, {
+    key: l,
+    code: l
+  }))), d.alt && /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "4px 0 0",
+      fontSize: 12,
+      color: "var(--muted)"
+    }
+  }, d.alt), /*#__PURE__*/React.createElement("a", {
+    href: mapsUrl(d.name),
+    target: "_blank",
+    rel: "noopener noreferrer",
+    className: "hub-link",
+    style: {
+      marginTop: 10,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 6,
+      minHeight: 40,
+      borderRadius: 10,
+      background: "#9C0018",
+      color: "#F4F1EB",
+      fontWeight: 700,
+      fontSize: 13,
+      textDecoration: "none"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "navigation",
+    size: 15
+  }), " Directions from where I am"))), qn && results.length === 0 && /*#__PURE__*/React.createElement("a", {
+    href: mapsUrl(q.trim()),
+    target: "_blank",
+    rel: "noopener noreferrer",
+    style: {
+      ...card,
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      textDecoration: "none",
+      color: "var(--ink)",
+      fontSize: 13.5,
+      fontWeight: 600
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "map-pin",
+    size: 16,
+    color: "var(--accent-ink)"
+  }), " Get transit directions to \"", q.trim(), "\"", /*#__PURE__*/React.createElement(Icon, {
+    name: "external-link",
+    size: 14,
+    color: "var(--muted)"
+  })), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 11,
+      color: "var(--muted)",
+      lineHeight: 1.45
+    }
+  }, "Directions open in Google Maps with public transport routes from your current location."));
+}
+function TranslatorPanel() {
+  const [mode, setMode] = useState("words");
+  const [lang, setLang] = useState("zh");
+  const [text, setText] = useState("");
+  const [gTarget, setGTarget] = useState("zh-CN");
+  const [photo, setPhoto] = useState(null);
+  const tl = TL.find(t => t.key === lang);
+  const match = PHRASES.find(p => p.en.toLowerCase().replace(/[^a-z ]/g, "") === text.trim().toLowerCase().replace(/[^a-z ]/g, ""));
+  const gUrl = `https://translate.google.com/?sl=auto&tl=${gTarget}&text=${encodeURIComponent(text.trim())}&op=translate`;
+  useEffect(() => () => {
+    if (photo) URL.revokeObjectURL(photo);
+  }, [photo]);
+  const speakBtn = (t, v) => /*#__PURE__*/React.createElement("button", {
+    onClick: () => speak(t, v),
+    "aria-label": `Play pronunciation`,
+    className: "hub-link",
+    style: {
+      width: 36,
+      height: 36,
+      borderRadius: "50%",
+      border: "none",
+      background: "var(--chip)",
+      color: "var(--accent-ink)",
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "volume-2",
+    size: 16
+  }));
+  const card = {
+    background: "var(--surface)",
+    borderRadius: 14,
+    padding: "12px 12px",
+    border: "1.5px solid rgba(var(--line-rgb),0.08)"
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 6
+    }
+  }, /*#__PURE__*/React.createElement(Chip, {
+    small: true,
+    on: mode === "words",
+    onClick: () => setMode("words")
+  }, "Words and phrases"), /*#__PURE__*/React.createElement(Chip, {
+    small: true,
+    on: mode === "local",
+    onClick: () => setMode("local")
+  }, "Local lingo"), /*#__PURE__*/React.createElement(Chip, {
+    small: true,
+    on: mode === "photo",
+    onClick: () => setMode("photo")
+  }, "Photo")), mode === "words" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    style: card
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "tr-text",
+    style: payLabel
+  }, "Type anything to translate"), /*#__PURE__*/React.createElement("textarea", {
+    id: "tr-text",
+    className: "reg-field",
+    rows: 2,
+    value: text,
+    onChange: e => setText(e.target.value),
+    placeholder: "e.g. Where is the toilet?",
+    style: {
+      ...payField,
+      resize: "none"
+    }
+  }), match && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 10,
+      background: "var(--bg)",
+      borderRadius: 10,
+      padding: "10px 12px",
+      display: "flex",
+      alignItems: "center",
+      gap: 10
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 18,
+      fontWeight: 700,
+      color: "var(--ink)"
+    }
+  }, match[lang]), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "2px 0 0",
+      fontSize: 12,
+      color: "var(--muted)"
+    }
+  }, lang === "zh" ? match.py : lang === "ta" ? match.tr : tl.label)), speakBtn(match[lang], tl.voice)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8,
+      marginTop: 10,
+      alignItems: "center"
+    }
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "tr-to",
+    style: {
+      fontSize: 12.5,
+      color: "var(--muted)",
+      flexShrink: 0
+    }
+  }, "To"), /*#__PURE__*/React.createElement("select", {
+    id: "tr-to",
+    className: "reg-field",
+    value: gTarget,
+    onChange: e => setGTarget(e.target.value),
+    style: {
+      ...payField,
+      minHeight: 40,
+      padding: "6px 10px",
+      fontSize: 14
+    }
+  }, GOOGLE_TL.map(([k, l]) => /*#__PURE__*/React.createElement("option", {
+    key: k,
+    value: k
+  }, l)))), /*#__PURE__*/React.createElement("a", {
+    href: text.trim() ? gUrl : undefined,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    "aria-disabled": text.trim() ? "false" : "true",
+    className: "hub-link",
+    style: {
+      marginTop: 10,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 6,
+      minHeight: 42,
+      borderRadius: 10,
+      background: text.trim() ? "#9C0018" : "#C9C1B3",
+      color: "#F4F1EB",
+      fontWeight: 700,
+      fontSize: 13.5,
+      textDecoration: "none",
+      pointerEvents: text.trim() ? "auto" : "none"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "languages",
+    size: 16
+  }), " Translate")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between"
+    }
+  }, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      margin: 0,
+      fontFamily: "'Fraunces', serif",
+      fontSize: 15.5,
+      color: "var(--ink)"
+    }
+  }, "Quick phrases"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 4
+    }
+  }, TL.map(t => /*#__PURE__*/React.createElement(Chip, {
+    key: t.key,
+    small: true,
+    on: lang === t.key,
+    onClick: () => setLang(t.key)
+  }, t.label)))), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 11.5,
+      color: "var(--muted)"
+    }
+  }, "Works offline. Tap the speaker to hear it, or show the screen."), PHRASES.map(p => /*#__PURE__*/React.createElement("div", {
+    key: p.en,
+    style: {
+      ...card,
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+      padding: "10px 12px"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 12,
+      color: "var(--muted)"
+    }
+  }, p.en), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "2px 0 0",
+      fontSize: 16,
+      fontWeight: 700,
+      color: "var(--ink)"
+    }
+  }, p[lang]), lang !== "ms" && /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "1px 0 0",
+      fontSize: 11.5,
+      color: "var(--muted)",
+      fontStyle: "italic"
+    }
+  }, lang === "zh" ? p.py : p.tr)), speakBtn(p[lang], tl.voice)))), mode === "local" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 12.5,
+      color: "var(--muted)",
+      lineHeight: 1.5
+    }
+  }, "Words you'll hear at hawker centres and on the street."), LOCAL_WORDS.map(([w, m]) => /*#__PURE__*/React.createElement("div", {
+    key: w,
+    style: {
+      ...card,
+      padding: "10px 12px"
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 15,
+      fontWeight: 700,
+      color: "var(--ink)"
+    }
+  }, w), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "2px 0 0",
+      fontSize: 12.5,
+      color: "var(--muted)"
+    }
+  }, m)))), mode === "photo" && /*#__PURE__*/React.createElement("div", {
+    style: card
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "0 0 10px",
+      fontSize: 13,
+      color: "var(--ink)",
+      lineHeight: 1.5
+    }
+  }, "Snap a menu, sign or label to translate it."), photo ? /*#__PURE__*/React.createElement("img", {
+    src: photo,
+    alt: "Photo to translate",
+    style: {
+      width: "100%",
+      maxHeight: 240,
+      objectFit: "contain",
+      borderRadius: 10,
+      background: "#000"
+    }
+  }) : /*#__PURE__*/React.createElement("label", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 8,
+      height: 150,
+      borderRadius: 12,
+      border: "2px dashed rgba(var(--line-rgb),0.2)",
+      cursor: "pointer",
+      color: "var(--muted)",
+      fontSize: 13.5,
+      background: "var(--bg)"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "camera",
+    size: 28,
+    color: "var(--accent-ink)"
+  }), "Take or choose a photo", /*#__PURE__*/React.createElement("input", {
+    type: "file",
+    accept: "image/*",
+    capture: "environment",
+    onChange: e => {
+      const f = e.target.files && e.target.files[0];
+      if (f) setPhoto(URL.createObjectURL(f));
+    },
+    style: {
+      position: "absolute",
+      width: 1,
+      height: 1,
+      opacity: 0
+    }
+  })), /*#__PURE__*/React.createElement("a", {
+    href: "https://translate.google.com/?op=images",
+    target: "_blank",
+    rel: "noopener noreferrer",
+    className: "hub-link",
+    style: {
+      marginTop: 10,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 6,
+      minHeight: 42,
+      borderRadius: 10,
+      background: "#9C0018",
+      color: "#F4F1EB",
+      fontWeight: 700,
+      fontSize: 13.5,
+      textDecoration: "none"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "image",
+    size: 16
+  }), " Translate photo"), photo && /*#__PURE__*/React.createElement("button", {
+    onClick: () => setPhoto(null),
+    style: {
+      marginTop: 8,
+      width: "100%",
+      minHeight: 38,
+      background: "none",
+      border: "none",
+      color: "var(--accent-ink)",
+      fontWeight: 700,
+      fontSize: 13,
+      cursor: "pointer",
+      fontFamily: "'Work Sans', sans-serif"
+    }
+  }, "Retake"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "8px 0 0",
+      fontSize: 11,
+      color: "var(--muted)",
+      lineHeight: 1.45
+    }
+  }, "Opens Google Translate's photo mode, upload the picture there. In-app photo translation is coming soon.")));
+}
+
+/* ---------- My account ---------- */
+function AccountPage({
+  member,
+  onHome,
+  onSignOut
+}) {
+  const [acc, setAcc] = useState(loadAccount);
+  const [adding, setAdding] = useState(false);
+  const [card, setCard] = useState({
+    number: "",
+    expiry: "",
+    cvc: "",
+    name: ""
+  });
+  const [errors, setErrors] = useState({});
+  const [copied, setCopied] = useState(false);
+  const [toast, setToast] = useState("");
+  const update = a => {
+    saveAccount(a);
+    setAcc(a);
+  };
+  const flash = t => {
+    setToast(t);
+    setTimeout(() => setToast(""), 1800);
+  };
+  const acctNo = accountNumber(member.e164);
+  const def = acc.defaultKey || acc.cards[0] && acc.cards[0].id || "card";
+  useEffect(() => {
+    if (!Object.keys(errors).length) return;
+    const now = validateCard(card);
+    setErrors(prev => {
+      const n = {};
+      for (const k in prev) if (now[k]) n[k] = now[k];
+      return n;
+    });
+  }, [card]);
+  const addCard = () => {
+    const errs = validateCard(card);
+    setErrors(errs);
+    if (Object.keys(errs).length) return;
+    rememberCard(card, acc.cards.length === 0 || card.makeDefault);
+    setAcc(loadAccount());
+    setAdding(false);
+    setCard({
+      number: "",
+      expiry: "",
+      cvc: "",
+      name: ""
+    });
+    flash("Card saved");
+  };
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(acctNo.replace(/\s/g, ""));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {}
+  };
+  const card0 = {
+    background: "var(--surface)",
+    borderRadius: 16,
+    padding: 14,
+    border: "1.5px solid rgba(var(--line-rgb),0.08)"
+  };
+  const h2 = {
+    fontFamily: "'Fraunces', serif",
+    fontSize: 16.5,
+    color: "var(--ink)",
+    margin: "0 0 10px",
+    display: "flex",
+    alignItems: "center",
+    gap: 8
+  };
+  const row = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: 10,
+    fontSize: 13.5,
+    color: "var(--ink)",
+    padding: "7px 0"
+  };
+  const since = member.registeredAt ? new Date(member.registeredAt).toLocaleDateString([], {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  }) : "";
+  const options = [...acc.cards.map(c => ({
+    key: c.id,
+    label: `${c.brand} •••• ${c.last4}`,
+    sub: `${c.name || "Card"}, expires ${c.exp}`,
+    icon: "credit-card",
+    card: c
+  })), ...PAY_METHODS.filter(m => m.key !== "card")];
+  return /*#__PURE__*/React.createElement(PhoneFrame, null, /*#__PURE__*/React.createElement(BrandStrip, {
+    onHome: onHome,
+    right: /*#__PURE__*/React.createElement(HomeButton, {
+      onHome: onHome
+    })
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#9C0018",
+      color: "#F4F1EB",
+      padding: "18px 20px 20px",
+      display: "flex",
+      alignItems: "center",
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: onHome,
+    className: "hub-link",
+    "aria-label": "Back to home",
+    style: {
+      background: "rgba(244,241,235,0.12)",
+      border: "none",
+      borderRadius: "50%",
+      width: 36,
+      height: 36,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "#F4F1EB",
+      cursor: "pointer",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "arrow-left",
+    size: 18
+  })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontFamily: "'Fraunces', serif",
+      fontSize: 22,
+      margin: 0,
+      fontWeight: 700
+    }
+  }, "My account"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "2px 0 0",
+      fontSize: 12.5,
+      opacity: 0.85
+    }
+  }, "Your details and saved payments"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "var(--bg)",
+      flex: 1,
+      padding: "16px 14px 24px",
+      display: "flex",
+      flexDirection: "column",
+      gap: 14
+    }
+  }, /*#__PURE__*/React.createElement("section", {
+    "aria-label": "Account details",
+    style: {
+      background: "linear-gradient(135deg, #241512 0%, #4A1A12 100%)",
+      color: "#F4F1EB",
+      borderRadius: 18,
+      padding: "16px 16px 14px"
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 11,
+      letterSpacing: 1,
+      textTransform: "uppercase",
+      fontFamily: "'IBM Plex Mono', monospace",
+      color: "#D4A832"
+    }
+  }, "Account number"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 10,
+      marginTop: 6
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "'IBM Plex Mono', monospace",
+      fontSize: 18,
+      fontWeight: 700,
+      letterSpacing: 0.5,
+      whiteSpace: "nowrap"
+    }
+  }, acctNo), /*#__PURE__*/React.createElement("button", {
+    onClick: copy,
+    "aria-label": "Copy account number",
+    className: "hub-link",
+    style: {
+      marginLeft: "auto",
+      background: "rgba(244,241,235,0.14)",
+      border: "none",
+      borderRadius: 8,
+      color: "#F4F1EB",
+      padding: "6px 8px",
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      gap: 4,
+      fontSize: 12,
+      fontWeight: 700,
+      fontFamily: "'Work Sans', sans-serif"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: copied ? "check" : "copy",
+    size: 13
+  }), " ", copied ? "Copied" : "Copy")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      gap: 10,
+      marginTop: 14,
+      fontSize: 12.5
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    style: {
+      opacity: 0.7,
+      display: "block",
+      fontSize: 11
+    }
+  }, "Mobile"), maskPhone(member.display)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    style: {
+      opacity: 0.7,
+      display: "block",
+      fontSize: 11
+    }
+  }, "Visiting from"), member.country ? `${flagEmoji(member.country)} ${countryName(member.country)}` : "Not set"), since && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    style: {
+      opacity: 0.7,
+      display: "block",
+      fontSize: 11
+    }
+  }, "Member since"), since), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+    style: {
+      opacity: 0.7,
+      display: "block",
+      fontSize: 11
+    }
+  }, "Status"), /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: "#8FE3B0",
+      fontWeight: 700
+    }
+  }, "Verified")))), /*#__PURE__*/React.createElement("section", {
+    style: card0,
+    "aria-labelledby": "pm-h"
+  }, /*#__PURE__*/React.createElement("h2", {
+    id: "pm-h",
+    style: h2
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "credit-card",
+    size: 16,
+    color: "var(--accent-ink)"
+  }), " Default payment"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "0 0 10px",
+      fontSize: 12.5,
+      color: "var(--muted)",
+      lineHeight: 1.45
+    }
+  }, "This is selected automatically at every checkout: Shops, eSIM, events and wallet top ups."), /*#__PURE__*/React.createElement("div", {
+    role: "radiogroup",
+    "aria-label": "Default payment method",
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 6
+    }
+  }, options.map(o => {
+    const on = def === o.key;
+    return /*#__PURE__*/React.createElement("div", {
+      key: o.key,
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: 10,
+        padding: "10px 12px",
+        borderRadius: 10,
+        border: `1.5px solid ${on ? "var(--accent-ink)" : "rgba(var(--line-rgb),0.12)"}`,
+        background: on ? "var(--bg)" : "transparent"
+      }
+    }, /*#__PURE__*/React.createElement("label", {
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: 10,
+        flex: 1,
+        minWidth: 0,
+        cursor: "pointer"
+      }
+    }, /*#__PURE__*/React.createElement("input", {
+      type: "radio",
+      name: "defpay",
+      checked: on,
+      onChange: () => {
+        update({
+          ...acc,
+          defaultKey: o.key
+        });
+        flash("Default updated");
+      },
+      style: {
+        accentColor: "#9C0018",
+        width: 18,
+        height: 18,
+        flexShrink: 0
+      }
+    }), /*#__PURE__*/React.createElement("span", {
+      style: {
+        width: 30,
+        height: 30,
+        borderRadius: 8,
+        background: "var(--chip)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexShrink: 0,
+        color: "var(--accent-ink)"
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: o.icon,
+      size: 16
+    })), /*#__PURE__*/React.createElement("span", {
+      style: {
+        flex: 1,
+        minWidth: 0
+      }
+    }, /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: 6,
+        fontSize: 13.5,
+        fontWeight: 600,
+        color: "var(--ink)"
+      }
+    }, o.label, on && /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 10,
+        fontWeight: 800,
+        color: "var(--green-ink)",
+        background: "var(--chip)",
+        borderRadius: 4,
+        padding: "1px 5px"
+      }
+    }, "DEFAULT")), /*#__PURE__*/React.createElement("span", {
+      style: {
+        display: "block",
+        fontSize: 11.5,
+        color: "var(--muted)"
+      }
+    }, o.sub))), o.card && /*#__PURE__*/React.createElement("button", {
+      onClick: () => {
+        const cards = acc.cards.filter(c => c.id !== o.key);
+        update({
+          cards,
+          defaultKey: acc.defaultKey === o.key ? cards[0] ? cards[0].id : null : acc.defaultKey
+        });
+        flash("Card removed");
+      },
+      "aria-label": `Remove ${o.label}`,
+      style: {
+        background: "none",
+        border: "none",
+        color: "var(--muted)",
+        cursor: "pointer",
+        padding: 6
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: "trash-2",
+      size: 15
+    })));
+  })), adding ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 12,
+      paddingTop: 12,
+      borderTop: "1px dashed var(--line2)"
+    }
+  }, /*#__PURE__*/React.createElement(CardForm, {
+    card: card,
+    setCard: setCard,
+    errors: errors,
+    hideSave: true
+  }), /*#__PURE__*/React.createElement("label", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      fontSize: 13,
+      color: "var(--ink)",
+      marginTop: 12,
+      cursor: "pointer"
+    }
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "checkbox",
+    checked: !!card.makeDefault || acc.cards.length === 0,
+    disabled: acc.cards.length === 0,
+    onChange: e => setCard(c => ({
+      ...c,
+      makeDefault: e.target.checked
+    })),
+    style: {
+      width: 18,
+      height: 18,
+      accentColor: "#9C0018"
+    }
+  }), "Make this my default"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8,
+      marginTop: 12
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => {
+      setAdding(false);
+      setErrors({});
+    },
+    style: {
+      flex: 1,
+      minHeight: 46,
+      borderRadius: 12,
+      border: "1.5px solid rgba(var(--line-rgb),0.2)",
+      background: "transparent",
+      color: "var(--ink)",
+      fontWeight: 700,
+      fontSize: 14,
+      cursor: "pointer",
+      fontFamily: "'Work Sans', sans-serif"
+    }
+  }, "Cancel"), /*#__PURE__*/React.createElement("button", {
+    onClick: addCard,
+    style: {
+      flex: 2,
+      minHeight: 46,
+      borderRadius: 12,
+      border: "none",
+      background: "#9C0018",
+      color: "#F4F1EB",
+      fontWeight: 700,
+      fontSize: 14,
+      cursor: "pointer",
+      fontFamily: "'Work Sans', sans-serif"
+    }
+  }, "Save card"))) : /*#__PURE__*/React.createElement("button", {
+    onClick: () => setAdding(true),
+    className: "hub-link",
+    style: {
+      marginTop: 12,
+      width: "100%",
+      minHeight: 44,
+      borderRadius: 12,
+      border: "1.5px dashed rgba(var(--line-rgb),0.3)",
+      background: "transparent",
+      color: "var(--ink)",
+      fontWeight: 700,
+      fontSize: 13.5,
+      cursor: "pointer",
+      fontFamily: "'Work Sans', sans-serif",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 6
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "plus",
+    size: 16
+  }), " Add a card"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "10px 0 0",
+      fontSize: 11,
+      color: "var(--muted)",
+      lineHeight: 1.45
+    }
+  }, "Only the card type, last 4 digits and expiry are kept on this device. The full number and security code are never stored. Demo preview.")), /*#__PURE__*/React.createElement("section", {
+    style: card0,
+    "aria-labelledby": "si-h"
+  }, /*#__PURE__*/React.createElement("h2", {
+    id: "si-h",
+    style: h2
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "shield-check",
+    size: 16,
+    color: "var(--accent-ink)"
+  }), " Signed in"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 13,
+      color: "var(--ink)",
+      lineHeight: 1.5
+    }
+  }, "You stay signed in on this device, so there's no need to register again. You'll only need your number again if you sign out, clear your browser or switch phones."), /*#__PURE__*/React.createElement("button", {
+    onClick: onSignOut,
+    className: "hub-link",
+    style: {
+      marginTop: 12,
+      minHeight: 44,
+      padding: "0 16px",
+      borderRadius: 10,
+      border: "1.5px solid var(--accent-ink)",
+      background: "transparent",
+      color: "var(--accent-ink)",
+      fontSize: 13,
+      fontWeight: 700,
+      cursor: "pointer",
+      fontFamily: "'Work Sans', sans-serif",
+      display: "flex",
+      alignItems: "center",
+      gap: 6
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "log-out",
+    size: 14
+  }), " Sign out")), toast && /*#__PURE__*/React.createElement("div", {
+    role: "status",
+    style: {
+      position: "fixed",
+      left: "50%",
+      bottom: 40,
+      transform: "translateX(-50%)",
+      zIndex: 60,
+      background: "rgba(33,29,23,0.92)",
+      color: "#F4F1EB",
+      fontSize: 13,
+      fontWeight: 600,
+      padding: "9px 14px",
+      borderRadius: 999
+    }
+  }, toast)));
+}
+
+/* ---------- AI help desk ---------- */
+function HelpDeskPage({
+  onHome
+}) {
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+  const [contactSent, setContactSent] = useState(false);
+  const [tab, setTab] = useState("nav");
+  const submitContact = () => {
+    if (!contactForm.name.trim() || !contactForm.email.trim() || !contactForm.message.trim()) return;
+    setContactSent(true);
+    setTimeout(() => {
+      setContactSent(false);
+      setContactForm({
+        name: "",
+        email: "",
+        message: ""
+      });
+    }, 2400);
+  };
+  return /*#__PURE__*/React.createElement(PhoneFrame, null, /*#__PURE__*/React.createElement(BrandStrip, {
+    onHome: onHome,
+    right: /*#__PURE__*/React.createElement(HomeButton, {
+      onHome: onHome
+    })
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "#9C0018",
+      color: "#F4F1EB",
+      padding: "18px 20px 20px",
+      display: "flex",
+      alignItems: "center",
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: onHome,
+    className: "hub-link",
+    "aria-label": "Back to home",
+    style: {
+      background: "rgba(244,241,235,0.12)",
+      border: "none",
+      borderRadius: "50%",
+      width: 36,
+      height: 36,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "#F4F1EB",
+      cursor: "pointer",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "arrow-left",
+    size: 18
+  })), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+    style: {
+      fontFamily: "'Fraunces', serif",
+      fontSize: 22,
+      margin: 0,
+      fontWeight: 700
+    }
+  }, "AI help desk"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "2px 0 0",
+      fontSize: 12.5,
+      opacity: 0.85
+    }
+  }, "AI navigator, emergency contacts, word and photo translator"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "var(--bg)",
+      flex: 1,
+      padding: "18px 16px 24px"
+    }
+  }, /*#__PURE__*/React.createElement(EmergencyCard, null), /*#__PURE__*/React.createElement("div", {
+    role: "tablist",
+    "aria-label": "Help desk tools",
+    style: {
+      display: "flex",
+      gap: 6,
+      overflowX: "auto",
+      margin: "16px 0 14px",
+      scrollbarWidth: "none"
+    }
+  }, [["nav", "Navigator", "navigation"], ["sos", "Emergency", "siren"], ["tr", "Translator", "languages"], ["contact", "Contact us", "mail"]].map(([k, l, ic]) => /*#__PURE__*/React.createElement("button", {
+    key: k,
+    role: "tab",
+    "aria-selected": tab === k ? "true" : "false",
+    onClick: () => setTab(k),
+    className: "hub-link",
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 6,
+      flexShrink: 0,
+      minHeight: 38,
+      padding: "0 12px",
+      borderRadius: 999,
+      cursor: "pointer",
+      fontSize: 13,
+      fontWeight: 700,
+      fontFamily: "'Work Sans', sans-serif",
+      border: `1.5px solid ${tab === k ? "var(--accent-ink)" : "rgba(var(--line-rgb),0.15)"}`,
+      background: tab === k ? "var(--accent-ink)" : "var(--surface)",
+      color: tab === k ? "var(--bg)" : "var(--ink)"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: ic,
+    size: 14
+  }), " ", l))), tab === "nav" && /*#__PURE__*/React.createElement(NavigatorPanel, null), tab === "sos" && /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      margin: 0,
+      fontFamily: "'Fraunces', serif",
+      fontSize: 15.5,
+      color: "var(--ink)"
+    }
+  }, "All emergency numbers"), EMERGENCY.map(e => /*#__PURE__*/React.createElement("a", {
+    key: e.num,
+    href: `${e.sms ? "sms" : "tel"}:${e.num.replace(/\s/g, "")}`,
+    className: "hub-link",
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 12,
+      background: "var(--surface)",
+      borderRadius: 12,
+      padding: "10px 12px",
+      textDecoration: "none",
+      border: e.urgent ? "1.5px solid var(--accent-ink)" : "1.5px solid rgba(var(--line-rgb),0.08)"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 36,
+      height: 36,
+      borderRadius: 10,
+      background: "var(--chip)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: e.icon,
+    size: 17,
+    color: "var(--accent-ink)"
+  })), /*#__PURE__*/React.createElement("span", {
+    style: {
+      flex: 1,
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "block",
+      fontSize: 13.5,
+      fontWeight: 700,
+      color: "var(--ink)"
+    }
+  }, e.label), /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "block",
+      fontSize: 11.5,
+      color: "var(--muted)"
+    }
+  }, e.note)), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "'IBM Plex Mono', monospace",
+      fontWeight: 800,
+      fontSize: 15,
+      color: "var(--accent-ink)"
+    }
+  }, e.num))), /*#__PURE__*/React.createElement("h3", {
+    style: {
+      margin: "10px 0 0",
+      fontFamily: "'Fraunces', serif",
+      fontSize: 15.5,
+      color: "var(--ink)"
+    }
+  }, "24 hour A&E"), HOSPITALS.map(h => /*#__PURE__*/React.createElement("a", {
+    key: h.name,
+    href: mapsUrl(h.q),
+    target: "_blank",
+    rel: "noopener noreferrer",
+    className: "hub-link",
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 12,
+      background: "var(--surface)",
+      borderRadius: 12,
+      padding: "10px 12px",
+      textDecoration: "none"
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      width: 36,
+      height: 36,
+      borderRadius: 10,
+      background: "var(--chip)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "hospital",
+    size: 17,
+    color: "var(--accent-ink)"
+  })), /*#__PURE__*/React.createElement("span", {
+    style: {
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "block",
+      fontSize: 13.5,
+      fontWeight: 700,
+      color: "var(--ink)"
+    }
+  }, h.name), /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: "block",
+      fontSize: 11.5,
+      color: "var(--muted)"
+    }
+  }, h.area)), /*#__PURE__*/React.createElement(Icon, {
+    name: "navigation",
+    size: 16,
+    color: "var(--muted)"
+  }))), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "4px 0 0",
+      fontSize: 11.5,
+      color: "var(--muted)",
+      lineHeight: 1.5
+    }
+  }, "Lost your passport? Report it on the police hotline, then contact your country's embassy in Singapore.")), tab === "tr" && /*#__PURE__*/React.createElement(TranslatorPanel, null), tab === "contact" && /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 16
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
+    style: {
+      fontFamily: "'Fraunces', serif",
+      fontSize: 18,
+      color: "var(--ink)",
+      margin: "2px 0 6px"
+    }
+  }, "Contact us"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: 12.5,
+      color: "var(--muted)",
+      margin: 0,
+      lineHeight: 1.5
+    }
+  }, "Questions about a deal, a booking, a payment or your account? Reach out below and we will reply by email.")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "mailto:info@cboxxsg.com",
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 12,
+      background: "var(--surface)",
+      borderRadius: 14,
+      padding: 12,
+      border: "1px solid rgba(var(--line-rgb),0.06)",
+      textDecoration: "none"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 40,
+      height: 40,
+      borderRadius: 10,
+      background: "var(--chip)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "mail",
+    size: 18,
+    color: "var(--accent-ink)"
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontFamily: "'Work Sans', sans-serif",
+      fontSize: 13,
+      fontWeight: 600,
+      color: "var(--ink)"
+    }
+  }, "Email"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "1px 0 0",
+      fontSize: 12,
+      color: "var(--muted)"
+    }
+  }, "info@cboxxsg.com"))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 12,
+      background: "var(--surface)",
+      borderRadius: 14,
+      padding: 12,
+      border: "1px solid rgba(var(--line-rgb),0.06)"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: 40,
+      height: 40,
+      borderRadius: 10,
+      background: "var(--chip)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "map-pin",
+    size: 18,
+    color: "var(--accent-ink)"
+  })), /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontFamily: "'Work Sans', sans-serif",
+      fontSize: 13,
+      fontWeight: 600,
+      color: "var(--ink)"
+    }
+  }, "Seaport Pte. Ltd."), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "1px 0 0",
+      fontSize: 12,
+      color: "var(--muted)"
+    }
+  }, "Singapore, UEN 202619369N")))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", {
+    style: {
+      fontFamily: "'Fraunces', serif",
+      fontSize: 14.5,
+      color: "var(--ink)",
+      margin: "4px 0 10px"
+    }
+  }, "Send a message"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement("input", {
+    value: contactForm.name,
+    onChange: e => setContactForm(f => ({
+      ...f,
+      name: e.target.value
+    })),
+    placeholder: "Your name",
+    style: {
+      border: "1px solid var(--line2)",
+      borderRadius: 10,
+      padding: "10px 12px",
+      fontSize: 13,
+      fontFamily: "'Work Sans', sans-serif",
+      outline: "none",
+      background: "var(--surface)",
+      color: "var(--ink)"
+    }
+  }), /*#__PURE__*/React.createElement("input", {
+    value: contactForm.email,
+    onChange: e => setContactForm(f => ({
+      ...f,
+      email: e.target.value
+    })),
+    placeholder: "Your email",
+    style: {
+      border: "1px solid var(--line2)",
+      borderRadius: 10,
+      padding: "10px 12px",
+      fontSize: 13,
+      fontFamily: "'Work Sans', sans-serif",
+      outline: "none",
+      background: "var(--surface)",
+      color: "var(--ink)"
+    }
+  }), /*#__PURE__*/React.createElement("textarea", {
+    value: contactForm.message,
+    onChange: e => setContactForm(f => ({
+      ...f,
+      message: e.target.value
+    })),
+    placeholder: "How can we help?",
+    rows: 3,
+    style: {
+      border: "1px solid var(--line2)",
+      borderRadius: 10,
+      padding: "10px 12px",
+      fontSize: 13,
+      fontFamily: "'Work Sans', sans-serif",
+      outline: "none",
+      resize: "none",
+      background: "var(--surface)",
+      color: "var(--ink)"
+    }
+  }), /*#__PURE__*/React.createElement("button", {
+    onClick: submitContact,
+    style: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 7,
+      border: "none",
+      borderRadius: 10,
+      padding: "11px 0",
+      fontSize: 13,
+      fontWeight: 700,
+      fontFamily: "'Work Sans', sans-serif",
+      cursor: "pointer",
+      background: contactSent ? "#165932" : "#9C0018",
+      color: "#F4F1EB",
+      transition: "background 200ms"
+    }
+  }, contactSent ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Icon, {
+    name: "check",
+    size: 15
+  }), " Message sent") : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Icon, {
+    name: "send",
+    size: 14
+  }), " Send message")))))));
+}
 function ConsumerDashboard({
   member,
   onSignOut,
@@ -11437,12 +14023,6 @@ function ConsumerDashboard({
   const [searchOpen, setSearchOpen] = useState(false);
   const [points, setPoints] = useState(340);
   const [redeemedRewards, setRedeemedRewards] = useState(new Set());
-  const [contactForm, setContactForm] = useState({
-    name: "",
-    email: "",
-    message: ""
-  });
-  const [contactSent, setContactSent] = useState(false);
   const phoneNumber = member.e164; // verified at registration; only its hash is used as the ID
   const [memberIdHash, setMemberIdHash] = useState("computing…");
   useEffect(() => {
@@ -11498,18 +14078,6 @@ function ConsumerDashboard({
     if (redeemedRewards.has(reward.id) || points < reward.cost) return;
     setPoints(p => p - reward.cost);
     setRedeemedRewards(s => new Set(s).add(reward.id));
-  };
-  const submitContact = () => {
-    if (!contactForm.name.trim() || !contactForm.email.trim() || !contactForm.message.trim()) return;
-    setContactSent(true);
-    setTimeout(() => {
-      setContactSent(false);
-      setContactForm({
-        name: "",
-        email: "",
-        message: ""
-      });
-    }, 2400);
   };
   const nextTier = 500;
   const tierProgress = Math.min(points / nextTier, 1);
@@ -12658,213 +15226,7 @@ function ConsumerDashboard({
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "log-out",
     size: 14
-  }), " Sign out and use another number")), mainView === "contactTab" && /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 16
-    }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
-    style: {
-      fontFamily: "'Fraunces', serif",
-      fontSize: 18,
-      color: "var(--ink)",
-      margin: "2px 0 6px"
-    }
-  }, "Contact us"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      fontSize: 12.5,
-      color: "var(--muted)",
-      margin: 0,
-      lineHeight: 1.5
-    }
-  }, "Questions about a deal, a shop, or your account? Reach out below and we will reply by email.")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 8
-    }
-  }, /*#__PURE__*/React.createElement("a", {
-    href: "mailto:info@cboxxsg.com",
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 12,
-      background: "var(--surface)",
-      borderRadius: 14,
-      padding: 12,
-      border: "1px solid rgba(var(--line-rgb),0.06)",
-      textDecoration: "none"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 40,
-      height: 40,
-      borderRadius: 10,
-      background: "var(--chip)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flexShrink: 0
-    }
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "mail",
-    size: 18,
-    color: "var(--accent-ink)"
-  })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1,
-      minWidth: 0
-    }
-  }, /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: 0,
-      fontFamily: "'Work Sans', sans-serif",
-      fontSize: 13,
-      fontWeight: 600,
-      color: "var(--ink)"
-    }
-  }, "Email"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: "1px 0 0",
-      fontSize: 12,
-      color: "var(--muted)"
-    }
-  }, "info@cboxxsg.com"))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 12,
-      background: "var(--surface)",
-      borderRadius: 14,
-      padding: 12,
-      border: "1px solid rgba(var(--line-rgb),0.06)"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: 40,
-      height: 40,
-      borderRadius: 10,
-      background: "var(--chip)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flexShrink: 0
-    }
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "map-pin",
-    size: 18,
-    color: "var(--accent-ink)"
-  })), /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1,
-      minWidth: 0
-    }
-  }, /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: 0,
-      fontFamily: "'Work Sans', sans-serif",
-      fontSize: 13,
-      fontWeight: 600,
-      color: "var(--ink)"
-    }
-  }, "Seaport Pte. Ltd."), /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: "1px 0 0",
-      fontSize: 12,
-      color: "var(--muted)"
-    }
-  }, "Singapore, UEN 202619369N")))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h4", {
-    style: {
-      fontFamily: "'Fraunces', serif",
-      fontSize: 14.5,
-      color: "var(--ink)",
-      margin: "4px 0 10px"
-    }
-  }, "Send a message"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 8
-    }
-  }, /*#__PURE__*/React.createElement("input", {
-    value: contactForm.name,
-    onChange: e => setContactForm(f => ({
-      ...f,
-      name: e.target.value
-    })),
-    placeholder: "Your name",
-    style: {
-      border: "1px solid var(--line2)",
-      borderRadius: 10,
-      padding: "10px 12px",
-      fontSize: 13,
-      fontFamily: "'Work Sans', sans-serif",
-      outline: "none",
-      background: "var(--surface)",
-      color: "var(--ink)"
-    }
-  }), /*#__PURE__*/React.createElement("input", {
-    value: contactForm.email,
-    onChange: e => setContactForm(f => ({
-      ...f,
-      email: e.target.value
-    })),
-    placeholder: "Your email",
-    style: {
-      border: "1px solid var(--line2)",
-      borderRadius: 10,
-      padding: "10px 12px",
-      fontSize: 13,
-      fontFamily: "'Work Sans', sans-serif",
-      outline: "none",
-      background: "var(--surface)",
-      color: "var(--ink)"
-    }
-  }), /*#__PURE__*/React.createElement("textarea", {
-    value: contactForm.message,
-    onChange: e => setContactForm(f => ({
-      ...f,
-      message: e.target.value
-    })),
-    placeholder: "How can we help?",
-    rows: 3,
-    style: {
-      border: "1px solid var(--line2)",
-      borderRadius: 10,
-      padding: "10px 12px",
-      fontSize: 13,
-      fontFamily: "'Work Sans', sans-serif",
-      outline: "none",
-      resize: "none",
-      background: "var(--surface)",
-      color: "var(--ink)"
-    }
-  }), /*#__PURE__*/React.createElement("button", {
-    onClick: submitContact,
-    style: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: 7,
-      border: "none",
-      borderRadius: 10,
-      padding: "11px 0",
-      fontSize: 13,
-      fontWeight: 700,
-      fontFamily: "'Work Sans', sans-serif",
-      cursor: "pointer",
-      background: contactSent ? "#165932" : "#9C0018",
-      color: "#F4F1EB",
-      transition: "background 200ms"
-    }
-  }, contactSent ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Icon, {
-    name: "check",
-    size: 15
-  }), " Message sent") : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Icon, {
-    name: "send",
-    size: 14
-  }), " Send message")))))), paymentNotice && /*#__PURE__*/React.createElement("div", {
+  }), " Sign out and use another number"))), paymentNotice && /*#__PURE__*/React.createElement("div", {
     role: "status",
     style: {
       margin: "0 12px 8px",
@@ -12899,10 +15261,6 @@ function ConsumerDashboard({
     key: "purchasesTab",
     label: "Receipts",
     icon: "receipt-text"
-  }, {
-    key: "contactTab",
-    label: "Contact",
-    icon: "message-circle"
   }, {
     key: "profileTab",
     label: "Profile",
@@ -12995,6 +15353,9 @@ function AppScreens() {
   }
   const signOut = () => {
     clearMember();
+    try {
+      localStorage.removeItem(ACCOUNT_KEY);
+    } catch {}
     setMember(null);
     setView("home");
   };
@@ -13006,6 +15367,14 @@ function AppScreens() {
     initialRegion: shopRegion
   });
   if (view === "esim") return /*#__PURE__*/React.createElement(ESimPage, {
+    onHome: goHome
+  });
+  if (view === "account") return /*#__PURE__*/React.createElement(AccountPage, {
+    member: member,
+    onHome: goHome,
+    onSignOut: signOut
+  });
+  if (view === "helpdesk") return /*#__PURE__*/React.createElement(HelpDeskPage, {
     onHome: goHome
   });
   if (view === "calendar") return /*#__PURE__*/React.createElement(CalendarPage, {
