@@ -1,1 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Seaport Creative Feed (sandbox)</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Work+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700&family=Barlow+Condensed:wght@800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/lucide@1.48.0/dist/umd/lucide.min.js"></script>
+<style>
+  :root { --bg: #F4F1EB; --surface: #FFFFFF; --chip: #EAE6DE; --ink: #211D17; --muted: #6B6357; --accent-ink: #9C0018; --gold: #D4A832; --green-ink: #165932; --line: rgba(33,29,23,0.12); --line2: #E3D9C4; color-scheme: light; }
+  :root[data-theme="dark"] { --bg: #15110E; --surface: #221C17; --chip: #2E2620; --ink: #F1ECE3; --muted: #B3A99A; --accent-ink: #FF8A94; --green-ink: #7FD9A4; --line: rgba(244,241,235,0.12); --line2: #3A3129; color-scheme: dark; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #15110E; --surface: #221C17; --chip: #2E2620; --ink: #F1ECE3; --muted: #B3A99A; --accent-ink: #FF8A94; --green-ink: #7FD9A4; --line: rgba(244,241,235,0.12); --line2: #3A3129; color-scheme: dark; } }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Work Sans', system-ui, sans-serif; overflow: hidden; }
+  button { font-family: inherit; }
+  :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  svg.lucide { width: 18px; height: 18px; stroke-width: 2; flex-shrink: 0; }
+  [hidden] { display: none !important; }
 
+  header.top { height: 60px; display: flex; align-items: center; gap: 14px; padding: 0 22px; background: #241512; color: #F4F1EB; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 23px; letter-spacing: 2px; text-transform: uppercase; }
+  .tag { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; background: var(--gold); color: #211D17; border-radius: 6px; padding: 3px 8px; }
+  .top-actions { margin-left: auto; display: flex; gap: 8px; }
+  .hbtn { height: 38px; min-width: 38px; padding: 0 12px; border-radius: 999px; border: none; background: rgba(244,241,235,0.12); color: #F4F1EB; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-weight: 600; font-size: 13px; }
+  .hbtn:hover { background: rgba(244,241,235,0.22); }
+
+  /* onboarding */
+  .onboard { height: calc(100vh - 60px); overflow-y: auto; display: flex; justify-content: center; padding: 48px 24px; }
+  .ob-inner { width: min(920px, 100%); }
+  .ob-inner h1 { font-family: 'Fraunces', serif; font-size: clamp(30px, 4vw, 44px); margin: 0; line-height: 1.1; }
+  .ob-inner p.sub { color: var(--muted); font-size: 16px; margin: 10px 0 28px; }
+  .ind-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; }
+  .ind { position: relative; text-align: left; border: 2px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 18px; padding: 16px; min-height: 150px; cursor: pointer; display: flex; flex-direction: column; gap: 10px; transition: transform 120ms, border-color 120ms; }
+  .ind:hover { transform: translateY(-2px); }
+  .ind .ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; color: #FFFFFF; }
+  .ind .ic svg { width: 22px; height: 22px; }
+  .ind b { font-size: 15.5px; margin-top: auto; }
+  .ind span.ex { font-size: 12px; color: var(--muted); line-height: 1.35; }
+  .ind .tick { position: absolute; top: 12px; right: 12px; width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--line); display: grid; place-items: center; color: transparent; }
+  .ind[aria-pressed="true"] { border-color: var(--accent-ink); }
+  .ind[aria-pressed="true"] .tick { background: var(--accent-ink); border-color: var(--accent-ink); color: var(--bg); }
+  .ind .tick svg { width: 15px; height: 15px; stroke-width: 3; }
+  .ob-bar { position: sticky; bottom: -48px; margin-top: 26px; padding: 16px 0 48px; background: linear-gradient(transparent, var(--bg) 30%); display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .btn { min-height: 48px; border-radius: 14px; border: none; background: #9C0018; color: #F4F1EB; font-weight: 700; font-size: 15px; cursor: pointer; padding: 0 20px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn:disabled { background: #C9C1B3; cursor: not-allowed; }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+  .linkbtn { background: none; border: none; color: var(--accent-ink); font-weight: 700; font-size: 14px; cursor: pointer; padding: 8px 4px; }
+
+  /* feed layout */
+  .layout { height: calc(100vh - 60px); display: grid; grid-template-columns: 270px 1fr 340px; }
+  aside, .right { overflow-y: auto; padding: 22px; }
+  aside { border-right: 1px solid var(--line); }
+  .right { border-left: 1px solid var(--line); }
+  h2.sec { font-family: 'Fraunces', serif; font-size: 18px; margin: 0 0 12px; }
+  .lab { font-size: 11.5px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: var(--muted); margin: 18px 0 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 7px 12px; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+  .chip svg { width: 14px; height: 14px; }
+  .chip[aria-pressed="true"] { background: var(--accent-ink); border-color: var(--accent-ink); color: var(--bg); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 20px; }
+  .stat { background: var(--surface); border-radius: 12px; padding: 10px 4px; text-align: center; }
+  .stat b { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 19px; }
+  .stat span { font-size: 11px; color: var(--muted); }
+  .muted { color: var(--muted); font-size: 13px; line-height: 1.5; }
+  .keys { font-size: 12px; color: var(--muted); display: grid; grid-template-columns: auto 1fr; gap: 6px 10px; align-items: center; }
+  kbd { font-family: 'IBM Plex Mono', monospace; font-size: 11px; background: var(--chip); border-radius: 5px; padding: 2px 6px; border-bottom: 2px solid var(--line2); color: var(--ink); justify-self: start; }
+
+  .stage { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 18px; min-width: 0; }
+  .feed { height: calc(100vh - 96px); aspect-ratio: 9 / 16; max-width: 100%; border-radius: 22px; overflow-y: auto; scroll-snap-type: y mandatory; background: #000; scrollbar-width: none; position: relative; overscroll-behavior: contain; }
+  .feed::-webkit-scrollbar { display: none; }
+  .navcol { display: flex; flex-direction: column; gap: 10px; }
+  .navbtn { width: 46px; height: 46px; border-radius: 50%; border: none; background: var(--surface); color: var(--ink); cursor: pointer; display: grid; place-items: center; box-shadow: 0 8px 20px -12px rgba(0,0,0,0.5); }
+  .navbtn:disabled { opacity: 0.35; cursor: default; }
+
+  .post { height: 100%; scroll-snap-align: start; scroll-snap-stop: always; position: relative; overflow: hidden; color: #FFFFFF; }
+  .reel { position: absolute; inset: 0; }
+  .reel .blob { position: absolute; border-radius: 50%; filter: blur(2px); opacity: 0.55; }
+  .playing .blob.b1 { animation: drift1 9s ease-in-out infinite alternate; }
+  .playing .blob.b2 { animation: drift2 11s ease-in-out infinite alternate; }
+  .playing .blob.b3 { animation: drift3 7s ease-in-out infinite alternate; }
+  @keyframes drift1 { to { transform: translate(40px, 60px) scale(1.2); } }
+  @keyframes drift2 { to { transform: translate(-50px, -40px) scale(0.85); } }
+  @keyframes drift3 { to { transform: translate(30px, -70px) scale(1.15); } }
+  .dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px); background-size: 14px 14px; }
+  .showcase { position: absolute; left: 22px; right: 76px; top: 18%; }
+  .showcase .kicker { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gold); }
+  .showcase h3 { font-family: 'Fraunces', serif; font-size: clamp(24px, 3vh, 34px); line-height: 1.1; margin: 10px 0 0; }
+  .showcase .icon { width: 70px; height: 70px; border-radius: 20px; background: rgba(255,255,255,0.14); display: grid; place-items: center; margin-bottom: 16px; }
+  .showcase .icon svg { width: 36px; height: 36px; }
+  .frames { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 18px; }
+  .frames span { aspect-ratio: 1; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); }
+  .shade { position: absolute; left: 0; right: 0; bottom: 0; height: 50%; background: linear-gradient(transparent, rgba(0,0,0,0.75)); pointer-events: none; }
+  .tap { position: absolute; inset: 0; z-index: 1; cursor: pointer; }
+  .progress { position: absolute; top: 12px; left: 14px; right: 14px; height: 3px; border-radius: 2px; background: rgba(255,255,255,0.3); z-index: 3; overflow: hidden; }
+  .progress i { display: block; height: 100%; width: 0; background: #FFFFFF; }
+  .playing .progress i { animation: prog 8s linear infinite; }
+  .paused .progress i { animation-play-state: paused; }
+  .paused .blob { animation-play-state: paused !important; }
+  @keyframes prog { to { width: 100%; } }
+  .pausebadge { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2; opacity: 0; pointer-events: none; }
+  .paused .pausebadge { opacity: 0.85; }
+  .pausebadge svg { width: 64px; height: 64px; fill: #FFFFFF; }
+  .rail { position: absolute; right: 10px; bottom: 110px; z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .ravatar { position: relative; width: 48px; height: 48px; border-radius: 50%; border: 2px solid #FFFFFF; display: grid; place-items: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 17px; }
+  .follow { position: absolute; bottom: -9px; left: 50%; transform: translateX(-50%); width: 22px; height: 22px; border-radius: 50%; border: none; background: #FF3B5C; color: #FFFFFF; display: grid; place-items: center; cursor: pointer; padding: 0; }
+  .follow svg { width: 13px; height: 13px; stroke-width: 3; }
+  .follow.on { background: #FFFFFF; color: #1FA35C; }
+  .rbtn { background: none; border: none; color: #FFFFFF; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 12px; font-weight: 700; padding: 2px; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5)); }
+  .rbtn svg { width: 30px; height: 30px; }
+  .rbtn.liked svg { color: #FF3B5C; fill: #FF3B5C; }
+  .rbtn.saved svg { color: var(--gold); fill: #D4A832; }
+  .rbtn .pop { animation: pop 380ms cubic-bezier(.2,1.6,.4,1); }
+  @keyframes pop { 0% { transform: scale(0.6); } 60% { transform: scale(1.25); } 100% { transform: scale(1); } }
+  .caption { position: absolute; left: 16px; right: 74px; bottom: 18px; z-index: 3; }
+  .caption .who { font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 6px; }
+  .caption .who small { font-weight: 700; font-size: 10.5px; background: rgba(255,255,255,0.2); border-radius: 4px; padding: 2px 5px; }
+  .caption p { margin: 6px 0 0; font-size: 13.5px; line-height: 1.4; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+  .caption .row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .pillbtn { display: inline-flex; align-items: center; gap: 6px; border: none; border-radius: 999px; padding: 8px 12px; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+  .pillbtn.light { background: rgba(255,255,255,0.18); color: #FFFFFF; }
+  .pillbtn.solid { background: #FFFFFF; color: #211D17; }
+  .pillbtn svg { width: 14px; height: 14px; }
+  .burst { position: absolute; left: 50%; top: 45%; z-index: 4; pointer-events: none; animation: burst 700ms ease-out forwards; }
+  .burst svg { width: 96px; height: 96px; color: #FF3B5C; fill: #FF3B5C; }
+  @keyframes burst { 0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); } 25% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); } 100% { opacity: 0; transform: translate(-50%, -75%) scale(1); } }
+  .endcard { height: 100%; scroll-snap-align: start; display: grid; place-items: center; text-align: center; color: #F4F1EB; padding: 30px; background: #211D17; }
+
+  .list { display: flex; flex-direction: column; gap: 8px; }
+  .item { background: var(--surface); border-radius: 14px; padding: 10px 12px; display: flex; align-items: center; gap: 12px; }
+  .item .dot { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; color: #FFFFFF; flex-shrink: 0; }
+  .item .dot svg { width: 19px; height: 19px; }
+  .item .t { flex: 1; min-width: 0; } .item .t b { display: block; font-size: 14px; } .item .t span { display: block; font-size: 12px; color: var(--muted); }
+  .mini { border: none; background: none; color: var(--muted); cursor: pointer; padding: 6px; border-radius: 8px; display: grid; place-items: center; }
+  .mini:hover { background: var(--chip); color: var(--ink); }
+  .log { list-style: none; margin: 0; padding: 0; } .log li { font-size: 12.5px; color: var(--muted); padding: 4px 0; display: flex; gap: 8px; } .log li b { color: var(--ink); font-weight: 600; }
+
+  .scrim { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: grid; place-items: center; z-index: 50; padding: 24px; }
+  .modal { width: min(520px, 100%); max-height: 88vh; overflow-y: auto; background: var(--bg); border-radius: 22px; padding: 22px 24px; }
+  .menu-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px dashed var(--line2); }
+  .menu-row:last-of-type { border-bottom: none; }
+  .menu-row .t { flex: 1; } .menu-row b { display: block; } .menu-row span { font-size: 12.5px; color: var(--muted); }
+  .menu-row .p { font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: var(--accent-ink); }
+  .toast { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%); background: rgba(33,29,23,0.94); color: #F4F1EB; padding: 10px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; z-index: 60; }
+
+  @media (max-width: 1150px) { .layout { grid-template-columns: 220px 1fr 290px; } }
+  @media (max-width: 900px) { body { overflow: auto; } .layout { grid-template-columns: 1fr; height: auto; } aside, .right { border: none; } .stage { order: -1; } .navcol { display: none; } .feed { height: calc(100vh - 110px); } }
+  @media (prefers-reduced-motion: reduce) { .blob, .progress i, .burst, .rbtn .pop, .ind { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <button class="brand" id="homeBtn" aria-label="Seaport, go to home" style="background:none;border:none;color:inherit;cursor:pointer;padding:4px 6px 4px 0;border-radius:8px"><img src="data:image/png;base64,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" alt="" style="height:26px;width:auto;display:block">Seaport</button>
+  <span class="tag">Creative feed sandbox</span>
+  <div class="top-actions">
+    <button class="hbtn" id="editInd" hidden><i data-lucide="sliders-horizontal"></i> My industries</button>
+    <button class="hbtn" id="howBtn"><i data-lucide="route"></i> How it works and fees</button>
+    <button class="hbtn" id="themeBtn" aria-label="Switch to dark mode"><i data-lucide="moon"></i></button>
+    <button class="hbtn" id="resetBtn"><i data-lucide="rotate-ccw"></i> Reset sandbox</button>
+  </div>
+</header>
+
+<section class="onboard" id="onboard" aria-labelledby="obTitle" hidden>
+  <div class="ob-inner">
+    <h1 id="obTitle">Which creative industries are you into?</h1>
+    <p class="sub">Pick as many as you like. Your feed will only show creatives from these industries, and you can change them anytime.</p>
+    <div class="ind-grid" id="indGrid" role="group" aria-labelledby="obTitle"></div>
+    <div class="ob-bar">
+      <button class="btn" id="obGo" disabled><span id="obGoText">Pick at least one</span> <i data-lucide="arrow-right"></i></button>
+      <button class="linkbtn" id="obAll">Select all</button>
+      <span class="muted" id="obCount" aria-live="polite"></span>
+    </div>
+  </div>
+</section>
+
+<div class="layout" id="feedView" hidden>
+  <aside aria-label="Your industries">
+    <h2 class="sec">Your industries</h2>
+    <p class="muted" style="margin:-6px 0 10px">Tap to show or hide in your feed.</p>
+    <div class="chips" id="indChips"></div>
+    <button class="linkbtn" id="editInd2" style="margin-top:8px">Change industries</button>
+    <div class="stats" aria-live="polite">
+      <div class="stat"><b id="sPosts">0</b><span>In feed</span></div>
+      <div class="stat"><b id="sLiked">0</b><span>Liked</span></div>
+      <div class="stat"><b id="sFollow">0</b><span>Following</span></div>
+    </div>
+    <p class="lab">Shortcuts</p>
+    <div class="keys"><kbd>↓ J</kbd><span>Next</span><kbd>↑ K</kbd><span>Previous</span><kbd>L</kbd><span>Like</span><kbd>S</kbd><span>Save creative</span><kbd>Q</kbd><span>Request quote</span><kbd>P</kbd><span>Packages</span><kbd>M</kbd><span>Message creative</span><kbd>Space</kbd><span>Pause or play</span></div>
+    <p class="muted" style="margin-top:18px">Sandbox: sample creatives and work. Nothing is sent or charged.</p>
+  </aside>
+
+  <section class="stage" aria-label="Creative feed">
+    <div class="feed" id="feed" tabindex="0" aria-label="Feed. Use up and down arrow keys to move between posts."></div>
+    <div class="navcol">
+      <button class="navbtn" id="prevBtn" aria-label="Previous post"><i data-lucide="chevron-up"></i></button>
+      <button class="navbtn" id="nextBtn" aria-label="Next post"><i data-lucide="chevron-down"></i></button>
+    </div>
+  </section>
+
+  <section class="right" aria-label="Your picks">
+    <div class="chips" role="tablist">
+      <button class="chip" role="tab" id="tabSaved" aria-pressed="true" aria-selected="true">Saved</button>
+      <button class="chip" role="tab" id="tabBrief" aria-pressed="false" aria-selected="false">Brief <span id="briefCount"></span></button>
+      <button class="chip" role="tab" id="tabChat" aria-pressed="false" aria-selected="false">Messages <span id="chatCount"></span></button>
+      <button class="chip" role="tab" id="tabProj" aria-pressed="false" aria-selected="false">Projects <span id="projCount"></span></button>
+      <button class="chip" role="tab" id="tabLog" aria-pressed="false" aria-selected="false">Activity</button>
+    </div>
+    <div id="panel" style="margin-top:16px"></div>
+  </section>
+</div>
+<div id="live" class="sr" aria-live="polite"></div>
+
+<script>
+const REGIONS = ["Tiong Bahru", "Jalan Besar", "Kampong Glam", "Joo Chiat", "Chinatown", "Remote"];
+const CATEGORIES = [{"key": "design", "label": "Graphic design", "icon": "palette"}, {"key": "photo", "label": "Photography", "icon": "camera"}, {"key": "illus", "label": "Illustration", "icon": "pen-tool"}, {"key": "film", "label": "Video and film", "icon": "clapperboard"}, {"key": "music", "label": "Music and sound", "icon": "music"}, {"key": "words", "label": "Writing and copy", "icon": "pen-line"}, {"key": "craft", "label": "Crafts and makers", "icon": "hammer"}, {"key": "motion", "label": "Animation and motion", "icon": "sparkles"}, {"key": "uiux", "label": "UI and UX", "icon": "layout-template"}, {"key": "fashion", "label": "Fashion and textile", "icon": "shirt"}];
+const MERCHANTS = [{"id": 1, "name": "Studio Kopitiam", "cat": "design", "region": "Tiong Bahru", "tagline": "Heritage-meets-modern brand identities", "offers": ["Identities for 40+ F&B brands", "Bilingual type systems"], "priceRange": 3, "tier": "Pro", "rating": 4.9, "turnaround": "2 weeks", "available": true, "tags": ["branding", "packaging"]}, {"id": 2, "name": "Nadia Rahman", "cat": "illus", "region": "Joo Chiat", "tagline": "Peranakan-inspired illustration", "offers": ["Tiles, menus and murals", "Hand-drawn maps"], "priceRange": 2, "tier": "Pro", "rating": 4.8, "turnaround": "1 week", "available": true, "tags": ["murals", "editorial"]}, {"id": 3, "name": "Lens & Lorong", "cat": "photo", "region": "Chinatown", "tagline": "Street and food photography", "offers": ["Menu shoots in half a day", "Natural light specialists"], "priceRange": 2, "tier": "Verified", "rating": 4.7, "turnaround": "3 days", "available": true, "tags": ["food", "street"]}, {"id": 4, "name": "Wei Ling Tan", "cat": "film", "region": "Jalan Besar", "tagline": "Short brand films and reels", "offers": ["Vertical-first for social", "Subtitles in 4 languages"], "priceRange": 3, "tier": "Pro", "rating": 4.9, "turnaround": "10 days", "available": false, "tags": ["reels", "docu"]}, {"id": 5, "name": "Kampong Sound Co.", "cat": "music", "region": "Kampong Glam", "tagline": "Jingles, scores and sound design", "offers": ["Custom sonic logos", "Licensing handled"], "priceRange": 3, "tier": "Verified", "rating": 4.6, "turnaround": "2 weeks", "available": true, "tags": ["jingles", "podcasts"]}, {"id": 6, "name": "Ravi Menon", "cat": "words", "region": "Remote", "tagline": "Brand voice and copywriting", "offers": ["English, Tamil and Malay", "SEO-friendly web copy"], "priceRange": 2, "tier": "Verified", "rating": 4.8, "turnaround": "5 days", "available": true, "tags": ["web copy", "naming"]}, {"id": 7, "name": "Clay by Mei", "cat": "craft", "region": "Tiong Bahru", "tagline": "Hand-thrown ceramics for cafes", "offers": ["Custom tableware runs", "Workshops for teams"], "priceRange": 2, "tier": "Pro", "rating": 4.9, "turnaround": "4 weeks", "available": true, "tags": ["ceramics", "workshops"]}, {"id": 8, "name": "Pixel Durian", "cat": "motion", "region": "Remote", "tagline": "Playful 2D motion and explainers", "offers": ["Explainers in 30 to 90 seconds", "Lottie files for apps"], "priceRange": 3, "tier": "Verified", "rating": 4.7, "turnaround": "2 weeks", "available": true, "tags": ["explainers", "lottie"]}, {"id": 9, "name": "Aisyah Karim", "cat": "uiux", "region": "Jalan Besar", "tagline": "Product and app design", "offers": ["Figma prototypes in a week", "Accessibility reviews"], "priceRange": 4, "tier": "Pro", "rating": 5.0, "turnaround": "3 weeks", "available": false, "tags": ["apps", "audits"]}, {"id": 10, "name": "Batik Remix", "cat": "fashion", "region": "Kampong Glam", "tagline": "Modern batik and textile prints", "offers": ["Uniforms and merch", "Small-batch runs"], "priceRange": 3, "tier": "Verified", "rating": 4.6, "turnaround": "5 weeks", "available": true, "tags": ["textile", "merch"]}, {"id": 11, "name": "Marcus Ong", "cat": "photo", "region": "Remote", "tagline": "Portraits and team headshots", "offers": ["On-site studio setup", "Retouched in 48 hours"], "priceRange": 2, "tier": "Verified", "rating": 4.5, "turnaround": "2 days", "available": true, "tags": ["headshots", "events"]}, {"id": 12, "name": "Typeface Kaki", "cat": "design", "region": "Chinatown", "tagline": "Signage and wayfinding", "offers": ["Shopfront signage", "Neon and lightbox"], "priceRange": 3, "tier": "Pro", "rating": 4.8, "turnaround": "3 weeks", "available": true, "tags": ["signage", "type"]}, {"id": 13, "name": "Hui Min Loh", "cat": "illus", "region": "Remote", "tagline": "Children's books and characters", "offers": ["Mascots and characters", "Picture book spreads"], "priceRange": 2, "tier": "Verified", "rating": 4.9, "turnaround": "2 weeks", "available": true, "tags": ["mascots", "books"]}, {"id": 14, "name": "Merlion Motion", "cat": "film", "region": "Chinatown", "tagline": "Event coverage and aftermovies", "offers": ["Multi-cam crews", "Same-day edits"], "priceRange": 4, "tier": "Pro", "rating": 4.7, "turnaround": "1 week", "available": true, "tags": ["events", "aftermovies"]}, {"id": 15, "name": "Joo Chiat Jams", "cat": "music", "region": "Joo Chiat", "tagline": "Live bands and DJs for events", "offers": ["Acoustic to full band", "Sound system included"], "priceRange": 3, "tier": "Verified", "rating": 4.5, "turnaround": "1 week", "available": true, "tags": ["live", "events"]}, {"id": 16, "name": "Siti Nur", "cat": "words", "region": "Joo Chiat", "tagline": "Scripts, speeches and stories", "offers": ["Video scripts and VO copy", "Grant and pitch writing"], "priceRange": 2, "tier": "Pro", "rating": 4.9, "turnaround": "1 week", "available": false, "tags": ["scripts", "pitches"]}, {"id": 17, "name": "Rattan Revival", "cat": "craft", "region": "Jalan Besar", "tagline": "Rattan and woodwork furniture", "offers": ["Custom cafe seating", "Restoration"], "priceRange": 3, "tier": "Verified", "rating": 4.7, "turnaround": "6 weeks", "available": true, "tags": ["furniture", "rattan"]}, {"id": 18, "name": "Kueh Kinetic", "cat": "motion", "region": "Tiong Bahru", "tagline": "3D product animation", "offers": ["Photoreal product renders", "AR-ready models"], "priceRange": 4, "tier": "Pro", "rating": 4.8, "turnaround": "3 weeks", "available": true, "tags": ["3d", "product"]}, {"id": 19, "name": "Grid & Gutter", "cat": "uiux", "region": "Remote", "tagline": "Websites for small businesses", "offers": ["Webflow and Shopify builds", "Launch in 3 weeks"], "priceRange": 3, "tier": "Verified", "rating": 4.6, "turnaround": "3 weeks", "available": true, "tags": ["web", "ecommerce"]}, {"id": 20, "name": "Thread Theory", "cat": "fashion", "region": "Chinatown", "tagline": "Custom tailoring and costume", "offers": ["Stage and film costume", "Corporate uniforms"], "priceRange": 4, "tier": "Pro", "rating": 4.8, "turnaround": "4 weeks", "available": true, "tags": ["costume", "tailoring"]}, {"id": 21, "name": "Ink & Kopi", "cat": "design", "region": "Joo Chiat", "tagline": "Packaging and label design", "offers": ["Print-ready dielines", "Sustainable materials"], "priceRange": 2, "tier": "Verified", "rating": 4.7, "turnaround": "2 weeks", "available": true, "tags": ["packaging", "labels"]}, {"id": 22, "name": "Aaron Lim", "cat": "photo", "region": "Kampong Glam", "tagline": "Product and e-commerce photography", "offers": ["White-background packshots", "Lifestyle sets"], "priceRange": 1, "tier": "Verified", "rating": 4.4, "turnaround": "3 days", "available": true, "tags": ["product", "ecommerce"]}, {"id": 23, "name": "Mural Makers SG", "cat": "illus", "region": "Jalan Besar", "tagline": "Large-scale murals", "offers": ["Indoor and outdoor walls", "Community paint days"], "priceRange": 4, "tier": "Pro", "rating": 4.9, "turnaround": "4 weeks", "available": true, "tags": ["murals", "public art"]}, {"id": 24, "name": "Hawker Beats", "cat": "music", "region": "Remote", "tagline": "Podcast production and editing", "offers": ["Editing and mixing", "Show notes included"], "priceRange": 1, "tier": "Verified", "rating": 4.6, "turnaround": "4 days", "available": true, "tags": ["podcasts", "audio"]}];
+const PACKAGES = {"design": [{"name": "Logo and mini identity", "base": 900, "desc": "Logo, colours, type, 2 rounds"}, {"name": "Full brand identity", "base": 2800, "desc": "Strategy, guidelines, templates"}, {"name": "Menu or flyer design", "base": 350, "desc": "Print-ready file, 2 rounds"}], "photo": [{"name": "Half-day shoot", "base": 650, "desc": "4 hours, 40 edited images"}, {"name": "Full-day shoot", "base": 1150, "desc": "8 hours, 90 edited images"}, {"name": "Mini session", "base": 280, "desc": "1 hour, 10 edited images"}], "illus": [{"name": "Spot illustration", "base": 220, "desc": "One piece, commercial licence"}, {"name": "Illustrated map or menu", "base": 750, "desc": "Custom layout, print-ready"}, {"name": "Character or mascot", "base": 1200, "desc": "3 poses, source files"}], "film": [{"name": "30-second social reel", "base": 1400, "desc": "Shoot, edit, captions"}, {"name": "60-second brand film", "base": 3200, "desc": "Script, shoot, grade, music"}, {"name": "Event aftermovie", "base": 2200, "desc": "Coverage and 2-minute edit"}], "music": [{"name": "Sonic logo", "base": 650, "desc": "3-second sound mark, 2 versions"}, {"name": "30-second jingle", "base": 1500, "desc": "Composition, vocals, licence"}, {"name": "Podcast intro and outro", "base": 400, "desc": "Music bed and stingers"}], "words": [{"name": "Website copy, 5 pages", "base": 900, "desc": "Research, SEO, 2 rounds"}, {"name": "Brand voice guide", "base": 1200, "desc": "Tone, messaging, examples"}, {"name": "Social captions, 30 posts", "base": 450, "desc": "One month of captions"}], "craft": [{"name": "Workshop for 10", "base": 480, "desc": "2 hours, materials included"}, {"name": "Custom piece", "base": 320, "desc": "Made to order, 1 item"}, {"name": "Small batch, 50 units", "base": 1800, "desc": "Design, prototype, production"}], "motion": [{"name": "Animated logo", "base": 500, "desc": "5 seconds, 2 formats"}, {"name": "30-second explainer", "base": 1800, "desc": "Script, storyboard, animation"}, {"name": "App animation pack", "base": 950, "desc": "6 Lottie micro-animations"}], "uiux": [{"name": "UX audit", "base": 850, "desc": "Heuristic review and report"}, {"name": "Landing page design", "base": 1400, "desc": "Desktop and mobile in Figma"}, {"name": "App prototype", "base": 3500, "desc": "Clickable prototype, 10 screens"}], "fashion": [{"name": "Merch design, 3 items", "base": 600, "desc": "Tees, totes, caps artwork"}, {"name": "Uniform design", "base": 1600, "desc": "Design and fit samples"}, {"name": "Custom garment", "base": 480, "desc": "Made to measure, 1 piece"}]};
+
+
+
+const CAT_STYLE = {
+  design: ["#9C0018", "#3A0A0A"], photo: ["#1E6F8C", "#0B2C3A"], illus: ["#B4541A", "#3B1A0A"], film: ["#3A3129", "#110D0A"], music: ["#4B2E83", "#140A26"],
+  words: ["#165932", "#06190E"], craft: ["#7A4A1E", "#2A180A"], motion: ["#7A1E5A", "#200817"], uiux: ["#2E6B5E", "#0C2420"], fashion: ["#8C6A12", "#2E2305"],
+};
+const EXAMPLES = {
+  design: "Logos, branding, packaging", photo: "Food, portraits, products", illus: "Murals, mascots, maps", film: "Reels, brand films, events",
+  music: "Jingles, scores, live acts", words: "Web copy, scripts, naming", craft: "Ceramics, furniture, makers", motion: "Explainers, 3D, app animation",
+  uiux: "Apps, websites, audits", fashion: "Merch, uniforms, costume",
+};
+const PROJECTS = {
+  design: ["Rebrand for a Joo Chiat bakery", "Packaging for a local kaya brand", "Menu system for a hawker chain"],
+  photo: ["Half-day menu shoot for a cafe", "Portraits for a startup team", "Street series around Chinatown"],
+  illus: ["Mural for a Tiong Bahru cafe", "Mascot for a kids' museum", "Illustrated map of Kampong Glam"],
+  film: ["30-second reel for a gym launch", "Aftermovie for a night market", "Brand film for a heritage hotel"],
+  music: ["Sonic logo for a fintech app", "Jingle for a bubble tea brand", "Podcast theme for a design show"],
+  words: ["Website copy for a yoga studio", "Naming for a craft brewery", "Script for a charity campaign"],
+  craft: ["Tableware set for a Japanese diner", "Rattan chairs for a rooftop bar", "Team pottery workshop"],
+  motion: ["Explainer for a payments startup", "3D render of a smart bottle", "Micro-animations for a travel app"],
+  uiux: ["Booking app for a spa chain", "Accessibility audit for a bank", "Shopify store for a batik label"],
+  fashion: ["Uniforms for a hotel team", "Merch drop for a music festival", "Costumes for a Peranakan play"],
+};
+const catOf = (k) => CATEGORIES.find((c) => c.key === k);
+const money = (n) => "S$" + n.toLocaleString("en-SG");
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const handle = (m) => m.name.toLowerCase().replace(/[^a-z0-9]+/g, ".").replace(/^\.|\.$/g, "");
+function packagesFor(m) {
+  const t = PACKAGES[m.cat]; const mult = [0.75, 1, 1.3, 1.7][m.priceRange - 1] || 1;
+  return t.map((it, i) => ({ id: m.id + "-" + i, name: it.name, desc: it.desc, price: Math.round(it.base * mult / 10) * 10 }));
+}
+// Two showcase posts per creative, interleaved so the feed mixes industries.
+const POSTS = (() => {
+  const out = [];
+  [0, 1].forEach((round) => MERCHANTS.forEach((m) => {
+    const titles = PROJECTS[m.cat]; const title = titles[(m.id + round) % titles.length];
+    out.push({ id: `p${m.id}-${round}`, mid: m.id, title, likes: 180 + ((m.id * 137 + round * 311) % 4200) });
+  }));
+  return out;
+})();
+
+/* ---------- state ---------- */
+const KEY = "seaport:creative-feed";
+const fresh = () => ({ industries: null, off: [], liked: {}, saved: {}, following: {}, brief: [], note: "", log: [], tab: "saved", threads: {}, projects: [], openThread: null, fees: { commission: 12, clientFee: 4 } });
+let S = (() => { try { return Object.assign(fresh(), JSON.parse(localStorage.getItem(KEY)) || {}); } catch { return fresh(); } })();
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
+const $ = (id) => document.getElementById(id);
+const icons = () => window.lucide && lucide.createIcons();
+const announce = (t) => { $("live").textContent = ""; setTimeout(() => ($("live").textContent = t), 30); };
+let toastT; const toast = (t) => { let el = document.querySelector(".toast"); if (!el) { el = document.createElement("div"); el.className = "toast"; el.setAttribute("role", "status"); document.body.appendChild(el); } el.textContent = t; clearTimeout(toastT); toastT = setTimeout(() => el.remove(), 1800); };
+const logIt = (kind, name) => { S.log.unshift({ t: Date.now(), kind, name }); S.log = S.log.slice(0, 50); };
+
+/* ---------- onboarding ---------- */
+let picking = [];
+function showOnboard() {
+  picking = S.industries ? [...S.industries] : [];
+  $("onboard").hidden = false; $("feedView").hidden = true; $("editInd").hidden = true;
+  renderOnboard();
+  setTimeout(() => $("obTitle").focus && $("indGrid").querySelector("button").focus(), 50);
+}
+function renderOnboard() {
+  $("indGrid").innerHTML = CATEGORIES.map((c) => {
+    const [a, b] = CAT_STYLE[c.key]; const on = picking.includes(c.key); const n = MERCHANTS.filter((m) => m.cat === c.key).length;
+    return `<button class="ind" data-k="${c.key}" aria-pressed="${on}">
+      <span class="tick" aria-hidden="true"><i data-lucide="check"></i></span>
+      <span class="ic" style="background:linear-gradient(150deg,${a},${b})" aria-hidden="true"><i data-lucide="${c.icon}"></i></span>
+      <b>${esc(c.label)}</b><span class="ex">${esc(EXAMPLES[c.key])} · ${n} creative${n > 1 ? "s" : ""}</span></button>`;
+  }).join("");
+  $("indGrid").querySelectorAll(".ind").forEach((b) => b.onclick = () => { const k = b.dataset.k; picking = picking.includes(k) ? picking.filter((x) => x !== k) : [...picking, k]; b.setAttribute("aria-pressed", picking.includes(k)); updateOb(); });
+  updateOb(); icons();
+}
+function updateOb() {
+  const n = picking.length; const posts = POSTS.filter((p) => picking.includes(MERCHANTS.find((m) => m.id === p.mid).cat)).length;
+  $("obGo").disabled = !n; $("obGoText").textContent = n ? `Show my feed` : "Pick at least one";
+  $("obCount").textContent = n ? `${n} industr${n > 1 ? "ies" : "y"} selected, ${posts} posts` : "";
+  $("obAll").textContent = n === CATEGORIES.length ? "Clear all" : "Select all";
+}
+$("obAll").onclick = () => { picking = picking.length === CATEGORIES.length ? [] : CATEGORIES.map((c) => c.key); renderOnboard(); };
+$("obGo").onclick = () => { if (!picking.length) return; S.industries = [...picking]; S.off = S.off.filter((k) => picking.includes(k)); logIt("industries", picking.map((k) => catOf(k).label).join(", ")); save(); showFeed(); };
+$("editInd").onclick = showOnboard; $("editInd2").onclick = showOnboard;
+
+/* ---------- feed ---------- */
+const active = () => S.industries.filter((k) => !S.off.includes(k));
+const feedPosts = () => POSTS.filter((p) => active().includes(MERCHANTS.find((m) => m.id === p.mid).cat));
+let io = null;
+
+function showFeed() {
+  $("onboard").hidden = true; $("feedView").hidden = false; $("editInd").hidden = false;
+  renderChips(); renderFeed(); renderPanel();
+}
+function renderChips() {
+  $("indChips").innerHTML = S.industries.map((k) => `<button class="chip" data-k="${k}" aria-pressed="${!S.off.includes(k)}"><i data-lucide="${catOf(k).icon}"></i>${esc(catOf(k).label)}</button>`).join("");
+  $("indChips").querySelectorAll(".chip").forEach((b) => b.onclick = () => {
+    const k = b.dataset.k; const on = !S.off.includes(k);
+    if (on && active().length === 1) { toast("Keep at least one industry on"); return; }
+    S.off = on ? [...S.off, k] : S.off.filter((x) => x !== k); save(); renderChips(); renderFeed();
+  });
+  icons();
+}
+function postHTML(p) {
+  const m = MERCHANTS.find((x) => x.id === p.mid); const c = catOf(m.cat); const [a, b] = CAT_STYLE[m.cat];
+  const liked = !!S.liked[p.id], saved = !!S.saved[m.id], fol = !!S.following[m.id];
+  const initials = m.name.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
+  return `<article class="post" data-id="${p.id}" aria-label="${esc(p.title)} by ${esc(m.name)}, ${esc(c.label)}">
+    <div class="reel" style="background:linear-gradient(165deg,${a},${b})" aria-hidden="true">
+      <span class="blob b1" style="width:260px;height:260px;left:-60px;top:8%;background:radial-gradient(circle,rgba(255,255,255,0.35),transparent 70%)"></span>
+      <span class="blob b2" style="width:320px;height:320px;right:-120px;top:38%;background:radial-gradient(circle,rgba(212,168,50,0.45),transparent 70%)"></span>
+      <span class="blob b3" style="width:200px;height:200px;left:20%;bottom:6%;background:radial-gradient(circle,rgba(255,255,255,0.25),transparent 70%)"></span>
+      <div class="dots"></div>
+    </div>
+    <div class="progress" aria-hidden="true"><i></i></div>
+    <div class="showcase" aria-hidden="true">
+      <div class="icon"><i data-lucide="${c.icon}"></i></div>
+      <div class="kicker">${esc(c.label)} · Project</div>
+      <h3>${esc(p.title)}</h3>
+      <div class="frames">${[0, 1, 2].map((k) => `<span style="background:linear-gradient(${30 + k * 50}deg,rgba(255,255,255,${0.1 + k * 0.06}),rgba(0,0,0,0.25))"></span>`).join("")}</div>
+    </div>
+    <div class="shade"></div>
+    <div class="tap" data-tap="${p.id}"></div>
+    <span class="pausebadge" aria-hidden="true"><i data-lucide="play"></i></span>
+    <div class="rail">
+      <div class="ravatar" style="background:${a}">${esc(initials)}
+        <button class="follow ${fol ? "on" : ""}" data-follow="${m.id}" aria-label="${fol ? "Unfollow" : "Follow"} ${esc(m.name)}"><i data-lucide="${fol ? "check" : "plus"}"></i></button></div>
+      <button class="rbtn ${liked ? "liked" : ""}" data-like="${p.id}" aria-pressed="${liked}" aria-label="${liked ? "Unlike" : "Like"}"><i data-lucide="heart"></i><span>${(p.likes + (liked ? 1 : 0)).toLocaleString()}</span></button>
+      <button class="rbtn ${saved ? "saved" : ""}" data-save="${m.id}" aria-pressed="${saved}" aria-label="${saved ? "Remove from saved" : "Save creative"}"><i data-lucide="bookmark"></i><span>Save</span></button>
+      <button class="rbtn" data-quote="${m.id}" aria-label="Request a quote from ${esc(m.name)}"><i data-lucide="send"></i><span>Quote</span></button>
+      <button class="rbtn" data-chat="${m.id}" aria-label="Message ${esc(m.name)}"><i data-lucide="message-circle"></i><span>Chat</span></button>
+      <button class="rbtn" data-share="${p.id}" aria-label="Share"><i data-lucide="share-2"></i><span>Share</span></button>
+    </div>
+    <div class="caption">
+      <div class="who">@${esc(handle(m))} ${m.tier === "Pro" ? "<small>PRO</small>" : "<small>VERIFIED</small>"}</div>
+      <p>${esc(m.tagline)}. ${esc(m.region)} · ★ ${m.rating.toFixed(1)} · ${m.available ? "Taking projects" : "Waitlist"}</p>
+      <div class="row">
+        <button class="pillbtn solid" data-pk="${m.id}"><i data-lucide="package"></i> Packages from ${money(Math.min(...packagesFor(m).map((x) => x.price)))}</button>
+        ${m.tags.map((t) => `<span class="pillbtn light" style="cursor:default">#${esc(t)}</span>`).join("")}
+      </div>
+    </div>
+  </article>`;
+}
+function renderFeed() {
+  const feed = $("feed"); const posts = feedPosts();
+  feed.innerHTML = posts.map(postHTML).join("") + `<div class="endcard"><div><h3 style="font-family:Fraunces,serif;font-size:24px;margin:0 0 8px">You're all caught up</h3><p style="opacity:.8;margin:0 0 16px">Add more industries to see more creatives.</p><button class="btn" id="endEdit">Add industries</button></div></div>`;
+  $("endEdit").onclick = showOnboard;
+  feed.scrollTop = 0;
+  if (io) io.disconnect();
+  io = new IntersectionObserver((es) => es.forEach((e) => { const el = e.target; if (e.isIntersecting && e.intersectionRatio > 0.6) { el.classList.add("playing"); } else { el.classList.remove("playing", "paused"); } }), { root: feed, threshold: [0, 0.6, 1] });
+  feed.querySelectorAll(".post").forEach((el) => io.observe(el));
+  bindFeed(); updateStats(); icons();
+}
+function currentPost() { const feed = $("feed"); const i = Math.round(feed.scrollTop / feed.clientHeight); return feed.children[i] && feed.children[i].classList.contains("post") ? feed.children[i] : null; }
+function go(dir) { const feed = $("feed"); const i = Math.round(feed.scrollTop / feed.clientHeight) + dir; feed.scrollTo({ top: Math.max(0, Math.min(i, feed.children.length - 1)) * feed.clientHeight, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); }
+$("prevBtn").onclick = () => go(-1); $("nextBtn").onclick = () => go(1);
+
+function toggleLike(pid, fromTap) {
+  const was = !!S.liked[pid]; if (was && fromTap) return; if (was) delete S.liked[pid]; else S.liked[pid] = true;
+  const p = POSTS.find((x) => x.id === pid); const m = MERCHANTS.find((x) => x.id === p.mid);
+  if (!was) logIt("like", `${p.title} by ${m.name}`); save();
+  const btn = document.querySelector(`[data-like="${pid}"]`); if (btn) { btn.classList.toggle("liked", !was); btn.setAttribute("aria-pressed", !was); btn.setAttribute("aria-label", was ? "Like" : "Unlike"); btn.querySelector("span").textContent = (p.likes + (was ? 0 : 1)).toLocaleString(); const svg = btn.querySelector("svg"); svg.classList.remove("pop"); void svg.offsetWidth; if (!was) svg.classList.add("pop"); }
+  announce(was ? "Unliked" : "Liked"); updateStats();
+}
+function toggleSave(mid) {
+  const was = !!S.saved[mid]; if (was) delete S.saved[mid]; else S.saved[mid] = true;
+  const m = MERCHANTS.find((x) => x.id === mid); if (!was) logIt("save", m.name); save();
+  document.querySelectorAll(`[data-save="${mid}"]`).forEach((b) => { b.classList.toggle("saved", !was); b.setAttribute("aria-pressed", !was); b.setAttribute("aria-label", was ? "Save creative" : "Remove from saved"); });
+  toast(was ? "Removed from saved" : `Saved ${m.name}`); announce(was ? "Removed from saved" : `Saved ${m.name}`); renderPanel();
+}
+function toggleFollow(mid) {
+  const was = !!S.following[mid]; if (was) delete S.following[mid]; else S.following[mid] = true;
+  const m = MERCHANTS.find((x) => x.id === mid); if (!was) logIt("follow", m.name); save();
+  document.querySelectorAll(`[data-follow="${mid}"]`).forEach((b) => { b.classList.toggle("on", !was); b.setAttribute("aria-label", `${was ? "Follow" : "Unfollow"} ${m.name}`); b.innerHTML = `<i data-lucide="${was ? "plus" : "check"}"></i>`; });
+  icons(); announce(was ? `Unfollowed ${m.name}` : `Following ${m.name}`); updateStats();
+}
+function addToBrief(m, pk, quiet) {
+  const ex = S.brief.find((c) => c.iid === pk.id); if (ex) ex.qty++; else S.brief.push({ iid: pk.id, mid: m.id, who: m.name, name: pk.name, price: pk.price, qty: 1 });
+  save(); renderPanel(); if (!quiet) { toast(`Added ${pk.name} to brief`); announce(`Added ${pk.name} to brief`); }
+}
+function quote(mid) { const m = MERCHANTS.find((x) => x.id === mid); const starter = [...packagesFor(m)].sort((a, b) => a.price - b.price)[0]; addToBrief(m, starter, true); logIt("quote", m.name); save(); toast(`Quote requested: ${starter.name}`); announce(`Quote requested from ${m.name}, ${starter.name} added to brief`); }
+
+let lastTap = 0, tapTimer = null;
+function bindFeed() {
+  const feed = $("feed");
+  feed.querySelectorAll("[data-tap]").forEach((el) => el.onclick = (e) => {
+    const post = el.closest(".post"); const now = Date.now();
+    if (now - lastTap < 300) { clearTimeout(tapTimer); lastTap = 0; toggleLike(el.dataset.tap, true); const bu = document.createElement("span"); bu.className = "burst"; bu.innerHTML = '<i data-lucide="heart"></i>'; post.appendChild(bu); icons(); setTimeout(() => bu.remove(), 720); return; }
+    lastTap = now; tapTimer = setTimeout(() => post.classList.toggle("paused"), 300);
+  });
+  feed.querySelectorAll("[data-like]").forEach((b) => b.onclick = () => toggleLike(b.dataset.like));
+  feed.querySelectorAll("[data-save]").forEach((b) => b.onclick = () => toggleSave(+b.dataset.save));
+  feed.querySelectorAll("[data-follow]").forEach((b) => b.onclick = (e) => { e.stopPropagation(); toggleFollow(+b.dataset.follow); });
+  feed.querySelectorAll("[data-quote]").forEach((b) => b.onclick = () => quote(+b.dataset.quote));
+  feed.querySelectorAll("[data-pk]").forEach((b) => b.onclick = () => openPackages(+b.dataset.pk));
+  feed.querySelectorAll("[data-chat]").forEach((b) => b.onclick = () => openChat(+b.dataset.chat));
+  feed.querySelectorAll("[data-share]").forEach((b) => b.onclick = async () => { const url = location.href.split("#")[0] + "#" + b.dataset.share; try { if (navigator.share) await navigator.share({ title: "Seaport creative", url }); else { await navigator.clipboard.writeText(url); toast("Link copied"); } } catch {} });
+}
+
+let lastFocus = null;
+function openPackages(mid) {
+  const m = MERCHANTS.find((x) => x.id === mid); const c = catOf(m.cat); lastFocus = document.activeElement;
+  const scrim = document.createElement("div"); scrim.className = "scrim";
+  scrim.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="pkTitle">
+    <div style="display:flex;align-items:flex-start;gap:12px">
+      <div style="flex:1"><p class="lab" style="margin:0">${esc(c.label)} · ${esc(m.region)} · ★ ${m.rating.toFixed(1)} · ${esc(m.turnaround)}</p>
+      <h2 id="pkTitle" style="font-family:Fraunces,serif;font-size:24px;margin:6px 0 4px">${esc(m.name)}</h2><p class="muted" style="margin:0">${esc(m.tagline)}</p></div>
+      <button class="mini" id="pkClose" aria-label="Close"><i data-lucide="x"></i></button></div>
+    <div style="margin:14px 0;display:flex;flex-direction:column;gap:4px">${m.offers.map((o) => `<div style="font-weight:600;color:var(--accent-ink);font-size:14px">• ${esc(o)}</div>`).join("")}</div>
+    ${packagesFor(m).map((it) => `<div class="menu-row"><div class="t"><b>${esc(it.name)}</b><span>${esc(it.desc)}</span></div><span class="p">${money(it.price)}</span><button class="mini" data-add="${it.id}" aria-label="Add ${esc(it.name)} to brief"><i data-lucide="plus"></i></button></div>`).join("")}
+    <div style="display:flex;gap:10px;margin-top:16px"><button class="btn ghost" id="pkChat" style="flex:1"><i data-lucide="message-circle"></i> Message</button><button class="btn ghost" id="pkSave" style="flex:1"><i data-lucide="bookmark"></i> ${S.saved[m.id] ? "Saved" : "Save creative"}</button><button class="btn" id="pkQuote" style="flex:1"><i data-lucide="send"></i> Request quote</button></div>
+  </div>`;
+  document.body.appendChild(scrim); icons();
+  const close = () => { scrim.remove(); document.removeEventListener("keydown", onKey, true); if (lastFocus && lastFocus.focus) lastFocus.focus(); };
+  const onKey = (e) => { if (e.key === "Escape") { e.stopPropagation(); close(); } if (e.key === "Tab") { const f = scrim.querySelectorAll("button"); const first = f[0], last = f[f.length - 1]; if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); } } };
+  document.addEventListener("keydown", onKey, true);
+  scrim.onclick = (e) => { if (e.target === scrim) close(); };
+  $("pkClose").onclick = close; $("pkClose").focus();
+  scrim.querySelectorAll("[data-add]").forEach((b) => b.onclick = () => addToBrief(m, packagesFor(m).find((x) => x.id === b.dataset.add)));
+  $("pkSave").onclick = () => { toggleSave(m.id); $("pkSave").innerHTML = `<i data-lucide="bookmark"></i> ${S.saved[m.id] ? "Saved" : "Save creative"}`; icons(); };
+  $("pkQuote").onclick = () => { quote(m.id); close(); };
+  $("pkChat").onclick = () => { close(); openChat(m.id); };
+}
+
+/* ---------- side panel ---------- */
+function setTab(t) { S.tab = t; save(); renderPanel(); }
+$("tabSaved").onclick = () => setTab("saved"); $("tabBrief").onclick = () => setTab("brief"); $("tabLog").onclick = () => setTab("log"); $("tabChat").onclick = () => setTab("chat"); $("tabProj").onclick = () => setTab("proj");
+function renderPanel() {
+  ["Saved", "Brief", "Chat", "Proj", "Log"].forEach((n) => { const on = S.tab === n.toLowerCase(); $("tab" + n).setAttribute("aria-pressed", on); $("tab" + n).setAttribute("aria-selected", on); });
+  const q = S.brief.reduce((a, c) => a + c.qty, 0); $("briefCount").textContent = q ? `(${q})` : "";
+  const unread = Object.values(S.threads).reduce((a, t) => a + (t.unread || 0), 0); $("chatCount").textContent = unread ? `(${unread})` : "";
+  const liveP = S.projects.filter((x) => x.step < STEPS.length - 1).length; $("projCount").textContent = liveP ? `(${liveP})` : "";
+  const p = $("panel");
+  if (S.tab === "saved") {
+    const saved = MERCHANTS.filter((m) => S.saved[m.id]);
+    p.innerHTML = `<h2 class="sec">Saved creatives</h2>` + (saved.length ? `<div class="list">${saved.map((m) => { const [a, b] = CAT_STYLE[m.cat]; return `<div class="item"><span class="dot" style="background:linear-gradient(160deg,${a},${b})"><i data-lucide="${catOf(m.cat).icon}"></i></span><div class="t"><b>${esc(m.name)}</b><span>${esc(catOf(m.cat).label)} · ★ ${m.rating.toFixed(1)}</span></div><button class="mini" data-open="${m.id}" aria-label="Packages from ${esc(m.name)}"><i data-lucide="package"></i></button><button class="mini" data-uns="${m.id}" aria-label="Remove ${esc(m.name)}"><i data-lucide="trash-2"></i></button></div>`; }).join("")}</div>` : `<p class="muted">Tap the bookmark on any post to save that creative here.</p>`);
+    p.querySelectorAll("[data-open]").forEach((b) => b.onclick = () => openPackages(+b.dataset.open));
+    p.querySelectorAll("[data-uns]").forEach((b) => b.onclick = () => toggleSave(+b.dataset.uns));
+  } else if (S.tab === "brief") {
+    const total = S.brief.reduce((a, c) => a + c.price * c.qty, 0); const who = new Set(S.brief.map((c) => c.mid)).size;
+    p.innerHTML = `<h2 class="sec">Project brief</h2>` + (S.brief.length ? `<div class="list">${S.brief.map((c, i) => `<div class="item"><div class="t"><b>${esc(c.name)}</b><span>${esc(c.who)} · ${money(c.price)}</span></div><button class="mini" data-dec="${i}" aria-label="One less ${esc(c.name)}"><i data-lucide="minus"></i></button><span style="font-family:'IBM Plex Mono',monospace;font-weight:700">${c.qty}</span><button class="mini" data-inc="${i}" aria-label="One more ${esc(c.name)}"><i data-lucide="plus"></i></button></div>`).join("")}</div>
+      <label class="lab" for="note" style="display:block">About your project</label>
+      <textarea id="note" rows="3" placeholder="e.g. New cafe opening in March, need a logo and menu" style="width:100%;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);padding:10px 12px;font:14px 'Work Sans',sans-serif;resize:vertical">${esc(S.note)}</textarea>
+      ${feeTable(total)}
+      <button class="btn" id="sendBrief" style="width:100%;margin-top:12px"><i data-lucide="send"></i> Send to ${who} creative${who > 1 ? "s" : ""} (sandbox)</button>
+      <p class="muted" style="margin-top:8px">Sandbox: nothing is sent. Creatives reply with a final quote before anyone pays. <button class="linkbtn" data-how style="padding:0;font-size:13px">How it works</button></p>` : `<p class="muted">Tap Quote on a post, or open Packages, to build a brief.</p>`);
+    p.querySelectorAll("[data-inc]").forEach((b) => b.onclick = () => { S.brief[+b.dataset.inc].qty++; save(); renderPanel(); });
+    p.querySelectorAll("[data-dec]").forEach((b) => b.onclick = () => { const c = S.brief[+b.dataset.dec]; c.qty--; if (c.qty <= 0) S.brief.splice(+b.dataset.dec, 1); save(); renderPanel(); });
+    const n = $("note"); if (n) n.oninput = (e) => { S.note = e.target.value.slice(0, 600); save(); };
+    const sb = $("sendBrief"); if (sb) sb.onclick = () => {
+      // One project per creative, each tracked through the process
+      [...new Set(S.brief.map((c) => c.mid))].forEach((mid) => {
+        const items = S.brief.filter((c) => c.mid === mid); const m = MERCHANTS.find((x) => x.id === mid);
+        const sub = items.reduce((a, c) => a + c.price * c.qty, 0);
+        S.projects.unshift({ id: "PR" + Date.now().toString(36).toUpperCase().slice(-5) + mid, mid, who: m.name, items, subtotal: sub, note: S.note, step: 0, t: Date.now() });
+        pushMsg(mid, "me", `Hi! I've sent you a brief: ${items.map((c) => `${c.qty} × ${c.name}`).join(", ")}.${S.note ? " " + S.note : ""}`);
+        autoReply(mid, "brief");
+      });
+      logIt("brief", `${S.brief.length} package${S.brief.length > 1 ? "s" : ""} to ${who} creative${who > 1 ? "s" : ""}, about ${money(total)}`);
+      S.brief = []; S.note = ""; S.tab = "proj"; save(); renderPanel(); toast("Brief sent (sandbox)"); announce("Brief sent. Track it in Projects.");
+    };
+    p.querySelectorAll("[data-how]").forEach((b) => b.onclick = openHow);
+  } else if (S.tab === "chat") {
+    renderChat(p);
+  } else if (S.tab === "proj") {
+    renderProjects(p);
+  } else {
+    const verb = { like: "Liked", save: "Saved", follow: "Followed", quote: "Requested a quote from", brief: "Sent a brief:", industries: "Picked industries:", step: "Project update:", msg: "Messaged" };
+    p.innerHTML = `<h2 class="sec">Activity</h2>` + (S.log.length ? `<ul class="log">${S.log.map((l) => `<li><span style="font-family:'IBM Plex Mono',monospace">${new Date(l.t).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span><span>${verb[l.kind]} <b>${esc(l.name)}</b></span></li>`).join("")}</ul>` : `<p class="muted">Nothing yet.</p>`);
+  }
+  icons();
+}
+function updateStats() { $("sPosts").textContent = feedPosts().length; $("sLiked").textContent = Object.keys(S.liked).length; $("sFollow").textContent = Object.keys(S.following).length; }
+
+
+/* ---------- fees ---------- */
+// Sandbox fee model. Payment processing is an estimate (card payments via Stripe in Singapore).
+const PROC_PCT = 3.4, PROC_FIXED = 0.5;
+function fees(sub) {
+  const c = S.fees.commission / 100, f = S.fees.clientFee / 100;
+  const clientFee = Math.round(sub * f * 100) / 100;
+  const clientPays = sub + clientFee;
+  const processing = Math.round((clientPays * PROC_PCT / 100 + PROC_FIXED) * 100) / 100;
+  const commission = Math.round(sub * c * 100) / 100;
+  const creativeGets = sub - commission;
+  const seaportNet = Math.round((commission + clientFee - processing) * 100) / 100;
+  return { clientFee, clientPays, processing, commission, creativeGets, seaportNet };
+}
+const m2 = (n) => "S$" + n.toLocaleString("en-SG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+function feeTable(sub) {
+  const x = fees(sub);
+  const row = (l, v, strong, color) => `<div style="display:flex;justify-content:space-between;font-size:${strong ? 15 : 13}px;${strong ? "font-weight:700;" : ""}padding:3px 0;${color ? `color:${color};` : ""}"><span>${l}</span><span style="font-family:'IBM Plex Mono',monospace">${v}</span></div>`;
+  const pct = (v) => Math.max(0, (v / x.clientPays) * 100);
+  return `<div style="background:var(--surface);border-radius:14px;padding:12px 14px;margin-top:14px">
+    <p class="lab" style="margin:0 0 6px">You pay</p>
+    ${row("Packages", m2(sub))}${row(`Service fee (${S.fees.clientFee}%)`, m2(x.clientFee))}${row("Total", m2(x.clientPays), true)}
+    <p class="lab" style="margin:12px 0 6px">Where it goes</p>
+    <div style="display:flex;height:10px;border-radius:999px;overflow:hidden;margin-bottom:8px" aria-hidden="true">
+      <span style="width:${pct(x.creativeGets)}%;background:#1FA35C"></span><span style="width:${pct(Math.max(0, x.seaportNet))}%;background:#9C0018"></span><span style="width:${pct(x.processing)}%;background:#8A8173"></span></div>
+    ${row(`Creative receives (${100 - S.fees.commission}%)`, m2(x.creativeGets), true, "var(--green-ink)")}
+    ${row(`Seaport commission (${S.fees.commission}%) + service fee`, m2(x.commission + x.clientFee))}
+    ${row("Card processing (est.)", "−" + m2(x.processing))}
+    ${row("Seaport keeps (est.)", m2(x.seaportNet), true, "var(--accent-ink)")}
+  </div>`;
+}
+
+/* ---------- process ---------- */
+const STEPS = [
+  { key: "sent", label: "Brief sent", who: "You", desc: "Your brief and packages go to the creative." },
+  { key: "quoted", label: "Quote received", who: "Creative", desc: "They confirm scope, price and timeline in chat." },
+  { key: "paid", label: "Payment held securely", who: "You", desc: "You pay upfront. The money is held, not released yet." },
+  { key: "work", label: "Work in progress", who: "Creative", desc: "Chat, share drafts, up to the agreed revisions." },
+  { key: "delivered", label: "Delivered", who: "Creative", desc: "Final files are handed over for your review." },
+  { key: "released", label: "Approved and paid out", who: "You", desc: "You approve, the creative is paid, Seaport keeps its fee." },
+  { key: "reviewed", label: "Reviewed", who: "You", desc: "Rate the creative to help others choose." },
+];
+const NEXT_LABEL = ["Simulate: creative sends quote", "Accept quote and pay", "Simulate: creative starts work", "Simulate: creative delivers", "Approve and release payment", "Leave a 5 star review", null];
+function renderProjects(p) {
+  p.innerHTML = `<h2 class="sec">Projects</h2>` + (S.projects.length ? S.projects.map((pr) => {
+    const x = fees(pr.subtotal); const done = pr.step >= STEPS.length - 1;
+    return `<div style="background:var(--surface);border-radius:16px;padding:14px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;gap:8px"><b style="font-size:14.5px">${esc(pr.who)}</b><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted)">${esc(pr.id)}</span></div>
+      <p class="muted" style="margin:2px 0 10px;font-size:12.5px">${pr.items.map((c) => `${c.qty} × ${esc(c.name)}`).join(", ")} · ${m2(x.clientPays)}</p>
+      <ol style="list-style:none;margin:0;padding:0">${STEPS.map((s, i) => { const st = i < pr.step || done ? "done" : i === pr.step ? "now" : "todo"; return `
+        <li style="display:flex;gap:10px;padding:5px 0;opacity:${st === "todo" ? 0.5 : 1}">
+          <span style="width:20px;height:20px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;font-size:11px;font-weight:800;${st === "done" ? "background:#1FA35C;color:#fff" : st === "now" ? "background:#9C0018;color:#fff" : "border:2px solid var(--line2)"}">${st === "done" ? "✓" : i + 1}</span>
+          <span style="font-size:13px"><b>${s.label}</b> <span class="muted" style="font-size:11.5px">· ${s.who}</span>${st === "now" ? `<br><span class="muted" style="font-size:12px">${s.desc}</span>` : ""}</span></li>`; }).join("")}</ol>
+      ${pr.step === 5 || done ? `<div style="margin-top:8px;font-size:12.5px;background:var(--bg);border-radius:10px;padding:8px 10px">Payout: <b style="color:var(--green-ink)">${m2(x.creativeGets)}</b> to ${esc(pr.who)} · Seaport keeps about <b style="color:var(--accent-ink)">${m2(x.seaportNet)}</b></div>` : ""}
+      <div style="display:flex;gap:8px;margin-top:10px">
+        ${NEXT_LABEL[pr.step] ? `<button class="btn" data-next="${pr.id}" style="flex:1;min-height:40px;font-size:13px">${NEXT_LABEL[pr.step]}</button>` : `<span class="muted" style="flex:1">Complete</span>`}
+        <button class="btn ghost" data-pchat="${pr.mid}" style="min-height:40px;font-size:13px" aria-label="Message ${esc(pr.who)}"><i data-lucide="message-circle"></i></button>
+      </div></div>`;
+  }).join("") : `<p class="muted">Send a brief and it appears here, so you can follow each step from quote to payout.</p>`);
+  p.querySelectorAll("[data-next]").forEach((b) => b.onclick = () => advance(b.dataset.next));
+  p.querySelectorAll("[data-pchat]").forEach((b) => b.onclick = () => openChat(+b.dataset.pchat));
+}
+function advance(id) {
+  const pr = S.projects.find((x) => x.id === id); if (!pr || pr.step >= STEPS.length - 1) return;
+  pr.step++; const s = STEPS[pr.step]; const x = fees(pr.subtotal);
+  const sys = { quoted: `Quote: ${m2(pr.subtotal)} for ${pr.items.map((c) => c.name).join(", ")}. Ready when you are!`, work: "Great, I've started. First drafts in a few days.", delivered: "All done! Final files are uploaded for you to review." };
+  if (sys[s.key]) pushMsg(pr.mid, "them", sys[s.key]);
+  if (s.key === "paid") pushMsg(pr.mid, "sys", `Payment of ${m2(x.clientPays)} received and held securely by Seaport's payment partner.`);
+  if (s.key === "released") pushMsg(pr.mid, "sys", `Payment released: ${m2(x.creativeGets)} paid out to ${pr.who}.`);
+  logIt("step", `${pr.who}: ${s.label}`); save(); renderPanel(); announce(`${pr.who}: ${s.label}`);
+}
+
+/* ---------- chat ---------- */
+function pushMsg(mid, from, text) {
+  const th = S.threads[mid] || (S.threads[mid] = { msgs: [], unread: 0 });
+  th.msgs.push({ from, text, t: Date.now() }); if (from === "them" && !(S.tab === "chat" && S.openThread === mid)) th.unread = (th.unread || 0) + 1;
+}
+function autoReply(mid, kind, text = "") {
+  const m = MERCHANTS.find((x) => x.id === mid); const pk = packagesFor(m); const low = [...pk].sort((a, b) => a.price - b.price)[0];
+  const t = text.toLowerCase(); let r;
+  if (kind === "brief") r = `Thanks for the brief! I'll send a proper quote shortly. Usual turnaround is ${m.turnaround}.`;
+  else if (/price|cost|budget|how much|rate|quote/.test(t)) r = `My packages start at ${money(low.price)} (${low.name}). Happy to tailor it to your budget.`;
+  else if (/when|time|deadline|how long|turnaround|urgent/.test(t)) r = `Usual turnaround is ${m.turnaround}. ${m.available ? "I can start this week." : "I'm booked right now, but I can pencil you in for next month."}`;
+  else if (/portfolio|work|example|sample/.test(t)) r = `Sure! I'll share a few recent projects. You can also see my work in the feed.`;
+  else if (/revision|change|edit/.test(t)) r = "Two rounds of revisions are included. Extra rounds can be added.";
+  else if (/hi|hello|hey/.test(t)) r = `Hi! I'm ${m.name.split(" ")[0]}. What are you working on?`;
+  else r = "Got it! Tell me a bit more about the project, like timing and budget, and I'll suggest the best package.";
+  S.typing = mid; renderPanel();
+  setTimeout(() => { S.typing = null; pushMsg(mid, "them", r); save(); renderPanel(); announce(`New message from ${m.name}`); }, 1100);
+}
+function openChat(mid) { S.tab = "chat"; S.openThread = mid; if (!S.threads[mid]) S.threads[mid] = { msgs: [], unread: 0 }; S.threads[mid].unread = 0; save(); renderPanel(); setTimeout(() => $("chatInput") && $("chatInput").focus(), 50); }
+function renderChat(p) {
+  const mid = S.openThread;
+  if (!mid || !S.threads[mid]) {
+    const ids = Object.keys(S.threads).map(Number).filter((id) => S.threads[id].msgs.length);
+    p.innerHTML = `<h2 class="sec">Messages</h2>` + (ids.length ? `<div class="list">${ids.map((id) => { const m = MERCHANTS.find((x) => x.id === id); const th = S.threads[id]; const last = th.msgs[th.msgs.length - 1]; const [a, b] = CAT_STYLE[m.cat];
+      return `<button class="item" data-thread="${id}" style="border:none;text-align:left;cursor:pointer;color:var(--ink);width:100%"><span class="dot" style="background:linear-gradient(160deg,${a},${b})"><i data-lucide="${catOf(m.cat).icon}"></i></span><span class="t"><b>${esc(m.name)}${th.unread ? ` <span style="background:#FF3B5C;color:#fff;border-radius:999px;padding:0 6px;font-size:11px">${th.unread}</span>` : ""}</b><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(last.text)}</span></span></button>`; }).join("")}</div>`
+      : `<p class="muted">No chats yet. Tap Chat on any post, or press M, to message a creative.</p>`);
+    p.querySelectorAll("[data-thread]").forEach((b) => b.onclick = () => openChat(+b.dataset.thread));
+    return;
+  }
+  const m = MERCHANTS.find((x) => x.id === mid); const th = S.threads[mid];
+  const bubble = (msg) => msg.from === "sys"
+    ? `<div style="align-self:center;font-size:11.5px;color:var(--muted);background:var(--chip);border-radius:999px;padding:4px 10px;text-align:center">${esc(msg.text)}</div>`
+    : `<div style="align-self:${msg.from === "me" ? "flex-end" : "flex-start"};max-width:82%;background:${msg.from === "me" ? "#9C0018" : "var(--surface)"};color:${msg.from === "me" ? "#F4F1EB" : "var(--ink)"};border-radius:14px;${msg.from === "me" ? "border-bottom-right-radius:4px" : "border-bottom-left-radius:4px"};padding:8px 11px;font-size:13.5px;line-height:1.4">${esc(msg.text)}</div>`;
+  p.innerHTML = `<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+      <button class="mini" id="chatBack" aria-label="All messages"><i data-lucide="arrow-left"></i></button>
+      <div style="flex:1;min-width:0"><b style="display:block">${esc(m.name)}</b><span class="muted" style="font-size:12px">${esc(catOf(m.cat).label)} · replies fast</span></div>
+      <button class="mini" id="chatPk" aria-label="View packages"><i data-lucide="package"></i></button></div>
+    <div id="chatLog" role="log" aria-live="polite" aria-label="Conversation with ${esc(m.name)}" style="display:flex;flex-direction:column;gap:8px;max-height:calc(100vh - 330px);overflow-y:auto;padding:4px 2px">
+      ${th.msgs.length ? th.msgs.map(bubble).join("") : `<p class="muted" style="text-align:center">Say hi, ask about price, timing or their portfolio.</p>`}
+      ${S.typing === mid ? `<div style="align-self:flex-start;font-size:12.5px;color:var(--muted)">${esc(m.name.split(" ")[0])} is typing...</div>` : ""}
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 6px">${["What's your price?", "How long will it take?", "Can I see more work?"].map((q) => `<button class="chip" data-quick="${esc(q)}" style="font-size:12px;padding:5px 10px">${esc(q)}</button>`).join("")}</div>
+    <form id="chatForm" style="display:flex;gap:6px"><label for="chatInput" class="sr">Message ${esc(m.name)}</label>
+      <input id="chatInput" autocomplete="off" maxlength="400" placeholder="Write a message..." style="flex:1;min-height:42px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);padding:0 14px;font:14px 'Work Sans',sans-serif">
+      <button class="btn" style="min-height:42px;width:42px;padding:0;border-radius:50%" aria-label="Send"><i data-lucide="send"></i></button></form>
+    <p class="muted" style="font-size:11px;margin-top:6px">Sandbox: replies are simulated. Keep payments inside Seaport so your money stays protected.</p>`;
+  const log = $("chatLog"); log.scrollTop = log.scrollHeight;
+  $("chatBack").onclick = () => { S.openThread = null; save(); renderPanel(); };
+  $("chatPk").onclick = () => openPackages(mid);
+  const send = (text) => { text = text.trim(); if (!text) return; pushMsg(mid, "me", text); logIt("msg", m.name); save(); renderPanel(); autoReply(mid, "text", text); setTimeout(() => $("chatInput") && $("chatInput").focus(), 30); };
+  $("chatForm").onsubmit = (e) => { e.preventDefault(); send($("chatInput").value); };
+  p.querySelectorAll("[data-quick]").forEach((b) => b.onclick = () => send(b.dataset.quick));
+}
+
+/* ---------- how it works + fee settings ---------- */
+function openHow() {
+  const lastF = document.activeElement;
+  const scrim = document.createElement("div"); scrim.className = "scrim";
+  const draw = () => {
+    const ex = 1000; const x = fees(ex);
+    scrim.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="howT" style="width:min(640px,100%)">
+      <div style="display:flex;align-items:flex-start"><h2 id="howT" style="font-family:Fraunces,serif;font-size:24px;margin:0;flex:1">How it works</h2><button class="mini" id="howX" aria-label="Close"><i data-lucide="x"></i></button></div>
+      <ol style="margin:14px 0 0;padding:0;list-style:none;display:grid;gap:10px">${STEPS.map((s, i) => `<li style="display:flex;gap:12px"><span style="width:26px;height:26px;border-radius:50%;background:#9C0018;color:#fff;display:grid;place-items:center;font-weight:800;font-size:12px;flex-shrink:0">${i + 1}</span><span><b>${s.label}</b> <span class="muted">· ${s.who}</span><br><span class="muted">${s.desc}</span></span></li>`).join("")}</ol>
+      <h3 style="font-family:Fraunces,serif;font-size:19px;margin:22px 0 6px">Who gets what</h3>
+      <p class="muted" style="margin:0 0 10px">Example on a S$1,000 project. Adjust the sliders to test different fee models.</p>
+      <label style="display:block;font-weight:600;font-size:13.5px">Seaport commission from the creative: <b id="cv">${S.fees.commission}%</b>
+        <input type="range" id="cRange" min="0" max="30" step="1" value="${S.fees.commission}" style="width:100%;accent-color:#9C0018"></label>
+      <label style="display:block;font-weight:600;font-size:13.5px;margin-top:8px">Service fee paid by the client: <b id="fv">${S.fees.clientFee}%</b>
+        <input type="range" id="fRange" min="0" max="10" step="0.5" value="${S.fees.clientFee}" style="width:100%;accent-color:#9C0018"></label>
+      ${feeTable(ex)}
+      <p class="muted" style="font-size:12px;margin-top:10px">Card processing is estimated at ${PROC_PCT}% + S$${PROC_FIXED.toFixed(2)} per payment. Actual Stripe rates vary by card type and country.</p>
+    </div>`;
+    icons();
+    scrim.querySelector("#howX").onclick = close;
+    scrim.querySelector("#cRange").oninput = (e) => { S.fees.commission = +e.target.value; save(); draw(); scrim.querySelector("#cRange").focus(); renderPanel(); };
+    scrim.querySelector("#fRange").oninput = (e) => { S.fees.clientFee = +e.target.value; save(); draw(); scrim.querySelector("#fRange").focus(); renderPanel(); };
+  };
+  const close = () => { scrim.remove(); document.removeEventListener("keydown", onKey, true); if (lastF && lastF.focus) lastF.focus(); };
+  const onKey = (e) => { if (e.key === "Escape") { e.stopPropagation(); close(); } };
+  document.addEventListener("keydown", onKey, true);
+  scrim.onclick = (e) => { if (e.target === scrim) close(); };
+  document.body.appendChild(scrim); draw(); scrim.querySelector("#howX").focus();
+}
+$("howBtn").onclick = openHow;
+// Logo: back to the home feed, at the first post, with any popup closed.
+$("homeBtn").onclick = () => {
+  document.querySelectorAll(".scrim").forEach((s) => s.remove());
+  if (!S.industries || !S.industries.length) { showOnboard(); return; }
+  S.openThread = null; S.tab = "saved"; save();
+  showFeed(); $("feed").scrollTo({ top: 0 }); $("feed").focus(); announce("Home");
+};
+
+/* ---------- keyboard ---------- */
+document.addEventListener("keydown", (e) => {
+  if ($("feedView").hidden || document.querySelector(".scrim")) return;
+  const tag = (e.target.tagName || "").toLowerCase(); if (tag === "input" || tag === "textarea") return;
+  const cur = currentPost(); const k = e.key.toLowerCase();
+  if (e.key === "ArrowDown" || k === "j") { e.preventDefault(); go(1); }
+  else if (e.key === "ArrowUp" || k === "k") { e.preventDefault(); go(-1); }
+  else if (!cur) return;
+  else if (k === "l") toggleLike(cur.dataset.id);
+  else if (k === "s") toggleSave(+cur.querySelector("[data-save]").dataset.save);
+  else if (k === "q") quote(+cur.querySelector("[data-quote]").dataset.quote);
+  else if (k === "p") openPackages(+cur.querySelector("[data-pk]").dataset.pk);
+  else if (k === "m") { e.preventDefault(); openChat(+cur.querySelector("[data-chat]").dataset.chat); }
+  else if (e.key === " " && (e.target === document.body || e.target.id === "feed")) { e.preventDefault(); cur.classList.toggle("paused"); announce(cur.classList.contains("paused") ? "Paused" : "Playing"); }
+});
+
+/* ---------- theme + reset ---------- */
+function isDark() { const t = document.documentElement.getAttribute("data-theme"); return t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; }
+function paintTheme() { $("themeBtn").setAttribute("aria-label", isDark() ? "Switch to light mode" : "Switch to dark mode"); $("themeBtn").innerHTML = `<i data-lucide="${isDark() ? "sun" : "moon"}"></i>`; icons(); }
+try { const t = localStorage.getItem("seaport:theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch {}
+$("themeBtn").onclick = () => { const t = isDark() ? "light" : "dark"; document.documentElement.setAttribute("data-theme", t); try { localStorage.setItem("seaport:theme", t); } catch {} paintTheme(); };
+$("resetBtn").onclick = () => { if (confirm("Reset the sandbox? Your industries, likes, saves and brief will be cleared.")) { S = fresh(); save(); showOnboard(); toast("Sandbox reset"); } };
+paintTheme();
+
+if (S.industries && S.industries.length) showFeed(); else showOnboard();
+</script>
+</body>
+</html>
