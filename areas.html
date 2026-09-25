@@ -114,12 +114,12 @@
     <div>
       <h4>Company</h4>
       <a href="about.html">About</a>
-      <a href="mailto:info@cboxxsg.com">info@cboxxsg.com</a>
+      <a href="mailto:info@getseaport.com">info@getseaport.com</a>
     </div>
   </div>
   <div class="footer-bottom">
     <p>© 2026 CBOXX Pte. Ltd.</p>
-    <p><a href="mailto:info@cboxxsg.com">info@cboxxsg.com</a></p>
+    <p><a href="mailto:info@getseaport.com">info@getseaport.com</a></p>
   </div>
 </footer>
 
@@ -135,7 +135,7 @@ function submitInterest(e){
   var msg = document.getElementById('iMsg').value;
   var subject = encodeURIComponent('CBOXX area interest: ' + (areas.length?areas.join(', '):'General') + ' for ' + name);
   var body = encodeURIComponent('Name: '+name+'\nEmail: '+email+'\nShop: '+shop+'\nAreas: '+(areas.length?areas.join(', '):'Not specified')+'\n\nMessage:\n'+(msg||'None'));
-  window.location.href = 'mailto:info@cboxxsg.com?subject='+subject+'&body='+body;
+  window.location.href = 'mailto:info@getseaport.com?subject='+subject+'&body='+body;
   document.getElementById('interestForm').style.display = 'none';
   document.getElementById('successMsg').style.display = 'block';
 }
