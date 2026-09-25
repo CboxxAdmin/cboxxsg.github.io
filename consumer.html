@@ -23,6 +23,8 @@
     --line-rgb: 244,241,235; --line2: #3A3129; --frame: #2E2620;
     color-scheme: dark;
   }
+  select option { background: var(--surface); color: var(--ink); }
+  .lang-select { color-scheme: inherit; }
   html, body { margin: 0; padding: 0; background: var(--page); min-height: 100vh; display: flex; align-items: center; justify-content: center; transition: background 200ms ease; }
   #root { padding: 24px 0; }
 </style>
@@ -3358,6 +3360,796 @@ const REG_I18N = {
     language: "اللغة"
   }
 };
+const APP_I18N = {
+  "en": {
+    "hero": "Your trip, your freedom",
+    "calendar": "My trip calendar",
+    "account": "My account",
+    "signout": "Sign out and use another number",
+    "language": "Language",
+    "home": "Home",
+    "back": "Back to home",
+    "esim": "eSIM",
+    "esimSub": "Buy eSIM immediately",
+    "esimPage": "Buy now, connected the moment you land",
+    "budget": "Budgeting",
+    "budgetSub": "Plan, spend, rebate, GST refund",
+    "shops": "Shops",
+    "shopsSub": "Choose, shop, pay, rebate",
+    "events": "Shows and events",
+    "eventsSub": "Book, pay, enjoy",
+    "eventsPage": "What's on in the next two weeks",
+    "help": "AI help desk",
+    "helpSub": "AI navigator, emergency contacts, word and photo translator",
+    "social": "Our socials",
+    "socialSub": "Travel clips and tips",
+    "accountSub": "Your details and saved payments",
+    "calSub": "Everything you've booked and paid",
+    "emergency": "Emergency",
+    "police": "Police",
+    "ambulance": "Ambulance and fire",
+    "sosNote": "Calls work from any phone, including foreign SIMs. Tap to call. These work without internet or AI.",
+    "navigator": "Navigator",
+    "translator": "Translator",
+    "contact": "Contact us",
+    "discover": "Discover",
+    "saved": "Saved",
+    "receipts": "Receipts",
+    "profile": "Profile",
+    "loyalty": "Loyalty",
+    "forYou": "For you",
+    "planner": "Spend planner",
+    "expenses": "Expenses",
+    "rebates": "Rebates",
+    "gst": "GST refund",
+    "wallet": "Seaport wallet",
+    "topUp": "Top up",
+    "payCode": "Pay code"
+  },
+  "zh-Hans": {
+    "hero": "你的旅程，你的自由",
+    "calendar": "我的行程日历",
+    "account": "我的账户",
+    "signout": "退出并使用其他号码",
+    "language": "语言",
+    "home": "首页",
+    "back": "返回首页",
+    "esim": "eSIM",
+    "esimSub": "立即购买 eSIM",
+    "esimPage": "现在购买，落地即可联网",
+    "budget": "预算",
+    "budgetSub": "规划、消费、返现、消费税退税",
+    "shops": "商店",
+    "shopsSub": "挑选、购物、付款、返现",
+    "events": "演出与活动",
+    "eventsSub": "预订、付款、尽情享受",
+    "eventsPage": "未来两周的精彩活动",
+    "help": "AI 服务台",
+    "helpSub": "AI 导航、紧急联系方式、文字和照片翻译",
+    "social": "我们的社交媒体",
+    "socialSub": "旅行短片与贴士",
+    "accountSub": "你的资料和已保存的付款方式",
+    "calSub": "你预订和付款的一切",
+    "emergency": "紧急情况",
+    "police": "警察",
+    "ambulance": "救护车和消防",
+    "sosNote": "任何手机都能拨打，包括外国 SIM 卡。点击即可拨打。无需网络或 AI。",
+    "navigator": "导航",
+    "translator": "翻译",
+    "contact": "联系我们",
+    "discover": "发现",
+    "saved": "已收藏",
+    "receipts": "收据",
+    "profile": "个人资料",
+    "loyalty": "会员积分",
+    "forYou": "为你推荐",
+    "planner": "消费规划",
+    "expenses": "支出",
+    "rebates": "返现",
+    "gst": "消费税退税",
+    "wallet": "Seaport 钱包",
+    "topUp": "充值",
+    "payCode": "付款码"
+  },
+  "zh-Hant": {
+    "hero": "你的旅程，你的自由",
+    "calendar": "我的行程日曆",
+    "account": "我的帳戶",
+    "signout": "登出並使用其他號碼",
+    "language": "語言",
+    "home": "首頁",
+    "back": "返回首頁",
+    "esim": "eSIM",
+    "esimSub": "立即購買 eSIM",
+    "esimPage": "現在購買，落地即可上網",
+    "budget": "預算",
+    "budgetSub": "規劃、消費、回饋、消費稅退稅",
+    "shops": "商店",
+    "shopsSub": "挑選、購物、付款、回饋",
+    "events": "表演與活動",
+    "eventsSub": "預訂、付款、盡情享受",
+    "eventsPage": "未來兩週的精彩活動",
+    "help": "AI 服務台",
+    "helpSub": "AI 導航、緊急聯絡方式、文字和照片翻譯",
+    "social": "我們的社群",
+    "socialSub": "旅行短片與小貼士",
+    "accountSub": "你的資料和已儲存的付款方式",
+    "calSub": "你預訂和付款的一切",
+    "emergency": "緊急情況",
+    "police": "警察",
+    "ambulance": "救護車和消防",
+    "sosNote": "任何手機都能撥打，包括外國 SIM 卡。點擊即可撥打。無需網路或 AI。",
+    "navigator": "導航",
+    "translator": "翻譯",
+    "contact": "聯絡我們",
+    "discover": "探索",
+    "saved": "已收藏",
+    "receipts": "收據",
+    "profile": "個人資料",
+    "loyalty": "會員積分",
+    "forYou": "為你推薦",
+    "planner": "消費規劃",
+    "expenses": "支出",
+    "rebates": "回饋",
+    "gst": "消費稅退稅",
+    "wallet": "Seaport 錢包",
+    "topUp": "儲值",
+    "payCode": "付款碼"
+  },
+  "ja": {
+    "hero": "あなたの旅、あなたの自由",
+    "calendar": "旅のカレンダー",
+    "account": "マイアカウント",
+    "signout": "ログアウトして別の番号を使う",
+    "language": "言語",
+    "home": "ホーム",
+    "back": "ホームに戻る",
+    "esim": "eSIM",
+    "esimSub": "eSIMをすぐに購入",
+    "esimPage": "今すぐ購入、到着したらすぐにつながる",
+    "budget": "予算",
+    "budgetSub": "計画、支出、還元、GST払い戻し",
+    "shops": "ショップ",
+    "shopsSub": "選ぶ、買う、払う、還元",
+    "events": "ショーとイベント",
+    "eventsSub": "予約、支払い、楽しむ",
+    "eventsPage": "これから2週間のイベント",
+    "help": "AIヘルプデスク",
+    "helpSub": "AIナビ、緊急連絡先、文字と写真の翻訳",
+    "social": "公式SNS",
+    "socialSub": "旅の動画とヒント",
+    "accountSub": "お客様情報と保存済みの支払い方法",
+    "calSub": "予約と支払いのすべて",
+    "emergency": "緊急",
+    "police": "警察",
+    "ambulance": "救急車・消防",
+    "sosNote": "海外のSIMを含め、どの電話からでもかけられます。タップして発信。インターネットやAIは不要です。",
+    "navigator": "ナビ",
+    "translator": "翻訳",
+    "contact": "お問い合わせ",
+    "discover": "発見",
+    "saved": "保存済み",
+    "receipts": "レシート",
+    "profile": "プロフィール",
+    "loyalty": "ポイント",
+    "forYou": "おすすめ",
+    "planner": "支出プランナー",
+    "expenses": "支出",
+    "rebates": "還元",
+    "gst": "GST払い戻し",
+    "wallet": "Seaportウォレット",
+    "topUp": "チャージ",
+    "payCode": "支払いコード"
+  },
+  "ko": {
+    "hero": "당신의 여행, 당신의 자유",
+    "calendar": "내 여행 캘린더",
+    "account": "내 계정",
+    "signout": "로그아웃하고 다른 번호 사용",
+    "language": "언어",
+    "home": "홈",
+    "back": "홈으로 돌아가기",
+    "esim": "eSIM",
+    "esimSub": "지금 바로 eSIM 구매",
+    "esimPage": "지금 구매하고 도착하자마자 연결",
+    "budget": "예산",
+    "budgetSub": "계획, 지출, 리베이트, GST 환급",
+    "shops": "상점",
+    "shopsSub": "고르고, 쇼핑하고, 결제하고, 리베이트",
+    "events": "공연과 이벤트",
+    "eventsSub": "예약하고, 결제하고, 즐기세요",
+    "eventsPage": "앞으로 2주간의 볼거리",
+    "help": "AI 헬프데스크",
+    "helpSub": "AI 내비게이터, 긴급 연락처, 글자와 사진 번역",
+    "social": "공식 SNS",
+    "socialSub": "여행 영상과 팁",
+    "accountSub": "내 정보와 저장된 결제 수단",
+    "calSub": "예약하고 결제한 모든 것",
+    "emergency": "긴급",
+    "police": "경찰",
+    "ambulance": "구급차와 소방",
+    "sosNote": "해외 SIM을 포함해 어떤 휴대폰으로도 걸 수 있습니다. 눌러서 전화하세요. 인터넷이나 AI 없이도 작동합니다.",
+    "navigator": "길찾기",
+    "translator": "번역",
+    "contact": "문의하기",
+    "discover": "둘러보기",
+    "saved": "저장됨",
+    "receipts": "영수증",
+    "profile": "프로필",
+    "loyalty": "포인트",
+    "forYou": "추천",
+    "planner": "지출 플래너",
+    "expenses": "지출",
+    "rebates": "리베이트",
+    "gst": "GST 환급",
+    "wallet": "Seaport 지갑",
+    "topUp": "충전",
+    "payCode": "결제 코드"
+  },
+  "ms": {
+    "hero": "Perjalanan anda, kebebasan anda",
+    "calendar": "Kalendar perjalanan saya",
+    "account": "Akaun saya",
+    "signout": "Log keluar dan guna nombor lain",
+    "language": "Bahasa",
+    "home": "Utama",
+    "back": "Kembali ke utama",
+    "esim": "eSIM",
+    "esimSub": "Beli eSIM serta-merta",
+    "esimPage": "Beli sekarang, terus bersambung sebaik tiba",
+    "budget": "Belanjawan",
+    "budgetSub": "Rancang, belanja, rebat, bayaran balik GST",
+    "shops": "Kedai",
+    "shopsSub": "Pilih, beli-belah, bayar, rebat",
+    "events": "Persembahan dan acara",
+    "eventsSub": "Tempah, bayar, nikmati",
+    "eventsPage": "Acara dalam dua minggu akan datang",
+    "help": "Meja bantuan AI",
+    "helpSub": "Navigator AI, hubungan kecemasan, penterjemah perkataan dan foto",
+    "social": "Media sosial kami",
+    "socialSub": "Klip dan tip perjalanan",
+    "accountSub": "Butiran dan kaedah bayaran tersimpan anda",
+    "calSub": "Semua yang anda tempah dan bayar",
+    "emergency": "Kecemasan",
+    "police": "Polis",
+    "ambulance": "Ambulans dan bomba",
+    "sosNote": "Panggilan boleh dibuat dari mana-mana telefon, termasuk SIM asing. Ketik untuk memanggil. Berfungsi tanpa internet atau AI.",
+    "navigator": "Navigator",
+    "translator": "Penterjemah",
+    "contact": "Hubungi kami",
+    "discover": "Teroka",
+    "saved": "Disimpan",
+    "receipts": "Resit",
+    "profile": "Profil",
+    "loyalty": "Kesetiaan",
+    "forYou": "Untuk anda",
+    "planner": "Perancang perbelanjaan",
+    "expenses": "Perbelanjaan",
+    "rebates": "Rebat",
+    "gst": "Bayaran balik GST",
+    "wallet": "Dompet Seaport",
+    "topUp": "Tambah nilai",
+    "payCode": "Kod bayar"
+  },
+  "id": {
+    "hero": "Perjalananmu, kebebasanmu",
+    "calendar": "Kalender perjalanan saya",
+    "account": "Akun saya",
+    "signout": "Keluar dan gunakan nomor lain",
+    "language": "Bahasa",
+    "home": "Beranda",
+    "back": "Kembali ke beranda",
+    "esim": "eSIM",
+    "esimSub": "Beli eSIM sekarang",
+    "esimPage": "Beli sekarang, langsung terhubung begitu mendarat",
+    "budget": "Anggaran",
+    "budgetSub": "Rencanakan, belanja, rabat, pengembalian GST",
+    "shops": "Toko",
+    "shopsSub": "Pilih, belanja, bayar, rabat",
+    "events": "Pertunjukan dan acara",
+    "eventsSub": "Pesan, bayar, nikmati",
+    "eventsPage": "Acara dua minggu ke depan",
+    "help": "Meja bantuan AI",
+    "helpSub": "Navigator AI, kontak darurat, penerjemah kata dan foto",
+    "social": "Media sosial kami",
+    "socialSub": "Klip dan tips perjalanan",
+    "accountSub": "Data dan metode pembayaran tersimpan Anda",
+    "calSub": "Semua yang Anda pesan dan bayar",
+    "emergency": "Darurat",
+    "police": "Polisi",
+    "ambulance": "Ambulans dan pemadam kebakaran",
+    "sosNote": "Bisa dihubungi dari ponsel apa pun, termasuk SIM luar negeri. Ketuk untuk menelepon. Berfungsi tanpa internet atau AI.",
+    "navigator": "Navigator",
+    "translator": "Penerjemah",
+    "contact": "Hubungi kami",
+    "discover": "Jelajahi",
+    "saved": "Tersimpan",
+    "receipts": "Struk",
+    "profile": "Profil",
+    "loyalty": "Loyalitas",
+    "forYou": "Untuk Anda",
+    "planner": "Perencana belanja",
+    "expenses": "Pengeluaran",
+    "rebates": "Rabat",
+    "gst": "Pengembalian GST",
+    "wallet": "Dompet Seaport",
+    "topUp": "Isi saldo",
+    "payCode": "Kode bayar"
+  },
+  "th": {
+    "hero": "การเดินทางของคุณ อิสระของคุณ",
+    "calendar": "ปฏิทินทริปของฉัน",
+    "account": "บัญชีของฉัน",
+    "signout": "ออกจากระบบและใช้หมายเลขอื่น",
+    "language": "ภาษา",
+    "home": "หน้าแรก",
+    "back": "กลับหน้าแรก",
+    "esim": "eSIM",
+    "esimSub": "ซื้อ eSIM ได้ทันที",
+    "esimPage": "ซื้อตอนนี้ ใช้งานได้ทันทีที่ถึง",
+    "budget": "งบประมาณ",
+    "budgetSub": "วางแผน ใช้จ่าย รับเงินคืน คืนภาษี GST",
+    "shops": "ร้านค้า",
+    "shopsSub": "เลือก ช้อป จ่าย รับเงินคืน",
+    "events": "โชว์และอีเวนต์",
+    "eventsSub": "จอง จ่าย สนุก",
+    "eventsPage": "มีอะไรน่าสนใจในสองสัปดาห์นี้",
+    "help": "ศูนย์ช่วยเหลือ AI",
+    "helpSub": "ผู้นำทาง AI เบอร์ฉุกเฉิน แปลข้อความและรูปภาพ",
+    "social": "โซเชียลของเรา",
+    "socialSub": "คลิปและเคล็ดลับการเที่ยว",
+    "accountSub": "ข้อมูลของคุณและวิธีชำระเงินที่บันทึกไว้",
+    "calSub": "ทุกอย่างที่คุณจองและจ่ายแล้ว",
+    "emergency": "ฉุกเฉิน",
+    "police": "ตำรวจ",
+    "ambulance": "รถพยาบาลและดับเพลิง",
+    "sosNote": "โทรได้จากทุกโทรศัพท์ รวมถึงซิมต่างประเทศ แตะเพื่อโทร ใช้ได้โดยไม่ต้องมีอินเทอร์เน็ตหรือ AI",
+    "navigator": "นำทาง",
+    "translator": "แปลภาษา",
+    "contact": "ติดต่อเรา",
+    "discover": "ค้นพบ",
+    "saved": "บันทึกไว้",
+    "receipts": "ใบเสร็จ",
+    "profile": "โปรไฟล์",
+    "loyalty": "สะสมแต้ม",
+    "forYou": "สำหรับคุณ",
+    "planner": "วางแผนการใช้จ่าย",
+    "expenses": "ค่าใช้จ่าย",
+    "rebates": "เงินคืน",
+    "gst": "คืนภาษี GST",
+    "wallet": "กระเป๋าเงิน Seaport",
+    "topUp": "เติมเงิน",
+    "payCode": "โค้ดชำระเงิน"
+  },
+  "vi": {
+    "hero": "Chuyến đi của bạn, tự do của bạn",
+    "calendar": "Lịch chuyến đi của tôi",
+    "account": "Tài khoản của tôi",
+    "signout": "Đăng xuất và dùng số khác",
+    "language": "Ngôn ngữ",
+    "home": "Trang chủ",
+    "back": "Về trang chủ",
+    "esim": "eSIM",
+    "esimSub": "Mua eSIM ngay",
+    "esimPage": "Mua ngay, có mạng ngay khi hạ cánh",
+    "budget": "Ngân sách",
+    "budgetSub": "Lên kế hoạch, chi tiêu, hoàn tiền, hoàn thuế GST",
+    "shops": "Cửa hàng",
+    "shopsSub": "Chọn, mua, thanh toán, hoàn tiền",
+    "events": "Biểu diễn và sự kiện",
+    "eventsSub": "Đặt, thanh toán, tận hưởng",
+    "eventsPage": "Có gì trong hai tuần tới",
+    "help": "Bàn trợ giúp AI",
+    "helpSub": "Dẫn đường AI, liên hệ khẩn cấp, dịch chữ và ảnh",
+    "social": "Mạng xã hội của chúng tôi",
+    "socialSub": "Video và mẹo du lịch",
+    "accountSub": "Thông tin và phương thức thanh toán đã lưu",
+    "calSub": "Mọi thứ bạn đã đặt và thanh toán",
+    "emergency": "Khẩn cấp",
+    "police": "Cảnh sát",
+    "ambulance": "Cấp cứu và cứu hỏa",
+    "sosNote": "Gọi được từ mọi điện thoại, kể cả SIM nước ngoài. Chạm để gọi. Hoạt động không cần internet hay AI.",
+    "navigator": "Dẫn đường",
+    "translator": "Dịch",
+    "contact": "Liên hệ",
+    "discover": "Khám phá",
+    "saved": "Đã lưu",
+    "receipts": "Hóa đơn",
+    "profile": "Hồ sơ",
+    "loyalty": "Tích điểm",
+    "forYou": "Dành cho bạn",
+    "planner": "Lập kế hoạch chi tiêu",
+    "expenses": "Chi tiêu",
+    "rebates": "Hoàn tiền",
+    "gst": "Hoàn thuế GST",
+    "wallet": "Ví Seaport",
+    "topUp": "Nạp tiền",
+    "payCode": "Mã thanh toán"
+  },
+  "ta": {
+    "hero": "உங்கள் பயணம், உங்கள் சுதந்திரம்",
+    "calendar": "எனது பயண நாள்காட்டி",
+    "account": "எனது கணக்கு",
+    "signout": "வெளியேறி வேறு எண்ணைப் பயன்படுத்து",
+    "language": "மொழி",
+    "home": "முகப்பு",
+    "back": "முகப்புக்குத் திரும்பு",
+    "esim": "eSIM",
+    "esimSub": "உடனே eSIM வாங்கு",
+    "esimPage": "இப்போதே வாங்குங்கள், வந்திறங்கியதும் இணைப்பு",
+    "budget": "வரவுசெலவு",
+    "budgetSub": "திட்டமிடு, செலவிடு, தள்ளுபடி, GST திருப்பம்",
+    "shops": "கடைகள்",
+    "shopsSub": "தேர்வு, வாங்கு, செலுத்து, தள்ளுபடி",
+    "events": "நிகழ்ச்சிகள் மற்றும் நிகழ்வுகள்",
+    "eventsSub": "முன்பதிவு, செலுத்து, மகிழுங்கள்",
+    "eventsPage": "அடுத்த இரண்டு வாரங்களில் நடப்பவை",
+    "help": "AI உதவி மையம்",
+    "helpSub": "AI வழிகாட்டி, அவசரத் தொடர்புகள், சொல் மற்றும் புகைப்பட மொழிபெயர்ப்பு",
+    "social": "எங்கள் சமூக ஊடகம்",
+    "socialSub": "பயணக் காணொளிகள் மற்றும் குறிப்புகள்",
+    "accountSub": "உங்கள் விவரங்கள் மற்றும் சேமித்த கட்டண முறைகள்",
+    "calSub": "நீங்கள் முன்பதிவு செய்து செலுத்திய அனைத்தும்",
+    "emergency": "அவசரம்",
+    "police": "காவல்துறை",
+    "ambulance": "ஆம்புலன்ஸ் மற்றும் தீயணைப்பு",
+    "sosNote": "வெளிநாட்டு SIM உட்பட எந்தத் தொலைபேசியிலிருந்தும் அழைக்கலாம். அழைக்கத் தட்டவும். இணையம் அல்லது AI தேவையில்லை.",
+    "navigator": "வழிகாட்டி",
+    "translator": "மொழிபெயர்ப்பு",
+    "contact": "எங்களைத் தொடர்புகொள்ள",
+    "discover": "கண்டறி",
+    "saved": "சேமித்தவை",
+    "receipts": "ரசீதுகள்",
+    "profile": "சுயவிவரம்",
+    "loyalty": "விசுவாசப் புள்ளிகள்",
+    "forYou": "உங்களுக்காக",
+    "planner": "செலவுத் திட்டம்",
+    "expenses": "செலவுகள்",
+    "rebates": "தள்ளுபடிகள்",
+    "gst": "GST திருப்பம்",
+    "wallet": "Seaport பணப்பை",
+    "topUp": "நிரப்பு",
+    "payCode": "கட்டணக் குறியீடு"
+  },
+  "hi": {
+    "hero": "आपकी यात्रा, आपकी आज़ादी",
+    "calendar": "मेरा यात्रा कैलेंडर",
+    "account": "मेरा खाता",
+    "signout": "साइन आउट करें और दूसरा नंबर इस्तेमाल करें",
+    "language": "भाषा",
+    "home": "होम",
+    "back": "होम पर वापस जाएँ",
+    "esim": "eSIM",
+    "esimSub": "तुरंत eSIM खरीदें",
+    "esimPage": "अभी खरीदें, पहुँचते ही कनेक्ट हों",
+    "budget": "बजट",
+    "budgetSub": "योजना, खर्च, रिबेट, GST रिफ़ंड",
+    "shops": "दुकानें",
+    "shopsSub": "चुनें, खरीदें, भुगतान करें, रिबेट पाएँ",
+    "events": "शो और इवेंट",
+    "eventsSub": "बुक करें, भुगतान करें, आनंद लें",
+    "eventsPage": "अगले दो हफ़्तों में क्या है",
+    "help": "AI हेल्प डेस्क",
+    "helpSub": "AI नेविगेटर, आपातकालीन संपर्क, शब्द और फ़ोटो अनुवादक",
+    "social": "हमारे सोशल मीडिया",
+    "socialSub": "यात्रा क्लिप और सुझाव",
+    "accountSub": "आपकी जानकारी और सहेजे गए भुगतान",
+    "calSub": "आपने जो कुछ बुक और भुगतान किया",
+    "emergency": "आपातकाल",
+    "police": "पुलिस",
+    "ambulance": "एम्बुलेंस और फ़ायर",
+    "sosNote": "विदेशी सिम सहित किसी भी फ़ोन से कॉल करें। कॉल करने के लिए टैप करें। इंटरनेट या AI की ज़रूरत नहीं।",
+    "navigator": "नेविगेटर",
+    "translator": "अनुवादक",
+    "contact": "संपर्क करें",
+    "discover": "खोजें",
+    "saved": "सहेजे गए",
+    "receipts": "रसीदें",
+    "profile": "प्रोफ़ाइल",
+    "loyalty": "लॉयल्टी",
+    "forYou": "आपके लिए",
+    "planner": "खर्च योजनाकार",
+    "expenses": "खर्च",
+    "rebates": "रिबेट",
+    "gst": "GST रिफ़ंड",
+    "wallet": "Seaport वॉलेट",
+    "topUp": "टॉप अप",
+    "payCode": "भुगतान कोड"
+  },
+  "fr": {
+    "hero": "Votre voyage, votre liberté",
+    "calendar": "Mon calendrier de voyage",
+    "account": "Mon compte",
+    "signout": "Se déconnecter et utiliser un autre numéro",
+    "language": "Langue",
+    "home": "Accueil",
+    "back": "Retour à l'accueil",
+    "esim": "eSIM",
+    "esimSub": "Acheter une eSIM tout de suite",
+    "esimPage": "Achetez maintenant, connecté dès l'atterrissage",
+    "budget": "Budget",
+    "budgetSub": "Planifier, dépenser, remises, remboursement de la GST",
+    "shops": "Boutiques",
+    "shopsSub": "Choisir, acheter, payer, remises",
+    "events": "Spectacles et événements",
+    "eventsSub": "Réservez, payez, profitez",
+    "eventsPage": "Au programme ces deux prochaines semaines",
+    "help": "Assistance IA",
+    "helpSub": "Navigateur IA, contacts d'urgence, traduction de textes et photos",
+    "social": "Nos réseaux sociaux",
+    "socialSub": "Vidéos et conseils de voyage",
+    "accountSub": "Vos informations et moyens de paiement enregistrés",
+    "calSub": "Tout ce que vous avez réservé et payé",
+    "emergency": "Urgence",
+    "police": "Police",
+    "ambulance": "Ambulance et pompiers",
+    "sosNote": "Appel possible depuis n'importe quel téléphone, même avec une SIM étrangère. Touchez pour appeler. Fonctionne sans internet ni IA.",
+    "navigator": "Navigation",
+    "translator": "Traducteur",
+    "contact": "Nous contacter",
+    "discover": "Découvrir",
+    "saved": "Enregistrés",
+    "receipts": "Reçus",
+    "profile": "Profil",
+    "loyalty": "Fidélité",
+    "forYou": "Pour vous",
+    "planner": "Planificateur de dépenses",
+    "expenses": "Dépenses",
+    "rebates": "Remises",
+    "gst": "Remboursement GST",
+    "wallet": "Portefeuille Seaport",
+    "topUp": "Recharger",
+    "payCode": "Code de paiement"
+  },
+  "de": {
+    "hero": "Deine Reise, deine Freiheit",
+    "calendar": "Mein Reisekalender",
+    "account": "Mein Konto",
+    "signout": "Abmelden und andere Nummer verwenden",
+    "language": "Sprache",
+    "home": "Start",
+    "back": "Zurück zum Start",
+    "esim": "eSIM",
+    "esimSub": "eSIM sofort kaufen",
+    "esimPage": "Jetzt kaufen, bei Ankunft sofort verbunden",
+    "budget": "Budget",
+    "budgetSub": "Planen, ausgeben, Rabatt, GST-Erstattung",
+    "shops": "Shops",
+    "shopsSub": "Auswählen, einkaufen, bezahlen, Rabatt",
+    "events": "Shows und Events",
+    "eventsSub": "Buchen, bezahlen, genießen",
+    "eventsPage": "Was in den nächsten zwei Wochen los ist",
+    "help": "KI-Hilfe",
+    "helpSub": "KI-Navigator, Notfallkontakte, Wort- und Fotoübersetzer",
+    "social": "Unsere Social Media",
+    "socialSub": "Reiseclips und Tipps",
+    "accountSub": "Deine Daten und gespeicherten Zahlungsarten",
+    "calSub": "Alles, was du gebucht und bezahlt hast",
+    "emergency": "Notfall",
+    "police": "Polizei",
+    "ambulance": "Rettungsdienst und Feuerwehr",
+    "sosNote": "Anrufe von jedem Telefon möglich, auch mit ausländischer SIM. Zum Anrufen tippen. Funktioniert ohne Internet oder KI.",
+    "navigator": "Navigation",
+    "translator": "Übersetzer",
+    "contact": "Kontakt",
+    "discover": "Entdecken",
+    "saved": "Gespeichert",
+    "receipts": "Belege",
+    "profile": "Profil",
+    "loyalty": "Treuepunkte",
+    "forYou": "Für dich",
+    "planner": "Ausgabenplaner",
+    "expenses": "Ausgaben",
+    "rebates": "Rabatte",
+    "gst": "GST-Erstattung",
+    "wallet": "Seaport Wallet",
+    "topUp": "Aufladen",
+    "payCode": "Zahlcode"
+  },
+  "es": {
+    "hero": "Tu viaje, tu libertad",
+    "calendar": "Mi calendario de viaje",
+    "account": "Mi cuenta",
+    "signout": "Cerrar sesión y usar otro número",
+    "language": "Idioma",
+    "home": "Inicio",
+    "back": "Volver al inicio",
+    "esim": "eSIM",
+    "esimSub": "Compra tu eSIM al instante",
+    "esimPage": "Compra ahora y conéctate al aterrizar",
+    "budget": "Presupuesto",
+    "budgetSub": "Planifica, gasta, reembolsos, devolución del GST",
+    "shops": "Tiendas",
+    "shopsSub": "Elige, compra, paga, reembolso",
+    "events": "Espectáculos y eventos",
+    "eventsSub": "Reserva, paga, disfruta",
+    "eventsPage": "Lo que hay en las próximas dos semanas",
+    "help": "Asistencia IA",
+    "helpSub": "Navegador IA, contactos de emergencia, traductor de texto y fotos",
+    "social": "Nuestras redes sociales",
+    "socialSub": "Vídeos y consejos de viaje",
+    "accountSub": "Tus datos y métodos de pago guardados",
+    "calSub": "Todo lo que has reservado y pagado",
+    "emergency": "Emergencia",
+    "police": "Policía",
+    "ambulance": "Ambulancia y bomberos",
+    "sosNote": "Puedes llamar desde cualquier teléfono, incluso con SIM extranjera. Toca para llamar. Funciona sin internet ni IA.",
+    "navigator": "Navegador",
+    "translator": "Traductor",
+    "contact": "Contáctanos",
+    "discover": "Descubrir",
+    "saved": "Guardados",
+    "receipts": "Recibos",
+    "profile": "Perfil",
+    "loyalty": "Fidelidad",
+    "forYou": "Para ti",
+    "planner": "Planificador de gastos",
+    "expenses": "Gastos",
+    "rebates": "Reembolsos",
+    "gst": "Devolución del GST",
+    "wallet": "Monedero Seaport",
+    "topUp": "Recargar",
+    "payCode": "Código de pago"
+  },
+  "ru": {
+    "hero": "Ваше путешествие, ваша свобода",
+    "calendar": "Мой календарь поездки",
+    "account": "Мой аккаунт",
+    "signout": "Выйти и использовать другой номер",
+    "language": "Язык",
+    "home": "Главная",
+    "back": "На главную",
+    "esim": "eSIM",
+    "esimSub": "Купить eSIM сразу",
+    "esimPage": "Купите сейчас, связь сразу после прилёта",
+    "budget": "Бюджет",
+    "budgetSub": "Планы, расходы, кешбэк, возврат GST",
+    "shops": "Магазины",
+    "shopsSub": "Выбирайте, покупайте, платите, получайте кешбэк",
+    "events": "Шоу и события",
+    "eventsSub": "Бронируйте, платите, наслаждайтесь",
+    "eventsPage": "Что будет в ближайшие две недели",
+    "help": "AI-помощник",
+    "helpSub": "AI-навигатор, экстренные контакты, перевод текста и фото",
+    "social": "Наши соцсети",
+    "socialSub": "Видео и советы для поездки",
+    "accountSub": "Ваши данные и сохранённые способы оплаты",
+    "calSub": "Всё, что вы забронировали и оплатили",
+    "emergency": "Экстренно",
+    "police": "Полиция",
+    "ambulance": "Скорая помощь и пожарные",
+    "sosNote": "Звонить можно с любого телефона, в том числе с иностранной SIM-картой. Нажмите, чтобы позвонить. Работает без интернета и AI.",
+    "navigator": "Навигатор",
+    "translator": "Переводчик",
+    "contact": "Связаться с нами",
+    "discover": "Обзор",
+    "saved": "Сохранённое",
+    "receipts": "Чеки",
+    "profile": "Профиль",
+    "loyalty": "Баллы",
+    "forYou": "Для вас",
+    "planner": "Планировщик расходов",
+    "expenses": "Расходы",
+    "rebates": "Кешбэк",
+    "gst": "Возврат GST",
+    "wallet": "Кошелёк Seaport",
+    "topUp": "Пополнить",
+    "payCode": "Код оплаты"
+  },
+  "ar": {
+    "hero": "رحلتك، حريتك",
+    "calendar": "تقويم رحلتي",
+    "account": "حسابي",
+    "signout": "تسجيل الخروج واستخدام رقم آخر",
+    "language": "اللغة",
+    "home": "الرئيسية",
+    "back": "العودة إلى الرئيسية",
+    "esim": "eSIM",
+    "esimSub": "اشترِ شريحة eSIM فوراً",
+    "esimPage": "اشترِ الآن واتصل فور وصولك",
+    "budget": "الميزانية",
+    "budgetSub": "خطط، أنفق، استرداد نقدي، استرداد ضريبة GST",
+    "shops": "المتاجر",
+    "shopsSub": "اختر، تسوّق، ادفع، استرد",
+    "events": "العروض والفعاليات",
+    "eventsSub": "احجز، ادفع، استمتع",
+    "eventsPage": "ما يحدث خلال الأسبوعين القادمين",
+    "help": "مكتب المساعدة بالذكاء الاصطناعي",
+    "helpSub": "ملاحة بالذكاء الاصطناعي، أرقام الطوارئ، ترجمة النصوص والصور",
+    "social": "حساباتنا على وسائل التواصل",
+    "socialSub": "مقاطع ونصائح للسفر",
+    "accountSub": "بياناتك وطرق الدفع المحفوظة",
+    "calSub": "كل ما حجزته ودفعته",
+    "emergency": "طوارئ",
+    "police": "الشرطة",
+    "ambulance": "الإسعاف والإطفاء",
+    "sosNote": "يمكنك الاتصال من أي هاتف، حتى بشريحة أجنبية. اضغط للاتصال. يعمل دون إنترنت أو ذكاء اصطناعي.",
+    "navigator": "الملاحة",
+    "translator": "المترجم",
+    "contact": "اتصل بنا",
+    "discover": "اكتشف",
+    "saved": "المحفوظات",
+    "receipts": "الإيصالات",
+    "profile": "الملف الشخصي",
+    "loyalty": "الولاء",
+    "forYou": "لك",
+    "planner": "مخطط الإنفاق",
+    "expenses": "المصاريف",
+    "rebates": "الاسترداد النقدي",
+    "gst": "استرداد GST",
+    "wallet": "محفظة Seaport",
+    "topUp": "شحن الرصيد",
+    "payCode": "رمز الدفع"
+  }
+};
+
+// App-wide language. Set on the sign up screen or from the home page; every page reads it.
+const LangCtx = React.createContext({
+  lang: "en",
+  setLang: () => {}
+});
+function useT() {
+  const {
+    lang
+  } = React.useContext(LangCtx);
+  return React.useMemo(() => k => APP_I18N[lang] && APP_I18N[lang][k] || APP_I18N.en[k] || k, [lang]);
+}
+function HomeLangPicker() {
+  const {
+    lang,
+    setLang
+  } = React.useContext(LangCtx);
+  const t = useT();
+  return /*#__PURE__*/React.createElement("label", {
+    className: "hub-link",
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 6,
+      border: "1.5px solid rgba(var(--line-rgb),0.2)",
+      borderRadius: 999,
+      padding: "0 4px 0 10px",
+      minHeight: 38,
+      background: "var(--surface)",
+      color: "var(--ink)"
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "languages",
+    size: 15,
+    color: "var(--accent-ink)"
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      position: "absolute",
+      width: 1,
+      height: 1,
+      overflow: "hidden",
+      clip: "rect(0 0 0 0)"
+    }
+  }, t("language")), /*#__PURE__*/React.createElement("select", {
+    value: lang,
+    onChange: e => setLang(e.target.value),
+    "aria-label": t("language"),
+    className: "lang-select",
+    style: {
+      border: "none",
+      background: "var(--surface)",
+      color: "var(--ink)",
+      fontSize: 13,
+      fontWeight: 700,
+      fontFamily: "'Work Sans', sans-serif",
+      padding: "6px 2px",
+      cursor: "pointer",
+      maxWidth: 140
+    }
+  }, REG_LANGS.map(([k, l]) => /*#__PURE__*/React.createElement("option", {
+    key: k,
+    value: k,
+    style: {
+      background: "var(--surface)",
+      color: "var(--ink)"
+    }
+  }, l))));
+}
 const LANG_KEY = "seaport:lang";
 function initialRegLang() {
   try {
@@ -3427,7 +4219,8 @@ function LanguagePicker({
     key: k,
     value: k,
     style: {
-      color: "#211D17"
+      background: "var(--surface)",
+      color: "var(--ink)"
     }
   }, l))));
 }
@@ -3847,17 +4640,11 @@ function CountryPicker({
 function RegistrationScreen({
   onComplete
 }) {
-  const [lang, setLangState] = useState(initialRegLang);
+  const {
+    lang,
+    setLang
+  } = React.useContext(LangCtx);
   const t = React.useMemo(() => makeT(lang), [lang]);
-  const setLang = l => {
-    setLangState(l);
-    try {
-      localStorage.setItem(LANG_KEY, l);
-    } catch {}
-  };
-  useEffect(() => {
-    document.documentElement.lang = lang;
-  }, [lang]);
   const rtl = RTL_LANGS.includes(lang);
   const countries = React.useMemo(() => buildCountryList(lang), [lang]);
   const [cc, setCc] = useState(() => guessCountry(countries));
@@ -4442,10 +5229,11 @@ function BrandStrip({
 function HomeButton({
   onHome
 }) {
+  const t = useT();
   return /*#__PURE__*/React.createElement("button", {
     onClick: onHome,
     className: "hub-link",
-    "aria-label": "Back to home",
+    "aria-label": t("back"),
     style: {
       display: "flex",
       alignItems: "center",
@@ -4463,13 +5251,22 @@ function HomeButton({
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "house",
     size: 14
-  }), " Home");
+  }), " ", t("home"));
 }
+const TILE_KEYS = {
+  esim: ["esim", "esimSub"],
+  budget: ["budget", "budgetSub"],
+  shops: ["shops", "shopsSub"],
+  events: ["events", "eventsSub"],
+  helpdesk: ["help", "helpSub"],
+  social: ["social", "socialSub"]
+};
 function HomeHub({
   member,
   onOpen,
   onSignOut
 }) {
+  const t = useT();
   return /*#__PURE__*/React.createElement(PhoneFrame, null, /*#__PURE__*/React.createElement(BrandStrip, null), /*#__PURE__*/React.createElement("div", {
     style: {
       background: "#9C0018",
@@ -4493,7 +5290,7 @@ function HomeHub({
       margin: "8px 0 0",
       fontWeight: 700
     }
-  }, "Your trip, your freedom"), /*#__PURE__*/React.createElement("button", {
+  }, t("hero")), /*#__PURE__*/React.createElement("button", {
     onClick: () => onOpen("calendar"),
     className: "hub-link",
     style: {
@@ -4515,7 +5312,7 @@ function HomeHub({
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "calendar-days",
     size: 15
-  }), " My trip calendar"), /*#__PURE__*/React.createElement("button", {
+  }), " ", t("calendar")), /*#__PURE__*/React.createElement("button", {
     onClick: () => onOpen("account"),
     className: "hub-link",
     style: {
@@ -4538,7 +5335,7 @@ function HomeHub({
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "user",
     size: 15
-  }), " My account")), /*#__PURE__*/React.createElement("nav", {
+  }), " ", t("account"))), /*#__PURE__*/React.createElement("nav", {
     "aria-label": "Sections",
     style: {
       padding: "18px 16px 8px",
@@ -4599,17 +5396,20 @@ function HomeHub({
       paddingTop: 14,
       lineHeight: 1.2
     }
-  }, s.title), /*#__PURE__*/React.createElement("span", {
+  }, TILE_KEYS[s.key] ? t(TILE_KEYS[s.key][0]) : s.title), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 12,
       color: "var(--muted)",
       marginTop: 3,
       lineHeight: 1.35
     }
-  }, s.sub)))))), /*#__PURE__*/React.createElement("div", {
+  }, TILE_KEYS[s.key] ? t(TILE_KEYS[s.key][1]) : s.sub)))))), /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "4px 16px 18px",
-      textAlign: "center"
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: 10
     }
   }, /*#__PURE__*/React.createElement("button", {
     onClick: onSignOut,
@@ -4618,13 +5418,16 @@ function HomeHub({
       background: "none",
       border: "none",
       color: "var(--muted)",
-      fontSize: 12.5,
+      fontSize: 12,
       cursor: "pointer",
-      padding: "10px",
+      padding: "10px 0",
       fontFamily: "'Work Sans', sans-serif",
-      textDecoration: "underline"
+      textDecoration: "underline",
+      textAlign: "left",
+      flex: 1,
+      minWidth: 0
     }
-  }, "Sign out and use another number")));
+  }, t("signout")), /*#__PURE__*/React.createElement(HomeLangPicker, null)));
 }
 
 // Placeholder page for sections still to be built. Replace the content area when ready.
@@ -4632,6 +5435,7 @@ function BlankSection({
   section,
   onHome
 }) {
+  const t = useT();
   return /*#__PURE__*/React.createElement(PhoneFrame, null, /*#__PURE__*/React.createElement(BrandStrip, {
     onHome: onHome,
     right: /*#__PURE__*/React.createElement(HomeButton, {
@@ -4649,7 +5453,7 @@ function BlankSection({
   }, /*#__PURE__*/React.createElement("button", {
     onClick: onHome,
     className: "hub-link",
-    "aria-label": "Back to home",
+    "aria-label": t("back"),
     style: {
       background: "rgba(244,241,235,0.12)",
       border: "none",
@@ -6526,6 +7330,7 @@ function SocialFeed({
   onHome,
   onOpenShops
 }) {
+  const t = useT();
   const FEED_H = 676; // fills the phone frame under the brand strip
   const myHandle = `traveller${member.e164.slice(-4)}`;
   const stored = React.useMemo(loadSocial, []);
@@ -6751,7 +7556,7 @@ function SocialFeed({
       padding: "12px 14px 18px",
       background: "linear-gradient(rgba(0,0,0,0.5), transparent)"
     }
-  }, tabBtn("foryou", "For you"), tabBtn("saved", "Saved"), /*#__PURE__*/React.createElement("button", {
+  }, tabBtn("foryou", t("forYou")), tabBtn("saved", t("saved")), /*#__PURE__*/React.createElement("button", {
     onClick: () => setUploading(true),
     "aria-label": "Post a travel clip",
     className: "hub-link",
@@ -7989,6 +8794,7 @@ function EsimBuySheet({
 function ESimPage({
   onHome
 }) {
+  const t = useT();
   const [prefs, setPrefs] = useState({
     trip: "7",
     usage: "social",
@@ -8162,7 +8968,7 @@ function ESimPage({
   }, /*#__PURE__*/React.createElement("button", {
     onClick: onHome,
     className: "hub-link",
-    "aria-label": "Back to home",
+    "aria-label": t("back"),
     style: {
       background: "rgba(244,241,235,0.12)",
       border: "none",
@@ -8186,13 +8992,13 @@ function ESimPage({
       margin: 0,
       fontWeight: 700
     }
-  }, "eSIM"), /*#__PURE__*/React.createElement("p", {
+  }, t("esim")), /*#__PURE__*/React.createElement("p", {
     style: {
       margin: "2px 0 0",
       fontSize: 12.5,
       opacity: 0.85
     }
-  }, "Buy now, connected the moment you land"))), /*#__PURE__*/React.createElement("div", {
+  }, t("esimPage")))), /*#__PURE__*/React.createElement("div", {
     style: {
       paddingTop: 16,
       background: "var(--bg)",
@@ -9243,6 +10049,7 @@ function BudgetPage({
   member,
   onHome
 }) {
+  const t = useT();
   const [data, setData] = useState(loadBudget);
   const [tab, setTab] = useState("planner");
   const [topUp, setTopUp] = useState(false);
@@ -9456,7 +10263,7 @@ function BudgetPage({
     ...payField,
     minHeight: 44
   };
-  const tabs = [["planner", "Spend planner", "sparkles"], ["expenses", "Expenses", "receipt-text"], ["rebates", "Rebates", "badge-percent"], ["gst", "GST refund", "calculator"]];
+  const tabs = [["planner", t("planner"), "sparkles"], ["expenses", t("expenses"), "receipt-text"], ["rebates", t("rebates"), "badge-percent"], ["gst", t("gst"), "calculator"]];
   return /*#__PURE__*/React.createElement(PhoneFrame, null, /*#__PURE__*/React.createElement(BrandStrip, {
     onHome: onHome,
     right: /*#__PURE__*/React.createElement(HomeButton, {
@@ -9474,7 +10281,7 @@ function BudgetPage({
   }, /*#__PURE__*/React.createElement("button", {
     onClick: onHome,
     className: "hub-link",
-    "aria-label": "Back to home",
+    "aria-label": t("back"),
     style: {
       background: "rgba(244,241,235,0.12)",
       border: "none",
@@ -9498,13 +10305,13 @@ function BudgetPage({
       margin: 0,
       fontWeight: 700
     }
-  }, "Budgeting"), /*#__PURE__*/React.createElement("p", {
+  }, t("budget")), /*#__PURE__*/React.createElement("p", {
     style: {
       margin: "2px 0 0",
       fontSize: 12.5,
       opacity: 0.85
     }
-  }, "Plan, spend, rebate, GST refund"))), /*#__PURE__*/React.createElement("div", {
+  }, t("budgetSub")))), /*#__PURE__*/React.createElement("div", {
     style: {
       paddingTop: 16,
       background: "var(--bg)",
@@ -9541,7 +10348,7 @@ function BudgetPage({
       fontFamily: "'IBM Plex Mono', monospace",
       color: "#D4A832"
     }
-  }, "Seaport wallet")), /*#__PURE__*/React.createElement("p", {
+  }, t("wallet"))), /*#__PURE__*/React.createElement("p", {
     "aria-live": "polite",
     style: {
       margin: "10px 0 2px",
@@ -9572,7 +10379,7 @@ function BudgetPage({
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "plus",
     size: 16
-  }), " Top up"), /*#__PURE__*/React.createElement("button", {
+  }), " ", t("topUp")), /*#__PURE__*/React.createElement("button", {
     onClick: () => setShowQr(true),
     style: {
       ...btn,
@@ -9581,7 +10388,7 @@ function BudgetPage({
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "qr-code",
     size: 16
-  }), " Pay code")), data.txns.length > 0 && /*#__PURE__*/React.createElement("ul", {
+  }), " ", t("payCode"))), data.txns.length > 0 && /*#__PURE__*/React.createElement("ul", {
     style: {
       listStyle: "none",
       margin: "12px 0 0",
@@ -11184,6 +11991,7 @@ const EVENTS_KEY = "seaport:events";
 function EventsPage({
   onHome
 }) {
+  const t = useT();
   const today = React.useMemo(() => {
     const d = new Date();
     d.setHours(0, 0, 0, 0);
@@ -11247,7 +12055,7 @@ function EventsPage({
   }, /*#__PURE__*/React.createElement("button", {
     onClick: onHome,
     className: "hub-link",
-    "aria-label": "Back to home",
+    "aria-label": t("back"),
     style: {
       background: "rgba(244,241,235,0.12)",
       border: "none",
@@ -11271,13 +12079,13 @@ function EventsPage({
       margin: 0,
       fontWeight: 700
     }
-  }, "Shows and events"), /*#__PURE__*/React.createElement("p", {
+  }, t("events")), /*#__PURE__*/React.createElement("p", {
     style: {
       margin: "2px 0 0",
       fontSize: 12.5,
       opacity: 0.85
     }
-  }, "What's on in the next two weeks"))), /*#__PURE__*/React.createElement("div", {
+  }, t("eventsPage")))), /*#__PURE__*/React.createElement("div", {
     style: {
       background: "var(--bg)",
       flex: 1,
@@ -11685,6 +12493,7 @@ function CalendarPage({
   onHome,
   onOpen
 }) {
+  const t = useT();
   const items = React.useMemo(collectTripItems, []);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -11869,7 +12678,7 @@ function CalendarPage({
   }, /*#__PURE__*/React.createElement("button", {
     onClick: onHome,
     className: "hub-link",
-    "aria-label": "Back to home",
+    "aria-label": t("back"),
     style: {
       background: "rgba(244,241,235,0.12)",
       border: "none",
@@ -11893,13 +12702,13 @@ function CalendarPage({
       margin: 0,
       fontWeight: 700
     }
-  }, "My trip calendar"), /*#__PURE__*/React.createElement("p", {
+  }, t("calendar")), /*#__PURE__*/React.createElement("p", {
     style: {
       margin: "2px 0 0",
       fontSize: 12.5,
       opacity: 0.85
     }
-  }, items.length, " booking", items.length !== 1 ? "s" : "", " and payments \xB7 ", money(totalPaid), " paid"))), /*#__PURE__*/React.createElement("div", {
+  }, t("calSub"), " \xB7 ", items.length, " \xB7 ", money(totalPaid)))), /*#__PURE__*/React.createElement("div", {
     style: {
       background: "var(--bg)",
       flex: 1,
@@ -12443,6 +13252,7 @@ function speak(text, lang) {
   }
 }
 function EmergencyCard() {
+  const t = useT();
   return /*#__PURE__*/React.createElement("section", {
     "aria-labelledby": "sos-h",
     style: {
@@ -12466,7 +13276,7 @@ function EmergencyCard() {
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "siren",
     size: 15
-  }), " Emergency"), /*#__PURE__*/React.createElement("div", {
+  }), " ", t("emergency")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "1fr 1fr",
@@ -12501,14 +13311,14 @@ function EmergencyCard() {
       color: "#211D17",
       marginTop: 4
     }
-  }, e.label)))), /*#__PURE__*/React.createElement("p", {
+  }, e.num === "999" ? t("police") : e.num === "995" ? t("ambulance") : e.label)))), /*#__PURE__*/React.createElement("p", {
     style: {
       margin: "10px 0 0",
       fontSize: 11.5,
       opacity: 0.85,
       lineHeight: 1.45
     }
-  }, "Calls work from any phone, including foreign SIMs. Tap to call. These work without internet or AI."));
+  }, t("sosNote")));
 }
 function NavigatorPanel() {
   const [q, setQ] = useState("");
@@ -12998,6 +13808,7 @@ function AccountPage({
   onHome,
   onSignOut
 }) {
+  const t = useT();
   const [acc, setAcc] = useState(loadAccount);
   const [adding, setAdding] = useState(false);
   const [card, setCard] = useState({
@@ -13103,7 +13914,7 @@ function AccountPage({
   }, /*#__PURE__*/React.createElement("button", {
     onClick: onHome,
     className: "hub-link",
-    "aria-label": "Back to home",
+    "aria-label": t("back"),
     style: {
       background: "rgba(244,241,235,0.12)",
       border: "none",
@@ -13127,13 +13938,13 @@ function AccountPage({
       margin: 0,
       fontWeight: 700
     }
-  }, "My account"), /*#__PURE__*/React.createElement("p", {
+  }, t("account")), /*#__PURE__*/React.createElement("p", {
     style: {
       margin: "2px 0 0",
       fontSize: 12.5,
       opacity: 0.85
     }
-  }, "Your details and saved payments"))), /*#__PURE__*/React.createElement("div", {
+  }, t("accountSub")))), /*#__PURE__*/React.createElement("div", {
     style: {
       background: "var(--bg)",
       flex: 1,
@@ -13524,6 +14335,7 @@ function AccountPage({
 function HelpDeskPage({
   onHome
 }) {
+  const t = useT();
   const [contactForm, setContactForm] = useState({
     name: "",
     email: "",
@@ -13560,7 +14372,7 @@ function HelpDeskPage({
   }, /*#__PURE__*/React.createElement("button", {
     onClick: onHome,
     className: "hub-link",
-    "aria-label": "Back to home",
+    "aria-label": t("back"),
     style: {
       background: "rgba(244,241,235,0.12)",
       border: "none",
@@ -13584,13 +14396,13 @@ function HelpDeskPage({
       margin: 0,
       fontWeight: 700
     }
-  }, "AI help desk"), /*#__PURE__*/React.createElement("p", {
+  }, t("help")), /*#__PURE__*/React.createElement("p", {
     style: {
       margin: "2px 0 0",
       fontSize: 12.5,
       opacity: 0.85
     }
-  }, "AI navigator, emergency contacts, word and photo translator"))), /*#__PURE__*/React.createElement("div", {
+  }, t("helpSub")))), /*#__PURE__*/React.createElement("div", {
     style: {
       background: "var(--bg)",
       flex: 1,
@@ -13606,7 +14418,7 @@ function HelpDeskPage({
       margin: "16px 0 14px",
       scrollbarWidth: "none"
     }
-  }, [["nav", "Navigator", "navigation"], ["sos", "Emergency", "siren"], ["tr", "Translator", "languages"], ["contact", "Contact us", "mail"]].map(([k, l, ic]) => /*#__PURE__*/React.createElement("button", {
+  }, [["nav", t("navigator"), "navigation"], ["sos", t("emergency"), "siren"], ["tr", t("translator"), "languages"], ["contact", t("contact"), "mail"]].map(([k, l, ic]) => /*#__PURE__*/React.createElement("button", {
     key: k,
     role: "tab",
     "aria-selected": tab === k ? "true" : "false",
@@ -13790,7 +14602,7 @@ function HelpDeskPage({
       gap: 8
     }
   }, /*#__PURE__*/React.createElement("a", {
-    href: "mailto:info@cboxxsg.com",
+    href: "mailto:info@getseaport.com",
     style: {
       display: "flex",
       alignItems: "center",
@@ -13835,7 +14647,7 @@ function HelpDeskPage({
       fontSize: 12,
       color: "var(--muted)"
     }
-  }, "info@cboxxsg.com"))), /*#__PURE__*/React.createElement("div", {
+  }, "info@getseaport.com"))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       alignItems: "center",
@@ -13977,6 +14789,7 @@ function ConsumerDashboard({
   onHome,
   initialRegion
 }) {
+  const t = useT();
   const [activeCats, setActiveCats] = useState(new Set());
   const [mainView, setMainView] = useState("feed"); // feed | savedTab | profileTab
   const [feedMode, setFeedMode] = useState("discover"); // discover | loyalty (TikTok-style top switch)
@@ -14286,10 +15099,10 @@ function ConsumerDashboard({
     }
   }, [{
     key: "discover",
-    label: "Discover"
+    label: t("discover")
   }, {
     key: "loyalty",
-    label: "Loyalty"
+    label: t("loyalty")
   }].map(({
     key,
     label
@@ -15251,19 +16064,19 @@ function ConsumerDashboard({
     }
   }, [{
     key: "feed",
-    label: feedMode === "loyalty" ? "Loyalty" : "Discover",
+    label: feedMode === "loyalty" ? t("loyalty") : t("discover"),
     icon: feedMode === "loyalty" ? "award" : "compass"
   }, {
     key: "savedTab",
-    label: "Saved",
+    label: t("saved"),
     icon: "bookmark"
   }, {
     key: "purchasesTab",
-    label: "Receipts",
+    label: t("receipts"),
     icon: "receipt-text"
   }, {
     key: "profileTab",
-    label: "Profile",
+    label: t("profile"),
     icon: "user"
   }].map(({
     key,
@@ -15331,9 +16144,22 @@ function App() {
     theme,
     toggle: () => setTheme(t => t === "dark" ? "light" : "dark")
   }), [theme]);
+  const [lang, setLangState] = useState(initialRegLang);
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    try {
+      localStorage.setItem(LANG_KEY, lang);
+    } catch {}
+  }, [lang]);
+  const langValue = React.useMemo(() => ({
+    lang,
+    setLang: setLangState
+  }), [lang]);
   return /*#__PURE__*/React.createElement(ThemeCtx.Provider, {
     value: themeValue
-  }, /*#__PURE__*/React.createElement(AppScreens, null));
+  }, /*#__PURE__*/React.createElement(LangCtx.Provider, {
+    value: langValue
+  }, /*#__PURE__*/React.createElement(AppScreens, null)));
 }
 function AppScreens() {
   const [member, setMember] = useState(() => loadMember());
