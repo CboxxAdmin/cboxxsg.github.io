@@ -217,7 +217,7 @@ const LIFE = [
   { t: "Brief", icon: "file-text", h: "Brief once, in your brand",
     p: "Tell us the goal, markets and timing. Your brand guidelines and past work are kept on file, so no brief starts from scratch.",
     ul: ["Brief the Seaport team, or start from a library framework", "Brand guidelines and approved assets stored centrally", "Scope and budget agreed before any work starts"],
-    img: u("photo-1573167507387-6b4b98cb7c13"), alt: "A woman presenting to colleagues around a meeting table", by: ["Unsplash", "https://unsplash.com/photos/people-on-conference-table-looking-at-talking-woman-Q80LYxv_Tbs"],
+    img: u("photo-1573167507387-6b4b98cb7c13"), alt: "A woman presenting to colleagues around a meeting table", by: ["Christina @ wocintechchat.com", "https://unsplash.com/photos/people-on-conference-table-looking-at-talking-woman-Q80LYxv_Tbs"],
     ui: () => `<span class="lchip"><i data-lucide="file-text"></i>Brief received</span><span class="lchip"><i data-lucide="palette"></i>Brand guidelines attached</span><span class="lchip"><i data-lucide="badge-check"></i>Budget approved</span>` },
   { t: "Match", icon: "users", h: "Find the right creatives, faster",
     p: "A shortlist of vetted studios and independents for each brief, with availability and licence terms agreed up front.",
