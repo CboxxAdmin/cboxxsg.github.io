@@ -237,7 +237,7 @@ const LIFE = [
   { t: "Pay", pop: ["receipt", "Creatives paid"],  icon: "receipt", h: "One invoice, everyone paid",
     p: "You pay Seaport once. We pay the creatives, including a royalty every time their work is licensed.",
     ul: ["One consolidated invoice across suppliers", "Cost-centre and purchase-order references", "Creator royalties paid out automatically"],
-    img: u("photo-1569025690938-a00729c9e1f9"), alt: "A person working on a laptop at a table", by: ["Jason Briscoe", "https://unsplash.com/photos/amLfrL8LGls"],
+    img: u("photo-1752649937951-a2c8a0017a53"), alt: "A smiling artist standing in her painting studio", by: ["Vitaly Gariev", "https://unsplash.com/photos/a-female-artist-stands-in-her-art-studio-pgC_bvEz_XA"],
     ui: () => `<div class="lcard"><b>Invoice INV-0932 <span class="status pend">Due in 30 days</span></b><div class="r"><span>Projects</span>3</div><div class="r"><span>Licences</span>2</div><div class="r"><span>Suppliers covered</span>5</div><div class="bar"><i style="width:50%"></i><i style="width:50%"></i></div><div class="r" style="border:none;padding:0"><span>Creator royalties</span>Seaport fee</div></div>` },
 ];
 let lifeIdx = 0, lifeSeen = false;
