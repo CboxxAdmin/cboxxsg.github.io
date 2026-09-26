@@ -322,6 +322,43 @@ if ($("gpop")) onVisible($("gpop").closest(".gstage"), () => {
   setTimeout(() => typeText(g.querySelector(".type"), 55).then(() => g.classList.add("done")), calm() ? 0 : 500);
 });
 
+
+/* ---------- feature panels: drawn Seaport app screens + reveal on arrival ---------- */
+const CITY = { 1: "Singapore", 2: "Kuala Lumpur", 3: "Jakarta", 4: "Singapore", 5: "Sydney", 6: "London", 7: "Bangkok", 8: "Tokyo", 9: "Manila", 10: "Singapore", 11: "Madrid", 12: "Berlin" };
+function appFrame(active, title, body) {
+  const items = [["search", "Creative finder"], ["layout-grid", "Library"], ["scroll-text", "Licences"], ["wallet", "Royalties"]];
+  const logo = (document.querySelector(".nav .logo img") || {}).src || "";
+  return `<div class="side"><div class="lg"><img src="${logo}" alt="">Seaport</div><div class="lab">WORKSPACE</div>
+    ${items.map(([ic, t]) => `<div class="it ${t === active ? "on" : ""}"><i data-lucide="${ic}"></i>${t}</div>`).join("")}
+    <div class="lab">ACCOUNT</div><div class="it"><i data-lucide="users"></i>Team</div><div class="it"><i data-lucide="building-2"></i>Company</div></div>
+    <div class="main"><div class="ttl">${title}</div>${body}</div>`;
+}
+function buildApps() {
+  const APPS = {
+    commission: () => appFrame("Creative finder", "Creative finder",
+      `<div class="bar"><span class="srch">Motion and film, Asia-Pacific</span><span class="pill red">12 matches</span><span class="pill gr">Sort: Relevance</span></div>` +
+      [4, 7, 1, 8, 5, 6].map((id, k) => { const c = CREATIVES.find((x) => x.id === id);
+        return `<div class="row" style="transition-delay:${k * 70}ms"><span class="av">${portraitSVG(c.id, c.d)}</span><span><b>${esc(c.name)}</b><small>${esc(DISC[c.d].label)} · ${CITY[c.id]}</small></span><span class="pill ${k % 3 === 2 ? "gr" : "ok"}">${k % 3 === 2 ? "Booked" : "Available"}</span><i data-lucide="star" class="star"></i></div>`; }).join("")),
+    license: () => appFrame("Library", "Library",
+      `<div class="bar"><span class="pill red">All</span><span class="pill gr">Design</span><span class="pill gr">Film</span><span class="pill gr">Motion</span><span class="pill gr">Writing</span></div><div class="grid">` +
+      TEMPLATES.slice(0, 6).map((t) => coverHTML(t, "")).join("") + `</div>`),
+    protect: () => appFrame("Licences", "Licence register",
+      `<table><thead><tr><th>Licence</th><th>Framework</th><th>Owner</th><th>Scope</th><th>Status</th></tr></thead><tbody>` +
+      [["LX-2041", 0, "3 markets, 12 mo", "ok", "Active"], ["LX-2038", 1, "Global, 24 mo", "ok", "Active"], ["LX-2033", 5, "Exclusive, APAC", "soft", "Exclusive"], ["LX-2029", 3, "1 brand, 12 mo", "ok", "Active"], ["LX-2017", 7, "2 markets, 6 mo", "gr", "Expired"]]
+        .map(([id, ti, sc, cl, st]) => { const t = TEMPLATES[ti]; return `<tr><td>${id}</td><td>${esc(t.title.split(":")[0])}</td><td>${esc(t.by.name)}</td><td>${sc}</td><td><span class="pill ${cl}">${st}</span></td></tr>`; }).join("") + `</tbody></table>`),
+    earn: () => appFrame("Royalties", "Your royalties",
+      `<div class="kpis"><div class="kpi"><small>This quarter</small><b>S$6,300</b></div><div class="kpi"><small>Active licences</small><b>7</b></div><div class="kpi"><small>Adaptation jobs</small><b>2</b></div></div>
+       <div class="chart">${[38, 52, 45, 70, 62, 88, 76, 95].map((v) => `<i data-h="${v}"></i>`).join("")}</div>`),
+  };
+  document.querySelectorAll(".app[data-app]").forEach((el) => { el.innerHTML = APPS[el.dataset.app](); });
+  icons();
+  document.querySelectorAll(".fx").forEach((fx) => onVisible(fx, () => {
+    fx.classList.add("in");
+    fx.querySelectorAll(".chart i").forEach((b, k) => setTimeout(() => { b.style.height = b.dataset.h + "%"; }, 200 + k * 60));
+  }));
+}
+if (document.querySelector(".fx")) buildApps();
+
 if ($("ltabs")) renderLife();
 if ($("fan")) {
   buildHero();
