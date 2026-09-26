@@ -436,10 +436,6 @@
   html[data-theme="light"] .why-hero .lead b { color: var(--ink); }
   html[data-theme="light"] .why-hero .made { color: var(--muted); }
   html[data-theme="light"] .why-hero .btn.outline { border-color: #C9C9D1; color: var(--ink); }
-  html[data-theme="light"] footer { background: #F5F5F7; color: var(--muted); border-top: 1px solid var(--line); }
-  html[data-theme="light"] footer h4, html[data-theme="light"] footer .logo { color: var(--ink); }
-  html[data-theme="light"] footer .cols a:hover { color: var(--ink); }
-  html[data-theme="light"] footer .bottom { border-top-color: var(--line); }
 
   /* ---- dark mode: the light sections and cards turn dark ---- */
   html[data-theme="dark"] { color-scheme: dark; }
@@ -509,3 +505,4 @@
   html[data-theme="dark"] .larrow { background: #18181B; border-color: #3A3A40; color: #EDEDF0; }
   html[data-theme="dark"] .larrow:hover { border-color: #EDEDF0; }
   .ltabs { scrollbar-width: none; } .ltabs::-webkit-scrollbar { display: none; }
+  /* footer stays black in both themes */
