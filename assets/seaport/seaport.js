@@ -241,7 +241,8 @@ const LIFE = [
 ];
 let lifeIdx = 0;
 function renderLife(focus) {
-  $("ltabs").innerHTML = LIFE.map((s, i) => `<button role="tab" id="lt-${i}" aria-selected="${i === lifeIdx}" aria-controls="lpanel" tabindex="${i === lifeIdx ? 0 : -1}">${s.t}</button>`).join("");
+  $("ltabs").innerHTML = LIFE.map((s, i) => `<button role="tab" id="lt-${i}" class="${i < lifeIdx ? "done" : ""}" aria-selected="${i === lifeIdx}" aria-controls="lpanel" tabindex="${i === lifeIdx ? 0 : -1}"><span class="n">0${i + 1}</span>${s.t}</button>`).join("");
+  $("ltabs").style.setProperty("--p", lifeIdx / (LIFE.length - 1));
   const s = LIFE[lifeIdx];
   const panel = $("lpanel");
   panel.setAttribute("aria-labelledby", "lt-" + lifeIdx);
