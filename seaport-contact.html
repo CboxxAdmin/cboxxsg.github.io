@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Seaport: Creative work for enterprise</title>
-<meta name="description" content="Seaport is the contract and licensing bridge between large organisations and Singapore's creative industries.">
+<title>Talk to our team | Seaport</title>
+<meta name="description" content="Tell Seaport what you need made or licensed.">
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=Fraunces:ital,wght@1,600&family=Barlow+Condensed:wght@800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/lucide@1.48.0/dist/umd/lucide.min.js"></script>
 <link rel="stylesheet" href="assets/seaport/seaport.css">
@@ -27,49 +27,20 @@
 </header>
 
 <main>
-<section class="hero dark" aria-labelledby="h1">
-  <div class="wrap">
-    <div>
-      <h1 id="h1">Creative work for enterprise, licensed from the people who make it</h1>
-      <p class="sub">Seaport is the contract bridge between large organisations and Singapore's creative industries. Creatives keep their IP. We handle the licences, contracts and payments in between.</p>
-      <div class="ctas">
-        <a class="btn primary" href="seaport-contact.html">Talk to our team <i data-lucide="arrow-right"></i></a>
-        <a class="btn outline" href="seaport-solutions.html">See how it works</a>
-      </div>
-    </div>
-    <div class="hero-wash" aria-hidden="true"></div>
-    <div class="stage" aria-label="Creatives in the Seaport network">
-      <div class="fan" id="fan"></div>
-      <div class="fan-mid"><img src="assets/seaport/logo.png" alt=""><span id="fanNow" aria-live="polite"></span></div>
-    </div>
-  </div>
-</section>
+<section class="dark phero"><div class="wrap"><h1>Talk to our team</h1><p class="sub">For companies with a brief, and for creatives who want to join.</p></div></section>
 
-<section class="explore" aria-labelledby="exTitle">
+<section class="contact solo" id="contact" aria-label="Contact form">
   <div class="wrap">
-    <h2 id="exTitle">What Seaport does</h2>
-    <div class="grid">
-      <a class="xcard" href="seaport-solutions.html"><div><h3>Solutions</h3><p>Commission projects, run a creative team, or license existing work.</p></div><span class="go"><i data-lucide="arrow-right"></i></span></a>
-      <a class="xcard" href="seaport-library.html"><div><h3>Library</h3><p>Frameworks built by creatives, ready to license and adapt.</p></div><span class="go"><i data-lucide="arrow-right"></i></span></a>
-      <a class="xcard" href="seaport-licensing.html"><div><h3>Licensing</h3><p>Who owns the work, what you license, and how royalties are paid.</p></div><span class="go"><i data-lucide="arrow-right"></i></span></a>
-      <a class="xcard" href="seaport-creatives.html"><div><h3>For creatives</h3><p>Join the network and earn every time your work is licensed.</p></div><span class="go"><i data-lucide="arrow-right"></i></span></a>
-    </div>
-  </div>
-</section>
-
-<section class="gallery" id="work" aria-labelledby="workTitle">
-  <div class="wrap ghead">
-    <div><h2 id="workTitle">Work from the network</h2><p class="sub">Recent commissioned work by Singapore's studios and independents. Every piece belongs to the creative who made it.</p></div>
-    <a class="link" href="seaport-library.html">Browse the library <i data-lucide="arrow-right"></i></a>
-  </div>
-  <div class="track"><div class="rowmove" id="row1"></div></div>
-  <div class="track"><div class="rowmove rev" id="row2"></div></div>
-</section>
-
-<section class="disc" aria-label="Disciplines in the network">
-  <div class="wrap">
-    <div class="words" id="words"></div>
-    <div class="foot"><p>Eight creative industries, one contract. Commission them, subscribe to them, or license what they've already made.</p><a class="btn white" href="seaport-contact.html">Talk to our team <i data-lucide="arrow-right"></i></a></div>
+    <div><p class="sub" style="margin-top:0">Tell us what you need made or licensed. We'll reply with the right model, a shortlist and a draft statement of work.</p><p class="sub">Or email <a href="mailto:info@getseaport.com">info@getseaport.com</a>.</p></div>
+    <form id="form" novalidate>
+      <label>Full name<input name="name" autocomplete="name" required></label>
+      <label>Work email<input name="email" type="email" autocomplete="email" required></label>
+      <label>Company<input name="company" autocomplete="organization" required></label>
+      <label>I'm a<select name="role"><option>Company</option><option>Creative studio</option><option>Independent creative</option></select></label>
+      <label class="full">Interested in<select name="need"><option>A commissioned project</option><option>A dedicated creative team</option><option>Licensing from the library</option><option>Not sure yet</option></select></label>
+      <label class="full">Your brief (optional)<textarea name="brief"></textarea></label>
+      <div class="send"><button class="btn primary" type="submit">Send</button><span class="fine">Preview only: nothing is sent.</span></div>
+    </form>
   </div>
 </section>
 </main>
