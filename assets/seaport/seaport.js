@@ -17,9 +17,9 @@ const DISC = {
 };
 const CREATIVES = [
   { id: 1, name: "Studio Kopitiam", d: "design" }, { id: 2, name: "Nadia Rahman", d: "illus" }, { id: 3, name: "Lens & Lorong", d: "film" },
-  { id: 4, name: "Wei Ling Tan", d: "film" }, { id: 5, name: "Kampong Sound Co.", d: "sound" }, { id: 6, name: "Ravi Menon", d: "words" },
-  { id: 7, name: "Pixel Durian", d: "motion" }, { id: 8, name: "Aisyah Karim", d: "digital" }, { id: 9, name: "Rattan Revival", d: "spatial" },
-  { id: 10, name: "Typeface Kaki", d: "design" }, { id: 11, name: "Siti Nur", d: "words" }, { id: 12, name: "Grid & Gutter", d: "digital" },
+  { id: 4, name: "Wei Ling Tan", d: "film" }, { id: 5, name: "Harbour Sound Co.", d: "sound" }, { id: 6, name: "Ravi Menon", d: "words" },
+  { id: 7, name: "Pixel Durian", d: "motion" }, { id: 8, name: "Aiko Tanaka", d: "digital" }, { id: 9, name: "Rattan Revival", d: "spatial" },
+  { id: 10, name: "Typeface Kaki", d: "design" }, { id: 11, name: "Sofia Marín", d: "words" }, { id: 12, name: "Grid & Gutter", d: "digital" },
 ];
 const TEMPLATES = [
   ["Festive campaign kit: Lunar New Year", 1, "design", ["Key visual system in layered files", "Social, email and out-of-home sizes", "Copy deck with bilingual headlines"], 1800, 5400],
@@ -86,7 +86,7 @@ const MODELS = [
     p: "Hand over a brief and we scope it, match the right studio or team, and manage delivery. The creative keeps the IP; you get a licence for the use you need, or you can negotiate a full transfer with them.",
     facts: [["Pricing", "Fixed fee per statement of work"], ["Contract", "Master agreement + SOW"], ["Best for", "Campaigns, rebrands, films"]],
     vis: () => `<div class="comp" style="background:#F6E3E5">${tilesComp([0, 1, 9])}</div>`,
-    stories: [["A regional bank launched a brand campaign with two local studios in three weeks.", "3 wks", "brief to first assets"], ["A public agency ran 20 commissions with licence terms written into each one.", "20", "commissions, one agreement"]] },
+    stories: [["A regional bank launched a brand campaign with studios in two countries in three weeks.", "3 wks", "brief to first assets"], ["A public agency ran 20 commissions with licence terms written into each one.", "20", "commissions, one agreement"]] },
   { k: "team", t: "Dedicated creative team", h: "A standing creative team, without hiring",
     p: "Designers, editors, writers and motion artists on a monthly creative budget, briefed through your brand guidelines. Suited to steady, high-volume work.",
     facts: [["Pricing", "Monthly budget + platform fee"], ["Contract", "Annual term"], ["Best for", "Always-on content"]],
@@ -100,7 +100,7 @@ const MODELS = [
   { k: "exclusive", t: "Exclusive licence", h: "Keep a framework to yourself for a term",
     p: "Take a framework out of the library for your category and territory, so no competitor can license it for the term you choose. Ownership stays with the creative.",
     facts: [["Pricing", "Quoted on term and territory"], ["Rights", "Exclusive licence"], ["Owner", "The creative"]],
-    vis: () => `<div class="comp" style="background:#F5EEDB">${docComp("Exclusive licence", [["Framework", "Retail window system"], ["Category", "Cosmetics"], ["Territory", "Singapore, Malaysia"], ["Term", "12 months"]])}${tilesComp([5])}</div>`,
+    vis: () => `<div class="comp" style="background:#F5EEDB">${docComp("Exclusive licence", [["Framework", "Retail window system"], ["Category", "Cosmetics"], ["Territory", "Singapore, UK, Australia"], ["Term", "12 months"]])}${tilesComp([5])}</div>`,
     stories: [["A beauty brand reserved a window display system for its flagship launch.", "12 mo", "category exclusivity"], ["A developer licensed a sales gallery concept for two territories.", "2", "territories reserved"]] },
   { k: "byo", t: "Bring your own creatives", h: "Keep your favourite studios, lose the paperwork",
     p: "Move the agencies and freelancers you already use onto Seaport contracts, licences and payments, so every supplier works on the same terms.",
@@ -177,9 +177,9 @@ function coverHTML(t, cls) {
 const WORKS = [
   ["Wayfinding for a hawker centre", 10, "design", "a town council"], ["Launch film for a banking app", 4, "film", "a retail bank"],
   ["Sonic identity for a transport campaign", 5, "sound", "a transport operator"], ["Mascot family for a children's museum", 2, "illus", "a museum"],
-  ["Onboarding animation series", 7, "motion", "an insurer"], ["National Day store windows", 9, "spatial", "a department store"],
+  ["Onboarding animation series", 7, "motion", "an insurer"], ["Holiday store windows", 9, "spatial", "a department store"],
   ["Employee app redesign", 8, "digital", "a logistics group"], ["Letter to shareholders", 6, "words", "a listed REIT"],
-  ["Heritage food photo series", 3, "film", "a tourism campaign"], ["Packaging refresh for a kaya range", 1, "design", "an F&B brand"],
+  ["Heritage food photo series", 3, "film", "a tourism campaign"], ["Packaging refresh for a tea range", 1, "design", "an F&B brand"],
   ["Sustainability report podcast", 11, "words", "an energy company"], ["Trade event microsite", 12, "digital", "a trade association"],
 ].map((w, i) => ({ id: 100 + i, title: w[0], by: CREATIVES.find((c) => c.id === w[1]), d: w[2], client: w[3] }));
 function buildGallery() {
