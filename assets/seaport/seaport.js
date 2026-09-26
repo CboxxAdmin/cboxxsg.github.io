@@ -214,33 +214,33 @@ if ($("form")) $("form").addEventListener("submit", (e) => {
    Photos: Unsplash (free to use, no attribution required; credited anyway). */
 const u = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1100&q=75`;
 const LIFE = [
-  { t: "Brief", icon: "file-text", h: "Brief once, in your brand",
+  { t: "Brief", pop: ["file-text", "Brief received"],  icon: "file-text", h: "Brief once, in your brand",
     p: "Tell us the goal, markets and timing. Your brand guidelines and past work are kept on file, so no brief starts from scratch.",
     ul: ["Brief the Seaport team, or start from a library framework", "Brand guidelines and approved assets stored centrally", "Scope and budget agreed before any work starts"],
     img: u("photo-1573167507387-6b4b98cb7c13"), alt: "A woman presenting to colleagues around a meeting table", by: ["Christina @ wocintechchat.com", "https://unsplash.com/photos/people-on-conference-table-looking-at-talking-woman-Q80LYxv_Tbs"],
     ui: () => `<span class="lchip"><i data-lucide="file-text"></i>Brief received</span><span class="lchip"><i data-lucide="palette"></i>Brand guidelines attached</span><span class="lchip"><i data-lucide="badge-check"></i>Budget approved</span>` },
-  { t: "Match", icon: "users", h: "Find the right creatives, faster",
+  { t: "Match", pop: ["users", "3 creatives matched"],  icon: "users", h: "Find the right creatives, faster",
     p: "A shortlist of vetted studios and independents for each brief, with availability and licence terms agreed up front.",
     ul: ["Creatives vetted on portfolio, references and delivery", "Shortlists across eight creative disciplines", "Bring studios you already use into the same process"],
     img: u("photo-1632187981988-40f3cbaeef5e"), alt: "A film crew gathered around a camera on set", by: ["Jakob Owens", "https://unsplash.com/photos/xKfS7Hll0Ck"],
     ui: () => `<div class="lcard"><b>Matched creatives</b><div class="ppl">${[3, 7, 1].map((id) => { const c = CREATIVES.find((x) => x.id === id); return `<div class="pp">${portraitSVG(c.id, c.d)}${esc(c.name)}<small>${esc(DISC[c.d].label)}</small></div>`; }).join("")}</div></div><span class="lbtn">Shortlist</span>` },
-  { t: "Contract", icon: "file-signature", h: "One agreement for every supplier",
+  { t: "Contract", pop: ["file-signature", "Agreement signed"],  icon: "file-signature", h: "One agreement for every supplier",
     p: "Work runs under a single master agreement with Seaport. Each job adds a statement of work or a licence, never a new contract.",
     ul: ["Master services agreement, signed once", "A statement of work or licence per job", "NDAs with every creative before a brief is shared"],
     img: u("photo-1562564055-71e051d33c19"), alt: "A woman signing a document at a desk", by: ["Gabrielle Henderson", "https://unsplash.com/photos/HJckKnwCXxQ"],
     ui: () => `<div class="lcard"><b>Statement of work SW-118 <span class="status ok">Signed</span></b><div class="r"><span>Client</span>Regional bank</div><div class="r"><span>Creatives</span>Studio Kopitiam, Lens &amp; Lorong</div><div class="r"><span>Under</span>Master agreement MSA-07</div></div>` },
-  { t: "License", icon: "shield-check", h: "Rights you can prove",
+  { t: "License", pop: ["shield-check", "Licence issued"],  icon: "shield-check", h: "Rights you can prove",
     p: "Every deliverable comes with a written licence that names the owner, the scope, the markets and the term.",
     ul: ["Creatives keep the IP; you get the rights you need", "Non-exclusive or exclusive, for a set term", "A record of every licence for audit"],
     img: u("photo-1690733546551-1007bc0a3414"), alt: "Photographs, cut-outs and scissors laid out on a designer's table", by: ["Fiona Murray-deGraaff", "https://unsplash.com/photos/HszbGgaGjOg"],
     ui: () => `<div class="lcard"><b>Licence LX-2041 <span class="status ok">Active</span></b><div class="r"><span>Framework</span>Festive campaign kit</div><div class="r"><span>Owner</span>Studio Kopitiam</div><div class="r"><span>Licensed via</span>Seaport</div><div class="r"><span>Scope</span>3 markets, 12 months</div></div>` },
-  { t: "Pay", icon: "receipt", h: "One invoice, everyone paid",
+  { t: "Pay", pop: ["receipt", "Creatives paid"],  icon: "receipt", h: "One invoice, everyone paid",
     p: "You pay Seaport once. We pay the creatives, including a royalty every time their work is licensed.",
     ul: ["One consolidated invoice across suppliers", "Cost-centre and purchase-order references", "Creator royalties paid out automatically"],
     img: u("photo-1569025690938-a00729c9e1f9"), alt: "A person working on a laptop at a table", by: ["Jason Briscoe", "https://unsplash.com/photos/amLfrL8LGls"],
     ui: () => `<div class="lcard"><b>Invoice INV-0932 <span class="status pend">Due in 30 days</span></b><div class="r"><span>Projects</span>3</div><div class="r"><span>Licences</span>2</div><div class="r"><span>Suppliers covered</span>5</div><div class="bar"><i style="width:50%"></i><i style="width:50%"></i></div><div class="r" style="border:none;padding:0"><span>Creator royalties</span>Seaport fee</div></div>` },
 ];
-let lifeIdx = 0;
+let lifeIdx = 0, lifeSeen = false;
 // All five steps are built once as slides; the text tabs, arrows and keys just scroll the track.
 function renderLife() {
   const track = $("ltrack"), tabs = $("ltabs");
@@ -249,6 +249,7 @@ function renderLife() {
     <div class="txt"><div><div class="eb"><i data-lucide="${s.icon}"></i>${s.t}</div><h3>${s.h}</h3><p>${s.p}</p></div>
       <ul>${s.ul.map((x) => `<li><i data-lucide="check"></i>${x}</li>`).join("")}</ul></div>
     <div class="lphoto"><img src="${s.img}" alt="${esc(s.alt)}" loading="lazy" draggable="false">
+      <div class="lpop" aria-hidden="true"><span class="pic"><i data-lucide="${s.pop[0]}"></i></span><span class="type" data-text="${esc(s.pop[1])}"></span></div>
       <span class="credit">Photo: <a href="${s.by[1]}" target="_blank" rel="noopener">${esc(s.by[0])}</a> / Unsplash</span></div></div>`).join("");
   icons();
   const step = () => track.children[0].offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0);
@@ -258,6 +259,7 @@ function renderLife() {
     lifeIdx = i;
     [...tabs.children].forEach((b, k) => { b.setAttribute("aria-selected", k === i); b.tabIndex = k === i ? 0 : -1; });
     $("lprev").disabled = i === 0; $("lnext").disabled = i === LIFE.length - 1;
+    if (lifeSeen) playPop(track.children[i].querySelector(".lpop"));
   };
   let raf = 0; track.addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; mark(); }); }, { passive: true });
   [...tabs.children].forEach((b, i) => {
@@ -289,7 +291,36 @@ function renderLife() {
   });
   window.addEventListener("resize", () => { track.scrollLeft = lifeIdx * step(); });
   mark();
+  onVisible(track, () => { lifeSeen = true; playPop(track.children[lifeIdx].querySelector(".lpop")); });
 }
+
+
+/* ---------- side pop-ups: slide in, icon pops, text types letter by letter ---------- */
+const calm = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+// Types el's data-text one character at a time; returns a promise that resolves when done.
+function typeText(el, speed = 45) {
+  const text = el.dataset.text || ""; clearInterval(el._t);
+  if (calm()) { el.textContent = text; return Promise.resolve(); }
+  el.textContent = ""; el.classList.add("typing");
+  return new Promise((res) => { let n = 0; el._t = setInterval(() => { el.textContent = text.slice(0, ++n); if (n >= text.length) { clearInterval(el._t); el.classList.remove("typing"); res(); } }, speed); });
+}
+function playPop(pop) {
+  if (!pop) return;
+  document.querySelectorAll(".lpop.show").forEach((p) => p !== pop && p.classList.remove("show"));
+  pop.classList.remove("show"); void pop.offsetWidth; pop.classList.add("show");
+  const t = pop.querySelector(".type"); t.textContent = "";
+  setTimeout(() => typeText(t, 40), calm() ? 0 : 450);
+}
+// Runs fn once, the first time el scrolls into view.
+function onVisible(el, fn) {
+  if (!("IntersectionObserver" in window)) { fn(); return; }
+  const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); fn(); } }, { threshold: 0.35 });
+  io.observe(el);
+}
+if ($("gpop")) onVisible($("gpop").closest(".gstage"), () => {
+  const g = $("gpop"); g.classList.add("show");
+  setTimeout(() => typeText(g.querySelector(".type"), 55).then(() => g.classList.add("done")), calm() ? 0 : 500);
+});
 
 if ($("ltabs")) renderLife();
 if ($("fan")) {
