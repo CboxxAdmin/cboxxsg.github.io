@@ -352,17 +352,24 @@
 
   /* ---------- lifecycle tabs (home) ---------- */
   .life { padding: 100px 0 110px; }
-  /* numbered steps on a progress line; the line fills up to the active step (--p) */
-  .ltabs { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); margin: 44px 0 30px; --p: 0; }
-  .ltabs::before, .ltabs::after { content: ""; position: absolute; top: 21px; left: 10%; height: 2px; border-radius: 2px; }
-  .ltabs::before { right: 10%; background: #D6D6DC; }
-  .ltabs::after { width: calc(80% * var(--p)); background: var(--accent); transition: width 300ms ease-out; }
-  .ltabs button { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; border: none; background: none; padding: 0; cursor: pointer; color: var(--muted); font-family: var(--head); font-size: 16px; font-weight: 500; }
-  .ltabs .n { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--grey); border: 2px solid #D6D6DC; font-size: 14px; font-weight: 600; color: var(--muted); transition: background 200ms, border-color 200ms, color 200ms; }
-  .ltabs button:hover .n { border-color: var(--ink); color: var(--ink); }
-  .ltabs button.done .n { border-color: var(--accent); color: var(--accent); background: var(--white); }
+  /* step names as plain text tabs; the active one is underlined */
+  .lbar2 { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin: 36px 0 22px; border-bottom: 1px solid var(--line); }
+  .ltabs { display: flex; gap: 34px; }
+  .ltabs button { position: relative; border: none; background: none; padding: 14px 0 16px; cursor: pointer; font-family: var(--head); font-size: 17px; font-weight: 500; color: var(--muted); }
+  .ltabs button::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 250ms ease-out; }
+  .ltabs button:hover { color: var(--ink); }
   .ltabs button[aria-selected="true"] { color: var(--ink); font-weight: 600; }
-  .ltabs button[aria-selected="true"] .n { background: var(--accent); border-color: var(--accent); color: var(--white); box-shadow: 0 0 0 6px rgba(176,0,28,0.12); }
+  .ltabs button[aria-selected="true"]::after { transform: scaleX(1); }
+  .larrows { display: flex; gap: 8px; }
+  .larrow { width: 42px; height: 42px; border-radius: 50%; border: 1px solid #C9C9D1; background: var(--white); color: var(--ink); cursor: pointer; display: grid; place-items: center; }
+  .larrow:hover { border-color: var(--ink); }
+  .larrow:disabled { opacity: 0.35; cursor: default; }
+  .larrow svg { width: 18px; height: 18px; }
+  /* the slider: every step is a full-width slide that snaps into place */
+  .ltrack { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; cursor: grab; }
+  .ltrack::-webkit-scrollbar { display: none; }
+  .ltrack.dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+  .ltrack .lpanel { flex: 0 0 100%; scroll-snap-align: start; }
   .lpanel { background: var(--white); border-radius: 20px; padding: 40px; display: grid; grid-template-columns: 1fr 1.12fr; gap: 48px; min-height: 480px; }
   .lpanel .txt { display: flex; flex-direction: column; justify-content: space-between; gap: 30px; padding-top: 8px; }
   .lpanel .eb { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
@@ -375,8 +382,6 @@
   .lphoto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .lphoto .credit { position: absolute; left: 12px; bottom: 10px; font-size: 11px; color: rgba(255,255,255,0.85); text-shadow: 0 1px 2px rgba(0,0,0,0.6); }
   .lphoto .credit a { color: inherit; }
-  .lpanel.in .txt, .lpanel.in .lfloat { animation: lifeIn 320ms ease-out; }
-  @keyframes lifeIn { from { opacity: 0; transform: translateY(8px); } }
   /* floating UI cards over the photo */
   .lfloat { position: absolute; right: 22px; bottom: 22px; width: min(310px, 78%); display: grid; gap: 8px; }
   .lchip { justify-self: end; display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.95); border-radius: 999px; padding: 9px 14px; font-size: 13px; font-weight: 500; box-shadow: 0 8px 20px -10px rgba(0,0,0,0.5); }
@@ -392,7 +397,7 @@
   .lbtn { justify-self: center; background: var(--accent); color: var(--white); border-radius: 999px; padding: 10px 40px; font-size: 14px; font-weight: 600; box-shadow: 0 10px 22px -10px rgba(176,0,28,0.8); }
   .lcard .bar { display: flex; height: 7px; border-radius: 99px; overflow: hidden; margin: 8px 0 6px; }
   .lcard .bar i:first-child { background: var(--gold); } .lcard .bar i:last-child { background: var(--ink); }
-  @media (max-width: 1100px) { .ltabs button { font-size: 14px; } .lpanel { grid-template-columns: 1fr; } }
+  @media (max-width: 1100px) { .ltabs { gap: 20px; overflow-x: auto; } .ltabs button { font-size: 15px; white-space: nowrap; } .lpanel { grid-template-columns: 1fr; } }
 
   /* ---------- themes: data-theme="light" (white version) or "dark", set on <html> ---------- */
   .nav .right { align-items: center; }
@@ -454,11 +459,8 @@
   html[data-theme="dark"] .notes a, html[data-theme="dark"] .link { color: #EDEDF0; }
   html[data-theme="dark"] .filters button { background: #18181B; border-color: rgba(255,255,255,0.14); color: #EDEDF0; }
   html[data-theme="dark"] .filters button[aria-pressed="true"] { background: #EDEDF0; border-color: #EDEDF0; color: #0B0B0D; }
-  html[data-theme="dark"] .ltabs::before { background: #3A3A40; }
-  html[data-theme="dark"] .ltabs .n { background: #18181B; border-color: #3A3A40; color: #A1A1AA; }
   html[data-theme="dark"] .ltabs button { color: #A1A1AA; }
   html[data-theme="dark"] .ltabs button[aria-selected="true"] { color: #EDEDF0; }
-  html[data-theme="dark"] .ltabs button.done .n { background: #18181B; }
   html[data-theme="dark"] .makers .box.warm { background: #231E18; color: #EDEDF0; }
   html[data-theme="dark"] .makers .box.warm p { color: #BDB3A5; }
   html[data-theme="dark"] .makers .box.warm .vis { background: #2C251D; }
@@ -479,8 +481,6 @@
   .fface b { color: #F4F1EB; } /* names stay light on the dark cards in both themes */
   /* white UI cards over photos and in collages keep dark text in both themes */
   .lcard, .lchip, .collage .pc { color: var(--ink); }
-  html[data-theme="dark"] .ltabs button[aria-selected="true"] .n { background: var(--accent); border-color: var(--accent); color: var(--white); }
-  html[data-theme="dark"] .ltabs button.done .n { border-color: var(--accent); color: #FF8A94; }
 
   /* ---------- photo backgrounds (Unsplash): photo in ::before, readability shade in ::after ---------- */
   .photo-bg { position: relative; isolation: isolate; overflow: hidden; color: var(--white); }
@@ -505,3 +505,7 @@
   /* small screens: keep the nav inside the window and let the band's text use the full width */
   @media (max-width: 1100px) { .disc .foot { flex-direction: column; align-items: flex-start; } }
   @media (max-width: 700px) { .nav .wrap { gap: 12px; } .nav .right .btn.white { display: none; } .wrap { width: calc(100% - 32px); } .hero h1, .phero h1 { font-size: 38px; } }
+  html[data-theme="dark"] .lbar2 { border-bottom-color: rgba(255,255,255,0.12); }
+  html[data-theme="dark"] .larrow { background: #18181B; border-color: #3A3A40; color: #EDEDF0; }
+  html[data-theme="dark"] .larrow:hover { border-color: #EDEDF0; }
+  .ltabs { scrollbar-width: none; } .ltabs::-webkit-scrollbar { display: none; }

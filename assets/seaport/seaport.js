@@ -241,23 +241,54 @@ const LIFE = [
     ui: () => `<div class="lcard"><b>Invoice INV-0932 <span class="status pend">Due in 30 days</span></b><div class="r"><span>Projects</span>3</div><div class="r"><span>Licences</span>2</div><div class="r"><span>Suppliers covered</span>5</div><div class="bar"><i style="width:50%"></i><i style="width:50%"></i></div><div class="r" style="border:none;padding:0"><span>Creator royalties</span>Seaport fee</div></div>` },
 ];
 let lifeIdx = 0;
-function renderLife(focus) {
-  $("ltabs").innerHTML = LIFE.map((s, i) => `<button role="tab" id="lt-${i}" class="${i < lifeIdx ? "done" : ""}" aria-selected="${i === lifeIdx}" aria-controls="lpanel" tabindex="${i === lifeIdx ? 0 : -1}"><span class="n">0${i + 1}</span>${s.t}</button>`).join("");
-  $("ltabs").style.setProperty("--p", lifeIdx / (LIFE.length - 1));
-  const s = LIFE[lifeIdx];
-  const panel = $("lpanel");
-  panel.setAttribute("aria-labelledby", "lt-" + lifeIdx);
-  panel.innerHTML = `<div class="txt"><div><div class="eb"><i data-lucide="${s.icon}"></i>${s.t}</div><h3>${s.h}</h3><p>${s.p}</p></div>
+// All five steps are built once as slides; the text tabs, arrows and keys just scroll the track.
+function renderLife() {
+  const track = $("ltrack"), tabs = $("ltabs");
+  tabs.innerHTML = LIFE.map((s, i) => `<button role="tab" id="lt-${i}" aria-selected="${i === 0}" aria-controls="ls-${i}" tabindex="${i === 0 ? 0 : -1}">${s.t}</button>`).join("");
+  track.innerHTML = LIFE.map((s, i) => `<div class="lpanel" id="ls-${i}" role="tabpanel" aria-labelledby="lt-${i}" aria-roledescription="slide">
+    <div class="txt"><div><div class="eb"><i data-lucide="${s.icon}"></i>${s.t}</div><h3>${s.h}</h3><p>${s.p}</p></div>
       <ul>${s.ul.map((x) => `<li><i data-lucide="check"></i>${x}</li>`).join("")}</ul></div>
-    <div class="lphoto"><img src="${s.img}" alt="${esc(s.alt)}" loading="lazy">
-      <span class="credit">Photo: <a href="${s.by[1]}" target="_blank" rel="noopener">${esc(s.by[0])}</a> / Unsplash</span></div>`;
-  panel.classList.remove("in"); void panel.offsetWidth; panel.classList.add("in");
-  $("ltabs").querySelectorAll("button").forEach((b, i) => {
-    b.onclick = () => { lifeIdx = i; renderLife(true); };
-    b.onkeydown = (e) => { const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (d) { e.preventDefault(); lifeIdx = (lifeIdx + d + LIFE.length) % LIFE.length; renderLife(true); } };
-  });
+    <div class="lphoto"><img src="${s.img}" alt="${esc(s.alt)}" loading="lazy" draggable="false">
+      <span class="credit">Photo: <a href="${s.by[1]}" target="_blank" rel="noopener">${esc(s.by[0])}</a> / Unsplash</span></div></div>`).join("");
   icons();
-  if (focus) $("ltabs").children[lifeIdx].focus();
+  const step = () => track.children[0].offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0);
+  const go = (i, focusTab) => { i = Math.max(0, Math.min(LIFE.length - 1, i)); track.scrollTo({ left: i * step(), behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); if (focusTab) tabs.children[i].focus(); };
+  const mark = () => {
+    const i = Math.max(0, Math.min(LIFE.length - 1, Math.round(track.scrollLeft / step())));
+    lifeIdx = i;
+    [...tabs.children].forEach((b, k) => { b.setAttribute("aria-selected", k === i); b.tabIndex = k === i ? 0 : -1; });
+    $("lprev").disabled = i === 0; $("lnext").disabled = i === LIFE.length - 1;
+  };
+  let raf = 0; track.addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; mark(); }); }, { passive: true });
+  [...tabs.children].forEach((b, i) => {
+    b.onclick = () => go(i);
+    b.onkeydown = (e) => { const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (d) { e.preventDefault(); go(lifeIdx + d, true); } };
+  });
+  $("lprev").onclick = () => go(lifeIdx - 1);
+  $("lnext").onclick = () => go(lifeIdx + 1);
+  // Mouse: drag the slides sideways, like a finger. Trackpads and touch scroll natively.
+  let drag = null;
+  track.addEventListener("pointerdown", (e) => {
+    if (e.pointerType !== "mouse" || e.button !== 0 || e.target.closest("a")) return;
+    drag = { x: e.clientX, left: track.scrollLeft, moved: false };
+  });
+  window.addEventListener("pointermove", (e) => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    if (!drag.moved && Math.abs(dx) < 6) return;
+    if (!drag.moved) { drag.moved = true; track.classList.add("dragging"); }
+    track.scrollLeft = drag.left - dx;
+  });
+  window.addEventListener("pointerup", (e) => {
+    if (!drag) return;
+    const d = drag; drag = null;
+    if (!d.moved) return;
+    track.classList.remove("dragging");
+    const dx = e.clientX - d.x, from = Math.round(d.left / step());
+    go(Math.abs(dx) > 60 ? from - Math.sign(dx) : from);
+  });
+  window.addEventListener("resize", () => { track.scrollLeft = lifeIdx * step(); });
+  mark();
 }
 
 if ($("ltabs")) renderLife();
