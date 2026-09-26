@@ -393,3 +393,91 @@
   .lcard .bar { display: flex; height: 7px; border-radius: 99px; overflow: hidden; margin: 8px 0 6px; }
   .lcard .bar i:first-child { background: var(--gold); } .lcard .bar i:last-child { background: var(--ink); }
   @media (max-width: 1100px) { .ltabs button { font-size: 14px; } .lpanel { grid-template-columns: 1fr; } }
+
+  /* ---------- themes: data-theme="light" (white version) or "dark", set on <html> ---------- */
+  .nav .right { align-items: center; }
+  .themebox { display: flex; gap: 2px; padding: 3px; border-radius: 9px; border: 1px solid rgba(255,255,255,0.22); margin-right: 6px; }
+  .themebox button { width: 32px; height: 32px; border: none; border-radius: 7px; background: none; color: #A1A1AA; cursor: pointer; display: grid; place-items: center; }
+  .themebox svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+  .themebox button[aria-pressed="true"] { background: rgba(255,255,255,0.14); color: var(--white); }
+  .themebox button:hover { color: var(--white); }
+  html { color-scheme: light; }
+  body, .nav, .dark, .grey, .xcard, .mp, .lpanel, .ctable, .ipflow > div, .drawer, .mega, footer { transition: background-color 200ms, color 200ms, border-color 200ms; }
+
+  /* ---- white version: the black bands turn light ---- */
+  html[data-theme="light"] .nav { background: rgba(255,255,255,0.94); color: var(--ink); box-shadow: 0 1px 0 var(--line); }
+  html[data-theme="light"] .ddtop { color: #3F3F46; }
+  html[data-theme="light"] .ddtop[aria-current="page"], html[data-theme="light"] .dd.open .ddtop { color: var(--ink); }
+  html[data-theme="light"] .dd.open .ddtop { background: #EFEFF2; }
+  html[data-theme="light"] .nav .btn.white { background: var(--ink); color: var(--white); }
+  html[data-theme="light"] .themebox { border-color: var(--line); }
+  html[data-theme="light"] .themebox button { color: #71717A; }
+  html[data-theme="light"] .themebox button[aria-pressed="true"] { background: #EFEFF2; color: var(--ink); }
+  html[data-theme="light"] .themebox button:hover { color: var(--ink); }
+  html[data-theme="light"] .dark { background: #F5F5F7; color: var(--ink); }
+  html[data-theme="light"] .hero.dark { background: #FAFAFB; }
+  html[data-theme="light"] .dark .sub, html[data-theme="light"] .disc .foot, html[data-theme="light"] .tlist p { color: var(--muted); }
+  html[data-theme="light"] .dark .btn.outline { border-color: #C9C9D1; color: var(--ink); }
+  html[data-theme="light"] .dark .btn.outline:hover { border-color: var(--ink); }
+  html[data-theme="light"] .dark .btn.white { background: var(--ink); color: var(--white); }
+  html[data-theme="light"] .fan-mid span { color: var(--muted); }
+  html[data-theme="light"] .hero-wash { opacity: 0.28; }
+  html[data-theme="light"] .phero { background: #F5F5F7; border-bottom: 1px solid var(--line); }
+  html[data-theme="light"] .disc { background: var(--white); }
+  html[data-theme="light"] .disc .words span[style*="#C9B79C"] { color: #8C6A12 !important; }
+  html[data-theme="light"] .trust .wrap { border-top-color: var(--line); }
+  html[data-theme="light"] .why-hero { background-color: #F5F5F7; background-image: radial-gradient(rgba(0,0,0,0.08) 1px, transparent 1.2px); color: var(--ink); }
+  html[data-theme="light"] .why-hero .lead { color: var(--muted); }
+  html[data-theme="light"] .why-hero .lead b { color: var(--ink); }
+  html[data-theme="light"] .why-hero .made { color: var(--muted); }
+  html[data-theme="light"] .why-hero .btn.outline { border-color: #C9C9D1; color: var(--ink); }
+  html[data-theme="light"] footer { background: #F5F5F7; color: var(--muted); border-top: 1px solid var(--line); }
+  html[data-theme="light"] footer h4, html[data-theme="light"] footer .logo { color: var(--ink); }
+  html[data-theme="light"] footer .cols a:hover { color: var(--ink); }
+  html[data-theme="light"] footer .bottom { border-top-color: var(--line); }
+
+  /* ---- dark mode: the light sections and cards turn dark ---- */
+  html[data-theme="dark"] { color-scheme: dark; }
+  html[data-theme="dark"] body { background: #0B0B0D; color: #EDEDF0; }
+  html[data-theme="dark"] .grey, html[data-theme="dark"] .gallery { background: #121215; }
+  html[data-theme="dark"] .sub, html[data-theme="dark"] .mp .body > p, html[data-theme="dark"] .mp .facts span, html[data-theme="dark"] .story .num small, html[data-theme="dark"] .story .tag,
+  html[data-theme="dark"] .xcard p, html[data-theme="dark"] .item .meta, html[data-theme="dark"] .ipflow p, html[data-theme="dark"] .notes p, html[data-theme="dark"] .lpanel p,
+  html[data-theme="dark"] .lpanel .eb, html[data-theme="dark"] .crow span:nth-child(2), html[data-theme="dark"] .fine, html[data-theme="dark"] .drawer .by, html[data-theme="dark"] .tiers small { color: #A1A1AA; }
+  html[data-theme="dark"] .xcard, html[data-theme="dark"] .mp, html[data-theme="dark"] .lpanel, html[data-theme="dark"] .ctable, html[data-theme="dark"] .ipflow,
+  html[data-theme="dark"] .drawer { background: #18181B; border-color: rgba(255,255,255,0.1); color: #EDEDF0; }
+  html[data-theme="dark"] .ipflow > div + div, html[data-theme="dark"] .crow, html[data-theme="dark"] .story, html[data-theme="dark"] .tiers label, html[data-theme="dark"] .mcol + .mcol { border-color: rgba(255,255,255,0.1); }
+  html[data-theme="dark"] .ipflow .mid { background: #0B0B0D; }
+  html[data-theme="dark"] .xcard:hover { border-color: rgba(255,255,255,0.5); }
+  html[data-theme="dark"] .xcard .go { background: #EDEDF0; color: #0B0B0D; }
+  html[data-theme="dark"] .chead { background: #202024; color: #A1A1AA; }
+  html[data-theme="dark"] .chead span:nth-child(3) { color: #EDEDF0; }
+  html[data-theme="dark"] .notes a, html[data-theme="dark"] .link { color: #EDEDF0; }
+  html[data-theme="dark"] .filters button { background: #18181B; border-color: rgba(255,255,255,0.14); color: #EDEDF0; }
+  html[data-theme="dark"] .filters button[aria-pressed="true"] { background: #EDEDF0; border-color: #EDEDF0; color: #0B0B0D; }
+  html[data-theme="dark"] .ltabs::before { background: #3A3A40; }
+  html[data-theme="dark"] .ltabs .n { background: #18181B; border-color: #3A3A40; color: #A1A1AA; }
+  html[data-theme="dark"] .ltabs button { color: #A1A1AA; }
+  html[data-theme="dark"] .ltabs button[aria-selected="true"] { color: #EDEDF0; }
+  html[data-theme="dark"] .ltabs button.done .n { background: #18181B; }
+  html[data-theme="dark"] .makers .box.warm { background: #231E18; color: #EDEDF0; }
+  html[data-theme="dark"] .makers .box.warm p { color: #BDB3A5; }
+  html[data-theme="dark"] .makers .box.warm .vis { background: #2C251D; }
+  html[data-theme="dark"] .mside li a { color: #A1A1AA; border-left-color: rgba(255,255,255,0.14); }
+  html[data-theme="dark"] .mside li a.on { color: #EDEDF0; border-left-color: #EDEDF0; }
+  html[data-theme="dark"] .mega { background: #18181B; box-shadow: 0 24px 50px -18px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.08); }
+  html[data-theme="dark"] .nav .mega a, html[data-theme="dark"] .nav .mega a:hover { color: #EDEDF0; }
+  html[data-theme="dark"] .nav .mega a span, html[data-theme="dark"] .mlab { color: #A1A1AA; }
+  html[data-theme="dark"] .mega a:hover, html[data-theme="dark"] .mega a:focus-visible { background: #232327; }
+  html[data-theme="dark"] form input, html[data-theme="dark"] form select, html[data-theme="dark"] form textarea { background: #18181B; border-color: #3A3A40; color: #EDEDF0; }
+  html[data-theme="dark"] .split { background: #232327; }
+  html[data-theme="dark"] .split .bar i:last-child { background: #EDEDF0; }
+  html[data-theme="dark"] .tiers label:has(input:checked) { border-color: #EDEDF0; box-shadow: inset 0 0 0 1px #EDEDF0; }
+  html[data-theme="dark"] .drawer .close { background: #232327; border-color: rgba(255,255,255,0.14); color: #EDEDF0; }
+  html[data-theme="dark"] .btn.outline-dark { background: #18181B; border-color: rgba(255,255,255,0.14); color: #EDEDF0; }
+  html[data-theme="dark"] .comp { filter: brightness(0.92); }
+  html[data-theme="dark"] .toast { background: #EDEDF0; color: #0B0B0D; }
+  .fface b { color: #F4F1EB; } /* names stay light on the dark cards in both themes */
+  /* white UI cards over photos and in collages keep dark text in both themes */
+  .lcard, .lchip, .collage .pc { color: var(--ink); }
+  html[data-theme="dark"] .ltabs button[aria-selected="true"] .n { background: var(--accent); border-color: var(--accent); color: var(--white); }
+  html[data-theme="dark"] .ltabs button.done .n { border-color: var(--accent); color: #FF8A94; }

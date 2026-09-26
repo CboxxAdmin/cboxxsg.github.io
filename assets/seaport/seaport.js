@@ -210,6 +210,7 @@ if ($("form")) $("form").addEventListener("submit", (e) => {
 // Each page only has some of these sections; build whichever are present.
 
 /* ---------- lifecycle tabs (home) ----------
+   The floating UI cards (ui) are defined but not shown for now.
    Photos: Unsplash (free to use, no attribution required; credited anyway). */
 const u = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1100&q=75`;
 const LIFE = [
@@ -248,7 +249,7 @@ function renderLife(focus) {
   panel.setAttribute("aria-labelledby", "lt-" + lifeIdx);
   panel.innerHTML = `<div class="txt"><div><div class="eb"><i data-lucide="${s.icon}"></i>${s.t}</div><h3>${s.h}</h3><p>${s.p}</p></div>
       <ul>${s.ul.map((x) => `<li><i data-lucide="check"></i>${x}</li>`).join("")}</ul></div>
-    <div class="lphoto"><img src="${s.img}" alt="${esc(s.alt)}" loading="lazy"><div class="lfloat">${s.ui()}</div>
+    <div class="lphoto"><img src="${s.img}" alt="${esc(s.alt)}" loading="lazy">
       <span class="credit">Photo: <a href="${s.by[1]}" target="_blank" rel="noopener">${esc(s.by[0])}</a> / Unsplash</span></div>`;
   panel.classList.remove("in"); void panel.offsetWidth; panel.classList.add("in");
   $("ltabs").querySelectorAll("button").forEach((b, i) => {
@@ -288,4 +289,16 @@ document.querySelectorAll(".dd").forEach((dd) => {
   dd.addEventListener("keydown", (e) => { if (e.key === "Escape") { close(); top.focus(); } });
 });
 document.addEventListener("click", (e) => { if (!e.target.closest(".dd")) document.querySelectorAll(".dd.open").forEach((o) => { o.classList.remove("open"); o.querySelector(".ddtop").setAttribute("aria-expanded", "false"); }); });
+
+/* ---------- light / dark toggle (the page's <head> applies the saved choice before painting) ---------- */
+function syncThemeButtons() {
+  const t = document.documentElement.getAttribute("data-theme");
+  document.querySelectorAll("[data-set-theme]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.setTheme === t));
+}
+document.querySelectorAll("[data-set-theme]").forEach((b) => b.addEventListener("click", () => {
+  document.documentElement.setAttribute("data-theme", b.dataset.setTheme);
+  try { localStorage.setItem("seaport-theme", b.dataset.setTheme); } catch (e) {}
+  syncThemeButtons();
+}));
+syncThemeButtons();
 
