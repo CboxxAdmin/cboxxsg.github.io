@@ -208,6 +208,57 @@ if ($("form")) $("form").addEventListener("submit", (e) => {
 });
 
 // Each page only has some of these sections; build whichever are present.
+
+/* ---------- lifecycle tabs (home) ----------
+   Photos: Unsplash (free to use, no attribution required; credited anyway). */
+const u = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1100&q=75`;
+const LIFE = [
+  { t: "Brief", icon: "file-text", h: "Brief once, in your brand",
+    p: "Tell us the goal, markets and timing. Your brand guidelines and past work are kept on file, so no brief starts from scratch.",
+    ul: ["Brief the Seaport team, or start from a library framework", "Brand guidelines and approved assets stored centrally", "Scope and budget agreed before any work starts"],
+    img: u("photo-1573167507387-6b4b98cb7c13"), alt: "A woman presenting to colleagues around a meeting table", by: ["Unsplash", "https://unsplash.com/photos/people-on-conference-table-looking-at-talking-woman-Q80LYxv_Tbs"],
+    ui: () => `<span class="lchip"><i data-lucide="file-text"></i>Brief received</span><span class="lchip"><i data-lucide="palette"></i>Brand guidelines attached</span><span class="lchip"><i data-lucide="badge-check"></i>Budget approved</span>` },
+  { t: "Match", icon: "users", h: "Find the right creatives, faster",
+    p: "A shortlist of vetted studios and independents for each brief, with availability and licence terms agreed up front.",
+    ul: ["Creatives vetted on portfolio, references and delivery", "Shortlists across eight creative disciplines", "Bring studios you already use into the same process"],
+    img: u("photo-1632187981988-40f3cbaeef5e"), alt: "A film crew gathered around a camera on set", by: ["Jakob Owens", "https://unsplash.com/photos/xKfS7Hll0Ck"],
+    ui: () => `<div class="lcard"><b>Matched creatives</b><div class="ppl">${[3, 7, 1].map((id) => { const c = CREATIVES.find((x) => x.id === id); return `<div class="pp">${portraitSVG(c.id, c.d)}${esc(c.name)}<small>${esc(DISC[c.d].label)}</small></div>`; }).join("")}</div></div><span class="lbtn">Shortlist</span>` },
+  { t: "Contract", icon: "file-signature", h: "One agreement for every supplier",
+    p: "Work runs under a single master agreement with Seaport. Each job adds a statement of work or a licence, never a new contract.",
+    ul: ["Master services agreement, signed once", "A statement of work or licence per job", "NDAs with every creative before a brief is shared"],
+    img: u("photo-1562564055-71e051d33c19"), alt: "A woman signing a document at a desk", by: ["Gabrielle Henderson", "https://unsplash.com/photos/HJckKnwCXxQ"],
+    ui: () => `<div class="lcard"><b>Statement of work SW-118 <span class="status ok">Signed</span></b><div class="r"><span>Client</span>Regional bank</div><div class="r"><span>Creatives</span>Studio Kopitiam, Lens &amp; Lorong</div><div class="r"><span>Under</span>Master agreement MSA-07</div></div>` },
+  { t: "License", icon: "shield-check", h: "Rights you can prove",
+    p: "Every deliverable comes with a written licence that names the owner, the scope, the markets and the term.",
+    ul: ["Creatives keep the IP; you get the rights you need", "Non-exclusive or exclusive, for a set term", "A record of every licence for audit"],
+    img: u("photo-1690733546551-1007bc0a3414"), alt: "Photographs, cut-outs and scissors laid out on a designer's table", by: ["Fiona Murray-deGraaff", "https://unsplash.com/photos/HszbGgaGjOg"],
+    ui: () => `<div class="lcard"><b>Licence LX-2041 <span class="status ok">Active</span></b><div class="r"><span>Framework</span>Festive campaign kit</div><div class="r"><span>Owner</span>Studio Kopitiam</div><div class="r"><span>Licensed via</span>Seaport</div><div class="r"><span>Scope</span>3 markets, 12 months</div></div>` },
+  { t: "Pay", icon: "receipt", h: "One invoice, everyone paid",
+    p: "You pay Seaport once. We pay the creatives, including a royalty every time their work is licensed.",
+    ul: ["One consolidated invoice across suppliers", "Cost-centre and purchase-order references", "Creator royalties paid out automatically"],
+    img: u("photo-1569025690938-a00729c9e1f9"), alt: "A person working on a laptop at a table", by: ["Jason Briscoe", "https://unsplash.com/photos/amLfrL8LGls"],
+    ui: () => `<div class="lcard"><b>Invoice INV-0932 <span class="status pend">Due in 30 days</span></b><div class="r"><span>Projects</span>3</div><div class="r"><span>Licences</span>2</div><div class="r"><span>Suppliers covered</span>5</div><div class="bar"><i style="width:50%"></i><i style="width:50%"></i></div><div class="r" style="border:none;padding:0"><span>Creator royalties</span>Seaport fee</div></div>` },
+];
+let lifeIdx = 0;
+function renderLife(focus) {
+  $("ltabs").innerHTML = LIFE.map((s, i) => `<button role="tab" id="lt-${i}" aria-selected="${i === lifeIdx}" aria-controls="lpanel" tabindex="${i === lifeIdx ? 0 : -1}">${s.t}</button>`).join("");
+  const s = LIFE[lifeIdx];
+  const panel = $("lpanel");
+  panel.setAttribute("aria-labelledby", "lt-" + lifeIdx);
+  panel.innerHTML = `<div class="txt"><div><div class="eb"><i data-lucide="${s.icon}"></i>${s.t}</div><h3>${s.h}</h3><p>${s.p}</p></div>
+      <ul>${s.ul.map((x) => `<li><i data-lucide="check"></i>${x}</li>`).join("")}</ul></div>
+    <div class="lphoto"><img src="${s.img}" alt="${esc(s.alt)}" loading="lazy"><div class="lfloat">${s.ui()}</div>
+      <span class="credit">Photo: <a href="${s.by[1]}" target="_blank" rel="noopener">${esc(s.by[0])}</a> / Unsplash</span></div>`;
+  panel.classList.remove("in"); void panel.offsetWidth; panel.classList.add("in");
+  $("ltabs").querySelectorAll("button").forEach((b, i) => {
+    b.onclick = () => { lifeIdx = i; renderLife(true); };
+    b.onkeydown = (e) => { const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (d) { e.preventDefault(); lifeIdx = (lifeIdx + d + LIFE.length) % LIFE.length; renderLife(true); } };
+  });
+  icons();
+  if (focus) $("ltabs").children[lifeIdx].focus();
+}
+
+if ($("ltabs")) renderLife();
 if ($("fan")) {
   buildHero();
   // Scale the fan so the whole ring fits its stage at any window size (it's drawn for 520 x 560).
