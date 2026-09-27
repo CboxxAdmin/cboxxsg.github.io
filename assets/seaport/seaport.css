@@ -761,3 +761,9 @@
   .makers .briefs .brlist .ic svg { color: #FFFFFF; margin: 0; }
   .makers .briefs .brlist .view svg { color: var(--ink); margin: 0; }
   html[data-theme="dark"] .makers .briefs .brlist .view svg { color: #EDEDF0; }
+  /* nav: Log in */
+  .nav .btn.navlogin { background: transparent; border: 1px solid rgba(255,255,255,0.35); color: var(--white); }
+  .nav .btn.navlogin:hover { border-color: var(--white); }
+  html[data-theme="light"] .nav .btn.navlogin { border-color: #CFCFD6; color: var(--ink); }
+  html[data-theme="light"] .nav .btn.navlogin:hover { border-color: var(--ink); }
+  @media (max-width: 700px) { .nav .btn.navlogin { padding: 0 12px; } }

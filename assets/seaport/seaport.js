@@ -400,11 +400,11 @@ if ($("ftrack")) makeSlider($("ftrack"), $("ftabs"), $("fprev"), $("fnext"), [..
 
 
 /* ---------- How it works switch: For companies | For creatives ---------- */
-if (document.querySelector(".seg")) {
-  const tabs = [...document.querySelectorAll(".seg [role=tab]")];
+if (document.querySelector(".howit .seg")) {
+  const tabs = [...document.querySelectorAll(".howit .seg [role=tab]")];
   const pick = (t, focus) => {
     tabs.forEach((b) => { const on = b === t; b.setAttribute("aria-selected", on); b.tabIndex = on ? 0 : -1; $(b.getAttribute("aria-controls")).hidden = !on; });
-    document.querySelector(".seg").dataset.on = tabs.indexOf(t);
+    document.querySelector(".howit .seg").dataset.on = tabs.indexOf(t);
     if (focus) t.focus();
   };
   tabs.forEach((b, i) => {
