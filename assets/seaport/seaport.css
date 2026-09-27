@@ -692,3 +692,28 @@
   .ftrack .fx { position: relative; top: auto; z-index: auto; flex: 0 0 100%; min-height: 0; scroll-snap-align: start; background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; }
   .ftrack .fxin { padding: 30px 0 60px; }
   .ftrack img { -webkit-user-drag: none; }
+
+  /* ---------- How it works (Upwork pattern): pill switch + three big cards with captions ---------- */
+  .howit { padding: 100px 0 90px; }
+  .hhead { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 44px; }
+  .hhead h2 { font-size: 40px; font-weight: 500; }
+  .seg { display: inline-flex; border: 1px solid #CFCFD6; border-radius: 999px; padding: 3px; }
+  .seg button { border: 1.5px solid transparent; background: none; border-radius: 999px; padding: 11px 26px; font-size: 16px; cursor: pointer; color: var(--ink); }
+  .seg button[aria-selected="true"] { border-color: var(--ink); }
+  .hcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; animation: hcIn 350ms ease-out; }
+  @keyframes hcIn { from { opacity: 0; transform: translateY(8px); } }
+  .hcard { text-decoration: none; color: inherit; display: block; }
+  .hmedia { position: relative; aspect-ratio: 16 / 10.3; border-radius: 16px; overflow: hidden; background: #EEE; }
+  .hmedia img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 400ms ease-out; }
+  .hcard:hover .hmedia img { transform: scale(1.04); }
+  .hcard h3 { font-family: var(--head); font-size: 24px; font-weight: 500; margin: 18px 10px 0; }
+  .hcard:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+  .brandcard { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: radial-gradient(circle at 18% 80%, #FFE39A 0%, transparent 45%), linear-gradient(120deg, #FBE7C6 0%, #F7C5C9 45%, #E88C98 100%); color: #140608; }
+  .brandcard .bl { width: 58px; height: auto; transition: transform 300ms; }
+  .brandcard .bw { font-family: var(--head); font-weight: 700; font-size: 44px; letter-spacing: -0.02em; line-height: 1; }
+  .brandcard .bc { font-size: 17px; font-weight: 500; }
+  .hcard:hover .brandcard .bl { transform: rotate(-8deg) scale(1.08); }
+  html[data-theme="dark"] .seg { border-color: #3A3A40; } html[data-theme="dark"] .seg button { color: #EDEDF0; } html[data-theme="dark"] .seg button[aria-selected="true"] { border-color: #EDEDF0; }
+  @media (max-width: 1000px) { .hcards { grid-template-columns: 1fr; } .hhead { flex-direction: column; align-items: flex-start; } }
+  @media (prefers-reduced-motion: reduce) { .hcards { animation: none; } .hmedia img, .brandcard .bl { transition: none; } }
+  .hcards[hidden] { display: none; }

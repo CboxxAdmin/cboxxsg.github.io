@@ -398,6 +398,20 @@ function makeSlider(track, tabs, prev, next, labels) {
 }
 if ($("ftrack")) makeSlider($("ftrack"), $("ftabs"), $("fprev"), $("fnext"), [...document.querySelectorAll("#ftrack .fxeb")].map((e) => e.textContent));
 
+
+/* ---------- How it works switch: For companies | For creatives ---------- */
+if (document.querySelector(".seg")) {
+  const tabs = [...document.querySelectorAll(".seg [role=tab]")];
+  const pick = (t, focus) => {
+    tabs.forEach((b) => { const on = b === t; b.setAttribute("aria-selected", on); b.tabIndex = on ? 0 : -1; $(b.getAttribute("aria-controls")).hidden = !on; });
+    if (focus) t.focus();
+  };
+  tabs.forEach((b, i) => {
+    b.onclick = () => pick(b);
+    b.onkeydown = (e) => { const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (d) { e.preventDefault(); pick(tabs[(i + d + tabs.length) % tabs.length], true); } };
+  });
+}
+
 if ($("ltabs")) renderLife();
 if ($("fan")) {
   buildHero();
