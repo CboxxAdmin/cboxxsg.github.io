@@ -767,3 +767,6 @@
   html[data-theme="light"] .nav .btn.navlogin { border-color: #CFCFD6; color: var(--ink); }
   html[data-theme="light"] .nav .btn.navlogin:hover { border-color: var(--ink); }
   @media (max-width: 700px) { .nav .btn.navlogin { padding: 0 12px; } }
+
+  /* hidden for now: the licensing page stays online but is not linked */
+  .dd[hidden], a[hidden] { display: none !important; }
