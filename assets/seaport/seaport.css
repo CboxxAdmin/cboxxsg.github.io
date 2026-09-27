@@ -770,3 +770,18 @@
 
   /* hidden for now: the licensing page stays online but is not linked */
   .dd[hidden], a[hidden] { display: none !important; }
+
+  /* open briefs panel: short list, terms under the title instead of a wrapping column */
+  .makers .box.warm .vis.briefvis { padding: 40px 36px; }
+  .briefs { max-width: 520px; padding: 22px 22px 16px; }
+  .brlist li { grid-template-columns: 40px 1fr 32px; gap: 14px; padding: 13px 2px; }
+  .brlist .bt { min-width: 0; }
+  .brlist .bmeta { display: flex; align-items: center; gap: 8px; margin-top: 7px; min-width: 0; }
+  .brlist .bmeta .status { margin-top: 0; flex-shrink: 0; }
+  .brlist .bmeta .terms { max-width: none; text-align: left; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .brmore { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; margin-top: 2px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  .brmore a { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-weight: 600; text-decoration: none; }
+  .brmore a:hover { text-decoration: underline; }
+  .brmore svg { width: 15px; height: 15px; }
+  html[data-theme="dark"] .brmore { border-color: rgba(255,255,255,0.1); }
+  @media (max-width: 700px) { .brlist .bmeta .terms { display: none; } }

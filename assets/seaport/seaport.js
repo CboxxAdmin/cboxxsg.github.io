@@ -432,12 +432,14 @@ function buildBriefs() {
   let f = "all";
   const draw = () => {
     const list = BRIEFS.filter((b) => f === "all" || b[4] === f);
-    $("brCount").textContent = `${list.length} of ${BRIEFS.length} briefs`;
+    const shown = list.slice(0, 4); // keep the panel short; the rest are one click away
+    $("brCount").textContent = `${list.length} ${f === "all" ? "live" : STATUS[f].toLowerCase()} briefs`;
     $("brFilter").innerHTML = [["all", "All"], ["open", "Open"], ["short", "Shortlisting"], ["done", "Contracted"]].map(([k, t]) => `<button data-k="${k}" aria-pressed="${f === k}">${t}</button>`).join("");
     $("brFilter").querySelectorAll("button").forEach((b) => b.onclick = () => { f = b.dataset.k; draw(); });
-    $("brList").innerHTML = list.map(([d, t, who, terms, st], i) => `<li style="animation-delay:${i * 35}ms"><span class="ic" style="background:${DISC[d].c[0]}"><i data-lucide="${ICON[d]}"></i></span>
-      <span><b>${esc(t)}</b><small>${esc(who)} · ${esc(DISC[d].label)}</small><span class="status ${st}">${STATUS[st]}</span></span>
-      <span class="terms">${esc(terms)}</span><a class="view" href="seaport-contact.html" aria-label="Ask about ${esc(t)}"><i data-lucide="arrow-right"></i></a></li>`).join("");
+    $("brList").innerHTML = shown.map(([d, t, who, terms, st], i) => `<li style="animation-delay:${i * 35}ms"><span class="ic" style="background:${DISC[d].c[0]}"><i data-lucide="${ICON[d]}"></i></span>
+      <span class="bt"><b>${esc(t)}</b><small>${esc(who)} · ${esc(DISC[d].label)}</small><span class="bmeta"><span class="status ${st}">${STATUS[st]}</span><span class="terms">${esc(terms)}</span></span></span>
+      <a class="view" href="seaport-contact.html" aria-label="Ask about ${esc(t)}"><i data-lucide="arrow-right"></i></a></li>`).join("");
+    $("brMore").innerHTML = list.length > shown.length ? `<span>Showing ${shown.length} of ${list.length}</span><a href="seaport-login.html">See all briefs <i data-lucide="arrow-right"></i></a>` : `<span>Showing all ${list.length}</span><a href="seaport-login.html">Sign in to apply <i data-lucide="arrow-right"></i></a>`;
     icons();
   };
   draw();
