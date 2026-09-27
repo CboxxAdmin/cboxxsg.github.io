@@ -693,27 +693,36 @@
   .ftrack .fxin { padding: 30px 0 60px; }
   .ftrack img { -webkit-user-drag: none; }
 
-  /* ---------- How it works (Upwork pattern): pill switch + three big cards with captions ---------- */
+  /* ---------- Getting started: two-sided switch + three numbered step cards ---------- */
   .howit { padding: 100px 0 90px; }
-  .hhead { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 44px; }
-  .hhead h2 { font-size: 40px; font-weight: 500; }
-  .seg { display: inline-flex; border: 1px solid #CFCFD6; border-radius: 999px; padding: 3px; }
-  .seg button { border: 1.5px solid transparent; background: none; border-radius: 999px; padding: 11px 26px; font-size: 16px; cursor: pointer; color: var(--ink); }
-  .seg button[aria-selected="true"] { border-color: var(--ink); }
-  .hcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; animation: hcIn 350ms ease-out; }
+  .hhead { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 40px; }
+  .hhead h2 { font-size: 44px; }
+  .hhead .sub { margin-top: 10px; }
+  .seg { position: relative; display: inline-grid; grid-template-columns: 1fr 1fr; background: #EFEFF2; border-radius: 12px; padding: 5px; }
+  .seg-ind { position: absolute; top: 5px; bottom: 5px; left: 5px; width: calc(50% - 5px); border-radius: 9px; background: var(--accent); box-shadow: 0 8px 18px -8px rgba(176,0,28,0.7); transition: transform 280ms cubic-bezier(.2,1,.3,1); }
+  .seg[data-on="1"] .seg-ind { transform: translateX(100%); }
+  .seg button { position: relative; z-index: 1; border: none; background: none; padding: 12px 24px; font-size: 15px; font-weight: 600; cursor: pointer; color: #52525B; transition: color 200ms; white-space: nowrap; }
+  .seg button[aria-selected="true"] { color: var(--white); }
+  .hcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; animation: hcIn 350ms ease-out; }
   @keyframes hcIn { from { opacity: 0; transform: translateY(8px); } }
-  .hcard { text-decoration: none; color: inherit; display: block; }
-  .hmedia { position: relative; aspect-ratio: 16 / 10.3; border-radius: 16px; overflow: hidden; background: #EEE; }
+  .hcard { text-decoration: none; color: inherit; display: block; border-radius: 22px; padding: 10px 10px 22px; transition: background 200ms; }
+  .hcard:hover { background: #F5F5F7; }
+  .hmedia { position: relative; aspect-ratio: 4 / 3; border-radius: 16px; overflow: hidden; background: #EEE; }
   .hmedia img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 400ms ease-out; }
   .hcard:hover .hmedia img { transform: scale(1.04); }
-  .hcard h3 { font-family: var(--head); font-size: 24px; font-weight: 500; margin: 18px 10px 0; }
-  .hcard:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
-  .brandcard { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; background: radial-gradient(circle at 18% 80%, #FFE39A 0%, transparent 45%), linear-gradient(120deg, #FBE7C6 0%, #F7C5C9 45%, #E88C98 100%); color: #140608; }
-  .brandcard .bl { width: 58px; height: auto; transition: transform 300ms; }
-  .brandcard .bw { font-family: var(--head); font-weight: 700; font-size: 44px; letter-spacing: -0.02em; line-height: 1; }
-  .brandcard .bc { font-size: 17px; font-weight: 500; }
-  .hcard:hover .brandcard .bl { transform: rotate(-8deg) scale(1.08); }
-  html[data-theme="dark"] .seg { border-color: #3A3A40; } html[data-theme="dark"] .seg button { color: #EDEDF0; } html[data-theme="dark"] .seg button[aria-selected="true"] { border-color: #EDEDF0; }
+  .stepno { position: absolute; left: 14px; top: 14px; z-index: 2; font-family: var(--head); font-weight: 700; font-size: 13px; letter-spacing: 0.04em; background: rgba(255,255,255,0.92); color: var(--ink); border-radius: 8px; padding: 6px 9px; }
+  .hcard h3 { font-family: var(--head); font-size: 22px; font-weight: 600; margin: 18px 6px 6px; }
+  .hcard p { margin: 0 6px; color: var(--muted); font-size: 15px; }
+  .brandcard { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 6px; padding: 24px; background: radial-gradient(circle at 85% 15%, rgba(176,0,28,0.9) 0%, transparent 55%), radial-gradient(circle at 10% 110%, rgba(212,168,50,0.35) 0%, transparent 45%), #141417; color: var(--white); }
+  .brandcard .stepno { background: rgba(255,255,255,0.14); color: var(--white); }
+  .brandcard .bl { position: absolute; right: 22px; top: 20px; width: 64px; height: auto; transition: transform 300ms; }
+  .brandcard .bc { font-family: var(--head); font-size: 26px; font-weight: 600; }
+  .brandcard .go { position: absolute; right: 20px; bottom: 20px; width: 44px; height: 44px; border-radius: 50%; background: var(--white); color: var(--ink); display: grid; place-items: center; transition: transform 250ms; }
+  .brandcard .go svg { width: 20px; height: 20px; }
+  .hcard:hover .brandcard .go { transform: rotate(45deg); }
+  .hcard:hover .brandcard .bl { transform: rotate(-8deg) scale(1.06); }
+  html[data-theme="dark"] .seg { background: #1F1F23; } html[data-theme="dark"] .seg button { color: #A1A1AA; } html[data-theme="dark"] .seg button[aria-selected="true"] { color: var(--white); }
+  html[data-theme="dark"] .hcard:hover { background: #18181B; }
   @media (max-width: 1000px) { .hcards { grid-template-columns: 1fr; } .hhead { flex-direction: column; align-items: flex-start; } }
-  @media (prefers-reduced-motion: reduce) { .hcards { animation: none; } .hmedia img, .brandcard .bl { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .hcards { animation: none; } .hmedia img, .brandcard .bl, .brandcard .go, .seg-ind { transition: none; } }
   .hcards[hidden] { display: none; }

@@ -404,6 +404,7 @@ if (document.querySelector(".seg")) {
   const tabs = [...document.querySelectorAll(".seg [role=tab]")];
   const pick = (t, focus) => {
     tabs.forEach((b) => { const on = b === t; b.setAttribute("aria-selected", on); b.tabIndex = on ? 0 : -1; $(b.getAttribute("aria-controls")).hidden = !on; });
+    document.querySelector(".seg").dataset.on = tabs.indexOf(t);
     if (focus) t.focus();
   };
   tabs.forEach((b, i) => {
