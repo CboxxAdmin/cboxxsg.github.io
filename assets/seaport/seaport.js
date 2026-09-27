@@ -359,6 +359,45 @@ function buildApps() {
 }
 if (document.querySelector(".fx")) buildApps();
 
+
+/* ---------- sideways slider: text tabs + arrows + keys + mouse drag over a snap track ---------- */
+function makeSlider(track, tabs, prev, next, labels) {
+  const n = labels.length; let idx = 0;
+  tabs.innerHTML = labels.map((t, i) => `<button role="tab" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${t}</button>`).join("");
+  const step = () => track.children[0].offsetWidth;
+  const go = (i, focus) => { i = Math.max(0, Math.min(n - 1, i)); track.scrollTo({ left: i * step(), behavior: calm() ? "auto" : "smooth" }); if (focus) tabs.children[i].focus(); };
+  const mark = () => {
+    idx = Math.max(0, Math.min(n - 1, Math.round(track.scrollLeft / step())));
+    [...tabs.children].forEach((b, k) => { b.setAttribute("aria-selected", k === idx); b.tabIndex = k === idx ? 0 : -1; });
+    prev.disabled = idx === 0; next.disabled = idx === n - 1;
+  };
+  let raf = 0; track.addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; mark(); }); }, { passive: true });
+  [...tabs.children].forEach((b, i) => {
+    b.onclick = () => go(i);
+    b.onkeydown = (e) => { const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (d) { e.preventDefault(); go(idx + d, true); } };
+  });
+  prev.onclick = () => go(idx - 1); next.onclick = () => go(idx + 1);
+  let drag = null;
+  track.addEventListener("pointerdown", (e) => { if (e.pointerType === "mouse" && e.button === 0 && !e.target.closest("a")) drag = { x: e.clientX, left: track.scrollLeft, moved: false }; });
+  window.addEventListener("pointermove", (e) => {
+    if (!drag) return; const dx = e.clientX - drag.x;
+    if (!drag.moved && Math.abs(dx) < 6) return;
+    if (!drag.moved) { drag.moved = true; track.classList.add("dragging"); }
+    track.scrollLeft = drag.left - dx;
+  });
+  window.addEventListener("pointerup", (e) => {
+    if (!drag) return; const d = drag; drag = null; if (!d.moved) return;
+    track.classList.remove("dragging");
+    const dx = e.clientX - d.x, from = Math.round(d.left / step());
+    go(Math.abs(dx) > 60 ? from - Math.sign(dx) : from);
+  });
+  // a drag shouldn't also follow the link it ended on
+  track.addEventListener("click", (e) => { if (track.classList.contains("dragging")) e.preventDefault(); }, true);
+  window.addEventListener("resize", () => { track.scrollLeft = idx * step(); });
+  mark();
+}
+if ($("ftrack")) makeSlider($("ftrack"), $("ftabs"), $("fprev"), $("fnext"), [...document.querySelectorAll("#ftrack .fxeb")].map((e) => e.textContent));
+
 if ($("ltabs")) renderLife();
 if ($("fan")) {
   buildHero();

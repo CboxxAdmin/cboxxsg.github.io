@@ -682,3 +682,13 @@
   html[data-theme="dark"] .mbar i:last-child { background: #EDEDF0; color: #0B0B0D; }
   @media (max-width: 1100px) { .glance { grid-template-columns: repeat(2, 1fr); } .lflow, .recgrid, .sides, .faqgrid, .money { grid-template-columns: 1fr; } .lflow li::after { display: none; } .money .fine { grid-column: 1; }
     .ltable { overflow-x: auto; } .lr { min-width: 820px; } }
+
+  /* feature panels as one sideways swipe section (replaces the sticky stack) */
+  .features { padding: 70px 0 30px; }
+  .fbar { margin: 0 auto 22px; }
+  .ftrack { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; cursor: grab; }
+  .ftrack::-webkit-scrollbar { display: none; }
+  .ftrack.dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+  .ftrack .fx { position: relative; top: auto; z-index: auto; flex: 0 0 100%; min-height: 0; scroll-snap-align: start; background: transparent !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; }
+  .ftrack .fxin { padding: 30px 0 60px; }
+  .ftrack img { -webkit-user-drag: none; }
