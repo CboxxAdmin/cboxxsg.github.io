@@ -834,3 +834,16 @@
   html[data-theme="dark"] .chx { background: #232327; color: #EDEDF0; }
   @media (max-width: 800px) { .chgrid { grid-template-columns: 1fr; } .chcard { min-height: 200px; } .chbox { padding: 26px 20px; } }
   @media (prefers-reduced-motion: reduce) { .chooser, .chbox, .chcard::before, .chcard .go { animation: none; transition: none; } }
+
+  /* general information page: FAQ */
+  .infofaq { padding: 90px 0 110px; border-top: 1px solid var(--line); }
+  .infofaq h2 { font-size: 40px; letter-spacing: -0.02em; margin: 0; }
+  .infofaq .faqgrid > div:first-child { position: sticky; top: 100px; }
+  .infofaq .faq .faqlab { margin: 34px 0 6px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  .infofaq .faq .faqlab:first-child { margin-top: 0; }
+  .infofaq .faq .faqlab + details { border-top: 1px solid var(--line); }
+  .infofaq .faq details:has(+ .faqlab) { border-bottom: 1px solid var(--line); }
+  .infofaq .faq a { color: var(--accent); }
+  html[data-theme="dark"] .infofaq { border-color: rgba(255,255,255,0.1); }
+  html[data-theme="dark"] .infofaq .faq details:has(+ .faqlab) { border-color: rgba(255,255,255,0.12); }
+  @media (max-width: 1100px) { .infofaq .faqgrid > div:first-child { position: static; } }
