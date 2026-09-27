@@ -65,7 +65,7 @@ if ($("dash")) {
   const cr = (id) => CREATIVES.find((c) => c.id === id);
   const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"];
   const UI = {}; // filters per view
-  let q = "", cur = "overview", S;
+  let q = "", cur = role === "company" ? "overview" : "board", S;
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
   const load = () => { try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; } };
   const hit = (...parts) => !q || parts.join(" ").toLowerCase().includes(q);
@@ -300,6 +300,19 @@ if ($("dash")) {
       { id: 2, title: "Hawker stall menu board system", d: "design", std: 900, lic: 4, earned: 1600, st: "live", incl: ["Menu board layouts", "Price strip templates", "Photo style guide"] },
       { id: 3, title: "Packaging label template set", d: "design", std: 700, lic: 3, earned: 900, st: "live", incl: ["Twelve label dielines", "Nutrition panel styles", "Print specs"] },
     ],
+    lics: [
+      { id: "LX-2041", fw: 1, who: "An FMCG group", type: "Extended", scope: "3 brands, Singapore and Malaysia", start: "2026-01-12", end: "2027-01-11", fee: 5400 },
+      { id: "LX-2036", fw: 1, who: "A retail bank", type: "Standard", scope: "1 brand, social and email", start: "2025-12-01", end: "2026-11-30", fee: 1800 },
+      { id: "LX-2031", fw: 2, who: "A hawker centre operator", type: "Standard", scope: "12 stalls, in-store", start: "2026-02-15", end: "2027-02-14", fee: 900 },
+      { id: "LX-2027", fw: 2, who: "A food court chain", type: "Extended", scope: "8 outlets, 2 markets", start: "2026-04-01", end: "2027-03-31", fee: 2700 },
+      { id: "LX-2019", fw: 3, who: "A craft soda brand", type: "Standard", scope: "1 brand, packaging", start: "2026-05-20", end: "2027-05-19", fee: 700 },
+    ],
+    news: [
+      { id: "N-5", t: "October payout date", d: "2026-09-26", read: false, body: "September royalties and project fees will be paid on 30 September. Statements are on the Madame Fortune notice." },
+      { id: "N-4", t: "New: Extended+ licences", d: "2026-09-18", read: false, body: "Companies can now license a framework for regional campaigns across up to five markets. Your royalty share stays at 50%." },
+      { id: "N-3", t: "Portfolio reviews are open", d: "2026-09-10", read: true, body: "Book a free 20-minute review with the Seaport curation team. We'll suggest which of your ideas could become frameworks." },
+      { id: "N-2", t: "Holiday season briefs", d: "2026-09-02", read: true, body: "Retail and F&B companies are posting holiday briefs early this year. Keep your availability up to date on your Wanted poster." },
+    ],
     payouts: [
       { id: "PO-2209", date: "2026-09-30", roy: 1700, fees: 700, st: "sched" }, { id: "PO-2188", date: "2026-08-31", roy: 1300, fees: 1300, st: "paid" },
       { id: "PO-2161", date: "2026-07-31", roy: 1050, fees: 1000, st: "paid" }, { id: "PO-2140", date: "2026-06-30", roy: 1150, fees: 1150, st: "paid" }, { id: "PO-2117", date: "2026-05-31", roy: 900, fees: 850, st: "paid" },
@@ -311,53 +324,85 @@ if ($("dash")) {
     <span class="terms">${money(b.fee)} · due ${day(b.due)}</span>${b.match ? `<span class="mt">${b.match}% match</span>` : ""}${b.st !== "prog" && (WST[b.st] || QST[b.st]) && b.st !== "open" ? `<span class="stamp ${b.st}">${WST[b.st] || QST[b.st]}</span>` : ""}</button>`;
   const royRows = () => S.fw.map((f) => ({ f, gross: f.earned * 2 }));
 
+  /* The creative side is one big notice board. Each notice opens its own page, drawn as a board of the same kind of notice. */
+  const CAT = {
+    bounties: ["Bounties", "p-bounty", "Paid briefs from companies, matched to your work. Take one and it joins your Call to arms."],
+    contracts: ["Call to arms", "p-arms", "Every job you've taken, from application to delivery. Open one to tick off its steps."],
+    rewards: ["Rewards", "p-reward", "What your work has earned. You receive 50% of every licence fee."],
+    decree: ["Seaport decree", "p-decree", "Your agreement with Seaport, and every licence granted on your work. You keep the IP."],
+    help: ["Help needed", "p-help", "Open briefs due within a month. These companies need someone soon."],
+    warnings: ["Warnings", "p-warn", "Deadlines coming up on the jobs you're working on."],
+    notices: ["Attention", "p-attn", "News and notices from the Seaport team."],
+    fortune: ["Madame Fortune", "p-fortune", "Your payouts: what's been paid, and what the cards say is coming."],
+    trade: ["For trade", "p-trade", "Your frameworks: small ideas, packaged so many companies can license them."],
+    wanted: ["Wanted", "p-wanted", "Your profile, the way companies see it when Seaport shortlists you."],
+  };
+  const daysTo = (s) => Math.round((new Date(s + "T00:00:00") - new Date(today() + "T00:00:00")) / 864e5);
+  const urgent = () => S.board.filter((b) => b.st === "open" && daysTo(b.due) >= 0 && daysTo(b.due) <= 31);
+  const deadlines = () => S.work.filter((w) => w.st === "prog" || w.st === "rev").sort((a, b) => a.due.localeCompare(b.due));
+  const page = (key, inner, top) => `<a class="nbback" href="#board"><i data-lucide="arrow-left"></i>Back to the notice board</a>
+    <div class="nboard"><div class="nbsign"><span>${CAT[key][0]}</span></div><p class="nbintro">${CAT[key][2]}</p>${top || ""}<div class="nbgrid">${inner}</div></div>`;
+  const pst = (key, i, act, arg, title, body, extra) => `<button type="button" class="pst ${CAT[key][1]} t${i % 3}" style="--r:${tilt(i)}deg" data-act="${act}" data-arg="${arg}"><span class="nail" aria-hidden="true"></span><span class="ph">${title}</span>${body}${extra || ""}</button>`;
+  const none = (t) => `<p class="nbnone">${t}</p>`;
+  const briefBody = (b) => `<span class="pk">${esc(DISC[b.d].label)}</span><b class="pt">${esc(b.t)}</b><span class="pb">${esc(b.who)}</span><span class="pf">${money(b.fee)}</span><span class="pb sm">Due ${day(b.due)} · ${b.match}% match</span>`;
+
   const CR = {
-    overview: () => { const roy = [1200, 1450, 1300, 1900, 1750, 2300, 2050, 2600, 2400], top = S.board.filter((b) => b.st === "open").sort((a, b) => b.match - a.match).slice(0, 4);
-      return head(greet(), "Your briefs, work, frameworks and royalties in one place.", `<a class="btn primary" href="#frameworks/new"><i data-lucide="upload"></i>Submit a framework</a>`) +
-        `<div class="kpis">${kpi("#royalties", "coins", "Royalties this quarter", money(6300), "+18% on last quarter")}${kpi("#frameworks", "scroll-text", "Active licences", S.fw.reduce((a, f) => a + f.lic, 0), S.fw.length + " frameworks")}
-        ${kpi("#briefs", "clipboard-list", "Briefs on the board", S.board.filter((b) => b.st === "open").length, S.board.filter((b) => b.st === "open" && b.match >= 80).length + " strong matches")}${kpi("#work", "hammer", "Jobs in progress", S.work.filter((w) => w.st === "prog" || w.st === "rev").length, S.work.filter((w) => w.st === "applied").length + " applications out")}</div>
-        <div class="dgrid2"><section class="dcard"><div class="dch"><h2>Royalties</h2><span class="small muted">${money(roy.reduce((a, b) => a + b, 0))} this year</span></div>${bars(roy, MONTHS, money, "gold")}</section>
-        <section class="dcard"><div class="dch"><h2>Best matches on the board</h2><a href="#briefs" class="small">Quest board</a></div>${top.map((b) => `<button type="button" class="brow" data-act="quest" data-arg="${b.id}"><span class="ic" style="background:${DISC[b.d].c[0]}"><i data-lucide="scroll"></i></span><span class="t"><b>${esc(b.t)}</b><small>${esc(b.who)} · ${esc(b.lic)}</small></span><span class="match">${b.match}% match</span></button>`).join("") || empty("You've answered every brief. New ones arrive weekly.")}</section></div>
-        <div class="dgrid2 wide1"><section class="dcard"><div class="dch"><h2>Your frameworks</h2><a href="#frameworks" class="small">All frameworks</a></div><div class="myfw">${S.fw.slice(0, 3).map((f) => `<button type="button" class="fw" data-act="fw" data-arg="${f.id}">${coverHTML(fwObj(f), "")}<span class="meta"><b>${f.lic} licences</b><span>${money(f.earned)}</span></span></button>`).join("")}</div></section>
-        <section class="dcard"><div class="dch"><h2>Payouts</h2><a href="#payouts" class="small">All payouts</a></div>${poTable(S.payouts.slice(0, 3))}</section></div>`; },
+    board: () => { const open = S.board.filter((b) => b.st === "open"), top = [...open].sort((a, b) => b.fee - a.fee)[0], jobs = S.work.filter((w) => w.st === "prog" || w.st === "applied"),
+        dl = deadlines()[0], unread = S.news.filter((n) => !n.read), po = S.payouts.find((p) => p.st === "sched") || S.payouts[0], lic = S.fw.reduce((a, f) => a + f.lic, 0);
+      const card = (key, cls, r, inner) => `<a class="pst ${CAT[key][1]} ${cls}" href="#${key}" style="--r:${r}deg"><span class="nail" aria-hidden="true"></span>${inner}</a>`;
+      return `<div class="nbhello"><h1>${greet()}</h1><p>Pick a notice to open it.</p></div>
+      <div class="nboard front"><div class="nbsign big"><span>Notice board</span></div><div class="nbfront">
+        ${card("rewards", "g-reward t0", -2, `<span class="ph">Reward</span><span class="pb">Paid to you this year for your work</span><span class="big">${money(16950)}</span><span class="pb">${money(6300)} this quarter, up 18%. You earn on every licence.</span><span class="seal red" aria-hidden="true"></span>`)}
+        ${card("contracts", "g-arms t1", 1.5, `<span class="ph">Call to arms</span><span class="pb">${jobs.length} ${jobs.length === 1 ? "job needs" : "jobs need"} you</span>${jobs.slice(0, 2).map((w) => `<span class="pli">${esc(w.t)}</span>`).join("")}<span class="pgo">Report for duty</span>`)}
+        ${card("decree", "g-decree t2", -1, `<span class="ph sm">Seaport decree</span><span class="pb">Be it known: you own the IP of all you make. Seaport holds the licensing rights, in writing.</span><span class="pb"><b>${S.lics.length} licences</b> granted on your work</span><span class="seal red sm" aria-hidden="true"></span>`)}
+        ${card("wanted", "g-wanted t0", 2, `<span class="ph">Wanted</span><span class="wp">${portraitSVG(1, S.disc)}</span><span class="pb"><b>${esc(S.me)}</b></span><span class="pb sm">${S.avail ? "Available for briefs" : "Fully booked"}</span>`)}
+        ${card("trade", "g-trade t1", -1.5, `<span class="ph">For trade</span><span class="pb">${S.fw.length} of your frameworks, open for licence</span><span class="big sm">${lic} sold</span><span class="pgo">See your wares</span>`)}
+        ${card("fortune", "g-fortune t2", 1.8, `<span class="ph sm">Madame Fortune</span><span class="pb">The cards foretell</span><span class="big sm">${money(po.roy + po.fees)}</span><span class="pb sm">on ${day(po.date)}</span>`)}
+        ${card("help", "g-help t0", -1.2, `<span class="ph">Help needed</span><span class="pb">${urgent().length} ${urgent().length === 1 ? "company needs" : "companies need"} a creative this month</span>${urgent().slice(0, 2).map((b) => `<span class="pli">${esc(b.t)}</span>`).join("")}`)}
+        ${card("bounties", "g-bounty t1", 1, `<span class="ph">Bounty</span><span class="pb">${open.length} paid briefs on offer</span>${top ? `<span class="big">${money(top.fee)}</span><span class="pb sm">top bounty: ${esc(top.t)}</span>` : ""}<span class="pgo">Claim a bounty</span>`)}
+        ${card("warnings", "g-warn t2", -2.2, `<span class="ph">Warning!</span><span class="pb">${deadlines().length} deadlines ahead</span>${dl ? `<span class="pb"><b>${esc(dl.t)}</b></span><span class="pb sm">${daysTo(dl.due) >= 0 ? "due in " + daysTo(dl.due) + " days" : "overdue"}</span>` : ""}`)}
+        ${card("notices", "g-attn t0", 1.2, `<span class="ph">Attention</span><span class="pb">${unread.length ? unread.length + (unread.length === 1 ? " new notice" : " new notices") + " from Seaport" : "No new notices"}</span>${(unread[0] || S.news[0]) ? `<span class="pli">${esc((unread[0] || S.news[0]).t)}</span>` : ""}`)}
+      </div></div>`; },
 
-    briefs: () => { const f = UI.qf || "all", discs = [...new Set(S.board.map((b) => b.d))];
+    bounties: () => { const f = UI.qf || "all", discs = [...new Set(S.board.map((b) => b.d))], passed = S.board.filter((b) => b.st === "passed").length;
       const list = S.board.filter((b) => b.st !== "passed" && (f === "all" || (f === "best" ? b.match >= 80 : f === "applied" ? b.st === "applied" : b.d === f)) && hit(b.t, b.who, DISC[b.d].label, b.lic));
-      const passed = S.board.filter((b) => b.st === "passed").length;
-      return head("Quest board", "Briefs from companies, matched to your work. Take one and it moves to your request board.", passed ? `<button type="button" class="btn outline-dark" data-act="unpass">Show ${passed} passed</button>` : "") +
-        chips("qf", [["all", "All"], ["best", "Best matches"], ["applied", "Applied"], ...discs.map((d) => [d, DISC[d].label])]) +
-        `<div class="qwrap ornate"><div class="qboard"><div class="qsign"><span>Quest board</span></div><div class="qplanks">${list.map((b, i) => note(b, i, "quest")).join("") || `<p class="qempty">No briefs pinned here. Try another tag.</p>`}</div></div></div>`; },
+      return page("bounties", list.map((b, i) => pst("bounties", i, "quest", b.id, "Bounty", briefBody(b), b.st === "applied" ? `<span class="stamp applied">Applied</span>` : "")).join("") || none("No bounties with this tag."),
+        `<div class="nbtools">${chips("qf", [["all", "All"], ["best", "Best matches"], ["applied", "Applied"], ...discs.map((d) => [d, DISC[d].label])])}${passed ? `<button type="button" class="linkbtn" data-act="unpass">Show ${passed} passed</button>` : ""}</div>`); },
 
-    work: () => { const cols = ["applied", "prog", "rev", "done"];
-      return head("My work", "Your request board: every job you've taken, from application to delivery.", `<a class="btn outline-dark" href="#briefs"><i data-lucide="clipboard-list"></i>Find more briefs</a>`) +
-        `<div class="qwrap hanging"><div class="qboard"><div class="qsign"><span>Request board</span></div><div class="qplanks qcols">${cols.map((k) => { const l = S.work.filter((w) => w.st === k && hit(w.t, w.who));
-          return `<div class="qcol"><h3>${WST[k]} <span>${l.length}</span></h3>${l.map((w, i) => note(w, i + cols.indexOf(k), "work")).join("") || `<p class="qempty">Nothing here</p>`}</div>`; }).join("")}</div></div></div>`; },
+    help: () => page("help", urgent().filter((b) => hit(b.t, b.who)).map((b, i) => pst("help", i, "quest", b.id, "Help needed", briefBody(b), `<span class="pb sm red">${daysTo(b.due)} days left</span>`)).join("") || none("No urgent briefs right now.")),
 
-    frameworks: () => { const list = S.fw.filter((f) => hit(f.title, DISC[f.d].label));
-      return head("Frameworks", "Small ideas, packaged so many companies can license them. You keep the IP and earn a royalty on every licence.", `<a class="btn primary" href="#frameworks/new"><i data-lucide="upload"></i>Submit a framework</a>`) +
-        `<div class="qwrap post"><div class="qboard"><div class="qsign arrow"><span>Framework board</span></div><div class="qplanks posters">${list.map((f, i) => `<button type="button" class="poster" style="--r:${tilt(i + 3)}deg" data-act="fw" data-arg="${f.id}"><span class="pin" aria-hidden="true"></span>${coverHTML(fwObj(f), "")}
-          <b>${esc(f.title)}</b><span class="terms">${f.lic} licences · ${money(f.earned)} earned</span><span class="stamp ${f.st}">${{ live: "Live", review: "In review", paused: "Paused" }[f.st]}</span></button>`).join("") || `<p class="qempty">No frameworks match.</p>`}</div></div></div>`; },
+    contracts: () => { const order = { applied: 0, prog: 1, rev: 2, done: 3 };
+      return page("contracts", [...S.work].sort((a, b) => order[a.st] - order[b.st]).filter((w) => hit(w.t, w.who)).map((w, i) => { const d = w.tasks.filter((t) => t[1]).length;
+        return pst("contracts", i, "work", w.id, "Call to arms", `<span class="pk">${WST[w.st]}</span><b class="pt">${esc(w.t)}</b><span class="pb">${esc(w.who)}</span><span class="pbar"><i style="width:${Math.round((d / w.tasks.length) * 100)}%"></i></span><span class="pb sm">${d} of ${w.tasks.length} steps · due ${day(w.due)}</span>`,
+          w.st === "prog" ? "" : `<span class="stamp ${w.st}">${WST[w.st]}</span>`); }).join("") || none("No jobs yet. Claim a bounty to start one.")); },
 
-    royalties: () => { const rows = royRows(), roy = [1200, 1450, 1300, 1900, 1750, 2300, 2050, 2600, 2400];
-      return head("Royalties", "What your frameworks and licensed work have earned. You receive 50% of every licence fee.", "") +
-        `<div class="kpis three">${kpi("#royalties", "coins", "This year", money(roy.reduce((a, b) => a + b, 0)), "Jan to Sep")}${kpi("#frameworks", "scroll-text", "Licences sold", S.fw.reduce((a, f) => a + f.lic, 0), "all frameworks")}${kpi("#payouts", "wallet", "Next payout", money(S.payouts[0].roy + S.payouts[0].fees), day(S.payouts[0].date))}</div>
-        <div class="dgrid2 even"><section class="dcard"><div class="dch"><h2>By month</h2></div>${bars(roy, MONTHS, money, "gold")}</section>
-        <section class="dcard ledger"><div class="dch"><h2>Ledger by framework</h2></div><table class="dtable"><thead><tr><th>Framework</th><th class="r">Licences</th><th class="r">Licence fees</th><th class="r">Your 50%</th></tr></thead><tbody>${rows.map(({ f, gross }) => row("fw", f.id, `<td><b>${esc(f.title)}</b></td><td class="r">${f.lic}</td><td class="r muted">${money(gross)}</td><td class="r"><b>${money(f.earned)}</b></td>`)).join("")}</tbody>
-        <tfoot><tr class="tot"><td>Total</td><td class="r">${rows.reduce((a, r) => a + r.f.lic, 0)}</td><td class="r">${money(rows.reduce((a, r) => a + r.gross, 0))}</td><td class="r">${money(rows.reduce((a, r) => a + r.f.earned, 0))}</td></tr></tfoot></table>
-        <p class="fine">Sample split, modelled on marketplaces that pay authors half of each sale. Your real rate is in your agreement with Seaport.</p></section></div>`; },
+    warnings: () => page("warnings", deadlines().filter((w) => hit(w.t, w.who)).map((w, i) => { const n = daysTo(w.due);
+      return pst("warnings", i, "work", w.id, "Warning!", `<b class="pt">${esc(w.t)}</b><span class="pb">${esc(w.who)}</span><span class="big sm">${n < 0 ? "Overdue" : n + " days"}</span><span class="pb sm">${w.st === "rev" ? "Delivered, waiting on the client" : "until the deadline on " + day(w.due)}</span>`); }).join("") || none("No deadlines ahead. Well done.")),
 
-    payouts: () => head("Payouts", "Royalties and project fees, paid to you on a schedule you choose.", "") +
-      `<div class="dgrid2"><section class="dcard ledger"><div class="dch"><h2>Payout ledger</h2></div>${poTable(S.payouts.filter((p) => hit(p.id)))}</section>
-      <section class="dcard"><div class="dch"><h2>How you're paid</h2></div><form class="mform one" id="poForm">
-      <label>Method<select name="method">${["Bank transfer (SGD)", "PayNow", "Wise (multi-currency)", "PayPal"].map((m) => `<option ${m === S.method ? "selected" : ""}>${m}</option>`).join("")}</select></label>
-      <label>Schedule<select name="sched">${["Monthly", "Quarterly"].map((m) => `<option ${m === S.sched ? "selected" : ""}>${m}</option>`).join("")}</select></label>
-      <label>Currency<select name="ccy">${["SGD", "USD", "EUR", "JPY", "MYR"].map((m) => `<option ${m === S.ccy ? "selected" : ""}>${m}</option>`).join("")}</select></label>
-      <p class="fine">Account details are added in a secure form once real accounts open. None are collected in this preview.</p>
-      <div class="mact"><button class="btn primary">Save</button></div></form></section></div>`,
+    rewards: () => { const roy = [1200, 1450, 1300, 1900, 1750, 2300, 2050, 2600, 2400];
+      return page("rewards", S.fw.filter((f) => hit(f.title)).map((f, i) => pst("rewards", i, "fw", f.id, "Reward", `<b class="pt">${esc(f.title)}</b><span class="big">${money(f.earned)}</span><span class="pb sm">${f.lic} licences · ${money(f.earned * 2)} in licence fees, half to you</span>`, `<span class="seal red sm" aria-hidden="true"></span>`)).join(""),
+        `<div class="sheet wide"><span class="nail" aria-hidden="true"></span><div class="shead"><h2>Ledger of rewards</h2><span>${money(roy.reduce((a, b) => a + b, 0))} this year</span></div>${bars(roy, MONTHS, money, "gold")}<p class="fine">Sample split, modelled on marketplaces that pay authors half of each sale. Your real rate is in your agreement with Seaport.</p></div>`); },
 
-    profile: () => head("Profile", "How companies see you when Seaport shortlists you for a brief.", "") +
-      `<div class="profgrid"><div class="wanted" id="wanted">${wantedHTML()}</div>
-      <section class="dcard"><div class="dch"><h2>Edit profile</h2></div><form class="mform" id="profForm">
+    decree: () => page("decree", S.lics.filter((l) => hit(l.id, l.who, l.type)).map((l, i) => { const f = S.fw.find((x) => x.id === l.fw);
+      return pst("decree", i, "clic", l.id, "Licence granted", `<span class="pk">${l.id} · ${esc(l.type)}</span><b class="pt">${esc(f ? f.title : "")}</b><span class="pb">to ${esc(l.who.replace(/^A /, "a ").replace(/^An /, "an "))}</span><span class="pb sm">${esc(l.scope)}</span><span class="pb sm">until ${day(l.end)}</span>`, `<span class="seal red sm" aria-hidden="true"></span>`); }).join(""),
+      `<div class="sheet decree"><span class="nail" aria-hidden="true"></span><h2>By order of your agreement</h2><ol><li>You own the copyright in everything you make. It is never transferred to Seaport or to any company.</li><li>You grant Seaport the exclusive right to license your work, in a written agreement you both sign.</li><li>Seaport licenses your work to companies, and records every licence here.</li><li>You receive 50% of every licence fee, paid on your chosen schedule.</li></ol><span class="seal red" aria-hidden="true"></span></div>`),
+
+    notices: () => page("notices", S.news.filter((n) => hit(n.t, n.body)).map((n, i) => pst("notices", i, "news", n.id, "Attention", `<span class="pk">${day(n.d)}</span><b class="pt">${esc(n.t)}</b><span class="pb sm">${esc(n.body.slice(0, 90))}${n.body.length > 90 ? "..." : ""}</span>`, n.read ? "" : `<span class="stamp open">New</span>`)).join("")),
+
+    fortune: () => { const next = S.payouts.find((p) => p.st === "sched");
+      return page("fortune", S.payouts.filter((p) => hit(p.id)).map((p, i) => pst("fortune", i, "po", p.id, p.st === "paid" ? "Paid" : "Foretold", `<span class="pk">${p.id}</span><span class="big sm">${money(p.roy + p.fees)}</span><span class="pb sm">${day(p.date)}</span><span class="pb sm">${money(p.roy)} royalties · ${money(p.fees)} fees</span>`)).join(""),
+        `<div class="sheet wide"><span class="nail" aria-hidden="true"></span><div class="fsplit"><div><h2>The cards foretell</h2><p>${next ? `Your next payout of <b>${money(next.roy + next.fees)}</b> arrives on <b>${day(next.date)}</b>, by ${esc(S.method)}.` : "No payout is scheduled yet."}</p></div>
+        <form class="mform" id="poForm"><label>Method<select name="method">${["Bank transfer (SGD)", "PayNow", "Wise (multi-currency)", "PayPal"].map((m) => `<option ${m === S.method ? "selected" : ""}>${m}</option>`).join("")}</select></label>
+        <label>Schedule<select name="sched">${["Monthly", "Quarterly"].map((m) => `<option ${m === S.sched ? "selected" : ""}>${m}</option>`).join("")}</select></label>
+        <label>Currency<select name="ccy">${["SGD", "USD", "EUR", "JPY", "MYR"].map((m) => `<option ${m === S.ccy ? "selected" : ""}>${m}</option>`).join("")}</select></label>
+        <div class="mact"><button class="btn primary">Save</button></div><p class="fine full">Account details are added in a secure form once real accounts open. None are collected in this preview.</p></form></div></div>`); },
+
+    trade: () => page("trade", S.fw.filter((f) => hit(f.title, DISC[f.d].label)).map((f, i) => pst("trade", i, "fw", f.id, "For trade", `${coverHTML(fwObj(f), "")}<b class="pt">${esc(f.title)}</b><span class="pb sm">From ${money(f.std)} · ${f.lic} licences sold</span>`,
+      `<span class="stamp ${f.st}">${{ live: "Live", review: "In review", paused: "Paused" }[f.st]}</span>`)).join("") +
+      `<button type="button" class="pst p-new t1" style="--r:1deg" data-act="newfw"><span class="nail" aria-hidden="true"></span><span class="ph">Post a new ware</span><span class="pb">Package a small idea as a framework. You keep the IP.</span><span class="pgo">Submit a framework</span></button>`),
+
+    wanted: () => page("wanted", `<div class="wanted" id="wanted">${wantedHTML()}</div>
+      <div class="sheet"><span class="nail" aria-hidden="true"></span><h2>Edit your poster</h2><form class="mform" id="profForm">
       <label class="full">Name or studio<input name="me" value="${esc(S.me)}" maxlength="60" required></label>
       <label>Main discipline<select name="disc">${Object.entries(DISC).map(([k, v]) => `<option value="${k}" ${k === S.disc ? "selected" : ""}>${v.label}</option>`).join("")}</select></label>
       <label>Based in<input name="country" value="${esc(S.country)}" maxlength="40"></label>
@@ -365,7 +410,7 @@ if ($("dash")) {
       <label class="chkrow"><input type="checkbox" name="avail" ${S.avail ? "checked" : ""}>Available for new briefs</label>
       <label class="full">Skills (comma separated)<input name="skills" value="${esc(S.skills)}" maxlength="160"></label>
       <label class="full">Short bio<textarea name="bio" rows="3" maxlength="300">${esc(S.bio)}</textarea></label>
-      <div class="mact full"><button type="button" class="btn outline-dark sm" data-act="reset">Reset sample data</button><button class="btn primary">Save profile</button></div></form></section></div>`,
+      <div class="mact full"><button type="button" class="btn outline-dark sm" data-act="reset">Reset sample data</button><button class="btn primary">Save poster</button></div></form></div>`),
   };
   function poTable(list) { return `<table class="dtable"><thead><tr><th>Payout</th><th>Date</th><th class="r">Amount</th><th>Status</th></tr></thead><tbody>${list.map((p) =>
     row("po", p.id, `<td><b>${p.id}</b><small>Royalties and project fees</small></td><td class="muted">${day(p.date)}</td><td class="r"><b>${money(p.roy + p.fees)}</b></td><td><span class="pill2 ${p.st === "paid" ? "ok" : "warn"}">${p.st === "paid" ? "Paid" : "Scheduled"}</span></td>`)).join("")}</tbody></table>`; }
@@ -381,8 +426,15 @@ if ($("dash")) {
           : `<div class="mact"><button type="button" class="btn outline-dark" data-act="pass" data-arg="${b.id}">Not for me</button><button type="button" class="btn primary" data-act="take" data-arg="${b.id}"><i data-lucide="hand"></i>Take this brief</button></div>`), mcls); },
     take: (id) => { const b = S.board.find((x) => x.id === id); b.st = "applied";
       S.work.unshift({ id: "W-" + id.slice(2), from: id, t: b.t, d: b.d, who: b.who, fee: b.fee, due: b.due, st: "applied", tasks: [["Application sent", 1], ["Shortlisted", 0], ["Agreement signed", 0]] });
-      save(); render(); crActs.quest(id); toast("Brief taken. It's pinned on your request board."); },
+      save(); render(); crActs.quest(id); toast("Bounty claimed. It's pinned on your Call to arms."); },
     withdraw: (id) => { const b = S.board.find((x) => x.id === id); b.st = "open"; S.work = S.work.filter((w) => w.from !== id); save(); render(); crActs.quest(id); toast("Application withdrawn"); },
+    clic: (id) => { const l = S.lics.find((x) => x.id === id); if (!l) return; const f = S.fw.find((x) => x.id === l.fw);
+      modal(`<span class="pin" aria-hidden="true"></span><span class="kicker">Licence granted</span><h2 id="mTitle">${l.id}</h2><p class="sub">${esc(f ? f.title : "")}</p>` +
+        meta([["IP owner", esc(S.me) + " (you)"], ["Licensee", esc(l.who)], ["Licence type", esc(l.type)], ["Scope", esc(l.scope)], ["Term", `${day(l.start)} to ${day(l.end)}`], ["Licence fee", money(l.fee)], ["Your 50%", money(l.fee / 2)], ["Granted by", "Seaport"], ["Register", "Recorded"]]) +
+        `<div class="mact"><button type="button" class="btn outline-dark" data-act="print"><i data-lucide="printer"></i>Print record</button></div>`, mcls); },
+    news: (id) => { const n = S.news.find((x) => x.id === id); if (!n) return; n.read = true; save(); render();
+      modal(`<span class="pin" aria-hidden="true"></span><span class="kicker">From Seaport · ${day(n.d)}</span><h2 id="mTitle">${esc(n.t)}</h2><p>${esc(n.body)}</p>`, mcls); },
+    newfw: () => crForms.newfw(),
     pass: (id) => { S.board.find((x) => x.id === id).st = "passed"; save(); closeModal(); render(); toast("Brief taken off your board"); },
     unpass: () => { S.board.forEach((b) => { if (b.st === "passed") b.st = "open"; }); save(); render(); },
     work: (id) => { const w = S.work.find((x) => x.id === id); if (!w) return; const done = w.tasks.filter((t) => t[1]).length, pc = Math.round((done / w.tasks.length) * 100);
@@ -416,7 +468,7 @@ if ($("dash")) {
         if (!(std >= 200)) { $("mErr").textContent = "The lowest standard price is S$200."; f.std.focus(); return; }
         if (!f.i1.value.trim()) { $("mErr").textContent = "List at least one thing that's included."; f.i1.focus(); return; }
         S.fw.push({ id: Math.max(...S.fw.map((x) => x.id)) + 1, title: t, d: f.d.value, std, lic: 0, earned: 0, st: "review", incl: [f.i1.value.trim(), f.i2.value.trim()].filter(Boolean) });
-        save(); closeModal(); if (cur === "frameworks") render(); else location.hash = "frameworks"; toast("Submitted. It's pinned on your framework board as In review."); }; },
+        save(); closeModal(); if (cur === "trade") render(); else location.hash = "trade"; toast("Submitted. It's pinned on your For trade notice as In review."); }; },
   };
 
   /* ----- wiring ----- */
@@ -427,9 +479,10 @@ if ($("dash")) {
     share: (i, el) => { S.brand.files[+i].sh = el.checked; save(); render(); toast(el.checked ? "Shared with creatives" : "Hidden from creatives"); },
     reset: () => { if (!confirm("Reset all sample data in this preview?")) return; try { localStorage.removeItem(KEY); } catch (e) {} S = role === "company" ? coSeed() : crSeed(); render(); setMe(); toast("Sample data reset"); },
   });
-  const OPEN = role === "company" ? { briefs: "brief", licences: "lic", invoices: "inv" } : { briefs: "quest", work: "work", frameworks: "fw", payouts: "po" };
-  const NEW = role === "company" ? { briefs: coForms.newbrief } : { frameworks: crForms.newfw };
-  const TITLE = { overview: "Overview", briefs: role === "company" ? "Briefs" : "Quest board", creatives: "Creatives", licences: "Licences", invoices: "Invoices", brand: "Brand hub", settings: "Settings", work: "My work", frameworks: "Frameworks", royalties: "Royalties", payouts: "Payouts", profile: "Profile" };
+  const OPEN = role === "company" ? { briefs: "brief", licences: "lic", invoices: "inv" } : { bounties: "quest", help: "quest", contracts: "work", warnings: "work", trade: "fw", rewards: "fw", fortune: "po", decree: "clic", notices: "news" };
+  const NEW = role === "company" ? { briefs: coForms.newbrief } : { trade: crForms.newfw };
+  const HOME = role === "company" ? "overview" : "board";
+  const TITLE = role === "creative" ? Object.assign({ board: "Notice board" }, ...Object.entries(CAT).map(([k, v]) => ({ [k]: v[0] }))) : { overview: "Overview", briefs: role === "company" ? "Briefs" : "Quest board", creatives: "Creatives", licences: "Licences", invoices: "Invoices", brand: "Brand hub", settings: "Settings", work: "My work", frameworks: "Frameworks", royalties: "Royalties", payouts: "Payouts", profile: "Profile" };
 
   function bindForms() {
     if ($("bhFile")) $("bhFile").onchange = (e) => { const f = e.target.files[0]; if (!f) return; const kb = f.size / 1024;
@@ -444,17 +497,18 @@ if ($("dash")) {
   function render() { main.innerHTML = V[cur](); icons(); grow(); bindForms(); }
   function route() {
     const [v, sub] = decodeURIComponent(location.hash.slice(1) || "overview").split("/");
-    const nv = V[v] ? v : "overview", changed = nv !== cur; cur = nv;
+    const nv = V[v] ? v : HOME, changed = nv !== cur; cur = nv;
     closeNotes(); if (changed && q && !document.activeElement.matches("#dq")) { q = ""; $("dq").value = ""; }
     document.querySelectorAll(".dside nav a").forEach((a) => { const on = a.dataset.view === cur; a.classList.toggle("on", on); if (on) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
     document.title = `${TITLE[cur]} | Seaport`;
+    if ($("crumb")) $("crumb").textContent = cur === HOME ? "" : TITLE[cur];
     closeModal(); render(); if (changed) { window.scrollTo(0, 0); main.focus({ preventScroll: true }); }
     if (sub) { history.replaceState(null, "", "#" + cur); if (sub === "new" && NEW[cur]) NEW[cur](); else if (OPEN[cur]) A[OPEN[cur]](sub); }
   }
   function setMe() {
     if (role === "company") { $("meAv").textContent = S.me.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase(); $("meName").textContent = S.me; $("meOrg").textContent = S.org; }
     else { $("meAv").innerHTML = portraitSVG(1, S.disc); $("meName").textContent = S.me; $("meOrg").textContent = `${DISC[S.disc].label} · ${S.country}`; }
-    if (cur === "overview") render();
+    if (cur === HOME) render();
   }
 
   // clicks, keyboard and changes on anything with data-act (views and modals)
@@ -469,12 +523,12 @@ if ($("dash")) {
 
   // search filters the list on the current view
   $("dq").addEventListener("input", (e) => { q = e.target.value.trim().toLowerCase();
-    if (q && ["overview", "settings", "profile", "royalties"].includes(cur)) { location.hash = role === "company" ? "briefs" : "briefs"; return; } render(); });
+    if (q && (role === "company" ? ["overview", "settings"] : ["board", "rewards", "wanted", "fortune"]).includes(cur)) { location.hash = role === "company" ? "briefs" : "bounties"; return; } render(); });
 
   // notifications
   const NOTES = role === "company"
     ? [["inbox", "Harbour Sound Co. delivered the sonic logo", "#briefs/BR-112", "2h"], ["refresh-cw", "LX-2029 renews in 21 days", "#licences/LX-2029", "1d"], ["receipt", "Invoice INV-0932 issued", "#invoices/INV-0932", "2d"]]
-    : [["scroll", "New brief pinned: Adapt a festive campaign kit (96% match)", "#briefs/Q-301", "1h"], ["coins", "S$450 royalty from licence LX-2041", "#royalties", "1d"], ["wallet", "Payout PO-2209 scheduled for 30 Sep", "#payouts/PO-2209", "3d"]];
+    : [["scroll", "New bounty posted: Adapt a festive campaign kit (96% match)", "#bounties/Q-301", "1h"], ["coins", "S$450 royalty from licence LX-2041", "#decree/LX-2041", "1d"], ["wallet", "Payout PO-2209 foretold for 30 Sep", "#fortune/PO-2209", "3d"]];
   function closeNotes() { const p = $("npanel"); if (p) { p.remove(); $("bell").setAttribute("aria-expanded", "false"); } }
   $("bell").addEventListener("click", (e) => { e.stopPropagation(); if ($("npanel")) return closeNotes();
     const p = document.createElement("div"); p.className = "npanel"; p.id = "npanel";
@@ -485,7 +539,7 @@ if ($("dash")) {
 
   $("logout").addEventListener("click", () => { try { sessionStorage.removeItem("seaport-user"); } catch (e) {} });
 
-  S = load() || (role === "company" ? coSeed() : crSeed());
+  S = Object.assign(role === "company" ? coSeed() : crSeed(), load() || {});
   if (nice) S.me = nice; // greet whoever signed in this session
   $("dq").value = ""; // browsers can restore an old search on reload
   if (S.read) $("bell").querySelector(".dot")?.remove();
