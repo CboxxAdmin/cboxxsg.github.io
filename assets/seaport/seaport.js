@@ -496,3 +496,35 @@ document.querySelectorAll("[data-set-theme]").forEach((b) => b.addEventListener(
 }));
 syncThemeButtons();
 
+
+/* ---------- "Talk to our team": choose general information, joining as a creative, or hiring ---------- */
+const CHOICES = [
+  ["seaport-contact.html", "General information", "Questions about Seaport, partnerships or press.", "info@getseaport.com", "photo-1758518731706-be5d5230e5a5", "Vitaly Gariev"],
+  ["seaport-join-creative.html", "Join as a creative", "Studios and independents: apply to the network.", "team@getseaport.com", "photo-1767330855351-480010c6c194", "Samiul Haque Bhuyan"],
+  ["seaport-join-company.html", "Set up for hiring", "Companies: open an account and post your first brief.", "sales@getseaport.com", "photo-1758518729685-f88df7890776", "Vitaly Gariev"],
+];
+let chooserFrom = null;
+function closeChooser() { const c = $("chooser"); if (!c) return; c.remove(); document.body.style.overflow = ""; if (chooserFrom) chooserFrom.focus(); }
+function openChooser(from) {
+  chooserFrom = from;
+  const c = document.createElement("div"); c.id = "chooser"; c.className = "chooser";
+  c.innerHTML = `<div class="chbox" role="dialog" aria-modal="true" aria-labelledby="chTitle"><button type="button" class="chx" aria-label="Close"><i data-lucide="x"></i></button>
+    <h2 id="chTitle">How can we help?</h2><p class="sub">Pick the one that fits and we'll take you to the right team.</p>
+    <div class="chgrid">${CHOICES.map(([href, t, d, mail, img, by]) => `<a class="chcard" href="${href}" style="--img:url('https://images.unsplash.com/${img}?auto=format&fit=crop&w=900&q=70')">
+      <span class="chtxt"><b>${t}</b><span>${d}</span><small>${mail}</small></span><span class="go"><i data-lucide="arrow-up-right"></i></span><span class="pc">Photo: ${by} / Unsplash</span></a>`).join("")}</div></div>`;
+  document.body.appendChild(c); document.body.style.overflow = "hidden"; icons();
+  c.addEventListener("mousedown", (e) => { if (e.target === c) closeChooser(); });
+  c.querySelector(".chx").onclick = closeChooser;
+  c.querySelector(".chcard").focus();
+}
+document.addEventListener("click", (e) => {
+  const a = e.target.closest('.nav a.btn.white[href="seaport-contact.html"]');
+  if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
+  e.preventDefault(); openChooser(a);
+});
+document.addEventListener("keydown", (e) => {
+  const c = $("chooser"); if (!c) return;
+  if (e.key === "Escape") closeChooser();
+  if (e.key === "Tab") { const f = [...c.querySelectorAll("a, button")], i = f.indexOf(document.activeElement);
+    if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); } else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); } }
+});
