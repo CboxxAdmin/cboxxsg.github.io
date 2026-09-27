@@ -785,3 +785,23 @@
   .brmore svg { width: 15px; height: 15px; }
   html[data-theme="dark"] .brmore { border-color: rgba(255,255,255,0.1); }
   @media (max-width: 700px) { .brlist .bmeta .terms { display: none; } }
+
+  /* sign-up pages */
+  .phero .eyebrow { display: inline-block; margin-bottom: 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; }
+  html[data-theme] .phero.dark:not(.photo-bg) { background: #0B0B0D; color: #FFFFFF; border-bottom: none; }
+  html[data-theme] .phero.warmhero { background: #EFE3D1; color: var(--ink); border-bottom: none; }
+  .warmhero h1 { font-family: var(--serif); font-style: italic; font-weight: 600; letter-spacing: -0.01em; }
+  .warmhero .sub { color: #5E554A; }
+  html[data-theme="dark"] .phero.warmhero { background: #231E18; color: #EDEDF0; }
+  html[data-theme="dark"] .warmhero .sub { color: #BDB3A6; }
+  .signside h2 { font-size: 26px; margin: 0 0 22px; }
+  .nextsteps { list-style: none; margin: 0 0 28px; padding: 0; display: grid; gap: 20px; counter-reset: st; }
+  .nextsteps li { position: relative; padding-left: 52px; counter-increment: st; }
+  .nextsteps li::before { content: counter(st, decimal-leading-zero); position: absolute; left: 0; top: 0; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-family: var(--head); font-weight: 700; font-size: 13px; background: var(--grey); color: var(--accent); }
+  .nextsteps b { display: block; font-family: var(--head); font-size: 17px; }
+  .nextsteps span { display: block; margin-top: 3px; color: var(--muted); font-size: 15px; line-height: 1.5; }
+  html[data-theme="dark"] .nextsteps li::before { background: #232327; }
+  form .check { display: flex !important; align-items: flex-start; gap: 10px; font-weight: 400 !important; line-height: 1.45; }
+  form .check input { width: 18px; height: 18px; margin-top: 1px; accent-color: var(--accent); flex-shrink: 0; }
+  form .send .fine a { color: var(--accent); }
+  html[data-theme] .phero.dark:not(.photo-bg) .sub { color: #B4B4BC; }

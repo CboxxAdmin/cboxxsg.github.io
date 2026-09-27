@@ -32,15 +32,15 @@
 
 <section class="contact solo" id="contact" aria-label="Contact form">
   <div class="wrap">
-    <div><p class="sub" style="margin-top:0">Tell us what you need made or licensed. We'll reply with the right model, a shortlist and a draft statement of work.</p><p class="sub">Or email <a href="mailto:info@getseaport.com">info@getseaport.com</a>.</p></div>
-    <form id="form" novalidate>
+    <div><p class="sub" style="margin-top:0">Questions about Seaport? Tell us what you need made or licensed. We'll reply with the right model, a shortlist and a draft statement of work.</p><p class="sub">Or email <a href="mailto:info@getseaport.com">info@getseaport.com</a>.</p><p class="sub">Ready to start? <a href="seaport-join-company.html">Set up a company account</a> or <a href="seaport-join-creative.html">join as a creative</a>.</p></div>
+    <form id="form" data-mailto="info@getseaport.com" data-subject="Enquiry" novalidate>
       <label>Full name<input name="name" autocomplete="name" required></label>
       <label>Work email<input name="email" type="email" autocomplete="email" required></label>
       <label>Company<input name="company" autocomplete="organization" required></label>
       <label>I'm a<select name="role"><option>Company</option><option>Creative studio</option><option>Independent creative</option></select></label>
       <label class="full">Interested in<select name="need"><option>A commissioned project</option><option>A dedicated creative team</option><option>Licensing from the library</option><option>Not sure yet</option></select></label>
       <label class="full">Your brief (optional)<textarea name="brief"></textarea></label>
-      <div class="send"><button class="btn primary" type="submit">Send</button><span class="fine">Preview only: nothing is sent.</span></div>
+      <div class="send"><button class="btn primary" type="submit">Send</button><span class="fine" aria-live="polite">Opens your email app with this filled in, addressed to info@getseaport.com.</span></div>
     </form>
   </div>
 </section>
@@ -50,8 +50,8 @@
   <div class="wrap">
     <div class="cols">
       <div><a class="logo" href="marketplace.html"><img src="assets/seaport/logo.png" alt="">Seaport</a><p style="margin:0;max-width:32ch">The contract and licensing bridge between enterprise and the creative industries.</p></div>
-      <div><h4>Companies</h4><a href="seaport-solutions.html">Solutions</a><a href="seaport-library.html">Library</a><a href="seaport-licensing.html" hidden>Licensing</a></div>
-      <div><h4>Creatives</h4><a href="seaport-creatives.html">Join the network</a></div>
+      <div><h4>Companies</h4><a href="seaport-solutions.html">Solutions</a><a href="seaport-library.html">Library</a><a href="seaport-licensing.html" hidden>Licensing</a><a href="seaport-join-company.html">Company sign-up</a></div>
+      <div><h4>Creatives</h4><a href="seaport-join-creative.html">Join the network</a></div>
       <div><h4>Contact</h4><a href="seaport-contact.html">Talk to our team</a><a href="mailto:info@getseaport.com">info@getseaport.com</a></div>
       <div><h4>Seaport</h4><a href="marketplace.html">Home</a><a href="seaport-why.html">Why Seaport</a></div>
     </div>

@@ -9,10 +9,10 @@ const DASH_URL = { company: "seaport-dashboard-company.html", creative: "seaport
 if ($("loginForm")) {
   const ROLE = {
     company: { title: "Welcome back", sub: "Sign in to manage briefs, licences and invoices.", email: "you@company.com", label: "Work email",
-      alt: ["building-2", "Continue with company SSO"], foot: 'New to Seaport? <a href="seaport-contact.html">Talk to our team</a>',
+      alt: ["building-2", "Continue with company SSO"], foot: 'New to Seaport? <a href="seaport-join-company.html">Set up a company account</a>',
       img: "photo-1758518729685-f88df7890776", q: "One agreement for every creative you work with.", by: "Seaport for companies", credit: "Photo: Vitaly Gariev / Unsplash" },
     creative: { title: "Welcome back", sub: "Sign in to see your briefs, frameworks and royalties.", email: "you@studio.com", label: "Email",
-      alt: ["mail", "Email me a sign-in link"], foot: 'Not in the network yet? <a href="seaport-contact.html">Apply to join</a>',
+      alt: ["mail", "Email me a sign-in link"], foot: 'Not in the network yet? <a href="seaport-join-creative.html">Apply to join</a>',
       img: "photo-1767330855351-480010c6c194", q: "Keep your IP. Earn every time your work is licensed.", by: "Seaport for creatives", credit: "Photo: Samiul Haque Bhuyan / Unsplash" },
   };
   let role = SS.get("seaport-role") === "creative" ? "creative" : "company";

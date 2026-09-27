@@ -199,13 +199,21 @@ function buildCollage() {
   $("collage").innerHTML = CREATIVES.slice(0, 9).map((c) => `<div class="pc">${portraitSVG(c.id, c.d)}<span>${esc(c.name)}</span></div>`).join("");
 }
 
-/* ---------- contact (preview: nothing is sent) ---------- */
-if ($("form")) $("form").addEventListener("submit", (e) => {
+/* ---------- forms: a static site can't send mail, so each form opens the visitor's email app,
+   addressed to the right inbox (data-mailto) with every answer filled in. Nothing goes to a third party. */
+document.querySelectorAll("form[data-mailto]").forEach((f) => f.addEventListener("submit", (e) => {
   e.preventDefault();
-  const f = e.target; const bad = [...f.querySelectorAll("[required]")].find((x) => !x.value.trim() || (x.type === "email" && !x.checkValidity()));
-  if (bad) { bad.focus(); toast("Please add your name, a work email and your company."); return; }
-  f.reset(); toast("Thanks. On the live site this would reach the Seaport team.");
-});
+  const fields = [...f.elements].filter((x) => x.name);
+  const bad = fields.find((x) => x.required && (x.type === "checkbox" ? !x.checked : !x.value.trim() || !x.checkValidity()));
+  if (bad) { bad.focus(); toast(bad.type === "checkbox" ? "Please tick the box to confirm." : bad.type === "email" ? "Please add a valid email address." : bad.type === "url" ? "Please add a full link, starting with https://" : "Please fill in the required fields."); return; }
+  const label = (x) => [...x.closest("label").childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join(" ").trim();
+  const body = fields.filter((x) => x.type !== "checkbox" && x.value.trim()).map((x) => `${label(x)}: ${x.value.trim()}`)
+    .concat(fields.filter((x) => x.type === "checkbox" && x.checked).map((x) => `Confirmed: ${label(x)}`)).join("\n");
+  const who = (f.elements.namedItem("company") || f.elements.namedItem("name")).value.trim();
+  location.href = `mailto:${f.dataset.mailto}?subject=${encodeURIComponent(`${f.dataset.subject}: ${who}`)}&body=${encodeURIComponent(body + "\n\nSent from the form on getseaport.com")}`;
+  const note = f.querySelector(".send .fine");
+  if (note) note.innerHTML = `Your email app should now open with this message. Press send to finish. Nothing opened? Email <a href="mailto:${f.dataset.mailto}">${f.dataset.mailto}</a> directly.`;
+}));
 
 // Each page only has some of these sections; build whichever are present.
 
