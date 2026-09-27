@@ -414,25 +414,35 @@ if (document.querySelector(".seg")) {
 }
 
 
-/* ---------- Open briefs board (creatives page): pinned contract notices (sample data) ---------- */
-function buildBoard() {
+/* ---------- Open briefs (creatives page): filterable list of sample contracts ---------- */
+function buildBriefs() {
   const BRIEFS = [
-    ["film", "60-second brand film", "For a retail bank", "Licence: 2 markets, 24 months", "open", "Open"],
-    ["design", "Adapt a festive campaign kit", "For an FMCG group", "Extended licence, 3 brands", "short", "Shortlisting"],
-    ["sound", "Sonic logo", "For a transport operator", "Exclusive, 12 months", "open", "Open"],
-    ["illus", "ESG report infographics", "For an energy company", "Standard licence", "done", "Contracted"],
-    ["motion", "Onboarding animation series", "For an insurer", "Licence: global, 24 months", "open", "Open"],
-    ["words", "Keynote speech and script", "For a listed REIT", "Commissioned, full brief", "short", "Shortlisting"],
-    ["spatial", "Holiday store windows", "For a department store", "Licence: 4 markets, 6 months", "open", "Open"],
-    ["digital", "Product launch landing page", "For a logistics group", "Extended licence", "done", "Contracted"],
-    ["illus", "Mural for a head office lobby", "For a technology company", "Commissioned, exclusive", "open", "Open"],
+    ["film", "60-second brand film", "For a retail bank", "Licence: 2 markets, 24 months", "open"],
+    ["design", "Adapt a festive campaign kit", "For an FMCG group", "Extended licence, 3 brands", "short"],
+    ["sound", "Sonic logo", "For a transport operator", "Exclusive, 12 months", "open"],
+    ["illus", "ESG report infographics", "For an energy company", "Standard licence", "done"],
+    ["motion", "Onboarding animation series", "For an insurer", "Licence: global, 24 months", "open"],
+    ["words", "Keynote speech and script", "For a listed REIT", "Commissioned, full brief", "short"],
+    ["spatial", "Holiday store windows", "For a department store", "Licence: 4 markets, 6 months", "open"],
+    ["digital", "Product launch landing page", "For a logistics group", "Extended licence", "done"],
+    ["illus", "Mural for a head office lobby", "For a technology company", "Commissioned, exclusive", "open"],
   ];
-  const tilt = [-3, 2, -1.5, 2.5, -2, 1, -2.5, 1.5, -1];
-  $("board").innerHTML = BRIEFS.map(([d, t, who, terms, cls, st], i) => `<div class="note" style="--r:${tilt[i]}deg"><span class="pin" aria-hidden="true"></span>
-    <span class="dsc">${esc(DISC[d].label)}</span><b>${esc(t)}</b><span class="who">${esc(who)}</span>
-    <span class="terms">${esc(terms)}</span><span class="stamp ${cls}">${st}</span></div>`).join("");
+  const ICON = { film: "clapperboard", design: "palette", sound: "music", illus: "pen-tool", motion: "sparkles", words: "pen-line", spatial: "store", digital: "layout-template" };
+  const STATUS = { open: "Open", short: "Shortlisting", done: "Contracted" };
+  let f = "all";
+  const draw = () => {
+    const list = BRIEFS.filter((b) => f === "all" || b[4] === f);
+    $("brCount").textContent = `${list.length} of ${BRIEFS.length} briefs`;
+    $("brFilter").innerHTML = [["all", "All"], ["open", "Open"], ["short", "Shortlisting"], ["done", "Contracted"]].map(([k, t]) => `<button data-k="${k}" aria-pressed="${f === k}">${t}</button>`).join("");
+    $("brFilter").querySelectorAll("button").forEach((b) => b.onclick = () => { f = b.dataset.k; draw(); });
+    $("brList").innerHTML = list.map(([d, t, who, terms, st], i) => `<li style="animation-delay:${i * 35}ms"><span class="ic" style="background:${DISC[d].c[0]}"><i data-lucide="${ICON[d]}"></i></span>
+      <span><b>${esc(t)}</b><small>${esc(who)} · ${esc(DISC[d].label)}</small><span class="status ${st}">${STATUS[st]}</span></span>
+      <span class="terms">${esc(terms)}</span><a class="view" href="seaport-contact.html" aria-label="Ask about ${esc(t)}"><i data-lucide="arrow-right"></i></a></li>`).join("");
+    icons();
+  };
+  draw();
 }
-if ($("board")) buildBoard();
+if ($("brList")) buildBriefs();
 
 if ($("ltabs")) renderLife();
 if ($("fan")) {
