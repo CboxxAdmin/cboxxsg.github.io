@@ -397,7 +397,7 @@ if ($("dash")) {
         <label>Currency<select name="ccy">${["SGD", "USD", "EUR", "JPY", "MYR"].map((m) => `<option ${m === S.ccy ? "selected" : ""}>${m}</option>`).join("")}</select></label>
         <div class="mact"><button class="btn primary">Save</button></div><p class="fine full">Account details are added in a secure form once real accounts open. None are collected in this preview.</p></form></div></div>`); },
 
-    trade: () => page("trade", S.fw.filter((f) => hit(f.title, DISC[f.d].label)).map((f, i) => pst("trade", i, "fw", f.id, "For trade", `${coverHTML(fwObj(f), "")}<b class="pt">${esc(f.title)}</b><span class="pb sm">From ${money(f.std)} · ${f.lic} licences sold</span>`,
+    trade: () => page("trade", S.fw.filter((f) => hit(f.title, DISC[f.d].label)).map((f, i) => pst("trade", i, "fw", f.id, "For trade", `${fwCover(f)}<b class="pt">${esc(f.title)}</b><span class="pb sm">From ${money(f.std)} · ${f.lic} licences sold</span>`,
       `<span class="stamp ${f.st}">${{ live: "Live", review: "In review", paused: "Paused" }[f.st]}</span>`)).join("") +
       `<button type="button" class="pst p-new t1" style="--r:1deg" data-act="newfw"><span class="nail" aria-hidden="true"></span><span class="ph">Post a new ware</span><span class="pb">Package a small idea as a framework. You keep the IP.</span><span class="pgo">Submit a framework</span></button>`),
 
@@ -446,9 +446,10 @@ if ($("dash")) {
     task: (arg, el) => { const [id, i] = arg.split(":"), w = S.work.find((x) => x.id === id); w.tasks[+i][1] = el.checked ? 1 : 0; save(); render(); crActs.work(id); },
     deliver: (id) => { S.work.find((x) => x.id === id).st = "rev"; save(); render(); crActs.work(id); toast("Sent for review"); },
     fw: (id) => { const f = S.fw.find((x) => x.id === +id); if (!f) return;
-      modal(`<span class="pin" aria-hidden="true"></span><div class="fwhead">${coverHTML(fwObj(f), "")}<div><span class="kicker">${esc(DISC[f.d].label)}</span><h2 id="mTitle">${esc(f.title)}</h2></div></div>` +
+      modal(`<span class="pin" aria-hidden="true"></span><div class="fwhead">${fwCover(f)}<div><span class="kicker">${esc(DISC[f.d].label)}</span><h2 id="mTitle">${esc(f.title)}</h2></div></div>` +
         meta([["Standard licence", money(f.std)], ["Extended licence", money(f.std * 3)], ["Licences sold", f.lic], ["You've earned", money(f.earned)], ["IP owner", esc(S.me)], ["Status", { live: "Live", review: "In review", paused: "Paused" }[f.st]]]) +
         `<div class="msec"><h3>What's included</h3><ul class="incl">${f.incl.map((x) => `<li><i data-lucide="check"></i>${esc(x)}</li>`).join("")}</ul></div>` +
+        (f.files && f.files.length ? `<div class="msec"><h3>Files submitted · ${f.files.length}</h3><ul class="ufiles static">${f.files.map((x) => `<li class="uf ${x.k}"><span class="uprev"><i data-lucide="${fileIcon(x.n, x.k)}"></i></span><span class="uname" title="${esc(x.n)}">${esc(x.n)}</span><span class="usize">${size(x.s)}</span></li>`).join("")}</ul></div>` : "") +
         (f.st === "review" ? `<div class="note-in"><i data-lucide="hourglass"></i>Seaport is checking the files. Most frameworks go live within a week.</div>` : `<div class="mact"><button type="button" class="btn outline-dark" data-act="pause" data-arg="${f.id}">${f.st === "paused" ? "Resume new licences" : "Pause new licences"}</button></div>`), mcls); },
     pause: (id) => { const f = S.fw.find((x) => x.id === +id); f.st = f.st === "paused" ? "live" : "paused"; save(); render(); crActs.fw(id); toast(f.st === "paused" ? "Paused. Existing licences continue." : "Live again"); },
     po: (id) => { const p = S.payouts.find((x) => x.id === id); if (!p) return;
@@ -456,19 +457,91 @@ if ($("dash")) {
         <table class="dtable lines"><tbody><tr><td>Royalties (your 50% of licence fees)</td><td class="r">${money(p.roy)}</td></tr><tr><td>Project fees</td><td class="r">${money(p.fees)}</td></tr></tbody><tfoot><tr class="tot"><td>Paid to you</td><td class="r">${money(p.roy + p.fees)}</td></tr></tfoot></table>
         <div class="mact"><button type="button" class="btn outline-dark" data-act="print"><i data-lucide="printer"></i>Print or save as PDF</button></div>`, mcls); },
   };
+  /* ----- uploads for frameworks: photos, videos and files. In the preview nothing is uploaded; files are shown
+     from memory, and only a small cover picture plus each file's name, type and size are kept in this browser. ----- */
+  const MAX_FILES = 12, MAX_MB = 500;
+  const ACCEPT = "image/*,video/*,audio/*,.pdf,.zip,.rar,.7z,.psd,.ai,.eps,.svg,.indd,.fig,.sketch,.xd,.aep,.prproj,.docx,.pptx,.key,.xlsx,.ttf,.otf";
+  const kindOf = (file) => file.type.startsWith("image/") ? "image" : file.type.startsWith("video/") ? "video" : file.type.startsWith("audio/") ? "audio" : "file";
+  const FILE_ICON = { image: "image", video: "film", audio: "music", file: "file" };
+  const EXT_ICON = { pdf: "file-text", zip: "file-archive", rar: "file-archive", "7z": "file-archive", psd: "layers", ai: "pen-tool", eps: "pen-tool", svg: "pen-tool", fig: "figma", sketch: "gem", xd: "layout-template", indd: "book-open", aep: "sparkles", prproj: "clapperboard", docx: "file-text", pptx: "presentation", key: "presentation", xlsx: "sheet", ttf: "type", otf: "type" };
+  const fileIcon = (name, kind) => (kind === "file" && EXT_ICON[(name.split(".").pop() || "").toLowerCase()]) || FILE_ICON[kind];
+  const size = (b) => b >= 1e9 ? (b / 1e9).toFixed(1) + " GB" : b >= 1e6 ? (b / 1e6).toFixed(1) + " MB" : Math.max(1, Math.round(b / 1e3)) + " KB";
+  // A small JPEG for the framework's cover: from a photo, or from a frame of a video.
+  const thumb = (entry) => new Promise((done) => {
+    const draw = (src, w, h) => { const c = document.createElement("canvas"), r = Math.min(1, 640 / w); c.width = Math.round(w * r); c.height = Math.round(h * r);
+      try { c.getContext("2d").drawImage(src, 0, 0, c.width, c.height); done(c.toDataURL("image/jpeg", 0.72)); } catch (e) { done(null); } };
+    const quit = setTimeout(() => done(null), 4000);
+    if (entry.kind === "image") { const im = new Image(); im.onload = () => { clearTimeout(quit); draw(im, im.naturalWidth, im.naturalHeight); }; im.onerror = () => { clearTimeout(quit); done(null); }; im.src = entry.url; }
+    else if (entry.kind === "video") { const v = document.createElement("video"); v.muted = true; v.preload = "auto"; v.playsInline = true;
+      v.onloadeddata = () => { v.currentTime = Math.min(1, (v.duration || 2) / 2); };
+      v.onseeked = () => { clearTimeout(quit); draw(v, v.videoWidth, v.videoHeight); }; v.onerror = () => { clearTimeout(quit); done(null); }; v.src = entry.url; }
+    else { clearTimeout(quit); done(null); }
+  });
+  const fwCover = (f) => f.cover ? `<div class="cv ucv"><img src="${f.cover}" alt=""></div>` : coverHTML(fwObj(f), "");
+
   const crForms = {
-    newfw: () => { modal(`<span class="pin" aria-hidden="true"></span><h2 id="mTitle">Submit a framework</h2><p class="sub">A small idea, packaged so companies can adapt it. You keep the IP; Seaport licenses it and pays you 50% of every fee.</p>
+    newfw: () => {
+      let files = [], coverIx = -1;
+      modal(`<span class="pin" aria-hidden="true"></span><h2 id="mTitle">Submit a framework</h2><p class="sub">A small idea, packaged so companies can adapt it. You keep the IP; Seaport licenses it and pays you 50% of every fee.</p>
       <form class="mform" id="fwForm" novalidate><label class="full">Title<input name="t" maxlength="70" placeholder="e.g. Retail promo poster system" required></label>
       <label>Discipline<select name="d">${Object.entries(DISC).map(([k, v]) => `<option value="${k}" ${k === S.disc ? "selected" : ""}>${v.label}</option>`).join("")}</select></label>
       <label>Standard licence price (S$)<input name="std" type="number" min="200" step="50" value="900" required></label>
+      <div class="full upl"><span class="ulab" id="uplLab">Photos, videos and files</span>
+        <div class="drop" id="fwDrop" role="button" tabindex="0" aria-labelledby="uplLab" aria-describedby="uplHint">
+          <input type="file" id="fwFiles" multiple accept="${ACCEPT}" hidden>
+          <span class="dicons" aria-hidden="true"><i data-lucide="image"></i><i data-lucide="film"></i><i data-lucide="file-archive"></i></span>
+          <b>Drop your work here, or <u>browse</u></b>
+          <span id="uplHint">Photos, videos, audio, PDFs, design and source files · up to ${MAX_FILES} files, ${MAX_MB} MB each</span>
+        </div>
+        <ul class="ufiles" id="fwList" aria-live="polite"></ul></div>
       <label class="full">What's included<input name="i1" maxlength="80" placeholder="e.g. 12 layered poster templates" required></label><label class="full"><input name="i2" maxlength="80" placeholder="Another item (optional)" aria-label="Another included item"></label>
-      <p class="err full" id="mErr" role="alert"></p><div class="mact full"><button type="button" class="btn outline-dark" data-act="close">Cancel</button><button class="btn primary">Submit for review</button></div></form>`, mcls);
-      $("fwForm").onsubmit = (e) => { e.preventDefault(); const f = e.target, t = f.t.value.trim(), std = +f.std.value;
+      <p class="fine full">Preview: files stay on your device and are not uploaded. Only a small cover picture and the file names are kept in this browser.</p>
+      <p class="err full" id="mErr" role="alert"></p><div class="mact full"><button type="button" class="btn outline-dark" data-act="close">Cancel</button><button class="btn primary">Submit for review</button></div></form>`, mcls + " wide");
+      const drop = $("fwDrop"), input = $("fwFiles");
+      const draw = () => {
+        const firstImg = files.findIndex((x) => x.kind === "image" || x.kind === "video");
+        const cov = coverIx >= 0 && files[coverIx] ? coverIx : firstImg;
+        $("fwList").innerHTML = files.map((x, i) => `<li class="uf ${x.kind}${i === cov ? " iscover" : ""}">
+          <span class="uprev">${x.kind === "image" ? `<img src="${x.url}" alt="">` : x.kind === "video" ? `<video src="${x.url}" muted playsinline preload="metadata"></video><span class="play" aria-hidden="true"><i data-lucide="play"></i></span>` : `<i data-lucide="${fileIcon(x.file.name, x.kind)}"></i>`}</span>
+          <span class="uname" title="${esc(x.file.name)}">${esc(x.file.name)}</span><span class="usize">${size(x.file.size)}</span>
+          ${x.kind === "image" || x.kind === "video" ? `<button type="button" class="ucov" data-i="${i}" aria-pressed="${i === cov}">${i === cov ? "Cover" : "Make cover"}</button>` : ""}
+          <button type="button" class="urm" data-i="${i}" aria-label="Remove ${esc(x.file.name)}"><i data-lucide="x"></i></button></li>`).join("");
+        drop.classList.toggle("has", files.length > 0);
+        icons();
+        $("fwList").querySelectorAll("video").forEach((v) => { v.parentElement.onmouseenter = () => v.play().catch(() => {}); v.parentElement.onmouseleave = () => { v.pause(); v.currentTime = 0; }; });
+      };
+      const add = (list) => {
+        let skipped = 0;
+        [...list].forEach((file) => {
+          if (files.length >= MAX_FILES || file.size > MAX_MB * 1e6 || files.some((x) => x.file.name === file.name && x.file.size === file.size)) { skipped++; return; }
+          files.push({ file, kind: kindOf(file), url: URL.createObjectURL(file) });
+        });
+        $("mErr").textContent = skipped ? `${skipped} file${skipped > 1 ? "s were" : " was"} skipped: up to ${MAX_FILES} files, ${MAX_MB} MB each, no duplicates.` : "";
+        draw();
+      };
+      drop.onclick = () => input.click();
+      drop.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); input.click(); } };
+      input.onchange = () => { add(input.files); input.value = ""; };
+      ["dragenter", "dragover"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("over"); }));
+      ["dragleave", "drop"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("over"); }));
+      drop.addEventListener("drop", (e) => add(e.dataTransfer.files));
+      $("fwList").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; const i = +b.dataset.i;
+        if (b.classList.contains("urm")) { URL.revokeObjectURL(files[i].url); files.splice(i, 1); if (coverIx === i) coverIx = -1; else if (coverIx > i) coverIx--; }
+        else coverIx = i;
+        draw(); };
+      $("fwForm").onsubmit = async (e) => { e.preventDefault(); const f = e.target, t = f.t.value.trim(), std = +f.std.value;
         if (!t) { $("mErr").textContent = "Give your framework a title."; f.t.focus(); return; }
         if (!(std >= 200)) { $("mErr").textContent = "The lowest standard price is S$200."; f.std.focus(); return; }
+        if (!files.length) { $("mErr").textContent = "Add at least one photo, video or file so Seaport can review your framework."; drop.focus(); return; }
         if (!f.i1.value.trim()) { $("mErr").textContent = "List at least one thing that's included."; f.i1.focus(); return; }
-        S.fw.push({ id: Math.max(...S.fw.map((x) => x.id)) + 1, title: t, d: f.d.value, std, lic: 0, earned: 0, st: "review", incl: [f.i1.value.trim(), f.i2.value.trim()].filter(Boolean) });
-        save(); closeModal(); if (cur === "trade") render(); else location.hash = "trade"; toast("Submitted. It's pinned on your For trade notice as In review."); }; },
+        const btn = f.querySelector(".btn.primary"); btn.disabled = true; btn.textContent = "Preparing...";
+        const visual = files[coverIx] || files.find((x) => x.kind === "image") || files.find((x) => x.kind === "video");
+        const cover = visual ? await thumb(visual) : null;
+        S.fw.push({ id: Math.max(...S.fw.map((x) => x.id)) + 1, title: t, d: f.d.value, std, lic: 0, earned: 0, st: "review", incl: [f.i1.value.trim(), f.i2.value.trim()].filter(Boolean),
+          cover, files: files.map((x) => ({ n: x.file.name.slice(0, 120), k: x.kind, s: x.file.size })) });
+        files.forEach((x) => URL.revokeObjectURL(x.url));
+        save(); closeModal(); if (cur === "trade") render(); else location.hash = "trade"; toast("Submitted. It's pinned on your For trade notice as In review."); };
+    },
   };
 
   /* ----- wiring ----- */
