@@ -87,3 +87,20 @@ if (t2) {
   }));
 }
 icons();
+
+/* side-scrolling rows: arrow buttons, drag with the mouse, and fade/disable at the ends */
+document.querySelectorAll(".hscroll").forEach((row) => {
+  const sec = row.closest(".wrap"), btns = sec ? [...sec.querySelectorAll(".sbtn")] : [];
+  const step = () => (row.firstElementChild ? row.firstElementChild.getBoundingClientRect().width + 20 : 300);
+  const sync = () => { const end = row.scrollLeft + row.clientWidth >= row.scrollWidth - 4;
+    row.classList.toggle("at-end", end); btns.forEach((b) => { b.disabled = b.dataset.dir === "-1" ? row.scrollLeft <= 4 : end; }); };
+  btns.forEach((b) => b.onclick = () => row.scrollBy({ left: +b.dataset.dir * step() }));
+  row.addEventListener("scroll", sync, { passive: true }); window.addEventListener("resize", sync); sync();
+  row.addEventListener("keydown", (e) => { if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); row.scrollBy({ left: (e.key === "ArrowRight" ? 1 : -1) * step() }); } });
+  let down = false, x0 = 0, s0 = 0, moved = false;
+  row.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") return; down = true; moved = false; x0 = e.clientX; s0 = row.scrollLeft; });
+  window.addEventListener("pointermove", (e) => { if (!down) return; const dx = e.clientX - x0; if (Math.abs(dx) > 4) { moved = true; row.classList.add("dragging"); } row.scrollLeft = s0 - dx; });
+  window.addEventListener("pointerup", () => { if (!down) return; down = false; row.classList.remove("dragging"); if (moved) row.scrollBy({ left: 0 }); sync(); });
+  row.addEventListener("click", (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+});
+icons();
