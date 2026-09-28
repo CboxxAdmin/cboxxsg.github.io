@@ -850,3 +850,9 @@
 
   /* footer contact: which inbox is which */
   footer .flab { display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.55; margin-bottom: 2px; }
+
+  /* marketplace hero: white call to action on the dark photo (red was too loud) */
+  .btn.hero-cta { background: #FFFFFF; color: #0B0B0D; font-weight: 600; transition: background 160ms, transform 160ms; }
+  .btn.hero-cta:hover { background: #E9E9EC; }
+  .btn.hero-cta svg { transition: transform 200ms; }
+  .btn.hero-cta:hover svg { transform: translateX(3px); }
