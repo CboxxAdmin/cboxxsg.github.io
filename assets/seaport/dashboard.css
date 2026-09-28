@@ -649,16 +649,16 @@ html[data-theme="dark"] .modal.parch .usize, html[data-theme="dark"] .modal.parc
 /* ---------- The Tavern: jobs, chat room and reviews ---------- */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .g-tavern { grid-column: 1 / -1; grid-row: 12 / span 4; }
-.p-tavern { --paper: radial-gradient(ellipse at 50% 35%, #3B5A46 0%, #26402F 60%, #1A2D21 100%); --ttl: #F4E6C6; --burn: rgba(0,0,0,0.55); color: #E6EEE4; }
+.p-tavern { --paper: radial-gradient(ellipse at 50% 35%, #7A2A26 0%, #5A1A1A 60%, #3E1012 100%); --ttl: #F7E3B5; --burn: rgba(30,5,0,0.6); color: #F3E2CF; }
 .p-tavern::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.06), transparent 60%); }
 .g-tavern.pst { padding: 22px 36px 18px; }
 .tvrow { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 28px; width: 100%; margin-top: 8px; text-align: left; }
 .tvcol { display: grid; align-content: start; gap: 5px; }
 .tvcol > b { font-family: 'Pirata One', serif; font-weight: 400; font-size: 21px; color: #F2C76B; }
-.tvj { display: grid; grid-template-columns: 12px 1fr auto; gap: 8px; align-items: baseline; font-size: 14px; border-top: 1px dashed rgba(230,238,228,0.3); padding-top: 4px; }
+.tvj { display: grid; grid-template-columns: 12px 1fr auto; gap: 8px; align-items: baseline; font-size: 14px; border-top: 1px dashed rgba(243,226,207,0.3); padding-top: 4px; }
 .tvj em { display: block; font-size: 12px; opacity: 0.75; }
 .tvj > span:last-child { font-family: 'Pirata One', serif; font-size: 17px; color: #F4E6C6; }
-.p-tavern .pli { border-color: rgba(230,238,228,0.3); }
+.p-tavern .pli { border-color: rgba(243,226,207,0.3); }
 .sdot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #3FB950; box-shadow: 0 0 0 3px rgba(63,185,80,0.25), 0 0 8px rgba(63,185,80,0.8); }
 .sdot.closing { background: #E3A12F; box-shadow: 0 0 0 3px rgba(227,161,47,0.25), 0 0 8px rgba(227,161,47,0.8); }
 .sdot.full { background: #C0392B; box-shadow: 0 0 0 3px rgba(192,57,43,0.2); }
@@ -776,7 +776,7 @@ body.nbbody :is(button[disabled], .btn[disabled]) { cursor: not-allowed !importa
 .nbhead + .nboard.front { margin-top: 70px; }
 .pst.tvmini { min-height: 0; padding: 22px 20px 14px; gap: 5px; }
 .tvstats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; margin: 4px 0 2px; }
-.tvstats > span { display: grid; gap: 1px; padding: 6px 4px; border: 1px dashed rgba(230,238,228,0.35); border-radius: 6px; font-size: 12px; line-height: 1.2; }
+.tvstats > span { display: grid; gap: 1px; padding: 6px 4px; border: 1px dashed rgba(243,226,207,0.35); border-radius: 6px; font-size: 12px; line-height: 1.2; }
 .tvstats b { font-family: 'Pirata One', serif; font-weight: 400; font-size: 22px; color: #F2C76B; }
 .tvmini .tvj { width: 100%; text-align: left; }
 .tvmini .pgo { margin-top: 4px; }
