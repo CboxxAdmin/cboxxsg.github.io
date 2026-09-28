@@ -856,3 +856,10 @@
   .btn.hero-cta:hover { background: #E9E9EC; }
   .btn.hero-cta svg { transition: transform 200ms; }
   .btn.hero-cta:hover svg { transform: translateX(3px); }
+
+  /* Getting started switch (marketplace): a different colour for each side instead of red */
+  .howit .seg-ind { background: #0B0B0D; box-shadow: 0 8px 18px -8px rgba(0,0,0,0.55); transition: transform 280ms cubic-bezier(.2,1,.3,1), background 280ms, box-shadow 280ms; }
+  .howit .seg[data-on="1"] .seg-ind { background: #C98A1B; box-shadow: 0 8px 18px -8px rgba(201,138,27,0.75); }
+  html[data-theme="dark"] .howit .seg-ind { background: #EDEDF0; }
+  html[data-theme="dark"] .howit .seg[data-on="0"] button[aria-selected="true"], html[data-theme="dark"] .howit .seg:not([data-on]) button[aria-selected="true"] { color: #0B0B0D; }
+  html[data-theme="dark"] .howit .seg[data-on="1"] .seg-ind { background: #C98A1B; }
