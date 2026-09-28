@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B1119">
+<title>Lumina One Card</title>
+<meta name="description" content="Concept: the resident app for One Card. Open your home, pay at the mall, top up through Stripe and collect points. Sample data only.">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/lucide@1.48.0/dist/umd/lucide.min.js"></script>
+<style>
+/* Resident app for the One Card concept (see condo.html for the operator dashboard). Phone first. */
+:root { --bg: #F4F2EE; --card: #FFFFFF; --ink: #15171B; --muted: #6B6F76; --line: #E6E2DB; --red: #B0001C; --red-d: #8B0015; --green: #1C8C4A; --gold: #C98A1B; --blue: #2E6BC6; --soft: #F0ECE6;
+  --dark: #0B1119; --safe-b: env(safe-area-inset-bottom, 0px); }
+@media (prefers-color-scheme: dark) { :root { --bg: #0A0D12; --card: #141920; --ink: #ECE8E2; --muted: #9AA0A8; --line: #232A33; --soft: #1B222B; } }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { min-height: 100%; background: #1A1D22; font-family: 'Inter', system-ui, sans-serif; color: var(--ink); font-size: 15px; }
+button, input, select, textarea { font: inherit; color: inherit; }
+svg.lucide { width: 20px; height: 20px; stroke-width: 2; }
+[hidden] { display: none !important; }
+
+/* phone frame on bigger screens, full screen on phones */
+.device { position: relative; width: 100%; max-width: 430px; min-height: 100vh; margin: 0 auto; background: var(--bg); overflow: hidden; }
+@media (min-width: 600px) { body { padding: 28px 0; background: radial-gradient(circle at 30% 20%, #2A1418, #0E1116 60%); } .device { min-height: 0; height: min(900px, calc(100vh - 56px)); border-radius: 40px; box-shadow: 0 0 0 10px #05070A, 0 0 0 11px #2A2F36, 0 40px 80px -20px #000; } }
+.screen { position: absolute; inset: 0; display: flex; flex-direction: column; }
+.scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding-bottom: calc(96px + var(--safe-b)); }
+
+/* login */
+.login { background: var(--dark); color: #F2EEE8; overflow-y: auto; }
+.lhero { position: relative; padding: 56px 26px 34px; background: radial-gradient(circle at 90% 0%, rgba(224,52,75,0.55), transparent 55%), linear-gradient(160deg, #1B0B11, #0B1119 70%); }
+.lhero img { width: 40px; }
+.lhero h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 40px; line-height: 1; margin-top: 22px; letter-spacing: 0.01em; }
+.lhero p { color: rgba(242,238,232,0.7); margin-top: 10px; line-height: 1.5; }
+.lcard { position: relative; margin: -8px 20px 0; }
+.lform { display: grid; gap: 14px; padding: 24px 22px 30px; }
+.lform label { display: grid; gap: 7px; font-size: 13px; font-weight: 600; color: rgba(242,238,232,0.75); }
+.lform input[type=text], .lform input[type=password] { height: 50px; padding: 0 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.06); color: #F2EEE8; font-size: 16px; }
+.lform input:focus { outline: 2px solid #E0344B; outline-offset: 1px; }
+.pw { position: relative; } .pw input { width: 100%; padding-right: 52px !important; }
+.pw button { position: absolute; right: 6px; top: 5px; width: 40px; height: 40px; border: none; background: none; color: rgba(242,238,232,0.6); display: grid; place-items: center; cursor: pointer; }
+.lrow { display: flex; justify-content: space-between; align-items: center; font-size: 13.5px; }
+.lrow label { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+.lrow input { width: 18px; height: 18px; accent-color: #E0344B; }
+.lrow a, .lalt a { color: #FF8A98; text-decoration: none; font-weight: 600; }
+.lerr { min-height: 18px; color: #FF8A98; font-size: 13px; }
+.lalt { text-align: center; font-size: 14px; color: rgba(242,238,232,0.7); }
+.lnote { display: flex; gap: 8px; margin: 0 22px 30px; padding: 12px 14px; border-radius: 12px; background: rgba(212,168,50,0.12); color: #E9CF86; font-size: 12.5px; line-height: 1.45; }
+.lnote svg { flex-shrink: 0; width: 16px; height: 16px; margin-top: 1px; }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 50px; padding: 0 20px; border-radius: 14px; border: none; font-weight: 700; font-size: 15.5px; cursor: pointer; text-decoration: none; }
+.btn.red { background: var(--red); color: #fff; } .btn.red:active { background: var(--red-d); }
+.btn.ghost { background: var(--soft); color: var(--ink); }
+.btn.wide { width: 100%; }
+.btn.sm { height: 38px; padding: 0 14px; font-size: 13.5px; border-radius: 11px; }
+.btn[disabled] { opacity: 0.5; }
+
+/* app chrome */
+.top { display: flex; align-items: center; gap: 12px; padding: calc(14px + env(safe-area-inset-top, 0px)) 18px 12px; background: var(--bg); position: relative; z-index: 2; }
+.top .hi { flex: 1; min-width: 0; }
+.top .hi small { display: block; color: var(--muted); font-size: 12.5px; }
+.top .hi b { display: block; font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.round { position: relative; width: 44px; height: 44px; border-radius: 50%; border: none; background: var(--card); display: grid; place-items: center; cursor: pointer; box-shadow: 0 1px 0 var(--line); }
+.round .pip { position: absolute; top: 10px; right: 11px; width: 8px; height: 8px; border-radius: 50%; background: var(--red); border: 2px solid var(--card); }
+.av { width: 44px; height: 44px; border-radius: 50%; background: var(--red); color: #fff; display: grid; place-items: center; font-weight: 700; border: none; cursor: pointer; }
+.tabs { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; display: grid; grid-template-columns: repeat(5, 1fr); padding: 8px 6px calc(10px + var(--safe-b)); background: color-mix(in srgb, var(--card) 94%, transparent); backdrop-filter: blur(12px); border-top: 1px solid var(--line); }
+.tabs a { display: grid; justify-items: center; gap: 3px; padding: 6px 0; font-size: 11px; font-weight: 600; color: var(--muted); text-decoration: none; border-radius: 12px; }
+.tabs a.on { color: var(--red); }
+.tabs a.on svg { transform: translateY(-1px); }
+.pg { padding: 4px 18px 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+.pg > * { min-width: 0; }
+.scroll, #pg { min-width: 0; overflow-x: hidden; }
+.h2 { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.h2 h2 { font-size: 17px; font-weight: 700; }
+.h2 a, .h2 button { font-size: 13px; font-weight: 600; color: var(--red); text-decoration: none; background: none; border: none; cursor: pointer; }
+.box { background: var(--card); border-radius: 18px; padding: 16px; border: 1px solid var(--line); }
+.muted { color: var(--muted); }
+
+/* the One Card */
+.ocard { position: relative; border-radius: 22px; padding: 18px 20px; color: #F4EFE8; overflow: hidden; aspect-ratio: 1.62; display: flex; flex-direction: column; justify-content: space-between;
+  background: radial-gradient(circle at 88% 12%, rgba(224,52,75,0.65), transparent 45%), linear-gradient(135deg, #1D0A11 0%, #0B1119 62%, #150A0F 100%); box-shadow: 0 20px 34px -18px rgba(0,0,0,0.6); }
+.ocard.frozen { filter: grayscale(0.9); }
+.ocard.frozen::after { content: "FROZEN"; position: absolute; inset: 0; display: grid; place-items: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 34px; letter-spacing: 0.2em; background: rgba(0,0,0,0.35); }
+.oc1 { display: flex; justify-content: space-between; align-items: center; }
+.oc1 img { width: 26px; } .oc1 span { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; letter-spacing: 0.14em; font-size: 13px; opacity: 0.9; }
+.ocbal small { display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6; }
+.ocbal b { font-family: 'Barlow Condensed', sans-serif; font-size: 40px; line-height: 1; }
+.oc3 { display: flex; justify-content: space-between; align-items: flex-end; font-size: 12.5px; }
+.oc3 b { display: block; font-size: 14px; } .oc3 small { opacity: 0.6; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; }
+.tierchip { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 99px; background: rgba(212,168,50,0.2); color: #E9CF86; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* quick actions */
+.qa { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.qa button, .qa a { display: grid; justify-items: center; gap: 7px; padding: 12px 4px; border-radius: 16px; border: 1px solid var(--line); background: var(--card); font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none; }
+.qa .qi { width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; background: rgba(176,0,28,0.1); color: var(--red); }
+
+/* lists */
+.list { display: grid; }
+.li { display: grid; grid-template-columns: 42px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); background: none; border-left: none; border-right: none; border-top: none; width: 100%; text-align: left; cursor: pointer; }
+.li:last-child { border-bottom: none; }
+.li .ic { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--soft); }
+.li b { display: block; font-size: 14.5px; font-weight: 600; }
+.li small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+.li .amt { font-weight: 700; font-size: 14.5px; text-align: right; }
+.li .amt small { font-weight: 500; }
+.plus { color: var(--green); } .minus { color: var(--ink); }
+.tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 7px; background: rgba(176,0,28,0.1); color: var(--red); }
+.tag.g { background: rgba(28,140,74,0.12); color: var(--green); } .tag.gold { background: rgba(201,138,27,0.14); color: var(--gold); } .tag.b { background: rgba(46,107,198,0.12); color: var(--blue); } .tag.gr { background: var(--soft); color: var(--muted); }
+.hs { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -18px; padding: 2px 18px 6px; scrollbar-width: none; }
+.hs::-webkit-scrollbar { display: none; }
+.offer { flex: 0 0 76%; scroll-snap-align: start; border-radius: 18px; padding: 16px; color: #fff; min-height: 128px; display: flex; flex-direction: column; justify-content: space-between; border: none; text-align: left; cursor: pointer; }
+.offer b { font-size: 17px; line-height: 1.2; } .offer small { opacity: 0.85; font-size: 12.5px; }
+.chips { display: flex; gap: 8px; overflow-x: auto; margin: 0 -18px; padding: 0 18px 2px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chips button { flex-shrink: 0; height: 36px; padding: 0 14px; border-radius: 99px; border: 1px solid var(--line); background: var(--card); font-size: 13px; font-weight: 600; cursor: pointer; }
+.chips button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.search { display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 14px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); color: var(--muted); }
+.search input { flex: 1; border: none; background: none; outline: none; font-size: 15px; color: var(--ink); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.stat { padding: 14px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); }
+.stat small { display: block; color: var(--muted); font-size: 12px; font-weight: 600; }
+.stat b { display: block; font-size: 20px; margin-top: 4px; }
+
+/* residence */
+.key { position: relative; display: grid; place-items: center; gap: 10px; padding: 24px 16px; border-radius: 22px; color: #fff; border: none; width: 100%; cursor: pointer; background: linear-gradient(160deg, #1B0B11, #0B1119); overflow: hidden; }
+.key .ring { width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center; background: rgba(224,52,75,0.2); box-shadow: 0 0 0 10px rgba(224,52,75,0.1), 0 0 0 22px rgba(224,52,75,0.05); transition: background 300ms; }
+.key .ring svg { width: 38px; height: 38px; }
+.key.open .ring { background: rgba(28,140,74,0.35); box-shadow: 0 0 0 10px rgba(28,140,74,0.15), 0 0 0 22px rgba(28,140,74,0.07); animation: ok 600ms ease-out; }
+@keyframes ok { from { transform: scale(0.85); } }
+.key b { font-size: 17px; } .key small { opacity: 0.7; font-size: 13px; }
+.accs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.accs span { display: grid; justify-items: center; gap: 5px; padding: 10px 2px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); font-size: 11px; font-weight: 600; }
+.accs span.no { opacity: 0.4; }
+.accs svg { color: var(--blue); }
+.slots { display: flex; flex-wrap: wrap; gap: 8px; }
+.slots button { height: 40px; padding: 0 12px; border-radius: 11px; border: 1px solid var(--line); background: var(--card); font-size: 13px; font-weight: 600; cursor: pointer; }
+.slots button[aria-pressed="true"] { background: var(--red); color: #fff; border-color: var(--red); }
+.slots button:disabled { opacity: 0.35; text-decoration: line-through; cursor: not-allowed; }
+
+/* rewards */
+.tierbox { border-radius: 20px; padding: 18px; color: #F4EFE8; background: linear-gradient(135deg, #2A1E08, #0B1119 70%); }
+.tierbox .pts { font-family: 'Barlow Condensed', sans-serif; font-size: 44px; line-height: 1; }
+.bar { height: 8px; border-radius: 99px; background: rgba(255,255,255,0.15); overflow: hidden; margin: 12px 0 6px; }
+.bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #C98A1B, #F2C76B); }
+.rgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rw { display: grid; gap: 6px; padding: 14px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); text-align: left; cursor: pointer; }
+.rw .ri { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; background: rgba(201,138,27,0.14); color: var(--gold); }
+.rw b { font-size: 14px; line-height: 1.25; } .rw span { font-weight: 700; color: var(--gold); font-size: 13.5px; }
+.rw.locked { opacity: 0.5; }
+
+/* bottom sheet */
+.sback { position: absolute; inset: 0; z-index: 20; background: rgba(0,0,0,0.5); display: flex; align-items: flex-end; animation: fade 160ms ease-out; }
+@keyframes fade { from { opacity: 0; } }
+.sheet { width: 100%; max-height: 92%; overflow-y: auto; background: var(--card); border-radius: 26px 26px 0 0; padding: 10px 20px calc(24px + var(--safe-b)); animation: up 260ms cubic-bezier(.2,1,.3,1); }
+@keyframes up { from { transform: translateY(40%); opacity: 0.4; } }
+.grab { width: 40px; height: 5px; border-radius: 3px; background: var(--line); margin: 4px auto 14px; }
+.sheet h3 { font-size: 21px; font-weight: 700; }
+.sheet .sub { color: var(--muted); margin: 4px 0 16px; line-height: 1.45; font-size: 14px; }
+.sheet .x { float: right; width: 38px; height: 38px; border-radius: 50%; border: none; background: var(--soft); display: grid; place-items: center; cursor: pointer; }
+.f { display: grid; gap: 14px; }
+.f label { display: grid; gap: 7px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.f input:not([type=checkbox]):not([type=radio]), .f select, .f textarea { height: 50px; padding: 0 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--bg); font-size: 16px; color: var(--ink); width: 100%; }
+.f textarea { height: 96px; padding: 12px 14px; resize: none; }
+.f input:focus, .f select:focus, .f textarea:focus { outline: 2px solid var(--red); outline-offset: 1px; }
+.amts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.amts button { height: 50px; border-radius: 14px; border: 1px solid var(--line); background: var(--bg); font-weight: 700; font-size: 15px; cursor: pointer; }
+.amts button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.pm { display: grid; gap: 8px; }
+.pm label { display: flex; align-items: center; gap: 12px; height: 54px; padding: 0 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--bg); font-size: 15px; font-weight: 600; color: var(--ink); cursor: pointer; }
+.pm input { width: 18px; height: 18px; accent-color: var(--red); }
+.pm label:has(input:checked) { border-color: var(--red); box-shadow: 0 0 0 1px var(--red); }
+.stripe { border-radius: 18px; padding: 20px; text-align: center; background: linear-gradient(180deg, rgba(99,91,255,0.12), rgba(99,91,255,0.02)); border: 1px solid rgba(99,91,255,0.35); }
+.stripe .sh { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 13px; }
+.stripe .sh b { color: #635BFF; font-size: 16px; }
+.spin { width: 36px; height: 36px; margin: 12px auto; border-radius: 50%; border: 4px solid rgba(99,91,255,0.2); border-top-color: #635BFF; animation: rot 800ms linear infinite; }
+@keyframes rot { to { transform: rotate(360deg); } }
+.okm { width: 60px; height: 60px; margin: 8px auto; border-radius: 50%; display: grid; place-items: center; background: rgba(28,140,74,0.14); color: var(--green); }
+.okm svg { width: 30px; height: 30px; }
+.qr { width: 190px; margin: 6px auto 10px; padding: 12px; background: #fff; border-radius: 14px; }
+.qr svg { width: 100%; height: auto; display: block; }
+.code { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 28px; letter-spacing: 0.2em; text-align: center; }
+.nfcwave { position: relative; width: 120px; height: 120px; margin: 10px auto; border-radius: 50%; display: grid; place-items: center; background: rgba(176,0,28,0.1); color: var(--red); }
+.nfcwave::before, .nfcwave::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--red); animation: wave 1.8s ease-out infinite; }
+.nfcwave::after { animation-delay: 0.9s; }
+@keyframes wave { from { transform: scale(0.8); opacity: 0.7; } to { transform: scale(1.5); opacity: 0; } }
+.nfcwave svg { width: 44px; height: 44px; }
+.row2 { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.row2:last-child { border-bottom: none; }
+.switch { position: relative; width: 50px; height: 30px; flex-shrink: 0; }
+.switch input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; z-index: 1; }
+.switch span { position: absolute; inset: 0; border-radius: 99px; background: var(--line); transition: background 200ms; }
+.switch span::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.3); transition: transform 200ms; }
+.switch input:checked + span { background: var(--green); }
+.switch input:checked + span::after { transform: translateX(20px); }
+.switch input:focus-visible + span { outline: 2px solid var(--red); outline-offset: 2px; }
+.toast { position: absolute; left: 16px; right: 16px; bottom: calc(92px + var(--safe-b)); z-index: 40; padding: 13px 16px; border-radius: 14px; background: var(--ink); color: var(--bg); font-size: 14px; font-weight: 600; text-align: center; box-shadow: 0 14px 30px -12px rgba(0,0,0,0.5); animation: fade 200ms; }
+.pnote { margin: 4px 18px 0; padding: 10px 12px; border-radius: 12px; background: rgba(201,138,27,0.12); color: #8A5B00; font-size: 12px; line-height: 1.4; display: flex; gap: 8px; }
+@media (prefers-color-scheme: dark) { .pnote { color: #E9CF86; } }
+.pnote svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 1px; }
+.empty { padding: 18px 0; text-align: center; color: var(--muted); font-size: 14px; }
+@media (prefers-reduced-motion: reduce) { .sheet, .sback, .nfcwave::before, .nfcwave::after, .key.open .ring, .spin { animation: none; } }
+</style>
+</head>
+<body>
+<div class="device" id="device">
+
+  <!-- login -->
+  <section class="screen login" id="login" aria-label="Sign in">
+    <div class="lhero"><img src="assets/seaport/logo.png" alt=""><h1>Your home,<br>your mall,<br>one card.</h1><p>Open the doors at Lumina Residences, pay at every shop in Lumina Square, and collect points as you go.</p></div>
+    <form class="lform" id="lform" novalidate>
+      <label>Email or unit number<input type="text" name="user" id="luser" autocomplete="username" placeholder="you@email.com or B-12-04" required></label>
+      <label>Password<span class="pw"><input type="password" name="pass" id="lpass" autocomplete="current-password" required><button type="button" id="leye" aria-label="Show password"><i data-lucide="eye"></i></button></span></label>
+      <div class="lrow"><label><input type="checkbox" name="remember">Keep me signed in</label><a href="#" id="lforgot">Forgot password?</a></div>
+      <p class="lerr" id="lerr" role="alert"></p>
+      <button class="btn red wide">Sign in</button>
+      <p class="lalt">New resident? <a href="#" id="lactivate">Activate your One Card</a></p>
+    </form>
+    <p class="lnote"><i data-lucide="info"></i>Concept preview: there are no real accounts. Any email and password opens a sample resident app. Your password is never saved or sent.</p>
+  </section>
+
+  <!-- app -->
+  <section class="screen" id="app" hidden>
+    <header class="top"><button class="av" id="meAv" aria-label="Your profile">MT</button><div class="hi"><small id="hiSub">Tower B · #12-04</small><b id="hiName">Hello</b></div>
+      <button class="round" id="bell" aria-label="Notifications"><i data-lucide="bell"></i><span class="pip" id="bellPip"></span></button></header>
+    <div class="scroll" id="scroll"><div id="pg"></div><p class="pnote"><i data-lucide="info"></i>Concept preview with sample data. Payments are simulated and changes stay on this device.</p></div>
+    <nav class="tabs" aria-label="Main">
+      <a href="#home" data-t="home"><i data-lucide="home"></i>Home</a>
+      <a href="#nearby" data-t="nearby"><i data-lucide="map-pin"></i>Nearby</a>
+      <a href="#residence" data-t="residence"><i data-lucide="building-2"></i>Residence</a>
+      <a href="#wallet" data-t="wallet"><i data-lucide="wallet"></i>Wallet</a>
+      <a href="#rewards" data-t="rewards"><i data-lucide="gift"></i>Rewards</a>
+    </nav>
+  </section>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const money = (n) => "S$" + (+n).toLocaleString("en-SG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const num = (n) => Math.round(n).toLocaleString("en-SG");
+const icons = () => window.lucide && lucide.createIcons();
+let toastT; const toast = (t) => { document.querySelector(".toast")?.remove(); const el = document.createElement("div"); el.className = "toast"; el.setAttribute("role", "status"); el.textContent = t; $("device").appendChild(el); clearTimeout(toastT); toastT = setTimeout(() => el.remove(), 2600); };
+const SS = { get: (k) => { try { return sessionStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { sessionStorage.setItem(k, v); } catch (e) {} }, del: (k) => { try { sessionStorage.removeItem(k); } catch (e) {} } };
+const nowT = () => Date.now();
+const ago = (ms) => { const m = Math.round((Date.now() - ms) / 60000); return m < 1 ? "Just now" : m < 60 ? m + " min ago" : m < 1440 ? Math.round(m / 60) + " h ago" : Math.round(m / 1440) + " d ago"; };
+const day = (d) => new Date(d + "T00:00").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+const iso = (offset) => { const d = new Date(); d.setDate(d.getDate() + offset); return d.toISOString().slice(0, 10); };
+
+/* ---------- sample data (same development as condo.html) ---------- */
+const SHOPS = [
+  { id: 1, n: "Kopi Corner", c: "Food", lvl: "B1-12", ic: "coffee", walk: 2, open: "7am to 10pm", offer: "Free coffee for 150 points", x: 1 },
+  { id: 2, n: "Noodle Theory", c: "Food", lvl: "02-08", ic: "soup", walk: 3, open: "11am to 10pm", offer: "Double points, weekday lunch", x: 2 },
+  { id: 3, n: "Umami Row", c: "Food", lvl: "03-15", ic: "utensils", walk: 4, open: "11:30am to 11pm", offer: "Residents: 15% off Sunday brunch", x: 1 },
+  { id: 4, n: "GreenCart Grocer", c: "Groceries", lvl: "B1-01", ic: "shopping-cart", walk: 1, open: "8am to 11pm", offer: "Free delivery to your lobby", x: 0.5 },
+  { id: 5, n: "Threadline", c: "Shopping", lvl: "01-22", ic: "shirt", walk: 3, open: "10am to 10pm", offer: "3× points this weekend", x: 3 },
+  { id: 6, n: "Sole Society", c: "Shopping", lvl: "01-30", ic: "footprints", walk: 3, open: "10am to 10pm", offer: "", x: 1 },
+  { id: 7, n: "Glow Pharmacy", c: "Health", lvl: "01-05", ic: "pill", walk: 2, open: "9am to 10pm", offer: "Flu jab bookings open", x: 1 },
+  { id: 8, n: "Petal & Stem", c: "Shopping", lvl: "01-02", ic: "flower", walk: 2, open: "9am to 9pm", offer: "", x: 1 },
+  { id: 9, n: "Page & Pour", c: "Food", lvl: "02-19", ic: "book-open", walk: 3, open: "9am to 10pm", offer: "Book + coffee set, 200 points", x: 1 },
+  { id: 10, n: "Little Explorers", c: "Kids", lvl: "03-04", ic: "baby", walk: 4, open: "10am to 8pm", offer: "Playroom pass for 400 points", x: 1 },
+  { id: 11, n: "FitHaus", c: "Fitness", lvl: "04-01", ic: "dumbbell", walk: 5, open: "6am to 11pm", offer: "First class free for residents", x: 1 },
+  { id: 12, n: "Bloom Bakery", c: "Food", lvl: "B1-18", ic: "croissant", walk: 1, open: "Opening soon", offer: "Opening 12 Oct", x: 1, soon: true },
+];
+const REWARDS = [
+  { id: 1, n: "2 hours free parking", ic: "car", pts: 300 }, { id: 2, n: "S$10 mall voucher", ic: "ticket", pts: 800 },
+  { id: 3, n: "Free coffee at Kopi Corner", ic: "coffee", pts: 150 }, { id: 4, n: "Priority table at Umami Row", ic: "utensils", pts: 500, tier: "Gold" },
+  { id: 5, n: "Kids' playroom pass", ic: "baby", pts: 400 }, { id: 6, n: "Guest parking day pass", ic: "building-2", pts: 250 },
+  { id: 7, n: "Cinema popcorn combo", ic: "popcorn", pts: 350 }, { id: 8, n: "Platinum lounge access", ic: "sofa", pts: 1200, tier: "Platinum" },
+];
+const FAC = [{ id: "bbq1", n: "BBQ pit 1", ic: "flame" }, { id: "bbq2", n: "BBQ pit 2", ic: "flame" }, { id: "func", n: "Function room", ic: "party-popper" }, { id: "tennis", n: "Tennis court", ic: "circle-dot" }];
+const SLOTS = ["9am", "11am", "1pm", "3pm", "5pm", "7pm"];
+const seed = () => ({
+  wallet: 128.4, pts: 4210, spend: 4120, tier: "Gold", frozen: false, auto: { on: false, below: 20, amt: 50 },
+  access: ["lobby", "lift", "gym", "pool", "carpark"],
+  txns: [
+    { t: "pay", shop: 1, amt: 6.8, pts: 10, at: nowT() - 38 * 60000 }, { t: "top", amt: 50, m: "PayNow", at: nowT() - 5 * 3600000 },
+    { t: "pay", shop: 4, amt: 84.2, pts: 63, at: nowT() - 26 * 3600000 }, { t: "pay", shop: 2, amt: 18.5, pts: 55, at: nowT() - 50 * 3600000 },
+    { t: "redeem", n: "2 hours free parking", pts: -300, at: nowT() - 3 * 86400000 }, { t: "top", amt: 100, m: "Card", at: nowT() - 6 * 86400000 },
+  ],
+  passes: [{ n: "Grandma Lim", d: iso(1), from: "10am", to: "6pm", code: "LQ7H2K" }],
+  bookings: [{ f: "bbq1", d: iso(5), s: "5pm" }],
+  parcels: [{ n: "Threadline order #4471", from: "Lumina Square", at: nowT() - 2 * 3600000, done: false }, { n: "Courier parcel", from: "Ninja Van", at: nowT() - 20 * 3600000, done: false }],
+  vouchers: [],
+  news: [
+    { id: 1, t: "Lift maintenance, Tower B", b: "Lift 2 will be serviced on 3 Oct, 9am to 1pm. Lift 1 runs as normal.", d: iso(-1), read: false, ic: "wrench" },
+    { id: 2, t: "Residents' night market", b: "Sat 10 Oct at the pool deck, 6pm to 10pm. Pay with One Card for 2× points.", d: iso(-2), read: false, ic: "store" },
+    { id: 3, t: "Water pressure test", b: "Brief water interruptions in Tower C on 29 Sep between 2pm and 3pm.", d: iso(-4), read: true, ic: "droplets" },
+  ],
+  reports: [],
+});
+const KEY = "seaport-condouser-demo";
+let S; try { S = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+if (!S || !S.txns) S = seed();
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+const shop = (id) => SHOPS.find((s) => s.id === id);
+const ACC = { lobby: ["door-open", "Lobby"], lift: ["arrow-up-down", "Lifts"], gym: ["dumbbell", "Gym"], pool: ["waves", "Pool"], carpark: ["car", "Carpark"] };
+const TIERS = { Silver: 500, Gold: 2000, Platinum: 6000 };
+const earnFor = (s, amt) => Math.round(amt * (s ? s.x : 1) * 1.5); // 1 pt per S$1 × shop multiplier × resident bonus 1.5
+let me = { name: "", unit: "Tower B · #12-04" };
+const UI = {};
+
+/* fake QR: a deterministic pattern from the code (for show, not scannable) */
+function qr(code) { const n = 21; let h = 0; for (const c of code) h = (h * 31 + c.charCodeAt(0)) >>> 0; const rnd = () => (h = (h * 1103515245 + 12345) >>> 0) / 4294967296;
+  let r = ""; for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) { const f = (a, b) => x >= a && x < a + 7 && y >= b && y < b + 7; const inF = f(0, 0) || f(n - 7, 0) || f(0, n - 7);
+    let on; if (inF) { const lx = x < 7 ? x : x - (n - 7), ly = y < 7 ? y : y - (n - 7); on = lx === 0 || lx === 6 || ly === 0 || ly === 6 || (lx > 1 && lx < 5 && ly > 1 && ly < 5); } else on = rnd() > 0.52;
+    if (on) r += `<rect x="${x}" y="${y}" width="1" height="1"/>`; }
+  return `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges" role="img" aria-label="Sample code ${code}"><g fill="#111">${r}</g></svg>`; }
+const code6 = () => Array.from({ length: 6 }, () => "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[Math.floor(Math.random() * 32)]).join("");
+
+/* ---------- views ---------- */
+const cardHTML = () => `<div class="ocard ${S.frozen ? "frozen" : ""}"><div class="oc1"><img src="assets/seaport/logo.png" alt=""><span>ONE CARD · LUMINA</span></div>
+  <div class="ocbal"><small>Wallet balance</small><b>${money(S.wallet)}</b></div>
+  <div class="oc3"><span><small>Points</small><b>${num(S.pts)}</b></span><span class="tierchip">★ ${S.tier}</span><span style="text-align:right"><small>Card</small><b>•••• 0482</b></span></div></div>`;
+const txLi = (t) => { const s = t.shop ? shop(t.shop) : null;
+  const [ic, title, sub, amt] = t.t === "pay" ? [s.ic, s.n, `Paid with One Card · +${t.pts} pts`, `<span class="minus">−${money(t.amt)}</span>`]
+    : t.t === "top" ? ["arrow-down-to-line", "Top-up", `Stripe · ${t.m}`, `<span class="plus">+${money(t.amt)}</span>`]
+    : t.t === "refund" ? ["undo-2", "Refund", s ? s.n : "", `<span class="plus">+${money(t.amt)}</span>`]
+    : ["gift", t.n, "Reward redeemed", `<span class="minus">${num(t.pts)} pts</span>`];
+  return `<div class="li" style="cursor:default"><span class="ic"><i data-lucide="${ic}"></i></span><span><b>${esc(title)}</b><small>${esc(sub)}</small></span><span class="amt">${amt}<small class="muted">${ago(t.at)}</small></span></div>`; };
+
+const V = {
+  home: () => { const unread = S.news.filter((n) => !n.read), parcels = S.parcels.filter((p) => !p.done);
+    return `<div class="pg">${cardHTML()}
+      <div class="qa"><button data-act="topup"><span class="qi"><i data-lucide="plus"></i></span>Top up</button><button data-act="paycard"><span class="qi"><i data-lucide="nfc"></i></span>Pay</button>
+        <button data-act="unlock"><span class="qi"><i data-lucide="key-round"></i></span>Open door</button><button data-act="newpass"><span class="qi"><i data-lucide="user-plus"></i></span>Guest pass</button></div>
+      ${parcels.length ? `<button class="box li" style="grid-template-columns:42px 1fr auto;padding:14px 16px" data-go="residence"><span class="ic" style="background:rgba(46,107,198,0.12);color:var(--blue)"><i data-lucide="package"></i></span><span><b>${parcels.length} ${parcels.length === 1 ? "parcel" : "parcels"} at the concierge</b><small>Tower B lobby, until 10pm</small></span><i data-lucide="chevron-right"></i></button>` : ""}
+      <div><div class="h2"><h2>For you at Lumina Square</h2><a href="#nearby">See all</a></div><div class="hs">
+        ${SHOPS.filter((s) => s.offer && !s.soon).slice(0, 5).map((s, i) => `<button class="offer" data-act="shop" data-arg="${s.id}" style="background:${["linear-gradient(135deg,#8B0015,#3A0A0A)", "linear-gradient(135deg,#2E6B5E,#0C2420)", "linear-gradient(135deg,#7A1E5A,#200817)", "linear-gradient(135deg,#B4541A,#3B1A0A)", "linear-gradient(135deg,#4B2E83,#140A26)"][i]}"><small>${esc(s.n)} · ${s.walk} min walk</small><b>${esc(s.offer)}</b><small>${s.x > 1 ? s.x + "× points" : "Tap to see"}</small></button>`).join("")}</div></div>
+      <div class="box"><div class="h2"><h2>Recent activity</h2><a href="#wallet">All</a></div><div class="list">${S.txns.slice(0, 3).map(txLi).join("")}</div></div>
+      ${unread.length ? `<div class="box"><div class="h2"><h2>From management</h2><button data-act="news">All notices</button></div><div class="list">${unread.slice(0, 2).map((n) => `<button class="li" data-act="notice" data-arg="${n.id}"><span class="ic"><i data-lucide="${n.ic}"></i></span><span><b>${esc(n.t)}</b><small>${esc(n.b.slice(0, 60))}...</small></span><span class="tag">New</span></button>`).join("")}</div></div>` : ""}</div>`; },
+
+  nearby: () => { const f = UI.nf || "All", q = (UI.nq || "").toLowerCase(), cats = ["All", ...new Set(SHOPS.map((s) => s.c))];
+    const list = SHOPS.filter((s) => (f === "All" || s.c === f) && (!q || (s.n + s.c + s.offer).toLowerCase().includes(q))).sort((a, b) => a.walk - b.walk);
+    return `<div class="pg"><div><h2 style="font-size:24px">Nearby</h2><p class="muted" style="margin-top:4px">Lumina Square is right below you. Every shop takes One Card.</p></div>
+      <label class="search"><i data-lucide="search"></i><input id="nq" type="search" placeholder="Search shops and offers" value="${esc(UI.nq || "")}" aria-label="Search shops"></label>
+      <div class="chips">${cats.map((c) => `<button data-act="nf" data-arg="${c}" aria-pressed="${f === c}">${c}</button>`).join("")}</div>
+      <div class="grid2"><div class="stat"><small><i data-lucide="bus" style="width:14px;height:14px;vertical-align:-2px"></i> Shuttle to MRT</small><b>7 min</b><small>Tower B drop-off</small></div><div class="stat"><small><i data-lucide="car" style="width:14px;height:14px;vertical-align:-2px"></i> Mall carpark</small><b>214 lots</b><small>free for 2 hours with points</small></div></div>
+      <div class="box"><div class="list">${list.map((s) => `<button class="li" data-act="shop" data-arg="${s.id}"><span class="ic"><i data-lucide="${s.ic}"></i></span><span><b>${esc(s.n)}</b><small>${esc(s.c)} · #${s.lvl} · ${s.walk} min walk · ${esc(s.open)}</small>${s.offer ? `<small style="color:var(--red);font-weight:600">${esc(s.offer)}</small>` : ""}</span>${s.x > 1 ? `<span class="tag gold">${s.x}× pts</span>` : s.soon ? `<span class="tag gr">Soon</span>` : `<i data-lucide="chevron-right"></i>`}</button>`).join("") || `<p class="empty">No shops match.</p>`}</div></div></div>`; },
+
+  residence: () => { const parcels = S.parcels.filter((p) => !p.done), upcoming = S.bookings.filter((b) => b.d >= iso(0)).sort((a, b) => a.d.localeCompare(b.d));
+    return `<div class="pg"><div><h2 style="font-size:24px">Lumina Residences</h2><p class="muted" style="margin-top:4px">${esc(me.unit)} · your One Card is your key.</p></div>
+      <button class="key" id="keyBtn" data-act="unlock"><span class="ring"><i data-lucide="key-round"></i></span><b>Tap to open Tower B lobby</b><small>Or hold your phone or card to the reader</small></button>
+      <div><div class="h2"><h2>Your access</h2></div><div class="accs">${Object.entries(ACC).map(([k, [ic, l]]) => `<span class="${S.access.includes(k) ? "" : "no"}"><i data-lucide="${ic}"></i>${l}</span>`).join("")}</div></div>
+      <div class="box"><div class="h2"><h2>Guest passes</h2><button data-act="newpass">+ New pass</button></div><div class="list">${S.passes.map((p, i) => `<button class="li" data-act="showpass" data-arg="${i}"><span class="ic"><i data-lucide="qr-code"></i></span><span><b>${esc(p.n)}</b><small>${day(p.d)} · ${p.from} to ${p.to}</small></span><span class="tag b">${p.code}</span></button>`).join("") || `<p class="empty">No guest passes yet.</p>`}</div></div>
+      <div class="box"><div class="h2"><h2>Facilities</h2><button data-act="book">Book</button></div><div class="list">${upcoming.map((b) => { const f = FAC.find((x) => x.id === b.f); return `<div class="li" style="cursor:default"><span class="ic"><i data-lucide="${f.ic}"></i></span><span><b>${f.n}</b><small>${day(b.d)} · ${b.s}, 2 hours</small></span><button class="btn ghost sm" data-act="cancelbook" data-arg="${S.bookings.indexOf(b)}">Cancel</button></div>`; }).join("") || `<p class="empty">No bookings. BBQ pits, function room and tennis court are free for residents.</p>`}</div></div>
+      <div class="box"><div class="h2"><h2>Parcels</h2></div><div class="list">${parcels.map((p) => `<div class="li" style="cursor:default"><span class="ic"><i data-lucide="package"></i></span><span><b>${esc(p.n)}</b><small>${esc(p.from)} · arrived ${ago(p.at)}</small></span><button class="btn ghost sm" data-act="collect" data-arg="${S.parcels.indexOf(p)}">Collected</button></div>`).join("") || `<p class="empty">Nothing waiting at the concierge.</p>`}</div></div>
+      <div class="box"><div class="h2"><h2>Notices</h2></div><div class="list">${S.news.map((n) => `<button class="li" data-act="notice" data-arg="${n.id}"><span class="ic"><i data-lucide="${n.ic}"></i></span><span><b>${esc(n.t)}</b><small>${day(n.d)}</small></span>${n.read ? `<i data-lucide="chevron-right"></i>` : `<span class="tag">New</span>`}</button>`).join("")}</div></div>
+      <button class="btn ghost wide" data-act="report"><i data-lucide="message-square-warning"></i>Report an issue to management</button></div>`; },
+
+  wallet: () => `<div class="pg">${cardHTML()}
+      <div class="grid2"><button class="btn red" data-act="topup"><i data-lucide="plus"></i>Top up</button><button class="btn ghost" data-act="paycard"><i data-lucide="nfc"></i>Pay</button></div>
+      <div class="box"><div class="row2"><span><b>Auto top-up</b><small class="muted" style="display:block;font-size:12.5px">Add ${money(S.auto.amt)} when below ${money(S.auto.below)}</small></span><label class="switch"><input type="checkbox" data-act="auto" ${S.auto.on ? "checked" : ""} aria-label="Auto top-up"><span></span></label></div>
+        <div class="row2"><span><b>Freeze card</b><small class="muted" style="display:block;font-size:12.5px">Stops payments and doors until you unfreeze</small></span><label class="switch"><input type="checkbox" data-act="freeze" ${S.frozen ? "checked" : ""} aria-label="Freeze card"><span></span></label></div>
+        <div class="row2"><span><b>Paying by Stripe</b><small class="muted" style="display:block;font-size:12.5px">Card, PayNow, Apple Pay and Google Pay. Your card details stay with Stripe.</small></span><i data-lucide="shield-check" style="color:var(--green)"></i></div>
+        <div class="row2"><span><b>Lost your card?</b><small class="muted" style="display:block;font-size:12.5px">Block it and get a replacement at the concierge</small></span><button class="btn ghost sm" data-act="lost">Report</button></div></div>
+      <div class="box"><div class="h2"><h2>Transactions</h2></div><div class="list">${S.txns.map(txLi).join("")}</div></div></div>`,
+
+  rewards: () => { const next = S.tier === "Gold" ? ["Platinum", TIERS.Platinum] : S.tier === "Platinum" ? null : ["Gold", TIERS.Gold];
+    return `<div class="pg"><div class="tierbox"><span class="tierchip">★ ${S.tier} member</span><div class="pts" style="margin-top:12px">${num(S.pts)} <small style="font-size:16px;font-family:Inter;opacity:0.7">points</small></div>
+        ${next ? `<div class="bar"><i style="width:${Math.min(100, (S.spend / next[1]) * 100)}%"></i></div><small style="opacity:0.75">${money(Math.max(0, next[1] - S.spend))} more spend this year to reach ${next[0]}</small>` : ""}
+        <p style="margin-top:12px;font-size:13px;opacity:0.8">You earn 1.5× points as a resident, and more at shops with an offer.</p></div>
+      ${S.vouchers.length ? `<div class="box"><div class="h2"><h2>Your vouchers</h2></div><div class="list">${S.vouchers.map((v, i) => `<button class="li" data-act="voucher" data-arg="${i}"><span class="ic"><i data-lucide="ticket"></i></span><span><b>${esc(v.n)}</b><small>Show code ${v.code} · valid 30 days</small></span><i data-lucide="qr-code"></i></button>`).join("")}</div></div>` : ""}
+      <div><div class="h2"><h2>Spend your points</h2></div><div class="rgrid">${REWARDS.map((r) => { const locked = r.tier && (r.tier === "Platinum" ? S.tier !== "Platinum" : S.tier === "Silver" || S.tier === "Bronze");
+        return `<button class="rw ${locked || S.pts < r.pts ? "locked" : ""}" data-act="redeem" data-arg="${r.id}"><span class="ri"><i data-lucide="${r.ic}"></i></span><b>${esc(r.n)}</b><span>${num(r.pts)} pts</span>${locked ? `<small class="muted">${r.tier} only</small>` : ""}</button>`; }).join("")}</div></div>
+      <div class="box"><div class="h2"><h2>How to earn</h2></div><div class="list">${[["nfc", "Pay with One Card", "1 point per S$1, 1.5× for residents"], ["zap", "Shop offers", "Up to 3× points at selected shops"], ["calendar-heart", "Residents' events", "Bonus points at night markets and sales"]].map(([ic, t, d]) => `<div class="li" style="cursor:default"><span class="ic"><i data-lucide="${ic}"></i></span><span><b>${t}</b><small>${d}</small></span><span></span></div>`).join("")}</div></div></div>`; },
+};
+
+/* ---------- bottom sheet ---------- */
+let lastF = null;
+const closeSheet = () => { const s = $("sback"); if (s) { s.remove(); if (lastF && lastF.isConnected) lastF.focus(); } };
+const sheet = (html) => { if (!$("sback")) lastF = document.activeElement; else $("sback").remove();
+  const b = document.createElement("div"); b.id = "sback"; b.className = "sback";
+  b.innerHTML = `<div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sT"><div class="grab"></div><button class="x" data-act="close" aria-label="Close"><i data-lucide="x"></i></button>${html}</div>`;
+  b.addEventListener("mousedown", (e) => { if (e.target === b) closeSheet(); }); $("device").appendChild(b); icons();
+  (b.querySelector(".sheet input:not([type=radio]), .sheet select, .sheet textarea") || b.querySelector(".x")).focus(); };
+
+/* ---------- actions ---------- */
+const A = {
+  close: closeSheet,
+  nf: (c) => { UI.nf = c; render(); },
+  topup: () => { if (S.frozen) return toast("Unfreeze your card to top up"); let amt = 50;
+    sheet(`<h3 id="sT">Top up</h3><p class="sub">Balance ${money(S.wallet)}. You'll pay securely with Stripe.</p>
+      <form class="f" id="tuF"><div class="amts" id="amts">${[20, 50, 100, 200].map((a) => `<button type="button" data-a="${a}" aria-pressed="${a === amt}">S$${a}</button>`).join("")}</div>
+      <label>Or another amount<input name="c" type="number" inputmode="decimal" min="10" max="1000" placeholder="S$10 to S$1,000"></label>
+      <div class="pm" role="radiogroup" aria-label="Pay with">${[["Card", "credit-card"], ["PayNow", "qr-code"], ["Apple Pay", "smartphone"], ["Google Pay", "smartphone"]].map(([m, ic], i) => `<label><input type="radio" name="pm" value="${m}" ${i === 0 ? "checked" : ""}><i data-lucide="${ic}"></i>${m}</label>`).join("")}</div>
+      <p class="muted" style="font-size:12.5px;color:#FF8A98" id="tuErr" role="alert"></p><button class="btn red wide"><i data-lucide="lock"></i>Continue to Stripe</button></form>`);
+    $("amts").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; amt = +b.dataset.a; $("tuF").c.value = ""; $("amts").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); };
+    $("tuF").onsubmit = (e) => { e.preventDefault(); const f = e.target, a = f.c.value ? Math.round(+f.c.value * 100) / 100 : amt, pm = f.pm.value;
+      if (!(a >= 10)) { $("tuErr").textContent = "The minimum top-up is S$10."; return; } if (S.wallet + a > 1000) { $("tuErr").textContent = "Your balance can't go over S$1,000."; return; }
+      sheet(`<h3 id="sT">Stripe</h3><div class="stripe" style="margin-top:14px"><div class="sh"><b>stripe</b><span class="tag gold">Simulated · no payment taken</span></div><p>Paying <b>${money(a)}</b> with ${pm}</p><div class="spin"></div><p class="muted">Confirming with Stripe…</p></div>`);
+      setTimeout(() => { S.wallet = Math.round((S.wallet + a) * 100) / 100; S.txns.unshift({ t: "top", amt: a, m: pm, at: nowT() }); save(); render();
+        const st = document.querySelector(".stripe"); if (st) st.innerHTML = `<div class="sh"><b>stripe</b><span class="tag g">Paid</span></div><div class="okm"><i data-lucide="check"></i></div><p><b>${money(a)}</b> added to your One Card</p><p class="muted" style="margin:6px 0 14px">New balance ${money(S.wallet)}</p><button class="btn red wide" data-act="close">Done</button>`; icons(); }, 1400); }; },
+  paycard: () => { if (S.frozen) return toast("Your card is frozen. Unfreeze it in Wallet.");
+    sheet(`<h3 id="sT">Pay with One Card</h3><p class="sub">Hold your phone near the shop's reader, or tap your physical card. Points are added automatically.</p><div class="nfcwave"><i data-lucide="nfc"></i></div>
+      <p style="text-align:center;font-weight:700">${money(S.wallet)} available</p><p class="muted" style="text-align:center;font-size:13px;margin:4px 0 16px">Try it: pick a shop to simulate a payment</p>
+      <button class="btn ghost wide" data-act="pickshop">Choose a shop</button>`); },
+  pickshop: () => sheet(`<h3 id="sT">Where are you paying?</h3><div class="list" style="margin-top:10px">${SHOPS.filter((s) => !s.soon).map((s) => `<button class="li" data-act="pay" data-arg="${s.id}"><span class="ic"><i data-lucide="${s.ic}"></i></span><span><b>${esc(s.n)}</b><small>#${s.lvl}</small></span>${s.x > 1 ? `<span class="tag gold">${s.x}×</span>` : `<i data-lucide="chevron-right"></i>`}</button>`).join("")}</div>`),
+  shop: (id) => { const s = shop(+id);
+    sheet(`<div class="li" style="cursor:default;border:none;padding-top:0"><span class="ic"><i data-lucide="${s.ic}"></i></span><span><h3 id="sT">${esc(s.n)}</h3><small>${esc(s.c)} · #${s.lvl} · ${s.walk} min walk</small></span><span></span></div>
+      ${s.offer ? `<div class="box" style="background:rgba(176,0,28,0.06);border-color:rgba(176,0,28,0.2);margin:6px 0 12px"><span class="tag">Offer</span><p style="margin-top:8px;font-weight:600">${esc(s.offer)}</p></div>` : ""}
+      <div class="row2"><span class="muted">Opening hours</span><b>${esc(s.open)}</b></div><div class="row2"><span class="muted">You earn</span><b>${(s.x * 1.5).toString().replace(/\.0$/, "")} pts per S$1</b></div>
+      <div class="grid2" style="margin-top:16px"><button class="btn ghost" data-act="directions" data-arg="${s.id}"><i data-lucide="navigation"></i>Directions</button><button class="btn red" data-act="pay" data-arg="${s.id}" ${s.soon ? "disabled" : ""}><i data-lucide="nfc"></i>Pay here</button></div>`); },
+  directions: (id) => { const s = shop(+id); toast(`${s.n}: take the Tower B link bridge, then level ${s.lvl.startsWith("B") ? "B1" : s.lvl.slice(0, 2)}`); },
+  pay: (id) => { if (S.frozen) return toast("Your card is frozen. Unfreeze it in Wallet."); const s = shop(+id);
+    sheet(`<h3 id="sT">Pay ${esc(s.n)}</h3><p class="sub">Simulated payment from your One Card wallet.</p><form class="f" id="payF"><label>Amount<input name="a" type="number" inputmode="decimal" min="0.5" step="0.01" placeholder="e.g. 12.80" required></label>
+      <p class="muted" style="font-size:13px" id="payInfo">Balance ${money(S.wallet)} · ${(s.x * 1.5).toString().replace(/\.0$/, "")} pts per S$1</p><p style="color:#FF8A98;font-size:13px" id="payErr" role="alert"></p><button class="btn red wide">Pay now</button></form>`);
+    $("payF").onsubmit = (e) => { e.preventDefault(); const a = Math.round(+e.target.a.value * 100) / 100;
+      if (!(a > 0)) { $("payErr").textContent = "Enter the amount on the shop's screen."; return; }
+      if (a > S.wallet) { $("payErr").innerHTML = `Not enough balance. <a href="#" data-act="topup" style="color:var(--red);font-weight:700">Top up</a>`; return; }
+      const pts = earnFor(s, a); S.wallet = Math.round((S.wallet - a) * 100) / 100; S.pts += pts; S.spend += a; if (S.spend >= TIERS.Platinum) S.tier = "Platinum";
+      S.txns.unshift({ t: "pay", shop: s.id, amt: a, pts, at: nowT() }); save(); render();
+      sheet(`<div class="okm"><i data-lucide="check"></i></div><h3 id="sT" style="text-align:center">Paid ${money(a)}</h3><p class="sub" style="text-align:center">${esc(s.n)} · +${pts} points · balance ${money(S.wallet)}</p><button class="btn red wide" data-act="close">Done</button>`); }; },
+  unlock: () => { if (S.frozen) return toast("Your card is frozen. Unfreeze it in Wallet.");
+    const k = $("keyBtn"); if (k) { k.classList.add("open"); k.querySelector("b").textContent = "Door open · Tower B lobby"; setTimeout(() => { if (k.isConnected) { k.classList.remove("open"); k.querySelector("b").textContent = "Tap to open Tower B lobby"; } }, 3000); }
+    else sheet(`<div class="okm"><i data-lucide="door-open"></i></div><h3 id="sT" style="text-align:center">Tower B lobby is open</h3><p class="sub" style="text-align:center">The door locks again in 10 seconds.</p><button class="btn red wide" data-act="close">Done</button>`);
+    toast("Door unlocked (simulated)"); },
+  newpass: () => sheetPass(),
+  showpass: (i) => { const p = S.passes[+i]; sheet(`<h3 id="sT">Guest pass</h3><p class="sub">${esc(p.n)} · ${day(p.d)}, ${p.from} to ${p.to}</p><div class="qr">${qr(p.code)}</div><p class="code">${p.code}</p>
+      <p class="muted" style="text-align:center;font-size:13px;margin:8px 0 16px">Send this to your guest. They scan it at the Tower B lobby.</p><div class="grid2"><button class="btn ghost" data-act="delpass" data-arg="${i}">Cancel pass</button><button class="btn red" data-act="sharepass" data-arg="${i}"><i data-lucide="share-2"></i>Share</button></div>`); },
+  sharepass: (i) => { const p = S.passes[+i], text = `Your guest pass for Lumina Residences, Tower B: code ${p.code}, ${day(p.d)} ${p.from} to ${p.to}`;
+    if (navigator.share) navigator.share({ text }).catch(() => {}); else { try { navigator.clipboard.writeText(text); toast("Pass details copied"); } catch (e) { toast(text); } } },
+  delpass: (i) => { S.passes.splice(+i, 1); save(); closeSheet(); render(); toast("Guest pass cancelled"); },
+  book: () => { let fac = FAC[0].id, d = iso(1), slot = null;
+    const draw = () => { const taken = (f, dd, s) => S.bookings.some((b) => b.f === f && b.d === dd && b.s === s) || ((f.length + dd.length + s.length) % 5 === 0);
+      sheet(`<h3 id="sT">Book a facility</h3><p class="sub">Free for residents, 2 hours per booking.</p>
+        <div class="chips" style="margin:0 -20px 14px;padding:0 20px">${FAC.map((f) => `<button type="button" data-f="${f.id}" aria-pressed="${f.id === fac}">${f.n}</button>`).join("")}</div>
+        <div class="chips" style="margin:0 -20px 14px;padding:0 20px">${[1, 2, 3, 4, 5, 6, 7].map((o) => `<button type="button" data-d="${iso(o)}" aria-pressed="${iso(o) === d}">${day(iso(o))}</button>`).join("")}</div>
+        <div class="slots">${SLOTS.map((s) => `<button type="button" data-s="${s}" aria-pressed="${s === slot}" ${taken(fac, d, s) ? "disabled" : ""}>${s}</button>`).join("")}</div>
+        <button class="btn red wide" style="margin-top:18px" id="bookGo" ${slot ? "" : "disabled"}>Book ${slot ? FAC.find((f) => f.id === fac).n + ", " + day(d) + " " + slot : ""}</button>`);
+      const sh = document.querySelector(".sheet");
+      sh.querySelectorAll("[data-f]").forEach((b) => b.onclick = () => { fac = b.dataset.f; slot = null; draw(); });
+      sh.querySelectorAll("[data-d]").forEach((b) => b.onclick = () => { d = b.dataset.d; slot = null; draw(); });
+      sh.querySelectorAll("[data-s]").forEach((b) => b.onclick = () => { slot = b.dataset.s; draw(); });
+      $("bookGo").onclick = () => { S.bookings.push({ f: fac, d, s: slot }); save(); closeSheet(); render(); toast("Booked. See you there!"); }; };
+    draw(); },
+  cancelbook: (i) => { S.bookings.splice(+i, 1); save(); render(); toast("Booking cancelled"); },
+  collect: (i) => { S.parcels[+i].done = true; save(); render(); toast("Marked as collected"); },
+  notice: (id) => { const n = S.news.find((x) => x.id === +id); n.read = true; save(); render(); paintBell();
+    sheet(`<span class="tag">From management</span><h3 id="sT" style="margin-top:10px">${esc(n.t)}</h3><p class="sub">${day(n.d)}</p><p style="line-height:1.55">${esc(n.b)}</p><button class="btn ghost wide" style="margin-top:18px" data-act="close">Close</button>`); },
+  news: () => { sheet(`<h3 id="sT">Notifications</h3><div class="list" style="margin-top:8px">${S.news.map((n) => `<button class="li" data-act="notice" data-arg="${n.id}"><span class="ic"><i data-lucide="${n.ic}"></i></span><span><b>${esc(n.t)}</b><small>${day(n.d)}</small></span>${n.read ? "" : `<span class="tag">New</span>`}</button>`).join("")}
+      ${S.parcels.filter((p) => !p.done).map((p) => `<button class="li" data-go="residence"><span class="ic"><i data-lucide="package"></i></span><span><b>Parcel waiting: ${esc(p.n)}</b><small>${ago(p.at)}</small></span><span></span></button>`).join("")}</div>`); },
+  report: () => { sheet(`<h3 id="sT">Report an issue</h3><p class="sub">Management usually replies within one working day.</p><form class="f" id="repF">
+      <label>What's it about<select name="c"><option>Something broken in my unit</option><option>Common area</option><option>Noise</option><option>Lift or door</option><option>Other</option></select></label>
+      <label>Details<textarea name="d" maxlength="500" placeholder="Where it is and what's happening" required></textarea></label><p style="color:#FF8A98;font-size:13px" id="repErr"></p><button class="btn red wide">Send to management</button></form>`);
+    $("repF").onsubmit = (e) => { e.preventDefault(); if (e.target.d.value.trim().length < 5) { $("repErr").textContent = "Add a few words so they know what to fix."; return; }
+      S.reports.push({ c: e.target.c.value, d: e.target.d.value.trim(), at: nowT() }); save(); closeSheet(); toast("Sent. Reference #" + (4800 + S.reports.length) + " (preview)"); }; },
+  auto: (_, el) => { if (el.checked) { sheet(`<h3 id="sT">Auto top-up</h3><p class="sub">We'll top up through Stripe when your balance runs low.</p><form class="f" id="autoF">
+      <label>When my balance is below<select name="b">${[10, 20, 50].map((v) => `<option value="${v}" ${v === S.auto.below ? "selected" : ""}>S$${v}</option>`).join("")}</select></label>
+      <label>Add<select name="a">${[20, 50, 100].map((v) => `<option value="${v}" ${v === S.auto.amt ? "selected" : ""}>S$${v}</option>`).join("")}</select></label><button class="btn red wide">Turn on</button></form>`);
+      $("autoF").onsubmit = (e) => { e.preventDefault(); S.auto = { on: true, below: +e.target.b.value, amt: +e.target.a.value }; save(); closeSheet(); render(); toast("Auto top-up is on"); };
+      el.checked = false; } else { S.auto.on = false; save(); render(); toast("Auto top-up is off"); } },
+  freeze: (_, el) => { S.frozen = el.checked; save(); render(); toast(S.frozen ? "Card frozen: payments and doors are paused" : "Card unfrozen"); },
+  lost: () => sheet(`<h3 id="sT">Report a lost card</h3><p class="sub">We'll block card •••• 0482 straight away. Your balance and points move to your replacement, which you can collect from the concierge.</p><div class="grid2"><button class="btn ghost" data-act="close">Not now</button><button class="btn red" data-act="lostgo">Block card</button></div>`),
+  lostgo: () => { S.frozen = true; save(); closeSheet(); render(); toast("Card blocked. Replacement ready at the concierge tomorrow (preview)"); },
+  redeem: (id) => { const r = REWARDS.find((x) => x.id === +id), locked = r.tier && (r.tier === "Platinum" ? S.tier !== "Platinum" : false);
+    if (locked) return toast(`${r.n} is for ${r.tier} members`); if (S.pts < r.pts) return toast(`You need ${num(r.pts - S.pts)} more points`);
+    sheet(`<h3 id="sT">${esc(r.n)}</h3><p class="sub">Use ${num(r.pts)} of your ${num(S.pts)} points?</p><div class="grid2"><button class="btn ghost" data-act="close">Cancel</button><button class="btn red" data-act="redeemgo" data-arg="${r.id}">Redeem</button></div>`); },
+  redeemgo: (id) => { const r = REWARDS.find((x) => x.id === +id), code = code6(); S.pts -= r.pts; S.vouchers.unshift({ n: r.n, code }); S.txns.unshift({ t: "redeem", n: r.n, pts: -r.pts, at: nowT() }); save(); render(); A.voucher(0); },
+  voucher: (i) => { const v = S.vouchers[+i]; sheet(`<span class="tag gold">Voucher</span><h3 id="sT" style="margin-top:10px">${esc(v.n)}</h3><p class="sub">Show this at the counter. Valid for 30 days.</p><div class="qr">${qr(v.code)}</div><p class="code">${v.code}</p><button class="btn ghost wide" style="margin-top:14px" data-act="close">Done</button>`); },
+  profile: () => sheet(`<div style="text-align:center"><span class="av" style="width:72px;height:72px;margin:0 auto;font-size:24px">${esc(initials(me.name))}</span><h3 id="sT" style="margin-top:10px">${esc(me.name)}</h3><p class="sub">${esc(me.unit)} · ${S.tier} member</p></div>
+      <div class="row2"><span>Resident since</span><b>March 2024</b></div><div class="row2"><span>One Card</span><b>•••• 0482</b></div><div class="row2"><span>Household cards</span><b>2 linked</b></div>
+      <div class="row2"><span>Notifications</span><label class="switch"><input type="checkbox" checked aria-label="Notifications"><span></span></label></div>
+      <button class="btn ghost wide" style="margin-top:16px" data-act="logout"><i data-lucide="log-out"></i>Sign out</button>`),
+  logout: () => { SS.del("condouser"); closeSheet(); location.hash = ""; show(false); toast("Signed out"); },
+};
+function sheetPass() {
+  sheet(`<h3 id="sT">New guest pass</h3><p class="sub">Your guest gets a code to scan at the Tower B lobby.</p><form class="f" id="gpF"><label>Guest's name<input name="n" maxlength="40" required placeholder="e.g. Aunty Mei"></label>
+    <label>Date<input name="d" type="date" min="${iso(0)}" value="${iso(0)}"></label><div class="grid2"><label>From<select name="f">${SLOTS.map((s) => `<option>${s}</option>`).join("")}</select></label><label>Until<select name="t">${[...SLOTS.slice(1), "9pm", "11pm"].map((s, i) => `<option ${i === 3 ? "selected" : ""}>${s}</option>`).join("")}</select></label></div>
+    <p style="color:#FF8A98;font-size:13px" id="gpErr"></p><button class="btn red wide">Create pass</button></form>`);
+  $("gpF").onsubmit = (e) => { e.preventDefault(); const f = e.target; if (!f.n.value.trim()) { $("gpErr").textContent = "Add your guest's name."; return; }
+    S.passes.unshift({ n: f.n.value.trim(), d: f.d.value || iso(0), from: f.f.value, to: f.t.value, code: code6() }); save(); render(); A.showpass(0); };
+}
+const initials = (n) => n.split(/\s+/).map((w) => w[0] || "").join("").slice(0, 2).toUpperCase() || "ME";
+
+/* ---------- routing, login and wiring ---------- */
+let cur = "home";
+function render() { $("pg").innerHTML = V[cur](); icons(); const q = $("nq"); if (q) q.oninput = (e) => { UI.nq = e.target.value; const pos = e.target.selectionStart; render(); const n = $("nq"); n.focus(); n.setSelectionRange(pos, pos); }; }
+function route() { if (!SS.get("condouser")) return show(false); const v = location.hash.slice(1); cur = V[v] ? v : "home";
+  document.querySelectorAll(".tabs a").forEach((a) => { const on = a.dataset.t === cur; a.classList.toggle("on", on); on ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"); });
+  closeSheet(); render(); $("scroll").scrollTop = 0; }
+function paintBell() { $("bellPip").hidden = !S.news.some((n) => !n.read) && !S.parcels.some((p) => !p.done); }
+function show(inApp) { $("login").hidden = inApp; $("app").hidden = !inApp;
+  if (inApp) { me.name = SS.get("condouser"); const h = new Date().getHours(); $("hiName").textContent = `Good ${h < 12 ? "morning" : h < 18 ? "afternoon" : "evening"}, ${me.name.split(" ")[0]}`;
+    $("hiSub").textContent = me.unit; $("meAv").textContent = initials(me.name); paintBell(); route(); } else { $("lform").reset(); } }
+
+$("lform").addEventListener("submit", (e) => { e.preventDefault(); const u = $("luser").value.trim(), p = $("lpass").value;
+  if (!u) { $("lerr").textContent = "Enter your email or unit number."; $("luser").focus(); return; }
+  if (!p) { $("lerr").textContent = "Enter your password."; $("lpass").focus(); return; }
+  $("lpass").value = ""; // never kept
+  const nm = u.includes("@") ? u.split("@")[0].replace(/[._-]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()).slice(0, 30) : "Resident";
+  SS.set("condouser", nm || "Resident"); $("lerr").textContent = ""; if (!location.hash) location.hash = "home"; show(true); });
+$("leye").onclick = () => { const p = $("lpass"), s = p.type === "password"; p.type = s ? "text" : "password"; $("leye").setAttribute("aria-label", s ? "Hide password" : "Show password"); $("leye").innerHTML = `<i data-lucide="${s ? "eye-off" : "eye"}"></i>`; icons(); };
+$("lforgot").onclick = (e) => { e.preventDefault(); toast("In the real app we'd email you a reset link. This is a preview."); };
+$("lactivate").onclick = (e) => { e.preventDefault(); toast("New residents get an activation code from management with their card."); };
+$("meAv").onclick = () => A.profile();
+$("bell").onclick = () => A.news();
+document.addEventListener("click", (e) => { const g = e.target.closest("[data-go]"); if (g) { closeSheet(); location.hash = g.dataset.go; return; }
+  const t = e.target.closest("[data-act]"); if (!t || t.matches("input")) return; const fn = A[t.dataset.act]; if (fn) { e.preventDefault(); fn(t.dataset.arg, t); } });
+document.addEventListener("change", (e) => { const t = e.target; if (t.matches("input[data-act]") && A[t.dataset.act]) A[t.dataset.act](t.dataset.arg, t); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSheet(); });
+window.addEventListener("hashchange", route);
+icons();
+show(!!SS.get("condouser"));
+</script>
+</body>
+</html>
