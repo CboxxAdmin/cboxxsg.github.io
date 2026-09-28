@@ -19,6 +19,9 @@ html, body { min-height: 100%; background: #1A1D22; font-family: 'Inter', system
 button, input, select, textarea { font: inherit; color: inherit; }
 svg.lucide { width: 20px; height: 20px; stroke-width: 2; }
 [hidden] { display: none !important; }
+/* scroll still works, but no visible scrollbars, like a native app */
+* { scrollbar-width: none; -ms-overflow-style: none; }
+*::-webkit-scrollbar { display: none; width: 0; height: 0; }
 
 /* phone frame on bigger screens, full screen on phones */
 .device { position: relative; width: 100%; max-width: 430px; min-height: 100vh; margin: 0 auto; background: var(--bg); overflow: hidden; }
