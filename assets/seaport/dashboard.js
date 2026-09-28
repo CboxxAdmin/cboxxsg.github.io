@@ -174,7 +174,7 @@ if ($("dash")) {
           <div class="crbtns"><button type="button" class="btn outline-dark sm" data-act="profile" data-arg="${c.id}">Profile</button><button type="button" class="btn primary sm" data-act="invite" data-arg="${c.id}">Invite to brief</button></div></div></article>`; }).join("") || empty("No creatives match.")}</div>`; },
 
     licences: () => { const f = UI.lf || "all", list = S.licences.filter((l) => (f === "all" || (f === "exclusive" ? l.type === "Exclusive" : l.st === f)) && hit(l.id, l.title, cr(l.owner).name, l.type, l.scope));
-      return head("Licences", "Every licence you hold. The creatives keep the IP; Seaport holds the licensing rights and grants these to you.", `<a class="btn outline-dark" href="seaport-licensing.html" hidden><i data-lucide="info"></i>How licensing works</a>`) +
+      return head("Licences", "Every licence you hold. The creatives keep the IP; Seaport holds the licensing rights and grants these to you.", "") +
         `<section class="dcard"><div class="dch">${chips("lf", [["all", "All", S.licences.length], ["active", "Active"], ["renew", "Renews soon"], ["expired", "Expired"], ["exclusive", "Exclusive"]])}</div>${list.length ? licTable(list) : empty("No licences match.")}</section>`; },
 
     invoices: () => { const due = S.invoices.filter((i) => i.st === "due"), paid = S.invoices.filter((i) => i.st === "paid");
