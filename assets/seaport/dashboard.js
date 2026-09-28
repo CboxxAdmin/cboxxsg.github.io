@@ -350,7 +350,12 @@ if ($("dash")) {
     board: () => { const open = S.board.filter((b) => b.st === "open"), top = [...open].sort((a, b) => b.fee - a.fee)[0], jobs = S.work.filter((w) => w.st === "prog" || w.st === "applied"),
         dl = deadlines()[0], unread = S.news.filter((n) => !n.read), po = S.payouts.find((p) => p.st === "sched") || S.payouts[0], lic = S.fw.reduce((a, f) => a + f.lic, 0);
       const card = (key, cls, r, inner) => `<a class="pst ${CAT[key][1]} ${cls}" href="#${key}" style="--r:${r}deg"><span class="nail" aria-hidden="true"></span>${inner}</a>`;
-      return `<div class="nbhello"><h1>${greet()}</h1><p>Pick a notice to open it.</p></div>
+      const hiring = S.jobs.filter((j) => j.st !== "full"), newest = [...hiring].sort((a, b) => b.posted.localeCompare(a.posted))[0], un = unreadAll();
+      return `<div class="nbhead"><div class="nbhello"><h1>${greet()}</h1><p>Pick a notice to open it.</p></div>
+      <div class="nbmini"><div class="nbsign sm"><span>Tavern</span></div>
+        ${card("tavern", "tvmini t1", 1.2, `<span class="ph sm">The Tavern</span><span class="pb sm">Jobs, chat and reviews from companies</span>
+          <span class="tvstats"><span><b>${hiring.length}</b>jobs hiring</span><span><b>${un}</b>${un === 1 ? "unread message" : "unread messages"}</span><span><b>★ ${myAvg()}</b>your rating</span></span>
+          ${newest ? `<span class="tvj"><i class="sdot ${newest.st}"></i><span>${esc(newest.t)}<em>${esc(COS[newest.co][0])}</em></span><span>${money(newest.pay)}</span></span>` : ""}<span class="pgo">Enter the tavern</span>`)}</div></div>
       <div class="nboard front"><div class="nbsign big"><span>Notice board</span></div><div class="nbfront">
         ${card("rewards", "g-reward t0", -2, `<span class="ph">Reward</span><span class="pb">Paid to you this year for your work</span><span class="big">${money(16950)}</span><span class="pb">${money(6300)} this quarter, up 18%. You earn on every licence.</span><span class="seal red" aria-hidden="true"></span>`)}
         ${card("contracts", "g-arms t1", 1.5, `<span class="ph">Call to arms</span><span class="pb">${jobs.length} ${jobs.length === 1 ? "job needs" : "jobs need"} you</span>${jobs.slice(0, 2).map((w) => `<span class="pli">${esc(w.t)}</span>`).join("")}<span class="pgo">Report for duty</span>`)}
@@ -362,11 +367,6 @@ if ($("dash")) {
         ${card("bounties", "g-bounty t1", 1, `<span class="ph">Bounty</span><span class="pb">${open.length} paid briefs on offer</span>${top ? `<span class="big">${money(top.fee)}</span><span class="pb sm">top bounty: ${esc(top.t)}</span>` : ""}<span class="pgo">Claim a bounty</span>`)}
         ${card("warnings", "g-warn t2", -2.2, `<span class="ph">Warning!</span><span class="pb">${deadlines().length} deadlines ahead</span>${dl ? `<span class="pb"><b>${esc(dl.t)}</b></span><span class="pb sm">${daysTo(dl.due) >= 0 ? "due in " + daysTo(dl.due) + " days" : "overdue"}</span>` : ""}`)}
         ${card("notices", "g-attn t0", 1.2, `<span class="ph">Attention</span><span class="pb">${unread.length ? unread.length + (unread.length === 1 ? " new notice" : " new notices") + " from Seaport" : "No new notices"}</span>${(unread[0] || S.news[0]) ? `<span class="pli">${esc((unread[0] || S.news[0]).t)}</span>` : ""}`)}
-        ${(() => { const hiring = S.jobs.filter((j) => j.st !== "full"), top = [...hiring].sort((a, b) => b.posted.localeCompare(a.posted)).slice(0, 3), lob = S.chats.find((c) => c.lobby), lm = lob.msgs[lob.msgs.length - 1], rv = S.reviews.mine[0];
-          return card("tavern", "g-tavern t1", 0.4, `<span class="ph">The Tavern</span><span class="pb sm">Jobs, chat and reviews from companies across the network</span><span class="tvrow">
-          <span class="tvcol"><b>${hiring.length} jobs hiring now</b>${top.map((j) => `<span class="tvj"><i class="sdot ${j.st}"></i><span>${esc(j.t)}<em>${esc(COS[j.co][0])}</em></span><span>${money(j.pay)}</span></span>`).join("")}</span>
-          <span class="tvcol"><b>${unreadAll() ? unreadAll() + " unread " + (unreadAll() === 1 ? "message" : "messages") : "Chat room"}</b><span class="pli">${esc(lm.who || "You")}: ${esc(lm.t || "sent a file")}</span></span>
-          <span class="tvcol"><b>★ ${myAvg()} from ${S.reviews.mine.length} reviews</b><span class="pli">"${esc(rv.t)}"</span></span></span><span class="pgo">Enter the tavern</span>`); })()}
       </div></div>`; },
 
     bounties: () => { const f = UI.qf || "all", discs = [...new Set(S.board.map((b) => b.d))], passed = S.board.filter((b) => b.st === "passed").length;
@@ -772,6 +772,37 @@ if ($("dash")) {
   $("dq").value = ""; // browsers can restore an old search on reload
   if (S.read) $("bell").querySelector(".dot")?.remove();
   setMe();
+  // Notice board extras: a soft pen-scratch when something clickable is clicked (made with Web Audio, no sound files),
+  // with a button to turn it off. The quill cursor itself is in dashboard.css.
+  if (role === "creative") {
+    let sound = (() => { try { return localStorage.getItem("seaport-sound") !== "off"; } catch (e) { return true; } })(), actx = null, last = 0;
+    const scratch = () => {
+      if (!sound) return; const now = performance.now(); if (now - last < 90) return; last = now;
+      try {
+        actx = actx || new (window.AudioContext || window.webkitAudioContext)(); if (actx.state === "suspended") actx.resume();
+        const sr = actx.sampleRate, dur = 0.18 + Math.random() * 0.08, n = Math.floor(sr * dur), buf = actx.createBuffer(1, n, sr), d = buf.getChannelData(0), step = Math.floor(sr / 900);
+        let amp = 0; for (let i = 0; i < n; i++) { if (i % step === 0) amp = 0.4 + Math.random() * 0.6; d[i] = (Math.random() * 2 - 1) * amp; } // paper grain
+        const src = actx.createBufferSource(); src.buffer = buf;
+        const hp = actx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 1800;
+        const bp = actx.createBiquadFilter(); bp.type = "bandpass"; bp.Q.value = 0.9;
+        const t0 = actx.currentTime, f = 3500 + Math.random() * 1200;
+        bp.frequency.setValueAtTime(f, t0); bp.frequency.linearRampToValueAtTime(f * 1.4, t0 + dur * 0.45); bp.frequency.linearRampToValueAtTime(f * 0.85, t0 + dur);
+        const g = actx.createGain(); // two quick strokes
+        g.gain.setValueAtTime(0.0001, t0); g.gain.linearRampToValueAtTime(0.22, t0 + 0.012); g.gain.linearRampToValueAtTime(0.06, t0 + dur * 0.4);
+        g.gain.linearRampToValueAtTime(0.16, t0 + dur * 0.55); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+        src.connect(hp).connect(bp).connect(g).connect(actx.destination); src.start(t0); src.stop(t0 + dur + 0.02);
+      } catch (e) {}
+    };
+    const sb = document.createElement("button"); sb.type = "button"; sb.className = "dicon"; sb.id = "sndBtn";
+    const paint = () => { const l = sound ? "Writing sounds on" : "Writing sounds off"; sb.setAttribute("aria-pressed", sound); sb.setAttribute("aria-label", l); sb.title = l; sb.innerHTML = `<i data-lucide="${sound ? "volume-2" : "volume-x"}"></i>`; icons(); };
+    sb.onclick = () => { sound = !sound; try { localStorage.setItem("seaport-sound", sound ? "on" : "off"); } catch (e) {} paint(); last = 0; scratch(); };
+    $("bell").before(sb); paint();
+    document.addEventListener("click", (e) => {
+      const t = e.target.closest('a, button, select, summary, label, [role="button"], [data-act], .rowlink, input[type="checkbox"], input[type="radio"]');
+      if (t && t !== sb && !t.disabled) scratch();
+    }, true);
+  }
+
   window.addEventListener("hashchange", route);
   route();
 }
