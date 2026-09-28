@@ -518,7 +518,7 @@ function openChooser(from) {
   c.querySelector(".chcard").focus();
 }
 document.addEventListener("click", (e) => {
-  const a = e.target.closest('.nav a.btn.white[href="seaport-contact.html"]');
+  const a = e.target.closest('.nav a.btn.white[href="seaport-contact.html"], footer a.fchoose');
   if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
   e.preventDefault(); openChooser(a);
 });
