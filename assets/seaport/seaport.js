@@ -518,8 +518,9 @@ function openChooser(from) {
   c.querySelector(".chcard").focus();
 }
 document.addEventListener("click", (e) => {
-  const a = e.target.closest('.nav a.btn.white[href="seaport-contact.html"], footer a.fchoose');
-  if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
+  // every "Talk to our team" link (nav, banners, footers) asks which team first
+  const a = e.target.closest('a[href="seaport-contact.html"]:not(.chcard)');
+  if (!a || !(a.classList.contains("fchoose") || /talk to our team/i.test(a.textContent)) || e.ctrlKey || e.metaKey || e.shiftKey) return;
   e.preventDefault(); openChooser(a);
 });
 document.addEventListener("keydown", (e) => {
