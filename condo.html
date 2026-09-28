@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Lumina Square · Seaport Loyalty</title>
+<meta name="description" content="Concept: One Card for a condo and its mall. The same card opens the residences, pays from a Stripe-funded e-wallet and collects loyalty points. Sample data only.">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/lucide@1.48.0/dist/umd/lucide.min.js"></script>
+<style>
+/* Concept dashboard in the style of the original CBOXX merchant dashboard: dark, deep red, condensed headings. */
+:root { --bg: #070C12; --panel: #0D141C; --panel2: #121B25; --line: rgba(255,255,255,0.07); --text: #E8E4DF; --muted: rgba(232,228,223,0.55); --faint: rgba(232,228,223,0.3);
+  --red: #8B0015; --red2: #E0344B; --green: #3AB86A; --gold: #D4A832; --plat: #B8C4D6; --silver: #A7A9AC; --bronze: #C0773B; --blue: #4C8DDC; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { min-height: 100%; font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
+svg.lucide { width: 16px; height: 16px; stroke-width: 2; }
+.cond { font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.02em; }
+.app { display: grid; grid-template-columns: 236px 1fr; min-height: 100vh; }
+
+/* sidebar */
+.side { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: #000; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+.brand { display: flex; align-items: center; gap: 10px; padding: 18px 20px; border-bottom: 1px solid var(--line); text-decoration: none; }
+.brand img { width: 28px; height: 28px; object-fit: contain; }
+.brand b { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 20px; letter-spacing: 0.04em; }
+.brand span { display: block; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); margin-top: -2px; }
+.prop { padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.prop small { display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--faint); }
+.prop b { display: block; margin-top: 4px; font-size: 15px; }
+.prop span { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+.plan { display: inline-block; margin-top: 8px; padding: 3px 9px; border-radius: 99px; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: rgba(139,0,21,0.22); border: 1px solid rgba(224,52,75,0.45); color: #FF8A98; }
+.nav { padding: 10px 0 16px; flex: 1; }
+.nav .lab { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint); padding: 14px 20px 6px; }
+.nav a { display: flex; align-items: center; gap: 11px; padding: 9px 20px; font-size: 13.5px; font-weight: 500; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; }
+.nav a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+.nav a.on { color: var(--text); background: rgba(139,0,21,0.16); border-left-color: var(--red2); }
+.nav .badge { margin-left: auto; font-size: 10px; font-weight: 700; background: var(--red); color: #fff; padding: 2px 7px; border-radius: 99px; }
+.side .foot { margin: 0 16px 16px; padding: 14px; border-radius: 10px; background: rgba(139,0,21,0.1); border: 1px solid rgba(139,0,21,0.3); font-size: 12px; line-height: 1.5; color: var(--muted); }
+.side .foot b { color: var(--text); display: block; margin-bottom: 4px; }
+
+/* top bar */
+.main { min-width: 0; display: flex; flex-direction: column; }
+.top { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 14px; height: 62px; padding: 0 28px; background: rgba(7,12,18,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.top h1 { font-size: 15px; font-weight: 600; margin-right: 8px; white-space: nowrap; }
+.search { flex: 1; max-width: 380px; display: flex; align-items: center; gap: 8px; padding: 0 12px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--line); color: var(--muted); }
+.search input { flex: 1; border: none; background: none; outline: none; padding: 9px 0; font-size: 13px; color: var(--text); }
+.range { margin-left: auto; padding: 7px 10px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--line); font-size: 12.5px; color: var(--muted); }
+.live { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); white-space: nowrap; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.3; } }
+.ibtn { position: relative; width: 36px; height: 36px; border-radius: 8px; display: grid; place-items: center; background: rgba(255,255,255,0.05); border: 1px solid var(--line); cursor: pointer; }
+.ibtn .pip { position: absolute; top: 7px; right: 8px; width: 7px; height: 7px; border-radius: 50%; background: var(--red2); }
+.me { display: flex; align-items: center; gap: 9px; font-size: 12.5px; }
+.me .av { width: 34px; height: 34px; border-radius: 50%; background: var(--red); display: grid; place-items: center; font-weight: 700; font-size: 12px; }
+.me small { display: block; color: var(--muted); font-size: 11px; }
+.note { margin: 16px 28px 0; padding: 9px 14px; border-radius: 8px; background: rgba(212,168,50,0.1); border: 1px solid rgba(212,168,50,0.25); color: #E9CF86; font-size: 12.5px; display: flex; gap: 8px; align-items: center; }
+
+/* content */
+.view { padding: 22px 28px 60px; display: grid; gap: 18px; }
+.vhead { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.vhead h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 34px; letter-spacing: 0.02em; text-transform: uppercase; line-height: 1; }
+.vhead p { color: var(--muted); margin-top: 6px; max-width: 70ch; }
+.acts { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 14px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,0.05); color: var(--text); font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; white-space: nowrap; }
+.btn:hover { background: rgba(255,255,255,0.09); }
+.btn.red { background: var(--red); border-color: var(--red); }
+.btn.red:hover { background: #A5001A; }
+.btn.sm { height: 30px; padding: 0 10px; font-size: 12px; }
+.grid { display: grid; gap: 18px; }
+.k4 { grid-template-columns: repeat(4, 1fr); } .k5 { grid-template-columns: repeat(5, 1fr); } .k3 { grid-template-columns: repeat(3, 1fr); }
+.g21 { grid-template-columns: 2fr 1fr; } .g12 { grid-template-columns: 1fr 2fr; } .g11 { grid-template-columns: 1fr 1fr; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; min-width: 0; }
+.ch { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
+.ch h3 { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.ch .link { font-size: 12px; color: #FF8A98; text-decoration: none; cursor: pointer; background: none; border: none; }
+.kpi small { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.kpi b { display: block; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 34px; line-height: 1.1; margin-top: 6px; }
+.kpi .d { font-size: 12px; font-weight: 600; color: var(--green); }
+.kpi .d.bad { color: var(--red2); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips button { padding: 6px 12px; border-radius: 99px; border: 1px solid var(--line); background: rgba(255,255,255,0.04); color: var(--muted); font-size: 12.5px; cursor: pointer; }
+.chips button[aria-pressed="true"] { background: var(--text); color: #0B0B0D; border-color: var(--text); font-weight: 600; }
+.chips .n { opacity: 0.6; margin-left: 5px; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); padding: 9px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 11px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr.rl { cursor: pointer; }
+tr.rl:hover td { background: rgba(255,255,255,0.03); }
+tr.rl:focus-visible { outline: 2px solid var(--red2); outline-offset: -2px; }
+td small { display: block; color: var(--muted); font-size: 11.5px; margin-top: 1px; }
+.r { text-align: right; }
+.muted { color: var(--muted); }
+.who { display: flex; align-items: center; gap: 10px; }
+.mav { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-size: 11.5px; font-weight: 700; flex-shrink: 0; }
+.tier { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border-radius: 99px; }
+.tier::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.t-Platinum { color: var(--plat); background: rgba(184,196,214,0.12); } .t-Gold { color: var(--gold); background: rgba(212,168,50,0.12); }
+.t-Silver { color: var(--silver); background: rgba(167,169,172,0.12); } .t-Bronze { color: var(--bronze); background: rgba(192,119,59,0.12); }
+.pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; white-space: nowrap; }
+.p-ok { background: rgba(58,184,106,0.14); color: #6FD795; } .p-warn { background: rgba(212,168,50,0.14); color: #E9CF86; } .p-bad { background: rgba(224,52,75,0.14); color: #FF8A98; } .p-gr { background: rgba(255,255,255,0.07); color: var(--muted); } .p-blue { background: rgba(76,141,220,0.15); color: #8DB8EE; }
+.res { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #8DB8EE; }
+.res svg { width: 12px; height: 12px; }
+
+/* charts */
+.bars { display: flex; align-items: flex-end; gap: 8px; height: 190px; }
+.bars .b { flex: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; }
+.bars .st { width: 100%; max-width: 38px; display: flex; flex-direction: column-reverse; border-radius: 4px 4px 0 0; overflow: hidden; }
+.bars .st i { display: block; height: 0; transition: height 700ms cubic-bezier(.2,1,.3,1); }
+.bars span { font-size: 10.5px; color: var(--faint); }
+.legend { display: flex; gap: 16px; font-size: 12px; color: var(--muted); margin-top: 12px; flex-wrap: wrap; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.heat { display: grid; grid-template-columns: 34px repeat(14, 1fr); gap: 3px; font-size: 10px; color: var(--faint); }
+.heat i { aspect-ratio: 1.6; border-radius: 3px; background: var(--red2); }
+.heat span { display: flex; align-items: center; }
+.donut { width: 150px; aspect-ratio: 1; border-radius: 50%; position: relative; flex-shrink: 0; }
+.donut::after { content: ""; position: absolute; inset: 22%; border-radius: 50%; background: var(--panel); }
+.donut b { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; z-index: 1; font-family: 'Barlow Condensed', sans-serif; font-size: 26px; line-height: 1; }
+.donut b small { font-family: 'Inter'; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+.drow { display: flex; align-items: center; gap: 22px; }
+.dleg { display: grid; gap: 8px; font-size: 12.5px; flex: 1; }
+.dleg div { display: flex; justify-content: space-between; gap: 10px; }
+.meter { height: 8px; border-radius: 99px; background: rgba(255,255,255,0.07); overflow: hidden; }
+.meter i { display: block; height: 100%; border-radius: 99px; background: var(--red2); }
+.hbar { display: grid; grid-template-columns: 130px 1fr 60px; gap: 10px; align-items: center; font-size: 12.5px; padding: 6px 0; }
+svg.line { width: 100%; height: 180px; overflow: visible; }
+
+/* live feed */
+.feed { display: grid; gap: 2px; max-height: 420px; overflow: hidden; }
+.fi { display: grid; grid-template-columns: 30px 1fr auto; gap: 10px; align-items: center; padding: 9px 4px; border-bottom: 1px solid var(--line); animation: fin 400ms ease-out; }
+@keyframes fin { from { opacity: 0; transform: translateY(-6px); background: rgba(224,52,75,0.12); } }
+.fi .ic { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; background: rgba(255,255,255,0.06); }
+.fi.tap .ic { color: var(--green); } .fi.redeem .ic { color: var(--gold); } .fi.join .ic { color: #8DB8EE; } .fi.upgrade .ic { color: #FF8A98; }
+.fi b { font-weight: 600; } .fi small { display: block; color: var(--muted); font-size: 11.5px; }
+.fi .pts { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 17px; color: var(--green); }
+
+/* reward and campaign cards */
+.rgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.rw { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px; border-radius: 12px; background: var(--panel2); border: 1px solid var(--line); }
+.rw.off { opacity: 0.55; }
+.rw .ri { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: rgba(139,0,21,0.25); color: #FF8A98; }
+.rw b { font-size: 15px; }
+.rw .cost { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 24px; color: var(--gold); }
+.rw .meta { font-size: 12px; color: var(--muted); }
+.rw .row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); }
+.switch { position: relative; width: 38px; height: 21px; }
+.switch input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; z-index: 1; }
+.switch span { position: absolute; inset: 0; border-radius: 99px; background: rgba(255,255,255,0.15); transition: background 200ms; }
+.switch span::after { content: ""; position: absolute; top: 3px; left: 3px; width: 15px; height: 15px; border-radius: 50%; background: #fff; transition: transform 200ms; }
+.switch input:checked + span { background: var(--green); }
+.switch input:checked + span::after { transform: translateX(17px); }
+.switch input:focus-visible + span { outline: 2px solid var(--red2); outline-offset: 2px; }
+
+/* One Card */
+.ocard { position: relative; width: 340px; max-width: 100%; aspect-ratio: 1.586; border-radius: 16px; padding: 20px 22px; color: #F4EFE8; overflow: hidden; flex-shrink: 0;
+  background: radial-gradient(circle at 85% 15%, rgba(224,52,75,0.55), transparent 45%), linear-gradient(135deg, #1A0A10 0%, #0B1119 60%, #140A0E 100%); border: 1px solid rgba(255,255,255,0.14); box-shadow: 0 24px 40px -20px #000; }
+.ocard .oc-top { display: flex; justify-content: space-between; align-items: center; }
+.ocard .oc-top img { width: 26px; } .ocard .oc-top span { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; letter-spacing: 0.12em; font-size: 14px; }
+.ocard .chip { width: 38px; height: 28px; border-radius: 6px; margin: 16px 0 12px; background: linear-gradient(135deg, #E9CF86, #B08A2E); position: relative; }
+.ocard .chip::after { content: ""; position: absolute; inset: 7px 10px; border: 1px solid rgba(0,0,0,0.35); border-radius: 3px; }
+.ocard .nfc { position: absolute; right: 22px; top: 62px; opacity: 0.8; }
+.ocard .no { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; letter-spacing: 0.14em; }
+.ocard .bot { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 10px; font-size: 11px; }
+.ocard .bot small { display: block; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6; }
+.ocard .bot b { font-size: 13px; }
+.ocard.blocked { filter: grayscale(1); opacity: 0.7; }
+.ocard.blocked::after { content: "BLOCKED"; position: absolute; inset: 0; display: grid; place-items: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 34px; letter-spacing: 0.2em; color: #FF8A98; background: rgba(0,0,0,0.35); }
+.onecard { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+.jobs3 { display: grid; gap: 10px; flex: 1; min-width: 240px; }
+.jobs3 > div:not(.meta3) { display: flex; gap: 10px; align-items: flex-start; }
+.jobs3 .meta3 { display: grid; gap: 14px; } .jobs3 .meta3 b { font-size: 22px; font-family: 'Barlow Condensed', sans-serif; }
+.jobs3 i { color: #FF8A98; margin-top: 2px; }
+.jobs3 small { display: block; color: var(--muted); font-size: 12px; }
+.acc { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+.acc span { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: rgba(76,141,220,0.14); color: #8DB8EE; }
+.acc span svg { width: 13px; height: 13px; }
+.gate { display: grid; grid-template-columns: 34px 1fr auto auto; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.gate:last-child { border-bottom: none; }
+.gate .gi { width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; background: rgba(76,141,220,0.14); color: #8DB8EE; }
+.fi.access .ic { color: #8DB8EE; } .fi.topup .ic { color: #B18CFF; } .fi.pay .ic { color: var(--green); }
+.amts { display: flex; gap: 8px; flex-wrap: wrap; }
+.amts button { padding: 9px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.14); background: #070C12; font-weight: 700; cursor: pointer; }
+.amts button[aria-pressed="true"] { background: var(--text); color: #0B0B0D; }
+.stripe { border-radius: 12px; border: 1px solid rgba(99,91,255,0.45); background: linear-gradient(180deg, rgba(99,91,255,0.14), rgba(99,91,255,0.04)); padding: 18px; }
+.stripe .sh { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.stripe .sh b { color: #B7B2FF; letter-spacing: 0.02em; }
+.spin { width: 30px; height: 30px; border-radius: 50%; border: 3px solid rgba(255,255,255,0.15); border-top-color: #8E88FF; animation: rot 800ms linear infinite; margin: 10px auto; }
+@keyframes rot { to { transform: rotate(360deg); } }
+.okmark { width: 46px; height: 46px; margin: 6px auto; border-radius: 50%; display: grid; place-items: center; background: rgba(58,184,106,0.18); color: #6FD795; }
+.okmark svg { width: 24px; height: 24px; }
+
+/* modal */
+.mback { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 24px; background: rgba(0,0,0,0.65); animation: fade 150ms ease-out; }
+@keyframes fade { from { opacity: 0; } }
+.modal { position: relative; width: min(640px, 100%); max-height: calc(100vh - 48px); overflow: auto; background: var(--panel); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 26px 28px; box-shadow: 0 40px 80px -30px #000; animation: pop 220ms cubic-bezier(.2,1,.3,1); }
+.modal.wide { width: min(800px, 100%); }
+@keyframes pop { from { opacity: 0; transform: translateY(12px) scale(0.98); } }
+.modal h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 28px; text-transform: uppercase; letter-spacing: 0.02em; padding-right: 40px; }
+.modal .sub { color: var(--muted); margin: 4px 0 16px; }
+.mx { position: absolute; right: 14px; top: 14px; width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--line); background: rgba(255,255,255,0.05); cursor: pointer; display: grid; place-items: center; }
+.meta3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 16px; }
+.meta3 small { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-bottom: 3px; }
+.meta3 b { font-size: 14px; }
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form .full { grid-column: 1 / -1; }
+.form label { display: grid; gap: 6px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.form input:not([type=checkbox]), .form select, .form textarea { padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.14); background: #070C12; color: var(--text); width: 100%; font-size: 13.5px; }
+.form input:focus, .form select:focus, .form textarea:focus { outline: 2px solid var(--red2); outline-offset: 1px; }
+.form .chk { display: flex; align-items: center; gap: 8px; font-weight: 500; color: var(--text); }
+.form .chk input { accent-color: var(--red2); width: 16px; height: 16px; }
+.mact { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
+.err { color: #FF8A98; font-size: 12.5px; min-height: 0; }
+.est { padding: 12px 14px; border-radius: 8px; background: rgba(58,184,106,0.08); border: 1px solid rgba(58,184,106,0.25); font-size: 13px; }
+.est b { color: #6FD795; }
+.toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); z-index: 80; padding: 11px 16px; border-radius: 8px; background: var(--text); color: #0B0B0D; font-size: 13px; font-weight: 600; box-shadow: 0 16px 30px -12px #000; }
+.mini { display: flex; align-items: flex-end; gap: 4px; height: 60px; }
+.mini i { flex: 1; border-radius: 2px 2px 0 0; background: var(--red2); opacity: 0.8; }
+.empty { padding: 30px; text-align: center; color: var(--muted); }
+@media (max-width: 1200px) { .k5 { grid-template-columns: repeat(3, 1fr); } .k4 { grid-template-columns: repeat(2, 1fr); } .g21, .g12, .g11 { grid-template-columns: 1fr; } }
+@media (max-width: 800px) { .app { grid-template-columns: 1fr; } .side { position: static; height: auto; } .nav { display: flex; flex-wrap: wrap; } .nav .lab { display: none; } .side .foot { display: none; } .search, .me span { display: none; } }
+@media (prefers-reduced-motion: reduce) { .dot, .fi, .modal, .mback { animation: none; } .bars .st i { transition: none; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <a class="brand" href="#overview"><img src="assets/seaport/logo.png" alt=""><div><b>SEAPORT</b><span>Loyalty</span></div></a>
+    <div class="prop"><small>Property</small><b>Lumina Square</b><span>Mall + Lumina Residences (620 units)</span><span class="plan">Operator · Enterprise</span></div>
+    <nav class="nav" aria-label="Dashboard">
+      <div class="lab">Main</div>
+      <a href="#overview" data-v="overview"><i data-lucide="layout-dashboard"></i>Overview</a>
+      <a href="#live" data-v="live"><i data-lucide="radio"></i>Live activity<span class="badge" id="liveBadge">LIVE</span></a>
+      <div class="lab">One Card</div>
+      <a href="#cards" data-v="cards"><i data-lucide="credit-card"></i>Cards</a>
+      <a href="#access" data-v="access"><i data-lucide="door-open"></i>Access</a>
+      <a href="#wallet" data-v="wallet"><i data-lucide="wallet"></i>Wallet &amp; payments</a>
+      <div class="lab">Programme</div>
+      <a href="#members" data-v="members"><i data-lucide="users"></i>Members</a>
+      <a href="#residents" data-v="residents"><i data-lucide="building-2"></i>Residents</a>
+      <a href="#tenants" data-v="tenants"><i data-lucide="store"></i>Tenants</a>
+      <a href="#rewards" data-v="rewards"><i data-lucide="gift"></i>Rewards</a>
+      <a href="#campaigns" data-v="campaigns"><i data-lucide="megaphone"></i>Campaigns</a>
+      <div class="lab">Insights</div>
+      <a href="#analytics" data-v="analytics"><i data-lucide="bar-chart-3"></i>Analytics</a>
+      <div class="lab">Account</div>
+      <a href="#settings" data-v="settings"><i data-lucide="settings"></i>Programme settings</a>
+    </nav>
+    <div class="foot"><b>One card, three jobs</b>The same card opens the lobby, gym and carpark, pays at any tenant from an e-wallet topped up through Stripe, and collects points on every payment.</div>
+  </aside>
+  <div class="main">
+    <header class="top">
+      <h1 id="title">Overview</h1>
+      <label class="search"><i data-lucide="search"></i><input id="q" type="search" placeholder="Search cards, members, tenants, payments" aria-label="Search"></label>
+      <select class="range" id="range" aria-label="Date range"><option value="1">Today</option><option value="7" selected>Last 7 days</option><option value="30">Last 30 days</option></select>
+      <span class="live"><span class="dot"></span>Live</span>
+      <button class="ibtn" id="bell" aria-label="Notifications"><i data-lucide="bell"></i><span class="pip"></span></button>
+      <div class="me"><span class="av">LS</span><span><b>Centre management</b><small>Lumina Square</small></span></div>
+    </header>
+    <p class="note"><i data-lucide="info"></i>Concept preview. Lumina Square, its residents, tenants and payments are made up. No real payments are taken and no card details are collected; changes stay in this browser.</p>
+    <main class="view" id="view" tabindex="-1"></main>
+  </div>
+</div>
+
+<script>
+/* ---------- helpers ---------- */
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const money = (n) => "S$" + Math.round(n).toLocaleString("en-SG");
+const num = (n) => Math.round(n).toLocaleString("en-SG");
+const money2 = (n) => "S$" + (+n).toLocaleString("en-SG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const icons = () => window.lucide && lucide.createIcons();
+let toastT; const toast = (t) => { let el = document.querySelector(".toast"); if (!el) { el = document.createElement("div"); el.className = "toast"; el.setAttribute("role", "status"); document.body.appendChild(el); } el.textContent = t; clearTimeout(toastT); toastT = setTimeout(() => el.remove(), 2600); };
+const rnd = ((a) => () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; })(2026);
+const pick = (a) => a[Math.floor(rnd() * a.length)];
+const TIERS = ["Platinum", "Gold", "Silver", "Bronze"];
+const TCOL = { Platinum: "#B8C4D6", Gold: "#D4A832", Silver: "#A7A9AC", Bronze: "#C0773B" };
+
+/* ---------- sample data ---------- */
+const TEN0 = [
+  ["Kopi Corner", "F&B", "B1-12", "coffee"], ["Noodle Theory", "F&B", "02-08", "soup"], ["Umami Row", "F&B", "03-15", "utensils"], ["GreenCart Grocer", "Supermarket", "B1-01", "shopping-cart"],
+  ["Threadline", "Fashion", "01-22", "shirt"], ["Sole Society", "Footwear", "01-30", "footprints"], ["Glow Pharmacy", "Health & beauty", "01-05", "pill"], ["Petal & Stem", "Florist", "01-02", "flower"],
+  ["Page & Pour", "Books & café", "02-19", "book-open"], ["Little Explorers", "Kids", "03-04", "baby"], ["FitHaus", "Fitness", "04-01", "dumbbell"], ["Techno Bay", "Electronics", "02-26", "smartphone"],
+];
+const FIRST = ["Aisha", "Wei Jie", "Priya", "Marcus", "Siti", "Daniel", "Mei Ling", "Arjun", "Nurul", "Jia Hui", "Ryan", "Farah", "Kenji", "Hannah", "Ravi", "Chloe", "Irfan", "Grace", "Zhi Hao", "Divya", "Hafiz", "Sarah", "Ethan", "Lina"];
+const seed = () => {
+  const tenants = TEN0.map(([n, c, u, ic], i) => ({ id: i + 1, n, c, u, ic, taps: Math.round(600 + rnd() * 2400), members: Math.round(400 + rnd() * 1800), red: +(0.12 + rnd() * 0.3).toFixed(2), earn: c === "Supermarket" ? 0.5 : 1, st: i === 11 ? "Paused" : "Live" }));
+  tenants.push({ id: 13, n: "Bloom Bakery", c: "F&B", u: "B1-18", ic: "croissant", taps: 0, members: 0, red: 0, earn: 1, st: "Invited" });
+  const members = Array.from({ length: 48 }, (_, i) => {
+    const t = rnd(), tier = t > 0.93 ? "Platinum" : t > 0.75 ? "Gold" : t > 0.42 ? "Silver" : "Bronze", resident = rnd() < 0.34;
+    const spend = { Platinum: 7000, Gold: 2400, Silver: 700, Bronze: 120 }[tier] * (0.8 + rnd() * 1.4), last = Math.floor(rnd() < 0.15 ? 45 + rnd() * 60 : rnd() * 20);
+    return { id: 10400 + i, n: `${FIRST[i % FIRST.length]} ${String.fromCharCode(65 + Math.floor(rnd() * 26))}.`, tier, pts: Math.round(spend * (resident ? 1.5 : 1) * 0.6), spend: Math.round(spend), visits: Math.round(spend / 45 + rnd() * 6),
+      last, resident, tower: resident ? pick(["Tower A", "Tower B", "Tower C"]) : "", fav: pick(tenants.slice(0, 11)).id, joined: 2023 + Math.floor(rnd() * 3),
+      card: String(1000 + Math.floor(rnd() * 9000)), wallet: Math.round((resident ? 20 + rnd() * 280 : rnd() * 90) * 100) / 100,
+      access: resident ? ["lobby", "lift", ...["gym", "pool", "carpark"].filter(() => rnd() > 0.35)] : [], cardSt: rnd() < 0.05 ? "Blocked" : "Active" };
+  });
+  const txns = Array.from({ length: 30 }, (_, i) => { const m = pick(members), r = rnd(), t = pick(tenants.slice(0, 12)), mins = i * 23 + Math.floor(rnd() * 20);
+    const type = r < 0.55 ? "Payment" : r < 0.85 ? "Top-up" : r < 0.93 ? "Refund" : "Settlement";
+    const amt = type === "Top-up" ? pick([20, 50, 50, 100, 200]) : type === "Settlement" ? Math.round(4000 + rnd() * 20000) : Math.round((6 + rnd() * 110) * 100) / 100;
+    return { id: "TX-" + (88420 - i), type, m: type === "Settlement" ? null : m.id, ten: type === "Top-up" ? null : t.id, amt, method: type === "Top-up" ? pick(["Stripe · card", "Stripe · PayNow", "Stripe · Apple Pay", "Stripe · Google Pay"]) : type === "Settlement" ? "Bank transfer" : "One Card", at: Date.now() - mins * 60000,
+      st: type === "Top-up" && rnd() < 0.06 ? "Failed" : "Succeeded" }; });
+  return {
+    tenants, members, txns,
+    gates: [
+      { id: "ga", n: "Tower A lobby", ic: "door-open", k: "lobby", today: 1840, on: true }, { id: "gb", n: "Tower B lobby", ic: "door-open", k: "lobby", today: 1712, on: true },
+      { id: "gc", n: "Tower C lobby", ic: "door-open", k: "lobby", today: 1490, on: true }, { id: "gl", n: "Lifts to residences", ic: "arrow-up-down", k: "lift", today: 5210, on: true },
+      { id: "gg", n: "Gym, level 5", ic: "dumbbell", k: "gym", today: 386, on: true }, { id: "gp", n: "Pool deck", ic: "waves", k: "pool", today: 244, on: true },
+      { id: "gk", n: "Carpark gantry", ic: "car", k: "carpark", today: 2104, on: true }, { id: "gm", n: "Mall link bridge", ic: "footprints", k: "lobby", today: 3970, on: false } ],
+    wallet: { float: 386420, topups: 18460, topupCount: 212, spendWeek: 642300, settleDue: 158900, settleOn: "2026-10-01" },
+    rewards: [
+      { id: 1, n: "2 hours free parking", c: "Mall perk", ic: "car", pts: 300, tier: "All", red: 1240, on: true },
+      { id: 2, n: "S$10 mall voucher", c: "Voucher", ic: "ticket", pts: 800, tier: "All", red: 860, on: true },
+      { id: 3, n: "Free coffee at Kopi Corner", c: "F&B", ic: "coffee", pts: 150, tier: "All", red: 2130, on: true },
+      { id: 4, n: "Priority table at Umami Row", c: "F&B", ic: "utensils", pts: 500, tier: "Gold", red: 214, on: true },
+      { id: 5, n: "Kids' playroom pass", c: "Family", ic: "baby", pts: 400, tier: "All", red: 318, on: true },
+      { id: 6, n: "Residents: guest parking day pass", c: "Residents", ic: "building-2", pts: 250, tier: "Residents", red: 402, on: true },
+      { id: 7, n: "Birthday treat at Bloom Bakery", c: "F&B", ic: "cake", pts: 0, tier: "Silver", red: 0, on: false },
+    ],
+    campaigns: [
+      { id: 1, n: "Weekend Double Points", seg: "All members", offer: "2× points, Sat–Sun", start: "2026-09-26", end: "2026-10-31", st: "Live", reach: 24860, ch: ["App", "Tap screen"], lift: "+14% weekend visits" },
+      { id: 2, n: "Residents' Sunday Brunch", seg: "Residents", offer: "15% off brunch at 3 F&B tenants", start: "2026-10-04", end: "2026-10-25", st: "Scheduled", reach: 1120, ch: ["App", "Lobby screen", "Email"], lift: "" },
+      { id: 3, n: "Win back at-risk members", seg: "At risk", offer: "300 bonus points on next visit", start: "2026-09-15", end: "2026-10-15", st: "Live", reach: 3940, ch: ["App", "SMS"], lift: "612 members back so far" },
+      { id: 4, n: "Gold early access: Mid-Autumn sale", seg: "Gold and above", offer: "Shop 1 day early + 3× points", start: "2026-09-10", end: "2026-09-12", st: "Ended", reach: 2710, ch: ["App", "Email"], lift: "S$184,000 attributed sales" },
+    ],
+    events: [
+      { n: "Residents' night market", d: "2026-10-10", rsvp: 214, cap: 300 },
+      { n: "Kids' Halloween trail", d: "2026-10-31", rsvp: 96, cap: 150 },
+      { n: "Year-end tenant preview", d: "2026-11-21", rsvp: 58, cap: 200 },
+    ],
+    rules: { earn: 1, expiry: "18 months", silver: 500, gold: 2000, plat: 6000, resBonus: 1.5, notif: { daily: true, risk: true, tenant: false },
+      minTop: 10, maxBal: 1000, autoTop: true, ptsOnTopup: false },
+    totals: { members: 24860, tapsToday: 3182, pointsWeek: 412600, sales: 1864000 },
+  };
+};
+const KEY = "seaport-condo-demo";
+let S; try { S = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+if (!S || !S.tenants || !S.txns) S = seed();
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+const T = (id) => S.tenants.find((t) => t.id === id);
+const UI = {}; let q = "", cur = "overview";
+const hit = (...p) => !q || p.join(" ").toLowerCase().includes(q);
+const initials = (n) => n.split(" ").map((w) => w[0]).join("").slice(0, 2);
+const mav = (m) => `<span class="mav" style="background:${TCOL[m.tier]}22;color:${TCOL[m.tier]}">${esc(initials(m.n))}</span>`;
+const tier = (t) => `<span class="tier t-${t}">${t}</span>`;
+const kpi = (ic, l, v, d, bad) => `<div class="card kpi"><small><i data-lucide="${ic}"></i>${l}</small><b>${v}</b><span class="d ${bad ? "bad" : ""}">${d}</span></div>`;
+const chips = (name, opts) => `<div class="chips">${opts.map(([k, t, n]) => `<button type="button" data-act="chip" data-arg="${name}:${k}" aria-pressed="${(UI[name] || "all") === k}">${t}${n != null ? `<span class="n">${n}</span>` : ""}</button>`).join("")}</div>`;
+const head = (t, p, acts) => `<div class="vhead"><div><h2>${t}</h2><p>${p}</p></div>${acts ? `<div class="acts">${acts}</div>` : ""}</div>`;
+const segOf = (m) => m.last > 45 ? "risk" : m.visits > 30 ? "loyal" : "regular";
+const range = () => +$("range").value;
+const scale = () => ({ 1: 1 / 7, 7: 1, 30: 4.3 })[range()];
+
+/* bars: rows of stacked values, animated after render */
+const bars = (labels, series, colors) => { const max = Math.max(...labels.map((_, i) => series.reduce((a, s) => a + s[i], 0)));
+  return `<div class="bars">${labels.map((l, i) => `<div class="b" title="${l}: ${series.map((s) => num(s[i])).join(" / ")}"><div class="st" style="height:100%">${series.map((s, k) => `<i data-h="${(s[i] / max) * 100}" style="background:${colors[k]}"></i>`).join("")}</div><span>${l}</span></div>`).join("")}</div>`; };
+const grow = () => setTimeout(() => document.querySelectorAll(".bars i[data-h]").forEach((b) => { b.style.height = b.dataset.h + "%"; }), 50);
+
+/* ---------- live tap feed ---------- */
+const FEED = [];
+const feedItem = () => { const m = pick(S.members), t = pick(S.tenants.filter((x) => x.st === "Live")), r = rnd();
+  const kind = r < 0.42 ? "pay" : r < 0.72 ? "access" : r < 0.82 ? "topup" : r < 0.91 ? "redeem" : r < 0.97 ? "join" : "upgrade";
+  const g = m.resident ? pick(S.gates.filter((x) => x.on && m.access.includes(x.k))) : null; // only residents open condo doors
+  const spend = Math.round(8 + rnd() * 120), pts = Math.round(spend * t.earn * (m.resident ? S.rules.resBonus : 1));
+  return { kind: kind === "access" && !g ? "pay" : kind, m, t, g, spend, pts, amt: pick([20, 50, 100]), at: new Date() }; };
+for (let i = 0; i < 10; i++) { const f = feedItem(); f.at = new Date(Date.now() - i * 47000); FEED.push(f); }
+const feedHTML = (n, only) => FEED.filter((f) => !only || f.kind === only).slice(0, n).map((f) => { const ic = { pay: "nfc", access: "door-open", topup: "wallet", redeem: "gift", join: "user-plus", upgrade: "trending-up" }[f.kind];
+  const txt = { pay: `<b>${esc(f.m.n)}</b> paid ${money2(f.spend)} at ${esc(f.t.n)}<small>One Card · e-wallet · ${f.m.tier}${f.m.resident ? " · Resident" : ""}</small>`,
+    access: `<b>${esc(f.m.n)}</b> entered ${esc(f.g ? f.g.n : "")}<small>One Card · access granted${f.m.tower ? " · " + f.m.tower : ""}</small>`,
+    topup: `<b>${esc(f.m.n)}</b> topped up ${money(f.amt)}<small>Stripe · ${pick(["card", "PayNow", "Apple Pay"])} · no points on top-ups</small>`,
+    redeem: `<b>${esc(f.m.n)}</b> redeemed ${esc(pick(S.rewards.filter((r) => r.on)).n)}<small>at ${esc(f.t.n)}</small>`,
+    join: `<b>New member</b> joined at ${esc(f.t.n)}<small>Welcome bonus: 50 points</small>`,
+    upgrade: `<b>${esc(f.m.n)}</b> moved up a tier<small>Now ${f.m.tier === "Bronze" ? "Silver" : f.m.tier === "Silver" ? "Gold" : "Platinum"}</small>` }[f.kind];
+  const ago = Math.max(0, Math.round((Date.now() - f.at) / 1000));
+  return `<div class="fi ${f.kind}"><span class="ic"><i data-lucide="${ic}"></i></span><span>${txt}</span><span class="r">${f.kind === "pay" ? `<span class="pts">+${f.pts} pts</span>` : ""}<small class="muted">${ago < 60 ? "Just now" : Math.round(ago / 60) + " min ago"}</small></span></div>`; }).join("");
+setInterval(() => { const f = feedItem(); FEED.unshift(f); FEED.length = 40; S.totals.tapsToday++; if (f.kind === "pay") f.m.pts += f.pts; if (["overview", "live", "access"].includes(cur)) { const el = $("feed"); if (el) { el.innerHTML = feedHTML(cur === "live" ? 20 : 8, cur === "access" ? "access" : null); icons(); } const k = $("tapsToday"); if (k) k.textContent = num(S.totals.tapsToday); } }, 2600);
+
+/* ---------- views ---------- */
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const V = {
+  overview: () => { const s = scale(), top = [...S.tenants].filter((t) => t.st === "Live").sort((a, b) => b.taps - a.taps).slice(0, 5), maxT = top[0].taps;
+    const foot = [21, 19, 20, 22, 27, 38, 35].map((v) => v * 1000), taps = [2.6, 2.4, 2.5, 2.8, 3.4, 5.1, 4.7].map((v) => v * 1000);
+    return head("One Card overview", "One card for home, shopping and rewards: it opens Lumina Residences, pays at every tenant in Lumina Square and collects points as it goes.", `<a class="btn" href="#campaigns/new"><i data-lucide="megaphone"></i>New campaign</a><a class="btn red" href="#rewards/new"><i data-lucide="plus"></i>Add reward</a>`) +
+      `<div class="grid k5">${kpi("users", "Members", num(S.totals.members), "+312 this week")}${kpi("nfc", "Taps today", `<span id="tapsToday">${num(S.totals.tapsToday)}</span>`, "+9% vs last Monday")}
+      ${kpi("wallet", "E-wallet balances held", money(S.wallet.float), money(S.wallet.topups) + " topped up today")}${kpi("repeat", "Repeat visit rate", "63%", "+4 pts in 30 days")}${kpi("credit-card", "Paid with One Card", money(S.wallet.spendWeek * s), "31% of mall sales")}</div>
+      <section class="card"><div class="onecard">${ocardHTML({ n: "Resident member", card: "0482", tower: "Tower B", pts: 4210, wallet: 128.4, cardSt: "Active" })}<div class="jobs3">
+        <div><i data-lucide="door-open"></i><span><b>Opens the residences</b><small>Lobby, lifts, gym, pool and carpark, with rights set per unit</small></span></div>
+        <div><i data-lucide="nfc"></i><span><b>Pays at every tenant</b><small>Tap to pay from the e-wallet, topped up by card, PayNow, Apple Pay or Google Pay through Stripe</small></span></div>
+        <div><i data-lucide="coins"></i><span><b>Collects points automatically</b><small>${S.rules.earn} pt per S$1 at every tenant, ${S.rules.resBonus}× for residents</small></span></div></div>
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px;min-width:260px">${kpi("credit-card", "Cards issued", "26,040", "1,120 with condo access")}${kpi("door-open", "Door taps today", num(S.gates.reduce((a, g) => a + g.today, 0)), `${S.gates.filter((g) => g.on).length} of ${S.gates.length} gates online`)}</div></div></section>
+      <div class="grid g21"><section class="card"><div class="ch"><h3>Footfall vs member taps · this week</h3></div>${bars(DAYS, [taps, foot.map((f, i) => f - taps[i])], ["#E0344B", "rgba(255,255,255,0.12)"])}
+        <div class="legend"><span><i style="background:#E0344B"></i>Member taps</span><span><i style="background:rgba(255,255,255,0.2)"></i>Other footfall</span></div></section>
+      <section class="card"><div class="ch"><h3>Live activity</h3><a class="link" href="#live">Full feed</a></div><div class="feed" id="feed">${feedHTML(8)}</div></section></div>
+      <div class="grid g11"><section class="card"><div class="ch"><h3>Top tenants by taps</h3><a class="link" href="#tenants">All tenants</a></div>${top.map((t) => `<div class="hbar"><span>${esc(t.n)}</span><span class="meter"><i style="width:${(t.taps / maxT) * 100}%"></i></span><span class="r">${num(t.taps)}</span></div>`).join("")}</section>
+      <section class="card"><div class="ch"><h3>Members by tier</h3><a class="link" href="#members">All members</a></div>${tierDonut()}</section></div>`; },
+
+  cards: () => { const f = UI.cf || "all", cnt = (fn) => S.members.filter(fn).length;
+    const list = S.members.filter((m) => (f === "all" || (f === "res" && m.resident) || (f === "mall" && !m.resident) || (f === "blocked" && m.cardSt === "Blocked") || (f === "low" && m.wallet < 10)) && hit(m.n, m.card, m.tower, m.id));
+    return head("One Card", "Every card issued. Residents' cards open the condo as well as paying and collecting points; mall members' cards pay and collect points.", `<button class="btn" data-act="issue-card"><i data-lucide="plus"></i>Issue a card</button><button class="btn red" data-act="topup"><i data-lucide="wallet"></i>Top up a card</button>`) +
+      `<div class="grid k4">${kpi("credit-card", "Cards issued", "26,040", "+188 this week")}${kpi("door-open", "With condo access", "1,120", "across 486 units")}${kpi("wallet", "Average balance", money2(S.members.reduce((a, m) => a + m.wallet, 0) / S.members.length), "e-wallet")}${kpi("shield-off", "Blocked or lost", String(14 + cnt((m) => m.cardSt === "Blocked")), "replaced within a day", true)}</div>
+      <section class="card"><div class="ch">${chips("cf", [["all", "All", S.members.length], ["res", "Resident cards", cnt((m) => m.resident)], ["mall", "Mall cards", cnt((m) => !m.resident)], ["low", "Low balance", cnt((m) => m.wallet < 10)], ["blocked", "Blocked", cnt((m) => m.cardSt === "Blocked")]])}</div>
+      <table><thead><tr><th>Card holder</th><th>Card</th><th>Condo access</th><th class="r">E-wallet</th><th class="r">Points</th><th>Tier</th><th>Status</th></tr></thead><tbody>
+      ${list.map((m) => `<tr class="rl" tabindex="0" data-act="card" data-arg="${m.id}"><td><div class="who">${mav(m)}<span><b>${esc(m.n)}</b><small>${m.resident ? m.tower : "Mall member"}</small></span></div></td>
+        <td>•••• ${m.card}<small>${m.resident ? "Access + pay + points" : "Pay + points"}</small></td><td>${m.access.length ? `<span class="acc">${m.access.map((k) => `<span title="${ACCN[k]}"><i data-lucide="${ACCI[k]}"></i></span>`).join("")}</span>` : `<span class="muted">None</span>`}</td>
+        <td class="r">${money2(m.wallet)}${m.wallet < 10 ? `<small style="color:#FF8A98">Low</small>` : ""}</td><td class="r">${num(m.pts)}</td><td>${tier(m.tier)}</td><td><span class="pill ${m.cardSt === "Active" ? "p-ok" : "p-bad"}">${m.cardSt}</span></td></tr>`).join("") || `<tr><td colspan="7" class="empty">No cards match.</td></tr>`}</tbody></table></section>`; },
+
+  access: () => { const tot = S.gates.reduce((a, g) => a + g.today, 0), max = Math.max(...S.gates.map((g) => g.today));
+    return head("Access", "Doors and gates in Lumina Residences that open with One Card. Rights are set per card, so a lost card can be blocked in seconds.", "") +
+      `<div class="grid k4">${kpi("door-open", "Door taps today", num(tot), "residents and guests")}${kpi("shield-check", "Access granted", "99.2%", "0.8% denied, mostly expired guest passes")}${kpi("users", "Guest passes today", "142", "issued from the app")}${kpi("wifi", "Gates online", `${S.gates.filter((g) => g.on).length} of ${S.gates.length}`, S.gates.some((g) => !g.on) ? "1 needs attention" : "all good", S.gates.some((g) => !g.on))}</div>
+      <div class="grid g11"><section class="card"><div class="ch"><h3>Gates</h3></div>${S.gates.map((g) => `<div class="gate"><span class="gi"><i data-lucide="${g.ic}"></i></span><span><b>${esc(g.n)}</b><span class="meter" style="display:block;margin-top:6px"><i style="width:${(g.today / max) * 100}%;background:var(--blue)"></i></span></span>
+        <span class="r">${num(g.today)}<small class="muted" style="display:block">taps today</small></span><button class="btn sm" data-act="gate" data-arg="${g.id}">${g.on ? `<span class="pill p-ok">Online</span>` : `<span class="pill p-bad">Offline</span>`}</button></div>`).join("")}</section>
+      <section class="card"><div class="ch"><h3>Door log</h3><span class="live"><span class="dot"></span>Live</span></div><div class="feed" id="feed">${feedHTML(12, "access")}</div></section></div>`; },
+
+  wallet: () => { const f = UI.wf || "all", w = S.wallet, days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], top = [14, 12, 13, 15, 19, 27, 24].map((v) => v * 1000), spend = [74, 70, 72, 79, 96, 138, 121].map((v) => v * 1000);
+    const list = S.txns.filter((t) => (f === "all" || t.type === f) && hit(t.id, t.type, t.method, t.m ? M(t.m).n : "", t.ten ? T(t.ten).n : ""));
+    return head("Wallet & payments", "Members top up their One Card e-wallet through Stripe, then tap to pay at any tenant. Seaport settles with each tenant every week.", `<button class="btn red" data-act="topup"><i data-lucide="wallet"></i>Top up a card</button>`) +
+      `<div class="grid k4">${kpi("landmark", "E-wallet balances held", money(w.float), "held for members, not revenue")}${kpi("arrow-down-to-line", "Top-ups today", money(w.topups), w.topupCount + " top-ups through Stripe")}${kpi("nfc", "Card payments (7 days)", money(w.spendWeek), "at 12 tenants")}${kpi("send", "Due to tenants", money(w.settleDue), "settles " + fmtD(w.settleOn))}</div>
+      <div class="grid g21"><section class="card"><div class="ch"><h3>Top-ups vs card payments · this week</h3></div>${bars(days, [top, spend], ["#8E88FF", "#E0344B"])}
+        <div class="legend"><span><i style="background:#8E88FF"></i>Top-ups (Stripe)</span><span><i style="background:#E0344B"></i>Paid with One Card</span></div></section>
+      <section class="card"><div class="ch"><h3>Payments set-up</h3></div>
+        <div class="stripe"><div class="sh"><b>Stripe</b><span class="pill p-warn">Not connected · preview</span></div><p class="muted" style="font-size:12.5px;line-height:1.5">Top-ups run on Stripe Checkout: card, PayNow, Apple Pay and Google Pay. Card details stay with Stripe and never touch this dashboard.</p></div>
+        ${[["Minimum top-up", money(S.rules.minTop)], ["Maximum balance", money(S.rules.maxBal)], ["Auto top-up", S.rules.autoTop ? "Allowed" : "Off"], ["Points on top-ups", S.rules.ptsOnTopup ? "Yes" : "No, only on spending"]].map(([l, v]) => `<div class="hbar" style="grid-template-columns:1fr auto"><span class="muted">${l}</span><b>${v}</b></div>`).join("")}
+        <a class="link" href="#settings" style="font-size:12px;color:#FF8A98">Change in Programme settings</a></section></div>
+      <section class="card"><div class="ch">${chips("wf", [["all", "All"], ["Top-up", "Top-ups"], ["Payment", "Payments"], ["Refund", "Refunds"], ["Settlement", "Settlements"]])}<button class="btn sm" data-act="export-tx"><i data-lucide="download"></i>Export</button></div>
+      <table><thead><tr><th>Transaction</th><th>Type</th><th>Who</th><th>Where / how</th><th class="r">Amount</th><th>Status</th><th>When</th></tr></thead><tbody>
+      ${list.map((t) => `<tr class="rl" tabindex="0" data-act="txn" data-arg="${t.id}"><td><b>${t.id}</b></td><td><span class="pill ${{ "Top-up": "p-blue", Payment: "p-ok", Refund: "p-warn", Settlement: "p-gr" }[t.type]}">${t.type}</span></td>
+        <td>${t.m ? esc(M(t.m).n) : `<span class="muted">${esc(T(t.ten).n)}</span>`}</td><td class="muted">${t.type === "Top-up" ? esc(t.method) : t.type === "Settlement" ? "Bank transfer to tenant" : esc(T(t.ten).n) + " · One Card"}</td>
+        <td class="r"><b style="color:${t.type === "Top-up" ? "#B7B2FF" : t.type === "Refund" ? "#E9CF86" : "inherit"}">${t.type === "Payment" || t.type === "Settlement" ? "−" : "+"}${money2(t.amt)}</b></td>
+        <td><span class="pill ${t.st === "Succeeded" ? "p-ok" : "p-bad"}">${t.st}</span></td><td class="muted">${ago(t.at)}</td></tr>`).join("") || `<tr><td colspan="7" class="empty">No transactions match.</td></tr>`}</tbody></table></section>`; },
+
+  live: () => head("Live activity", "Every One Card tap as it happens: payments at tenants, doors in the residences, top-ups and rewards.", "") +
+    `<div class="grid k4">${kpi("nfc", "Card taps today", `<span id="tapsToday">${num(S.totals.tapsToday)}</span>`, "updating live")}${kpi("clock", "Busiest hour", "12:00 to 13:00", "F&B level 2 and 3")}${kpi("wallet", "Top-ups today", String(S.wallet.topupCount), money(S.wallet.topups) + " through Stripe")}${kpi("gift", "Redemptions today", "284", "Parking is top")}</div>
+    <section class="card"><div class="ch"><h3>Feed</h3><span class="live"><span class="dot"></span>New events every few seconds (sample)</span></div><div class="feed" id="feed" style="max-height:none">${feedHTML(20)}</div></section>`,
+
+  members: () => { const f = UI.mf || "all", sort = UI.ms || "spend";
+    const cnt = (fn) => S.members.filter(fn).length;
+    const list = S.members.filter((m) => (f === "all" || m.tier === f || (f === "res" && m.resident) || (f === "risk" && segOf(m) === "risk")) && hit(m.n, m.id, m.tier, m.tower))
+      .sort((a, b) => sort === "recent" ? a.last - b.last : sort === "pts" ? b.pts - a.pts : b.spend - a.spend);
+    return head("Members", `A sample of ${S.members.length} of ${num(S.totals.members)} members. Click one to see their history, adjust points or send an offer.`, `<a class="btn" href="#campaigns/new"><i data-lucide="send"></i>Message a segment</a>`) +
+      `<section class="card"><div class="ch">${chips("mf", [["all", "All", S.members.length], ...TIERS.map((t) => [t, t, cnt((m) => m.tier === t)]), ["res", "Residents", cnt((m) => m.resident)], ["risk", "At risk", cnt((m) => segOf(m) === "risk")]])}
+        <select class="range" id="mSort" aria-label="Sort members" style="margin:0"><option value="spend" ${sort === "spend" ? "selected" : ""}>Highest spend</option><option value="pts" ${sort === "pts" ? "selected" : ""}>Most points</option><option value="recent" ${sort === "recent" ? "selected" : ""}>Most recent visit</option></select></div>
+      <table><thead><tr><th>Member</th><th>Tier</th><th class="r">Points</th><th class="r">Spend (12 mo)</th><th class="r">Visits</th><th>Last visit</th><th>Favourite tenant</th></tr></thead><tbody>
+      ${list.map((m) => `<tr class="rl" tabindex="0" data-act="member" data-arg="${m.id}"><td><div class="who">${mav(m)}<span><b>${esc(m.n)}</b><small>#${m.id}${m.resident ? ` · <span class="res"><i data-lucide="building-2"></i>${m.tower}</span>` : ""}</small></span></div></td>
+        <td>${tier(m.tier)}</td><td class="r">${num(m.pts)}</td><td class="r">${money(m.spend)}</td><td class="r">${m.visits}</td><td>${m.last === 0 ? "Today" : m.last + " days ago"}${segOf(m) === "risk" ? ` <span class="pill p-bad">At risk</span>` : ""}</td><td class="muted">${esc(T(m.fav).n)}</td></tr>`).join("") || `<tr><td colspan="7" class="empty">No members match.</td></tr>`}
+      </tbody></table></section>`; },
+
+  residents: () => { const res = S.members.filter((m) => m.resident), towers = ["Tower A", "Tower B", "Tower C"];
+    return head("Residents", "Lumina Residences sits above the mall. Residents link their unit to the loyalty programme and earn a resident bonus on every tap.", `<button class="btn red" data-act="invite-units"><i data-lucide="mail"></i>Invite unlinked units</button>`) +
+      `<div class="grid k4">${kpi("home", "Units linked", "486 of 620", "78% of all units")}${kpi("users", "Resident members", "1,120", "about 2.3 per unit")}${kpi("shopping-bag", "Share of member sales", "22%", "from 4.5% of members")}${kpi("repeat", "Visits a month", "11.4", "vs 3.1 for other members")}</div>
+      <div class="grid g11"><section class="card"><div class="ch"><h3>Linked units by tower</h3></div>${towers.map((t, i) => { const linked = [178, 165, 143][i], all = [220, 210, 190][i];
+        return `<div class="hbar"><span>${t}</span><span class="meter"><i style="width:${(linked / all) * 100}%;background:var(--blue)"></i></span><span class="r">${linked}/${all}</span></div>`; }).join("")}
+        <div class="ch" style="margin-top:22px"><h3>Resident perks</h3></div>
+        ${[["car", "Guest parking day passes", "250 points, for visitors to the residences"], ["package", "Parcel pickup at the concierge", "Mall orders held for residents at the lobby"], ["sparkles", `${S.rules.resBonus}× points on every tap`, "Change the bonus in Programme settings"], ["calendar-heart", "Residents-only events", "Night markets and early-access sales"]].map(([ic, t, d]) => `<div class="hbar" style="grid-template-columns:30px 1fr"><i data-lucide="${ic}"></i><span><b>${t}</b><small class="muted" style="display:block">${d}</small></span></div>`).join("")}</section>
+      <section class="card"><div class="ch"><h3>Upcoming events</h3></div><table><tbody>${S.events.map((e, i) => `<tr><td><b>${esc(e.n)}</b><small>${new Date(e.d + "T00:00").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" })}</small></td>
+        <td style="width:40%"><span class="meter"><i style="width:${(e.rsvp / e.cap) * 100}%;background:var(--gold)"></i></span><small>${e.rsvp} of ${e.cap} RSVPs</small></td><td class="r"><button class="btn sm" data-act="remind" data-arg="${i}">Remind</button></td></tr>`).join("")}</tbody></table>
+        <div class="ch" style="margin-top:22px"><h3>Most active residents</h3><a class="link" href="#members" data-act="chip" data-arg="mf:res">All residents</a></div>
+        <table><tbody>${[...res].sort((a, b) => b.visits - a.visits).slice(0, 5).map((m) => `<tr class="rl" tabindex="0" data-act="member" data-arg="${m.id}"><td><div class="who">${mav(m)}<span><b>${esc(m.n)}</b><small>${m.tower}</small></span></div></td><td>${tier(m.tier)}</td><td class="r">${m.visits} visits</td></tr>`).join("")}</tbody></table></section></div>`; },
+
+  tenants: () => { const f = UI.tf || "all", cats = [...new Set(S.tenants.map((t) => t.c))];
+    const list = S.tenants.filter((t) => (f === "all" || t.c === f || t.st === f) && hit(t.n, t.c, t.u));
+    return head("Tenants", "Every shop on the programme. Each tenant has its own NFC tap point; points and rewards work mall-wide.", `<button class="btn red" data-act="invite-tenant"><i data-lucide="plus"></i>Invite a tenant</button>`) +
+      `<section class="card"><div class="ch">${chips("tf", [["all", "All", S.tenants.length], ["Live", "Live"], ["Invited", "Invited"], ...cats.slice(0, 6).map((c) => [c, c])])}</div>
+      <table><thead><tr><th>Tenant</th><th>Category</th><th>Unit</th><th class="r">Taps (7 days)</th><th class="r">Members</th><th>Redemption</th><th>Earn rate</th><th>Status</th></tr></thead><tbody>
+      ${list.map((t) => `<tr class="rl" tabindex="0" data-act="tenant" data-arg="${t.id}"><td><div class="who"><span class="mav" style="background:rgba(139,0,21,0.25);color:#FF8A98"><i data-lucide="${t.ic}"></i></span><b>${esc(t.n)}</b></div></td><td class="muted">${esc(t.c)}</td><td>#${t.u}</td>
+        <td class="r">${num(t.taps)}</td><td class="r">${num(t.members)}</td><td style="width:140px"><span class="meter"><i style="width:${t.red * 100 * 2}%"></i></span><small>${Math.round(t.red * 100)}%</small></td><td>${t.earn} pt / S$1</td>
+        <td><span class="pill ${t.st === "Live" ? "p-ok" : t.st === "Invited" ? "p-blue" : "p-warn"}">${t.st}</span></td></tr>`).join("") || `<tr><td colspan="8" class="empty">No tenants match.</td></tr>`}</tbody></table></section>`; },
+
+  rewards: () => head("Rewards", "What members can spend their points on. Turn rewards on or off at any time.", `<button class="btn red" data-act="new-reward"><i data-lucide="plus"></i>Add reward</button>`) +
+    `<div class="rgrid">${S.rewards.filter((r) => hit(r.n, r.c, r.tier)).map((r) => `<div class="rw ${r.on ? "" : "off"}"><span class="ri"><i data-lucide="${r.ic}"></i></span><b>${esc(r.n)}</b>
+      <span class="cost">${r.pts ? num(r.pts) + " pts" : "Free"}</span><span class="meta">${esc(r.c)} · ${r.tier === "All" ? "All members" : r.tier === "Residents" ? "Residents only" : r.tier + " and above"}</span><span class="meta">${num(r.red)} redeemed</span>
+      <div class="row"><span class="meta">${r.on ? "On" : "Off"}</span><label class="switch"><input type="checkbox" data-act="toggle-reward" data-arg="${r.id}" ${r.on ? "checked" : ""} aria-label="${esc(r.n)} on or off"><span></span></label></div></div>`).join("") || `<p class="empty">No rewards match.</p>`}</div>`,
+
+  campaigns: () => head("Campaigns", "Offers sent to a segment of members, on the app, tap screens, lobby screens, email or SMS.", `<button class="btn red" data-act="new-campaign"><i data-lucide="plus"></i>New campaign</button>`) +
+    `<section class="card"><table><thead><tr><th>Campaign</th><th>Segment</th><th>Dates</th><th class="r">Reach</th><th>Channels</th><th>Result</th><th>Status</th></tr></thead><tbody>
+    ${S.campaigns.filter((c) => hit(c.n, c.seg, c.offer)).map((c) => `<tr class="rl" tabindex="0" data-act="campaign" data-arg="${c.id}"><td><b>${esc(c.n)}</b><small>${esc(c.offer)}</small></td><td>${esc(c.seg)}</td>
+      <td class="muted">${fmtD(c.start)} to ${fmtD(c.end)}</td><td class="r">${num(c.reach)}</td><td class="muted">${c.ch.join(", ")}</td><td>${esc(c.lift || "-")}</td>
+      <td><span class="pill ${c.st === "Live" ? "p-ok" : c.st === "Scheduled" ? "p-blue" : c.st === "Paused" ? "p-warn" : "p-gr"}">${c.st}</span></td></tr>`).join("")}</tbody></table></section>`,
+
+  analytics: () => { const weeks = ["W31", "W32", "W33", "W34", "W35", "W36", "W37", "W38", "W39"], rep = [54, 55, 55, 57, 58, 59, 61, 62, 63];
+    const pts = rep.map((v, i) => `${(i / (rep.length - 1)) * 100},${100 - ((v - 50) / 15) * 100}`).join(" ");
+    const heat = DAYS.map((d, di) => `<span>${d}</span>` + Array.from({ length: 14 }, (_, h) => { const hr = h + 9, lunch = hr >= 12 && hr <= 13 ? 0.45 : 0, eve = hr >= 18 && hr <= 20 ? 0.4 : 0, wk = di >= 5 ? 0.25 : 0;
+      const v = Math.min(1, 0.1 + lunch + eve + wk + rnd() * 0.15); return `<i style="opacity:${v.toFixed(2)}" title="${d} ${hr}:00"></i>`; }).join("")).join("");
+    return head("Analytics", "How the programme is changing shopping behaviour at Lumina Square.", `<button class="btn" data-act="export"><i data-lucide="download"></i>Export CSV</button>`) +
+      `<div class="grid g11"><section class="card"><div class="ch"><h3>Repeat visit rate · last 9 weeks</h3><span class="pill p-ok">+9 pts</span></div>
+        <svg class="line" viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Repeat visit rate rising from 54% to 63%"><polyline points="${pts}" fill="none" stroke="#E0344B" stroke-width="1.6" vector-effect="non-scaling-stroke"/><polygon points="0,100 ${pts} 100,100" fill="rgba(224,52,75,0.12)"/></svg>
+        <div class="legend">${weeks.map((w, i) => `<span>${w}: ${rep[i]}%</span>`).filter((_, i) => i % 2 === 0).join("")}</div></section>
+      <section class="card"><div class="ch"><h3>Busy hours · member taps</h3></div><div class="heat"><span></span>${Array.from({ length: 14 }, (_, h) => `<span style="justify-content:center">${h + 9}</span>`).join("")}${heat}</div></section></div>
+      <div class="grid k3"><section class="card"><div class="ch"><h3>Members by tier</h3></div>${tierDonut()}</section>
+      <section class="card"><div class="ch"><h3>Net Promoter Score</h3></div><div class="kpi"><b>+48</b></div>${[["Promoters", 58, "var(--green)"], ["Passives", 32, "var(--gold)"], ["Detractors", 10, "var(--red2)"]].map(([l, v, c]) => `<div class="hbar" style="grid-template-columns:90px 1fr 40px"><span>${l}</span><span class="meter"><i style="width:${v}%;background:${c}"></i></span><span class="r">${v}%</span></div>`).join("")}</section>
+      <section class="card"><div class="ch"><h3>Return on programme</h3></div><div class="kpi"><b>6.2×</b><span class="d">member sales uplift vs programme cost</span></div>
+        ${[["Extra member visits", "41,200"], ["Attributed sales", money(1864000)], ["Rewards cost", money(96000)], ["Platform fee", money(18000)]].map(([l, v]) => `<div class="hbar" style="grid-template-columns:1fr auto"><span class="muted">${l}</span><b>${v}</b></div>`).join("")}</section></div>`; },
+
+  settings: () => { const r = S.rules;
+    return head("Programme settings", "The rules every tenant and member shares. Changes apply mall-wide.", "") +
+      `<div class="grid g11"><section class="card"><div class="ch"><h3>Points and tiers</h3></div><form class="form" id="rulesForm">
+        <label>Points per S$1 spent<input name="earn" type="number" min="0.5" max="10" step="0.5" value="${r.earn}"></label>
+        <label>Points expire after<select name="expiry">${["12 months", "18 months", "24 months", "Never"].map((x) => `<option ${x === r.expiry ? "selected" : ""}>${x}</option>`).join("")}</select></label>
+        <label>Silver from (S$ a year)<input name="silver" type="number" min="0" step="50" value="${r.silver}"></label>
+        <label>Gold from (S$ a year)<input name="gold" type="number" min="0" step="50" value="${r.gold}"></label>
+        <label>Platinum from (S$ a year)<input name="plat" type="number" min="0" step="50" value="${r.plat}"></label>
+        <label>Resident bonus<select name="resBonus">${[1, 1.25, 1.5, 2].map((x) => `<option value="${x}" ${x === r.resBonus ? "selected" : ""}>${x}× points</option>`).join("")}</select></label>
+        <p class="err full" id="rErr" role="alert"></p><div class="mact full" style="margin-top:0"><button type="button" class="btn" data-act="reset">Reset sample data</button><button class="btn red">Save rules</button></div></form></section>
+      <section class="card"><div class="ch"><h3>One Card wallet</h3></div><form class="form" id="walletForm">
+        <label>Minimum top-up (S$)<input name="minTop" type="number" min="1" step="1" value="${r.minTop}"></label><label>Maximum balance (S$)<input name="maxBal" type="number" min="50" step="50" value="${r.maxBal}"></label>
+        <label class="chk full"><input type="checkbox" name="autoTop" ${r.autoTop ? "checked" : ""}>Let members turn on auto top-up</label><label class="chk full"><input type="checkbox" name="ptsOnTopup" ${r.ptsOnTopup ? "checked" : ""}>Give points on top-ups (usually off: points come from spending)</label>
+        <div class="full stripe"><div class="sh"><b>Stripe</b><button type="button" class="btn sm" data-act="stripe">Connect Stripe account</button></div><p class="muted" style="font-size:12.5px">Top-ups use Stripe Checkout, so card details stay with Stripe. Connecting needs a server and your Stripe keys, which come with the real platform.</p></div>
+        <div class="mact full"><button class="btn red">Save wallet rules</button></div></form>
+        <div class="ch" style="margin-top:24px"><h3>Reports and alerts</h3></div><form class="form" id="notifForm">
+        ${[["daily", "Daily summary email to centre management"], ["risk", "Alert when a Gold or Platinum member is at risk"], ["tenant", "Weekly report to each tenant"]].map(([k, l]) => `<label class="chk full"><input type="checkbox" name="${k}" ${r.notif[k] ? "checked" : ""}>${l}</label>`).join("")}
+        <div class="mact full"><button class="btn red">Save</button></div></form>
+        <div class="ch" style="margin-top:24px"><h3>Tier thresholds at a glance</h3></div>${TIERS.slice().reverse().map((t) => `<div class="hbar" style="grid-template-columns:110px 1fr"><span>${tier(t)}</span><span class="muted">${t === "Bronze" ? "On joining" : "From " + money({ Silver: r.silver, Gold: r.gold, Platinum: r.plat }[t]) + " a year"}</span></div>`).join("")}</section></div>`; },
+};
+const ACCN = { lobby: "Lobby", lift: "Lifts", gym: "Gym", pool: "Pool", carpark: "Carpark" }, ACCI = { lobby: "door-open", lift: "arrow-up-down", gym: "dumbbell", pool: "waves", carpark: "car" };
+const M = (id) => S.members.find((m) => m.id === +id);
+function ago(ms) { const m = Math.round((Date.now() - ms) / 60000); return m < 1 ? "Just now" : m < 60 ? m + " min ago" : m < 1440 ? Math.round(m / 60) + " h ago" : Math.round(m / 1440) + " d ago"; }
+function ocardHTML(m) { return `<div class="ocard ${m.cardSt === "Blocked" ? "blocked" : ""}" aria-label="One Card ending ${m.card}"><div class="oc-top"><img src="assets/seaport/logo.png" alt=""><span>ONE CARD · LUMINA</span></div>
+  <div class="chip"></div><i class="nfc" data-lucide="nfc"></i><div class="no">•••• •••• •••• ${m.card}</div>
+  <div class="bot"><span><small>Holder</small><b>${esc(m.n)}</b></span><span><small>${m.tower ? "Residence" : "Member"}</small><b>${m.tower || "Mall"}</b></span><span><small>Wallet</small><b>${money2(m.wallet)}</b></span></div></div>`; }
+function fmtD(d) { return new Date(d + "T00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short" }); }
+function tierDonut() { const c = TIERS.map((t) => [t, S.members.filter((m) => m.tier === t).length]), tot = c.reduce((a, x) => a + x[1], 0); let acc = 0;
+  const grad = c.map(([t, n]) => { const a = acc; acc += (n / tot) * 360; return `${TCOL[t]} ${a}deg ${acc}deg`; }).join(",");
+  return `<div class="drow"><div class="donut" style="background:conic-gradient(${grad})"><b>${num(S.totals.members)}<small>members</small></b></div><div class="dleg">${c.map(([t, n]) => `<div><span>${tier(t)}</span><b>${Math.round((n / tot) * 100)}%</b></div>`).join("")}</div></div>`; }
+
+/* ---------- modal ---------- */
+let last = null;
+const close = () => { const m = $("mback"); if (m) { m.remove(); if (last && last.isConnected) last.focus(); } };
+const modal = (html, wide) => { if (!$("mback")) last = document.activeElement; else $("mback").remove();
+  const m = document.createElement("div"); m.id = "mback"; m.className = "mback";
+  m.innerHTML = `<div class="modal ${wide ? "wide" : ""}" role="dialog" aria-modal="true" aria-labelledby="mT"><button class="mx" data-act="close" aria-label="Close"><i data-lucide="x"></i></button>${html}</div>`;
+  m.addEventListener("mousedown", (e) => { if (e.target === m) close(); }); document.body.appendChild(m); icons();
+  (m.querySelector(".modal input, .modal select, .modal textarea") || m.querySelector(".mx")).focus(); };
+const meta = (p) => `<div class="meta3">${p.map(([k, v]) => `<div><small>${k}</small><b>${v}</b></div>`).join("")}</div>`;
+const segCount = (seg) => ({ "All members": S.totals.members, "Residents": 1120, "At risk": 3940, "Gold and above": 2710, "Platinum": 610, "New this month": 1480 })[seg] || 0;
+
+/* ---------- actions ---------- */
+const A = {
+  close,
+  chip: (arg) => { const [k, v] = arg.split(":"); UI[k] = v; if (k === "mf" && cur !== "members") location.hash = "members"; else render(); },
+  member: (id) => { const m = S.members.find((x) => x.id === +id); if (!m) return; const hist = Array.from({ length: 12 }, () => Math.round(rnd() * 10));
+    modal(`<div class="who" style="gap:14px">${mav(m).replace("mav", "mav\" style=\"width:56px;height:56px;font-size:18px;").replace('style="background', 'data-x="').replace(';color', '" style="background:' + TCOL[m.tier] + '22;color')}<div><h2 id="mT">${esc(m.n)}</h2><p class="sub">Member #${m.id} since ${m.joined}${m.resident ? " · Resident, " + m.tower : ""}</p></div></div>
+      ${meta([["Tier", tier(m.tier)], ["Points", num(m.pts)], ["Spend (12 mo)", money(m.spend)], ["Visits", m.visits], ["E-wallet", money2(m.wallet)], ["One Card", "•••• " + m.card + (m.cardSt === "Blocked" ? " (blocked)" : "")]])}
+      <div class="ch"><h3>Visits · last 12 months</h3></div><div class="mini">${hist.map((h) => `<i style="height:${10 + h * 9}%"></i>`).join("")}</div>
+      <div class="mact"><button class="btn" data-act="adjust" data-arg="${m.id}"><i data-lucide="plus-minus"></i>Adjust points</button><button class="btn red" data-act="offer" data-arg="${m.id}"><i data-lucide="send"></i>Send an offer</button></div>`, true); },
+  adjust: (id) => { const m = S.members.find((x) => x.id === +id);
+    modal(`<h2 id="mT">Adjust points</h2><p class="sub">${esc(m.n)} has ${num(m.pts)} points.</p><form class="form" id="adjForm"><label>Change (use − to remove)<input name="d" type="number" step="10" value="100" required></label>
+      <label>Reason<select name="r"><option>Goodwill gesture</option><option>Missed tap</option><option>Correction</option><option>Event bonus</option></select></label><p class="err full" id="aErr"></p>
+      <div class="mact full"><button type="button" class="btn" data-act="member" data-arg="${m.id}">Back</button><button class="btn red">Apply</button></div></form>`);
+    $("adjForm").onsubmit = (e) => { e.preventDefault(); const d = Math.round(+e.target.d.value); if (!d || m.pts + d < 0) { $("aErr").textContent = "Enter a change that keeps the balance at zero or above."; return; }
+      m.pts += d; save(); render(); A.member(m.id); toast(`${d > 0 ? "+" : ""}${num(d)} points for ${m.n}`); }; },
+  offer: (id) => { const m = S.members.find((x) => x.id === +id); close(); toast(`Offer queued for ${m.n} (preview: nothing is sent)`); },
+  tenant: (id) => { const t = T(+id); if (!t) return;
+    modal(`<div class="who" style="gap:14px"><span class="mav" style="width:56px;height:56px;background:rgba(139,0,21,0.25);color:#FF8A98"><i data-lucide="${t.ic}"></i></span><div><h2 id="mT">${esc(t.n)}</h2><p class="sub">${esc(t.c)} · Unit #${t.u}</p></div></div>
+      ${meta([["Status", `<span class="pill ${t.st === "Live" ? "p-ok" : t.st === "Invited" ? "p-blue" : "p-warn"}">${t.st}</span>`], ["Taps (7 days)", num(t.taps)], ["Members", num(t.members)], ["Redemption rate", Math.round(t.red * 100) + "%"], ["Earn rate", t.earn + " pt / S$1"], ["Tap point", t.st === "Invited" ? "Not installed" : "Online"]])}
+      <form class="form" id="tenForm"><label>Earn rate<select name="earn">${[0.5, 1, 1.5, 2].map((x) => `<option value="${x}" ${x === t.earn ? "selected" : ""}>${x} pt per S$1</option>`).join("")}</select></label>
+      <label>Status<select name="st">${["Live", "Paused", "Invited"].map((x) => `<option ${x === t.st ? "selected" : ""}>${x}</option>`).join("")}</select></label>
+      <div class="mact full"><button type="button" class="btn" data-act="report" data-arg="${t.id}"><i data-lucide="file-text"></i>Send weekly report</button><button class="btn red">Save</button></div></form>`, true);
+    $("tenForm").onsubmit = (e) => { e.preventDefault(); t.earn = +e.target.earn.value; t.st = e.target.st.value; save(); render(); close(); toast(`${t.n} updated`); }; },
+  report: (id) => { close(); toast(`Weekly report for ${T(+id).n} queued (preview)`); },
+  "invite-tenant": () => { modal(`<h2 id="mT">Invite a tenant</h2><p class="sub">We'll send them onboarding steps and install an NFC tap point at their counter.</p>
+      <form class="form" id="invForm"><label class="full">Shop name<input name="n" maxlength="50" required></label><label>Category<select name="c">${[...new Set(TEN0.map((t) => t[1]))].map((c) => `<option>${c}</option>`).join("")}</select></label>
+      <label>Unit number<input name="u" maxlength="8" placeholder="e.g. 02-14" required></label><p class="err full" id="iErr"></p><div class="mact full"><button type="button" class="btn" data-act="close">Cancel</button><button class="btn red">Send invite</button></div></form>`);
+    $("invForm").onsubmit = (e) => { e.preventDefault(); const f = e.target; if (!f.n.value.trim() || !f.u.value.trim()) { $("iErr").textContent = "Add the shop name and unit."; return; }
+      S.tenants.push({ id: Math.max(...S.tenants.map((t) => t.id)) + 1, n: f.n.value.trim(), c: f.c.value, u: f.u.value.trim(), ic: "store", taps: 0, members: 0, red: 0, earn: 1, st: "Invited" }); save(); close(); UI.tf = "all"; render(); toast(`${f.n.value.trim()} invited (preview)`); }; },
+  "toggle-reward": (id, el) => { const r = S.rewards.find((x) => x.id === +id); r.on = el.checked; save(); render(); toast(`${r.n} turned ${r.on ? "on" : "off"}`); },
+  "new-reward": () => { modal(`<h2 id="mT">Add a reward</h2><p class="sub">Rewards can be mall perks, vouchers or tenant offers.</p>
+      <form class="form" id="rwForm"><label class="full">Reward<input name="n" maxlength="60" placeholder="e.g. Free cinema popcorn" required></label>
+      <label>Points needed<input name="pts" type="number" min="0" step="50" value="300"></label><label>Type<select name="c"><option>Mall perk</option><option>Voucher</option><option>F&B</option><option>Family</option><option>Residents</option></select></label>
+      <label class="full">Who can redeem<select name="tier"><option value="All">All members</option><option value="Silver">Silver and above</option><option value="Gold">Gold and above</option><option value="Platinum">Platinum only</option><option value="Residents">Residents only</option></select></label>
+      <p class="err full" id="wErr"></p><div class="mact full"><button type="button" class="btn" data-act="close">Cancel</button><button class="btn red">Add reward</button></div></form>`);
+    $("rwForm").onsubmit = (e) => { e.preventDefault(); const f = e.target, n = f.n.value.trim(); if (!n) { $("wErr").textContent = "Name the reward."; return; }
+      S.rewards.unshift({ id: Math.max(...S.rewards.map((r) => r.id)) + 1, n, c: f.c.value, ic: f.c.value === "Residents" ? "building-2" : "gift", pts: Math.max(0, +f.pts.value || 0), tier: f.tier.value, red: 0, on: true });
+      save(); close(); if (cur !== "rewards") location.hash = "rewards"; else render(); toast("Reward added"); }; },
+  campaign: (id) => { const c = S.campaigns.find((x) => x.id === +id); if (!c) return;
+    modal(`<span class="pill ${c.st === "Live" ? "p-ok" : c.st === "Scheduled" ? "p-blue" : "p-gr"}">${c.st}</span><h2 id="mT" style="margin-top:8px">${esc(c.n)}</h2><p class="sub">${esc(c.offer)}</p>
+      ${meta([["Segment", esc(c.seg)], ["Reach", num(c.reach) + " members"], ["Dates", `${fmtD(c.start)} to ${fmtD(c.end)}`], ["Channels", c.ch.join(", ")], ["Result so far", esc(c.lift || "Not started")], ["Cost to tenants", "None"]])}
+      <div class="mact">${c.st === "Live" ? `<button class="btn" data-act="pause-camp" data-arg="${c.id}"><i data-lucide="pause"></i>Pause</button>` : c.st === "Paused" ? `<button class="btn red" data-act="pause-camp" data-arg="${c.id}"><i data-lucide="play"></i>Resume</button>` : ""}<button class="btn" data-act="close">Close</button></div>`, true); },
+  "pause-camp": (id) => { const c = S.campaigns.find((x) => x.id === +id); c.st = c.st === "Live" ? "Paused" : "Live"; save(); render(); A.campaign(id); toast(`${c.n} ${c.st === "Paused" ? "paused" : "resumed"}`); },
+  "new-campaign": () => { const segs = ["All members", "Residents", "At risk", "Gold and above", "Platinum", "New this month"], today = new Date().toISOString().slice(0, 10);
+    modal(`<h2 id="mT">New campaign</h2><p class="sub">Pick who it's for and what they get. We'll estimate the reach as you go.</p>
+      <form class="form" id="cpForm"><label class="full">Campaign name<input name="n" maxlength="60" placeholder="e.g. Rainy day lunch deal" required></label>
+      <label>Segment<select name="seg">${segs.map((s) => `<option>${s}</option>`).join("")}</select></label><label>Offer<input name="offer" maxlength="80" placeholder="e.g. 3× points at F&B, 11am to 2pm" required></label>
+      <label>Starts<input name="start" type="date" min="${today}" value="${today}"></label><label>Ends<input name="end" type="date" min="${today}"></label>
+      <div class="full chk" style="flex-wrap:wrap;gap:16px">${["App", "Tap screen", "Lobby screen", "Email", "SMS"].map((c, i) => `<label class="chk"><input type="checkbox" name="ch" value="${c}" ${i < 2 ? "checked" : ""}>${c}</label>`).join("")}</div>
+      <div class="est full" id="est"></div><p class="err full" id="cErr"></p>
+      <div class="mact full"><button type="button" class="btn" data-act="close">Cancel</button><button class="btn red">Schedule campaign</button></div></form>`, true);
+    const f = $("cpForm"), upd = () => { const n = segCount(f.seg.value), chs = [...f.querySelectorAll("[name=ch]:checked")].length; $("est").innerHTML = `Estimated reach: <b>${num(n)} members</b> on ${chs} ${chs === 1 ? "channel" : "channels"}. Similar campaigns lifted visits by 8 to 15%.`; };
+    f.oninput = upd; upd();
+    f.onsubmit = (e) => { e.preventDefault(); const n = f.n.value.trim(), offer = f.offer.value.trim(), ch = [...f.querySelectorAll("[name=ch]:checked")].map((x) => x.value);
+      if (!n || !offer) { $("cErr").textContent = "Give it a name and an offer."; return; } if (!ch.length) { $("cErr").textContent = "Pick at least one channel."; return; }
+      if (f.end.value && f.end.value < f.start.value) { $("cErr").textContent = "The end date is before the start."; return; }
+      S.campaigns.unshift({ id: Math.max(...S.campaigns.map((c) => c.id)) + 1, n, seg: f.seg.value, offer, start: f.start.value, end: f.end.value || f.start.value, st: "Scheduled", reach: segCount(f.seg.value), ch, lift: "" });
+      save(); close(); if (cur !== "campaigns") location.hash = "campaigns"; else render(); toast("Campaign scheduled"); }; },
+  card: (id) => { const m = M(id); if (!m) return;
+    modal(`<h2 id="mT">One Card •••• ${m.card}</h2><p class="sub">${esc(m.n)} · ${m.resident ? "Resident, " + m.tower + " · access, payments and points" : "Mall member · payments and points"}</p>
+      <div class="onecard" style="margin-bottom:16px">${ocardHTML(m)}<div class="jobs3">${meta([["E-wallet", money2(m.wallet)], ["Points", num(m.pts)], ["Tier", tier(m.tier)]]).replace("meta3", "meta3\" style=\"grid-template-columns:1fr;border:none;padding:0;margin:0")}</div></div>
+      ${m.resident ? `<form class="form" id="accForm"><div class="full"><div class="ch" style="margin-bottom:8px"><h3>Condo access</h3></div><div class="chk" style="flex-wrap:wrap;gap:16px">${Object.keys(ACCN).map((k) => `<label class="chk"><input type="checkbox" name="acc" value="${k}" ${m.access.includes(k) ? "checked" : ""} ${k === "lobby" ? "disabled" : ""}>${ACCN[k]}</label>`).join("")}</div></div>
+        <div class="mact full" style="margin-top:4px"><button class="btn sm">Save access</button></div></form>` : ""}
+      <div class="mact"><button class="btn" data-act="block" data-arg="${m.id}"><i data-lucide="${m.cardSt === "Blocked" ? "shield-check" : "shield-off"}"></i>${m.cardSt === "Blocked" ? "Unblock card" : "Block card"}</button>
+        <button class="btn" data-act="member" data-arg="${m.id}"><i data-lucide="user"></i>Member profile</button><button class="btn red" data-act="topup" data-arg="${m.id}"><i data-lucide="wallet"></i>Top up</button></div>`, true);
+    if ($("accForm")) $("accForm").onsubmit = (e) => { e.preventDefault(); m.access = ["lobby", ...[...e.target.querySelectorAll("[name=acc]:checked")].map((x) => x.value).filter((k) => k !== "lobby")]; save(); render(); toast("Access updated for " + m.n); }; },
+  block: (id) => { const m = M(id); m.cardSt = m.cardSt === "Blocked" ? "Active" : "Blocked"; save(); render(); A.card(id); toast(m.cardSt === "Blocked" ? `Card •••• ${m.card} blocked: doors and payments stop immediately` : `Card •••• ${m.card} is active again`); },
+  gate: (id) => { const g = S.gates.find((x) => x.id === id); g.on = !g.on; save(); render(); toast(`${g.n} ${g.on ? "back online" : "marked offline"}`); },
+  "issue-card": () => { modal(`<h2 id="mT">Issue a One Card</h2><p class="sub">New residents get condo access as well; mall members get payments and points.</p>
+      <form class="form" id="isForm"><label class="full">Card holder<input name="n" maxlength="40" placeholder="e.g. Jia Hui T." required></label>
+      <label>Type<select name="type"><option value="res">Resident</option><option value="mall">Mall member</option></select></label><label>Tower<select name="tower"><option>Tower A</option><option>Tower B</option><option>Tower C</option></select></label>
+      <p class="err full" id="isErr"></p><div class="mact full"><button type="button" class="btn" data-act="close">Cancel</button><button class="btn red">Issue card</button></div></form>`);
+    $("isForm").onsubmit = (e) => { e.preventDefault(); const f = e.target, n = f.n.value.trim(); if (!n) { $("isErr").textContent = "Add the card holder's name."; return; } const res = f.type.value === "res";
+      const m = { id: Math.max(...S.members.map((x) => x.id)) + 1, n, tier: "Bronze", pts: 50, spend: 0, visits: 0, last: 0, resident: res, tower: res ? f.tower.value : "", fav: 1, joined: 2026, card: String(1000 + Math.floor(Math.random() * 9000)), wallet: 0, access: res ? ["lobby", "lift"] : [], cardSt: "Active" };
+      S.members.unshift(m); save(); close(); UI.cf = "all"; if (cur !== "cards") location.hash = "cards"; else render(); toast(`Card •••• ${m.card} issued to ${n} with a 50-point welcome bonus`); }; },
+  topup: (id) => { const opts = S.members.filter((m) => m.cardSt === "Active"), sel = id ? +id : opts[0].id; let amt = 50;
+    modal(`<h2 id="mT">Top up a One Card</h2><p class="sub">The member pays through Stripe Checkout. Card details go to Stripe, never to this dashboard.</p>
+      <form class="form" id="tuForm"><label class="full">Card<select name="m">${opts.map((m) => `<option value="${m.id}" ${m.id === sel ? "selected" : ""}>${esc(m.n)} · •••• ${m.card} · ${money2(m.wallet)}</option>`).join("")}</select></label>
+      <div class="full"><div class="ch" style="margin-bottom:8px"><h3>Amount</h3></div><div class="amts" id="amts">${[20, 50, 100, 200].map((a) => `<button type="button" data-a="${a}" aria-pressed="${a === amt}">${money(a)}</button>`).join("")}<input name="custom" type="number" min="${S.rules.minTop}" max="${S.rules.maxBal}" step="1" placeholder="Other" aria-label="Other amount" style="width:110px"></div></div>
+      <label class="full">Pay with<select name="pm"><option>Card</option><option>PayNow</option><option>Apple Pay</option><option>Google Pay</option></select></label>
+      <p class="err full" id="tuErr"></p><div class="mact full"><button type="button" class="btn" data-act="close">Cancel</button><button class="btn red"><i data-lucide="lock"></i>Continue to Stripe Checkout</button></div></form>`);
+    $("amts").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; amt = +b.dataset.a; $("tuForm").custom.value = ""; $("amts").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); };
+    $("tuForm").onsubmit = (e) => { e.preventDefault(); const f = e.target, m = M(f.m.value), a = f.custom.value ? Math.round(+f.custom.value * 100) / 100 : amt, pm = f.pm.value;
+      if (!(a >= S.rules.minTop)) { $("tuErr").textContent = `The minimum top-up is ${money(S.rules.minTop)}.`; return; }
+      if (m.wallet + a > S.rules.maxBal) { $("tuErr").textContent = `That would take the balance over the ${money(S.rules.maxBal)} limit.`; return; }
+      modal(`<div class="stripe" style="text-align:center"><div class="sh"><b>Stripe Checkout</b><span class="pill p-warn">Simulated · no payment taken</span></div><p>Paying ${money2(a)} by ${pm} for One Card •••• ${m.card}</p><div class="spin" id="spin" aria-label="Processing"></div><p class="muted" id="stMsg">Waiting for Stripe…</p></div>`);
+      setTimeout(() => { m.wallet = Math.round((m.wallet + a) * 100) / 100; S.wallet.float += a; S.wallet.topups += a; S.wallet.topupCount++;
+        S.txns.unshift({ id: "TX-" + (Math.max(...S.txns.map((t) => +t.id.slice(3))) + 1), type: "Top-up", m: m.id, ten: null, amt: a, method: "Stripe · " + pm.toLowerCase().replace("card", "card"), at: Date.now(), st: "Succeeded" }); save();
+        const box = document.querySelector(".stripe"); if (box) box.innerHTML = `<div class="sh"><b>Stripe Checkout</b><span class="pill p-ok">Succeeded</span></div><div class="okmark"><i data-lucide="check"></i></div><p><b>${money2(a)}</b> added. New balance ${money2(m.wallet)}.</p><p class="muted" style="font-size:12px">Points are earned when the money is spent, not on top-up.</p><div class="mact" style="justify-content:center"><button class="btn red" data-act="close">Done</button></div>`;
+        icons(); render(); }, 1400); }; },
+  txn: (id) => { const t = S.txns.find((x) => x.id === id); if (!t) return; const m = t.m ? M(t.m) : null;
+    modal(`<span class="pill ${t.st === "Succeeded" ? "p-ok" : "p-bad"}">${t.st}</span><h2 id="mT" style="margin-top:8px">${t.type} ${t.id}</h2><p class="sub">${ago(t.at)}</p>
+      ${meta([["Amount", money2(t.amt)], ["Card holder", m ? esc(m.n) + " · •••• " + m.card : "-"], ["Tenant", t.ten ? esc(T(t.ten).n) : "-"], ["Method", esc(t.method)], ["Points", t.type === "Payment" ? "+" + Math.round(t.amt * S.rules.earn * (m && m.resident ? S.rules.resBonus : 1)) : "None"], ["Processor", t.type === "Top-up" ? "Stripe (simulated)" : "Seaport ledger"]])}
+      <div class="mact">${t.type === "Payment" && t.st === "Succeeded" ? `<button class="btn" data-act="refund" data-arg="${t.id}"><i data-lucide="undo-2"></i>Refund to wallet</button>` : ""}<button class="btn" data-act="close">Close</button></div>`, true); },
+  refund: (id) => { const t = S.txns.find((x) => x.id === id), m = M(t.m); m.wallet = Math.round((m.wallet + t.amt) * 100) / 100;
+    S.txns.unshift({ id: "TX-" + (Math.max(...S.txns.map((x) => +x.id.slice(3))) + 1), type: "Refund", m: m.id, ten: t.ten, amt: t.amt, method: "One Card", at: Date.now(), st: "Succeeded" }); save(); close(); render(); toast(`${money2(t.amt)} refunded to ${m.n}'s wallet`); },
+  "export-tx": () => { const rows = [["id", "type", "member", "tenant", "amount", "method", "status"], ...S.txns.map((t) => [t.id, t.type, t.m ? M(t.m).n : "", t.ten ? T(t.ten).n : "", t.amt, t.method, t.st])];
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([rows.map((r) => r.join(",")).join("\n")], { type: "text/csv" })); a.download = "one-card-transactions-sample.csv"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); toast("Sample transactions downloaded"); },
+  stripe: () => toast("Connecting Stripe needs a server and your Stripe keys. It's part of building the real platform."),
+  "invite-units": () => toast("Invites queued for 134 unlinked units (preview: nothing is sent)"),
+  remind: (i) => toast(`Reminder queued for ${S.events[+i].n} (preview)`),
+  export: () => { const rows = [["member_id", "name", "tier", "points", "spend", "visits", "resident"], ...S.members.map((m) => [m.id, m.n, m.tier, m.pts, m.spend, m.visits, m.resident ? "yes" : "no"])];
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([rows.map((r) => r.join(",")).join("\n")], { type: "text/csv" })); a.download = "lumina-square-members-sample.csv"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); toast("Sample CSV downloaded"); },
+  reset: () => { if (!confirm("Reset all sample data?")) return; try { localStorage.removeItem(KEY); } catch (e) {} S = seed(); render(); toast("Sample data reset"); },
+};
+
+/* ---------- routing + wiring ---------- */
+const TITLES = { overview: "Overview", cards: "One Card", access: "Access", wallet: "Wallet & payments", live: "Live activity", members: "Members", residents: "Residents", tenants: "Tenants", rewards: "Rewards", campaigns: "Campaigns", analytics: "Analytics", settings: "Programme settings" };
+function render() { $("view").innerHTML = V[cur](); icons(); grow(); bind(); }
+function bind() {
+  if ($("mSort")) $("mSort").onchange = (e) => { UI.ms = e.target.value; render(); };
+  if ($("rulesForm")) $("rulesForm").onsubmit = (e) => { e.preventDefault(); const f = e.target, s = +f.silver.value, g = +f.gold.value, p = +f.plat.value;
+    if (!(s < g && g < p)) { $("rErr").textContent = "Thresholds must rise from Silver to Gold to Platinum."; return; }
+    Object.assign(S.rules, { earn: +f.earn.value, expiry: f.expiry.value, silver: s, gold: g, plat: p, resBonus: +f.resBonus.value }); save(); render(); toast("Programme rules saved"); };
+  if ($("walletForm")) $("walletForm").onsubmit = (e) => { e.preventDefault(); const f = e.target, mn = +f.minTop.value, mx = +f.maxBal.value; if (!(mn >= 1 && mx > mn)) { toast("The maximum balance must be above the minimum top-up."); return; }
+    Object.assign(S.rules, { minTop: mn, maxBal: mx, autoTop: f.autoTop.checked, ptsOnTopup: f.ptsOnTopup.checked }); save(); toast("Wallet rules saved"); };
+  if ($("notifForm")) $("notifForm").onsubmit = (e) => { e.preventDefault(); ["daily", "risk", "tenant"].forEach((k) => { S.rules.notif[k] = e.target[k].checked; }); save(); toast("Alerts saved"); };
+}
+function route() {
+  const [v, sub] = location.hash.slice(1).split("/"); cur = V[v] ? v : "overview";
+  document.querySelectorAll(".nav a").forEach((a) => { const on = a.dataset.v === cur; a.classList.toggle("on", on); on ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"); });
+  $("title").textContent = TITLES[cur]; document.title = `${TITLES[cur]} · Lumina Square · Seaport Loyalty`;
+  close(); render(); window.scrollTo(0, 0);
+  if (sub === "new") { history.replaceState(null, "", "#" + cur); if (cur === "rewards") A["new-reward"](); if (cur === "campaigns") A["new-campaign"](); }
+}
+document.addEventListener("click", (e) => { const t = e.target.closest("[data-act]"); if (!t || t.matches("input")) return; const fn = A[t.dataset.act]; if (fn) { if (t.tagName !== "A") e.preventDefault(); fn(t.dataset.arg, t); } });
+document.addEventListener("change", (e) => { const t = e.target; if (t.matches("input[data-act]") && A[t.dataset.act]) A[t.dataset.act](t.dataset.arg, t); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); if ((e.key === "Enter" || e.key === " ") && e.target.matches("tr.rl")) { e.preventDefault(); A[e.target.dataset.act](e.target.dataset.arg); } });
+$("q").addEventListener("input", (e) => { q = e.target.value.trim().toLowerCase(); if (q && ["overview", "live", "access", "residents", "analytics", "settings"].includes(cur)) { location.hash = "cards"; return; } render(); });
+$("range").addEventListener("change", render);
+$("bell").addEventListener("click", () => toast("3 alerts: Mall link bridge gate offline, 2 cards reported lost, tenant settlement due 1 Oct"));
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
