@@ -294,3 +294,9 @@ svg.lucide { width: 18px; height: 18px; }
 .logo img { width: 30px; height: 30px; object-fit: contain; }
 .logo .sub { font-weight: 600; font-size: 15px; color: var(--muted); letter-spacing: 0; margin-left: -2px; }
 .ftr .logo .sub { color: #9FB0C0; }
+
+/* keep the drop-down open while the mouse crosses the gap below the menu item */
+.menu::before { content: ""; position: absolute; left: 0; right: 0; top: -14px; height: 14px; }
+
+/* jump links land below the sticky header */
+section[id], [id].sec { scroll-margin-top: 90px; }

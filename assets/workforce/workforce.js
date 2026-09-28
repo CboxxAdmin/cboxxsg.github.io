@@ -9,8 +9,9 @@ document.querySelectorAll(".dd").forEach((dd) => {
   const a = dd.querySelector(":scope > a");
   const set = (on) => { dd.classList.toggle("open", on); a.setAttribute("aria-expanded", on); };
   a.addEventListener("click", (e) => { if (window.innerWidth > 860 && !dd.classList.contains("open")) { e.preventDefault(); document.querySelectorAll(".dd.open").forEach((o) => o !== dd && o.classList.remove("open")); set(true); } });
-  dd.addEventListener("mouseenter", () => window.innerWidth > 860 && set(true));
-  dd.addEventListener("mouseleave", () => window.innerWidth > 860 && set(false));
+  let t; // small delay so the menu doesn't vanish on the way to a sub-item
+  dd.addEventListener("mouseenter", () => { if (window.innerWidth <= 860) return; clearTimeout(t); document.querySelectorAll(".dd.open").forEach((o) => o !== dd && o.classList.remove("open")); set(true); });
+  dd.addEventListener("mouseleave", () => { if (window.innerWidth <= 860) return; t = setTimeout(() => set(false), 250); });
   dd.addEventListener("keydown", (e) => { if (e.key === "Escape") { set(false); a.focus(); } });
 });
 document.addEventListener("click", (e) => { if (!e.target.closest(".dd")) document.querySelectorAll(".dd.open").forEach((d) => d.classList.remove("open")); });
