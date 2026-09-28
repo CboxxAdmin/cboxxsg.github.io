@@ -362,6 +362,11 @@ if ($("dash")) {
         ${card("bounties", "g-bounty t1", 1, `<span class="ph">Bounty</span><span class="pb">${open.length} paid briefs on offer</span>${top ? `<span class="big">${money(top.fee)}</span><span class="pb sm">top bounty: ${esc(top.t)}</span>` : ""}<span class="pgo">Claim a bounty</span>`)}
         ${card("warnings", "g-warn t2", -2.2, `<span class="ph">Warning!</span><span class="pb">${deadlines().length} deadlines ahead</span>${dl ? `<span class="pb"><b>${esc(dl.t)}</b></span><span class="pb sm">${daysTo(dl.due) >= 0 ? "due in " + daysTo(dl.due) + " days" : "overdue"}</span>` : ""}`)}
         ${card("notices", "g-attn t0", 1.2, `<span class="ph">Attention</span><span class="pb">${unread.length ? unread.length + (unread.length === 1 ? " new notice" : " new notices") + " from Seaport" : "No new notices"}</span>${(unread[0] || S.news[0]) ? `<span class="pli">${esc((unread[0] || S.news[0]).t)}</span>` : ""}`)}
+        ${(() => { const hiring = S.jobs.filter((j) => j.st !== "full"), top = [...hiring].sort((a, b) => b.posted.localeCompare(a.posted)).slice(0, 3), lob = S.chats.find((c) => c.lobby), lm = lob.msgs[lob.msgs.length - 1], rv = S.reviews.mine[0];
+          return card("tavern", "g-tavern t1", 0.4, `<span class="ph">The Tavern</span><span class="pb sm">Jobs, chat and reviews from companies across the network</span><span class="tvrow">
+          <span class="tvcol"><b>${hiring.length} jobs hiring now</b>${top.map((j) => `<span class="tvj"><i class="sdot ${j.st}"></i><span>${esc(j.t)}<em>${esc(COS[j.co][0])}</em></span><span>${money(j.pay)}</span></span>`).join("")}</span>
+          <span class="tvcol"><b>${unreadAll() ? unreadAll() + " unread " + (unreadAll() === 1 ? "message" : "messages") : "Chat room"}</b><span class="pli">${esc(lm.who || "You")}: ${esc(lm.t || "sent a file")}</span></span>
+          <span class="tvcol"><b>★ ${myAvg()} from ${S.reviews.mine.length} reviews</b><span class="pli">"${esc(rv.t)}"</span></span></span><span class="pgo">Enter the tavern</span>`); })()}
       </div></div>`; },
 
     bounties: () => { const f = UI.qf || "all", discs = [...new Set(S.board.map((b) => b.d))], passed = S.board.filter((b) => b.st === "passed").length;
@@ -457,6 +462,155 @@ if ($("dash")) {
         <table class="dtable lines"><tbody><tr><td>Royalties (your 50% of licence fees)</td><td class="r">${money(p.roy)}</td></tr><tr><td>Project fees</td><td class="r">${money(p.fees)}</td></tr></tbody><tfoot><tr class="tot"><td>Paid to you</td><td class="r">${money(p.roy + p.fees)}</td></tr></tfoot></table>
         <div class="mact"><button type="button" class="btn outline-dark" data-act="print"><i data-lucide="printer"></i>Print or save as PDF</button></div>`, mcls); },
   };
+  /* ----- The Tavern: companies post jobs (a server-list style board), creatives apply, chat and leave reviews.
+     Sample companies and conversations; replies in private chats are automatic in this preview. ----- */
+  const COS = [
+    ["Harbourline Bank", "#0F2742", "Singapore"], ["Kopi & Co. Foods", "#8C4A1C", "Singapore"], ["Straits Logistics", "#1C6B5E", "Malaysia"], ["Lumen Insurance", "#5B2E8C", "Indonesia"],
+    ["Meridian REIT", "#3A3129", "Singapore"], ["Tanjong Retail Group", "#B0001C", "Singapore"], ["Nova Telco", "#1F4E9C", "Philippines"], ["Sakura Home", "#C2185B", "Japan"],
+    ["Casa Verde", "#2F6B2F", "Spain"], ["Pasir Energy", "#8C6A12", "Australia"],
+  ];
+  const coAv = (i, cls) => `<span class="coav ${cls || ""}" style="background:${COS[i][1]}" aria-hidden="true">${COS[i][0].replace(/&|\./g, "").split(" ").filter(Boolean).map((w) => w[0]).join("").slice(0, 2)}</span>`;
+  const JST = { open: "Hiring now", closing: "Closing soon", full: "Full" };
+  const ago = (d) => { const n = -daysTo(d); return n <= 0 ? "Today" : n === 1 ? "Yesterday" : n + " days ago"; };
+  const nowT = () => new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+  const stars = (n) => `<span class="stars" aria-label="${n} out of 5 stars">${"★".repeat(n)}<span>${"★".repeat(5 - n)}</span></span>`;
+  const coRating = (i) => { const r = S.reviews.cos.filter((x) => x.co === i); return r.length ? (r.reduce((a, x) => a + x.stars, 0) / r.length).toFixed(1) : null; };
+  const myAvg = () => (S.reviews.mine.reduce((a, x) => a + x.stars, 0) / S.reviews.mine.length).toFixed(1);
+  const unreadAll = () => S.chats.reduce((a, c) => a + (c.unread || 0), 0);
+  const threadName = (c) => c.lobby ? "Tavern lobby" : COS[c.co][0];
+  CAT.tavern = ["The Tavern", "p-tavern", "Where companies post their jobs, and creatives apply, chat and leave reviews."];
+  const TAVERN_SEED = () => ({
+    jobs: [
+      { id: "J-512", co: 5, t: "Festive window displays, 4 stores", d: "spatial", type: "Commission", where: "Singapore, on site", pay: 22000, per: "fixed", apps: 9, max: 15, posted: "2026-09-27", st: "open", desc: "Design and install festive windows for four flagship stores, with a scheme that can be stored and reused next year." },
+      { id: "J-511", co: 0, t: "Social video editor", d: "film", type: "Contract", where: "Remote", pay: 4800, per: "month", apps: 14, max: 20, posted: "2026-09-27", st: "open", desc: "Cut weekly short-form videos for the bank's social channels from existing footage. Three-month contract, renewable." },
+      { id: "J-510", co: 1, t: "Packaging designer, snack range", d: "design", type: "Commission", where: "Remote", pay: 6500, per: "fixed", apps: 18, max: 20, posted: "2026-09-25", st: "closing", desc: "Refresh packaging for eight snack SKUs, keeping the brand's heritage feel. Print-ready files by mid November." },
+      { id: "J-509", co: 7, t: "Illustrator for a spring catalogue", d: "illus", type: "Commission", where: "Remote (JST hours)", pay: 5200, per: "fixed", apps: 6, max: 12, posted: "2026-09-24", st: "open", desc: "Twenty spot illustrations for a home-goods catalogue. One weekly call in Japan hours." },
+      { id: "J-508", co: 3, t: "Motion designer, product explainers", d: "motion", type: "Retainer", where: "Remote", pay: 5500, per: "month", apps: 11, max: 15, posted: "2026-09-23", st: "open", desc: "Two explainer animations a month for new insurance products, in English and Bahasa Indonesia." },
+      { id: "J-507", co: 6, t: "UX writer for a telco app", d: "words", type: "Contract", where: "Manila or remote", pay: 3900, per: "month", apps: 20, max: 20, posted: "2026-09-21", st: "full", desc: "Rewrite onboarding and billing screens in plain English for a prepaid mobile app." },
+      { id: "J-506", co: 2, t: "Brand refresh for a logistics fleet", d: "design", type: "Commission", where: "Kuala Lumpur or remote", pay: 18000, per: "fixed", apps: 5, max: 10, posted: "2026-09-20", st: "open", desc: "Refresh the identity and vehicle livery across 400 trucks and vans. Fleet or livery experience preferred." },
+      { id: "J-505", co: 8, t: "Sonic identity for a garden brand", d: "sound", type: "Commission", where: "Remote (CET hours)", pay: 7800, per: "fixed", apps: 4, max: 10, posted: "2026-09-19", st: "open", desc: "A sonic logo and three in-store soundscapes for a Spanish garden centre chain." },
+      { id: "J-504", co: 4, t: "Annual report designer", d: "design", type: "Contract", where: "Singapore, hybrid", pay: 9500, per: "fixed", apps: 12, max: 15, posted: "2026-09-17", st: "closing", desc: "Lay out a 120-page annual report and investor presentation to an existing grid." },
+      { id: "J-503", co: 9, t: "Web designer, energy dashboard", d: "digital", type: "Contract", where: "Remote (AEST hours)", pay: 6200, per: "month", apps: 8, max: 12, posted: "2026-09-15", st: "open", desc: "Design a customer dashboard that shows home solar output and savings. Figma, with a component library." },
+    ],
+    chats: [
+      { id: "lobby", lobby: true, unread: 2, msgs: [
+        { who: "Tanjong Retail Group", co: 5, t: "We've just posted J-512: window displays for 4 stores. On-site installs in early November.", at: "09:12" },
+        { who: "Aiko Tanaka", t: "Is J-509 open to illustrators outside Japan?", at: "09:20" },
+        { who: "Sakura Home", co: 7, t: "Yes! Anyone who can join a weekly call in Japan hours.", at: "09:26" },
+        { who: "Nova Telco", co: 6, t: "J-507 is now full. Thank you to everyone who applied.", at: "10:02" },
+        { who: "Straits Logistics", co: 2, t: "Looking for studios with fleet or livery experience for J-506.", at: "10:40" } ] },
+      { id: "c1", co: 1, unread: 1, msgs: [{ t: "Hi! We loved your festive kit. Would you take a look at our snack range brief, J-510?", at: "Yesterday" }] },
+      { id: "c5", co: 5, unread: 1, msgs: [{ t: "Your wayfinding work caught our eye. Any interest in J-512?", at: "08:55" }] },
+      { id: "c0", co: 0, unread: 0, msgs: [{ me: true, t: "Hello, is the video editor role open to studios?", at: "Mon" }, { t: "It is. Send a reel with your application and we'll review it this week.", at: "Mon" }] },
+    ],
+    reviews: {
+      mine: [
+        { co: 1, stars: 5, t: "Delivered the festive kit early and adapted it for three brands without missing a deadline.", d: "2026-09-14" },
+        { co: 4, stars: 5, t: "Clear thinking and beautiful type. Our shareholders noticed.", d: "2026-07-30" },
+        { co: 2, stars: 4, t: "Great concepts. One round of revisions ran a little long.", d: "2026-06-11" },
+        { co: 0, stars: 5, t: "Easy to brief and a pleasure to work with.", d: "2026-05-02" } ],
+      cos: [
+        { co: 1, by: "Nadia Rahman", stars: 5, t: "Fast feedback and paid on time.", d: "2026-09-02" },
+        { co: 0, by: "Wei Ling Tan", stars: 4, t: "A big team to align, but the briefs were clear.", d: "2026-08-19" },
+        { co: 5, by: "Rattan Revival", stars: 5, t: "Great install crew and a generous timeline.", d: "2026-08-01" },
+        { co: 6, by: "Ravi Menon", stars: 3, t: "Scope grew mid-project; Seaport helped reset it.", d: "2026-07-12" },
+        { co: 7, by: "Aiko Tanaka", stars: 5, t: "Thoughtful art direction and quick sign-off.", d: "2026-06-28" },
+        { co: 2, by: "Pixel Durian", stars: 4, t: "Friendly team. Decisions can take a week.", d: "2026-06-03" } ],
+    },
+  });
+
+  const jobsHTML = () => { const f = UI.jt || "all", sort = UI.js || "new";
+    const list = S.jobs.filter((j) => (f === "all" || (f === "applied" ? j.applied : j.type === f)) && hit(j.id, j.t, COS[j.co][0], j.where, DISC[j.d].label, j.type))
+      .sort((a, b) => sort === "pay" ? b.pay - a.pay : sort === "space" ? (b.max - b.apps) - (a.max - a.apps) : b.posted.localeCompare(a.posted));
+    return `<div class="sheet tvsheet"><span class="nail" aria-hidden="true"></span>
+      <div class="shead"><h2>Job listings</h2><span>${S.jobs.length} jobs · ${S.jobs.filter((j) => j.st !== "full").length} hiring now · <em>sample companies</em></span></div>
+      <div class="srvbar">${chips("jt", [["all", "All"], ["Commission", "Commission"], ["Contract", "Contract"], ["Retainer", "Retainer"], ["applied", "Applied", S.jobs.filter((j) => j.applied).length]])}
+        <label class="srvsort">Sort<select id="jobSort"><option value="new" ${sort === "new" ? "selected" : ""}>Newest</option><option value="pay" ${sort === "pay" ? "selected" : ""}>Highest pay</option><option value="space" ${sort === "space" ? "selected" : ""}>Most places left</option></select></label></div>
+      <div class="srvwrap"><table class="srv"><thead><tr><th><span class="sr-only">Status</span></th><th>Company</th><th>Job</th><th>Type</th><th>Where</th><th class="r">Pay</th><th>Applicants</th><th>Posted</th><th><span class="sr-only">Apply</span></th></tr></thead><tbody>
+      ${list.map((j) => row("job", j.id, `<td><span class="sdot ${j.st}" title="${JST[j.st]}"></span></td><td><div class="co">${coAv(j.co)}<span><b>${esc(COS[j.co][0])}</b><small>${COS[j.co][2]}${coRating(j.co) ? " · ★ " + coRating(j.co) : ""}</small></span></div></td>
+        <td><b>${esc(j.t)}</b><small>${j.id} · ${esc(DISC[j.d].label)}</small></td><td>${j.type}</td><td>${esc(j.where)}</td><td class="r"><b>${money(j.pay)}</b><small>${j.per === "month" ? "a month" : "fixed fee"}</small></td>
+        <td><span class="cap"><i style="width:${Math.round((j.apps / j.max) * 100)}%"></i></span><small>${j.apps} of ${j.max}</small></td><td class="muted">${ago(j.posted)}</td>
+        <td class="r">${j.applied ? `<span class="pill2 ok">Applied</span>` : j.st === "full" ? `<span class="pill2 gr">Full</span>` : `<button type="button" class="btn primary sm" data-act="apply" data-arg="${j.id}">Apply</button>`}</td>`)).join("") || `<tr><td colspan="9" class="empty">No jobs match.</td></tr>`}
+      </tbody></table></div></div>`; };
+
+  const chatHTML = () => { const th = S.chats.find((c) => c.id === UI.chat) || S.chats[0]; UI.chat = th.id; if (th.unread) { th.unread = 0; save(); }
+    const others = COS.map((c, i) => i).filter((i) => !S.chats.some((c) => c.co === i && !c.lobby));
+    return `<div class="sheet tvsheet chat"><span class="nail" aria-hidden="true"></span>
+      <aside class="clist"><div class="clhead"><b>Conversations</b>${others.length ? `<select id="newChat" aria-label="Start a chat with a company"><option value="">+ New chat</option>${others.map((i) => `<option value="${i}">${esc(COS[i][0])}</option>`).join("")}</select>` : ""}</div>
+        ${S.chats.filter((c) => hit(threadName(c), ...c.msgs.map((m) => m.t || ""))).map((c) => { const last = c.msgs[c.msgs.length - 1] || {};
+          return `<button type="button" class="cth ${c.id === th.id ? "on" : ""}" data-act="thread" data-arg="${c.id}">${c.lobby ? `<span class="coav lobby" aria-hidden="true"><i data-lucide="beer"></i></span>` : coAv(c.co)}
+          <span class="ctx"><b>${esc(threadName(c))}</b><small>${esc((last.me ? "You: " : last.who && c.lobby ? last.who + ": " : "") + (last.file ? "Sent a file" : last.t || ""))}</small></span><span class="cmeta"><small>${last.at || ""}</small>${c.unread ? `<span class="cbadge">${c.unread}</span>` : ""}</span></button>`; }).join("")}
+      </aside>
+      <section class="cpane" aria-label="${esc(threadName(th))}"><header class="cph">${th.lobby ? `<span class="coav lobby" aria-hidden="true"><i data-lucide="beer"></i></span>` : coAv(th.co)}<span><b>${esc(threadName(th))}</b><small>${th.lobby ? "Open to every company and creative on Seaport · 38 here now" : COS[th.co][2] + " · usually replies within a day"}</small></span>
+        ${th.lobby ? "" : `<button type="button" class="btn outline-dark sm" data-act="tv" data-arg="jobs">Their jobs</button>`}</header>
+        <div class="msgs" id="msgs" role="log" aria-live="polite">${th.msgs.map((m) => `<div class="msg ${m.me ? "me" : ""}">${!m.me && th.lobby ? `<span class="mwho">${m.co != null ? coAv(m.co, "sm") : ""}${esc(m.who)}</span>` : ""}
+          <div class="bub">${m.file ? `<span class="mfile"><i data-lucide="${fileIcon(m.file.n, m.file.k)}"></i><span><b>${esc(m.file.n)}</b><small>${size(m.file.s)}</small></span></span>` : esc(m.t)}</div><span class="mat">${m.at}</span></div>`).join("")}</div>
+        <form class="cform" id="chatForm"><label class="cattach" title="Attach a photo, video or file"><i data-lucide="paperclip"></i><input type="file" id="chatFile" hidden><span class="sr-only">Attach a file</span></label>
+          <input id="chatIn" autocomplete="off" maxlength="600" placeholder="Message ${esc(threadName(th))}" aria-label="Message"><button class="btn primary sm" aria-label="Send"><i data-lucide="send"></i></button></form>
+        <p class="fine">Sample conversations. In this preview, company replies are automatic and nothing leaves your browser.</p></section></div>`; };
+
+  const reviewsHTML = () => { const dist = [5, 4, 3, 2, 1].map((s) => [s, S.reviews.mine.filter((r) => r.stars === s).length]);
+    const rated = COS.map((c, i) => [i, coRating(i), S.reviews.cos.filter((r) => r.co === i).length]).filter((x) => x[1]).sort((a, b) => b[1] - a[1]);
+    return `<div class="tvrev"><div class="sheet tvsheet"><span class="nail" aria-hidden="true"></span><h2>What companies say about you</h2>
+        <div class="rsum"><div class="rbig"><b>${myAvg()}</b>${stars(Math.round(myAvg()))}<small>${S.reviews.mine.length} reviews</small></div><div class="rdist">${dist.map(([s, n]) => `<span>${s}★</span><span class="cap"><i style="width:${(n / S.reviews.mine.length) * 100}%"></i></span><span>${n}</span>`).join("")}</div></div>
+        ${S.reviews.mine.filter((r) => hit(COS[r.co][0], r.t)).map((r) => `<div class="rev">${coAv(r.co)}<div><b>${esc(COS[r.co][0])}</b> ${stars(r.stars)}<p>${esc(r.t)}</p><small>${day(r.d)}</small></div></div>`).join("")}</div>
+      <div class="sheet tvsheet"><span class="nail" aria-hidden="true"></span><div class="shead"><h2>Company reviews</h2><button type="button" class="btn primary sm" data-act="writerev"><i data-lucide="pen-line"></i>Write a review</button></div>
+        <div class="corate">${rated.map(([i, avg, n]) => `<span>${coAv(i, "sm")}<b>${esc(COS[i][0])}</b><em>★ ${avg}</em><small>${n}</small></span>`).join("")}</div>
+        ${S.reviews.cos.filter((r) => hit(COS[r.co][0], r.t, r.by)).map((r) => `<div class="rev">${coAv(r.co)}<div><b>${esc(COS[r.co][0])}</b> ${stars(r.stars)}<p>${esc(r.t)}</p><small>${esc(r.by)} · ${day(r.d)}</small></div></div>`).join("")}</div></div>`; };
+
+  CR.tavern = () => { UI.tv = UI.tv || "jobs";
+    return page("tavern", "", `<div class="nbtools">${chips("tv", [["jobs", "Job listings", S.jobs.filter((j) => j.st !== "full").length], ["chat", "Chat room", unreadAll() || null], ["reviews", "Reviews"]])}</div>` +
+      (UI.tv === "chat" ? chatHTML() : UI.tv === "reviews" ? reviewsHTML() : jobsHTML())); };
+
+  const reply = (th) => { const R = ["Thanks! We'll take a look and come back to you today.", "Great. Could you share two or three recent pieces?", "Sounds good. Seaport will send the agreement once we confirm.", "Noted. Are you free for a quick call this week?"];
+    setTimeout(() => { th.msgs.push({ t: R[th.msgs.length % R.length], at: nowT() }); if (!(cur === "tavern" && UI.tv === "chat" && UI.chat === th.id)) th.unread = (th.unread || 0) + 1; save(); if (cur === "tavern") keepDraft(render); }, 1600); };
+  const keepDraft = (fn) => { const d = $("chatIn") ? $("chatIn").value : null, had = document.activeElement && document.activeElement.id === "chatIn"; fn(); if ($("chatIn") && d != null) { $("chatIn").value = d; if (had) $("chatIn").focus(); } };
+  const dmThread = (co) => { let th = S.chats.find((c) => c.co === co && !c.lobby); if (!th) { th = { id: "c" + co, co, unread: 0, msgs: [] }; S.chats.splice(1, 0, th); } return th; };
+
+  Object.assign(crActs, {
+    tv: (arg) => { if (["jobs", "chat", "reviews"].includes(arg)) { closeModal(); UI.tv = arg; render(); } else crActs.job(arg); },
+    thread: (id) => { UI.chat = id; render(); const i = $("chatIn"); if (i) i.focus(); },
+    dm: (co) => { const th = dmThread(+co); save(); closeModal(); UI.tv = "chat"; UI.chat = th.id; if (cur !== "tavern") location.hash = "tavern"; else render(); setTimeout(() => $("chatIn") && $("chatIn").focus(), 60); },
+    job: (id) => { const j = S.jobs.find((x) => x.id === id); if (!j) return; const r = coRating(j.co);
+      modal(`<span class="pin" aria-hidden="true"></span><div class="phead">${coAv(j.co, "lg")}<div><span class="kicker">${JST[j.st]} · ${j.id}</span><h2 id="mTitle">${esc(j.t)}</h2><p class="sub">${esc(COS[j.co][0])} · ${COS[j.co][2]}${r ? ` · ★ ${r} from creatives` : ""}</p></div></div><p>${esc(j.desc)}</p>` +
+        meta([["Type", j.type], ["Where", esc(j.where)], ["Pay", `${money(j.pay)} ${j.per === "month" ? "a month" : "fixed"}`], ["Discipline", esc(DISC[j.d].label)], ["Applicants", `${j.apps} of ${j.max}`], ["Posted", ago(j.posted)]]) +
+        `<p class="fine">Hired through Seaport: you keep the IP, and the contract and payment run through your Seaport agreement.</p>
+        <div class="mact"><button type="button" class="btn outline-dark" data-act="dm" data-arg="${j.co}"><i data-lucide="message-circle"></i>Message ${esc(COS[j.co][0])}</button>${j.applied ? `<span class="pill2 ok">Applied</span>` : j.st === "full" ? `<span class="pill2 gr">Full</span>` : `<button type="button" class="btn primary" data-act="apply" data-arg="${j.id}">Apply</button>`}</div>`, mcls + " wide"); },
+    apply: (id) => { const j = S.jobs.find((x) => x.id === id); if (!j || j.applied || j.st === "full") return;
+      modal(`<span class="pin" aria-hidden="true"></span><span class="kicker">${esc(COS[j.co][0])} · ${j.id}</span><h2 id="mTitle">Apply: ${esc(j.t)}</h2><p class="sub">${money(j.pay)} ${j.per === "month" ? "a month" : "fixed"} · ${esc(j.where)}</p>
+        <form class="mform" id="applyForm" novalidate><label class="full">Why you're a fit<textarea name="note" rows="4" maxlength="600" required placeholder="Relevant work, your approach and when you could start"></textarea></label>
+        <label>Your rate (S$)<input name="rate" type="number" min="0" step="50" value="${j.pay}"></label><label>Available from<input name="from" type="date" value="${today()}"></label>
+        <label class="full">Link to relevant work (optional)<input name="link" type="url" placeholder="https://"></label>
+        <p class="err full" id="mErr" role="alert"></p><div class="mact full"><button type="button" class="btn outline-dark" data-act="close">Cancel</button><button class="btn primary">Send application</button></div></form>`, mcls + " wide");
+      $("applyForm").onsubmit = (e) => { e.preventDefault(); const f = e.target, note = f.note.value.trim();
+        if (note.length < 20) { $("mErr").textContent = "Write a few lines about why you're a fit (at least 20 characters)."; f.note.focus(); return; }
+        if (f.link.value && !f.link.checkValidity()) { $("mErr").textContent = "Links need to start with https://"; f.link.focus(); return; }
+        j.applied = true; j.apps = Math.min(j.max, j.apps + 1); if (j.apps >= j.max) j.st = "full";
+        const th = dmThread(j.co); th.msgs.push({ me: true, t: `Application for ${j.id}, ${j.t}: ${note.slice(0, 160)}${note.length > 160 ? "..." : ""}`, at: nowT() }); reply(th);
+        save(); closeModal(); render(); toast(`Applied to ${COS[j.co][0]}. Your application is in your chat with them.`); }; },
+    writerev: () => { const worked = [...new Set(S.reviews.mine.map((r) => r.co))];
+      modal(`<span class="pin" aria-hidden="true"></span><h2 id="mTitle">Review a company</h2><p class="sub">Help other creatives. Reviews show your name.</p>
+        <form class="mform" id="revForm" novalidate><label class="full">Company<select name="co">${worked.concat(COS.map((c, i) => i).filter((i) => !worked.includes(i))).map((i) => `<option value="${i}">${esc(COS[i][0])}${worked.includes(i) ? " (worked together)" : ""}</option>`).join("")}</select></label>
+        <fieldset class="full rstars"><legend>Rating</legend><div class="rsel">${[5, 4, 3, 2, 1].map((n) => `<label><input type="radio" name="stars" value="${n}" ${n === 5 ? "checked" : ""}><span aria-hidden="true">★</span><span class="sr-only">${n} stars</span></label>`).join("")}</div></fieldset>
+        <label class="full">Your review<textarea name="t" rows="4" maxlength="400" required placeholder="Briefs, feedback, payment, anything others should know"></textarea></label>
+        <p class="err full" id="mErr" role="alert"></p><div class="mact full"><button type="button" class="btn outline-dark" data-act="close">Cancel</button><button class="btn primary">Post review</button></div></form>`, mcls);
+      $("revForm").onsubmit = (e) => { e.preventDefault(); const f = e.target, t = f.t.value.trim();
+        if (t.length < 10) { $("mErr").textContent = "Write at least a sentence."; f.t.focus(); return; }
+        S.reviews.cos.unshift({ co: +f.co.value, by: S.me, stars: +f.stars.value, t, d: today() }); save(); closeModal(); render(); toast("Review posted"); }; },
+  });
+
+  function bindTavern() {
+    if ($("jobSort")) $("jobSort").onchange = (e) => { UI.js = e.target.value; render(); };
+    if ($("newChat")) $("newChat").onchange = (e) => { if (e.target.value !== "") crActs.dm(e.target.value); };
+    const ml = $("msgs"); if (ml) ml.scrollTop = ml.scrollHeight;
+    if ($("chatForm")) {
+      $("chatForm").onsubmit = (e) => { e.preventDefault(); const i = $("chatIn"), t = i.value.trim(); if (!t) return;
+        const th = S.chats.find((c) => c.id === UI.chat); th.msgs.push({ me: true, t, at: nowT() }); i.value = ""; save(); render(); $("chatIn").focus(); if (!th.lobby) reply(th); };
+      $("chatFile").onchange = (e) => { const file = e.target.files[0]; if (!file) return; if (file.size > 500e6) { toast("Files can be up to 500 MB."); return; }
+        const th = S.chats.find((c) => c.id === UI.chat); th.msgs.push({ me: true, file: { n: file.name.slice(0, 120), k: kindOf(file), s: file.size }, at: nowT() }); save(); keepDraft(render); if (!th.lobby) reply(th); };
+    }
+  }
+
   /* ----- uploads for frameworks: photos, videos and files. In the preview nothing is uploaded; files are shown
      from memory, and only a small cover picture plus each file's name, type and size are kept in this browser. ----- */
   const MAX_FILES = 12, MAX_MB = 500;
@@ -552,12 +706,13 @@ if ($("dash")) {
     share: (i, el) => { S.brand.files[+i].sh = el.checked; save(); render(); toast(el.checked ? "Shared with creatives" : "Hidden from creatives"); },
     reset: () => { if (!confirm("Reset all sample data in this preview?")) return; try { localStorage.removeItem(KEY); } catch (e) {} S = role === "company" ? coSeed() : crSeed(); render(); setMe(); toast("Sample data reset"); },
   });
-  const OPEN = role === "company" ? { briefs: "brief", licences: "lic", invoices: "inv" } : { bounties: "quest", help: "quest", contracts: "work", warnings: "work", trade: "fw", rewards: "fw", fortune: "po", decree: "clic", notices: "news" };
+  const OPEN = role === "company" ? { briefs: "brief", licences: "lic", invoices: "inv" } : { bounties: "quest", help: "quest", contracts: "work", warnings: "work", trade: "fw", rewards: "fw", fortune: "po", decree: "clic", notices: "news", tavern: "tv" };
   const NEW = role === "company" ? { briefs: coForms.newbrief } : { trade: crForms.newfw };
   const HOME = role === "company" ? "overview" : "board";
   const TITLE = role === "creative" ? Object.assign({ board: "Notice board" }, ...Object.entries(CAT).map(([k, v]) => ({ [k]: v[0] }))) : { overview: "Overview", briefs: role === "company" ? "Briefs" : "Quest board", creatives: "Creatives", licences: "Licences", invoices: "Invoices", brand: "Brand hub", settings: "Settings", work: "My work", frameworks: "Frameworks", royalties: "Royalties", payouts: "Payouts", profile: "Profile" };
 
   function bindForms() {
+    bindTavern();
     if ($("bhFile")) $("bhFile").onchange = (e) => { const f = e.target.files[0]; if (!f) return; const kb = f.size / 1024;
       S.brand.files.push({ n: f.name.slice(0, 80), s: kb > 1024 ? (kb / 1024).toFixed(1) + " MB" : Math.max(1, Math.round(kb)) + " KB", sh: false }); save(); render(); toast("Added to the list (stays in this browser)"); };
     if ($("setForm")) $("setForm").onsubmit = (e) => { e.preventDefault(); const f = e.target; S.me = f.me.value.trim() || S.me; S.title = f.title.value.trim(); S.org = f.org.value.trim() || S.org;
@@ -601,7 +756,7 @@ if ($("dash")) {
   // notifications
   const NOTES = role === "company"
     ? [["inbox", "Harbour Sound Co. delivered the sonic logo", "#briefs/BR-112", "2h"], ["refresh-cw", "LX-2029 renews in 21 days", "#licences/LX-2029", "1d"], ["receipt", "Invoice INV-0932 issued", "#invoices/INV-0932", "2d"]]
-    : [["scroll", "New bounty posted: Adapt a festive campaign kit (96% match)", "#bounties/Q-301", "1h"], ["coins", "S$450 royalty from licence LX-2041", "#decree/LX-2041", "1d"], ["wallet", "Payout PO-2209 foretold for 30 Sep", "#fortune/PO-2209", "3d"]];
+    : [["scroll", "New bounty posted: Adapt a festive campaign kit (96% match)", "#bounties/Q-301", "1h"], ["coins", "S$450 royalty from licence LX-2041", "#decree/LX-2041", "1d"], ["wallet", "Payout PO-2209 foretold for 30 Sep", "#fortune/PO-2209", "3d"], ["message-circle", "Kopi & Co. Foods sent you a message in the Tavern", "#tavern/chat", "5m"]];
   function closeNotes() { const p = $("npanel"); if (p) { p.remove(); $("bell").setAttribute("aria-expanded", "false"); } }
   $("bell").addEventListener("click", (e) => { e.stopPropagation(); if ($("npanel")) return closeNotes();
     const p = document.createElement("div"); p.className = "npanel"; p.id = "npanel";
@@ -612,7 +767,7 @@ if ($("dash")) {
 
   $("logout").addEventListener("click", () => { try { sessionStorage.removeItem("seaport-user"); } catch (e) {} });
 
-  S = Object.assign(role === "company" ? coSeed() : crSeed(), load() || {});
+  S = Object.assign(role === "company" ? coSeed() : Object.assign(crSeed(), TAVERN_SEED()), load() || {});
   if (nice) S.me = nice; // greet whoever signed in this session
   $("dq").value = ""; // browsers can restore an old search on reload
   if (S.read) $("bell").querySelector(".dot")?.remove();
