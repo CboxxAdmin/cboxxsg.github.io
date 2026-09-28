@@ -1,4 +1,4 @@
-/* Relay site behaviour: menus, the home audience switch, the relay timeline, pay estimator, FAQ tabs and forms. */
+/* Seaport Workforce site behaviour: menus, the home audience switch, the relay timeline, pay estimator, FAQ tabs and forms. */
 const $ = (id) => document.getElementById(id);
 const icons = () => window.lucide && lucide.createIcons();
 const toast = (t) => { document.querySelector(".toast")?.remove(); const el = document.createElement("div"); el.className = "toast"; el.setAttribute("role", "status"); el.textContent = t; document.body.appendChild(el); setTimeout(() => el.remove(), 2800); };
@@ -21,10 +21,10 @@ if (burger) burger.onclick = () => { const h = document.querySelector(".hdr"), o
 const sw = $("aud");
 if (sw) {
   const COPY = [
-    { h: `Five companies. Fifteen months.<br><em>One real chance.</em>`, p: "Out of work? Relay places you in five companies for three months each, paid the whole way. Then we train you, keep paying a basic allowance and help you land the job that fits.",
-      c: `<a class="btn pri" href="apply.html#jobseeker">Apply to Relay</a><a class="btn line" href="jobseekers.html">How it works for you</a>`, f: ["15", "months of paid work in five different companies"] },
-    { h: `See the work first.<br><em>Then decide.</em>`, p: "Host a Relay participant for three months. Watch real work on your real tasks, score their skills, and hire the ones who fit, with no contract hire and no long commitment.",
-      c: `<a class="btn pri" href="apply.html#host">Host a participant</a><a class="btn line" href="employers.html">How hosting works</a>`, f: ["3", "months to see someone's real skills before you hire"] },
+    { h: `Five companies. Fifteen months.<br><em>One real chance.</em>`, p: "Out of work? Seaport places you in five companies for three months each, paid the whole way. Then we train you, keep paying a basic allowance and help you land the job that fits.",
+      c: `<a class="btn pri" href="workforce-apply.html#jobseeker">Apply to Seaport</a><a class="btn line" href="workforce-jobseekers.html">How it works for you</a>`, f: ["15", "months of paid work in five different companies"] },
+    { h: `See the work first.<br><em>Then decide.</em>`, p: "Host a Seaport participant for three months. Watch real work on your real tasks, score their skills, and hire the ones who fit, with no contract hire and no long commitment.",
+      c: `<a class="btn pri" href="workforce-apply.html#host">Host a participant</a><a class="btn line" href="workforce-employers.html">How hosting works</a>`, f: ["3", "months to see someone's real skills before you hire"] },
   ];
   const tabs = [...sw.querySelectorAll("button")];
   const set = (i) => { sw.dataset.on = i; tabs.forEach((b, k) => { b.setAttribute("aria-selected", k === i); b.tabIndex = k === i ? 0 : -1; });
@@ -34,7 +34,7 @@ if (sw) {
 
 /* the relay: pick a leg to see what happens for the participant and the host */
 const LEGS = [
-  { t: "Rotation 1 · Months 1 to 3", h: "Find your feet", p: ["Start at a host picked for your strongest current skills", "A named buddy at the host and a Relay coach", "First skills review at week 12"], you: "Paid from day one, with CPF where it applies.", host: "Gets a pre-screened person who's ready to work." },
+  { t: "Rotation 1 · Months 1 to 3", h: "Find your feet", p: ["Start at a host picked for your strongest current skills", "A named buddy at the host and a Seaport coach", "First skills review at week 12"], you: "Paid from day one, with CPF where it applies.", host: "Gets a pre-screened person who's ready to work." },
   { t: "Rotation 2 · Months 4 to 6", h: "Stretch", p: ["A different company, and usually a different kind of team", "Take on tasks one step harder than before", "Second skills review, compared with the first"], you: "Same pay, a new reference, a wider network.", host: "Sees the first host's review before day one." },
   { t: "Rotation 3 · Months 7 to 9", h: "Try a new field", p: ["A sector you haven't worked in, chosen with your coach", "Short on-site training where the host needs it", "Mid-point check-in on the jobs you're aiming for"], you: "Finds out what you enjoy, not just what you've done.", host: "Tests someone new to the sector at no hiring risk." },
   { t: "Rotation 4 · Months 10 to 12", h: "Go deeper", p: ["Back towards your target field, with more responsibility", "Lead a small piece of work end to end", "Fourth review: evidence for interviews"], you: "Proof you can own work, not just join it.", host: "Can make a job offer at the end of the rotation." },
@@ -80,8 +80,8 @@ if (t2) {
     const bad = [...f.elements].find((x) => x.required && (x.type === "checkbox" ? !x.checked : !x.value.trim() || !x.checkValidity()));
     if (bad) { f.querySelector(".err").textContent = bad.type === "checkbox" ? "Please tick the box to continue." : bad.type === "email" ? "Please enter a valid email address." : "Please fill in the fields marked with *."; bad.focus(); return; }
     const who = f.dataset.send === "host" ? (f.company.value || "your company") : (f.name.value.split(" ")[0] || "there");
-    f.parentElement.innerHTML = `<div class="done" role="status"><div class="ok"><i data-lucide="check"></i></div><h3>Thanks, ${who.replace(/[<>&"]/g, "")}</h3><p style="color:var(--muted);margin-top:8px">${f.dataset.send === "host" ? "Our partnerships team will call you within two working days to talk through roles and timing." : "A Relay coach will contact you within five working days to book your skills conversation."}</p>
-      <p style="color:var(--muted);font-size:13px;margin-top:14px">Preview: this form isn't connected yet, so nothing was sent.</p><a class="btn line sm" style="margin-top:18px" href="index.html">Back to home</a></div>`;
+    f.parentElement.innerHTML = `<div class="done" role="status"><div class="ok"><i data-lucide="check"></i></div><h3>Thanks, ${who.replace(/[<>&"]/g, "")}</h3><p style="color:var(--muted);margin-top:8px">${f.dataset.send === "host" ? "Our partnerships team will call you within two working days to talk through roles and timing." : "A Seaport coach will contact you within five working days to book your skills conversation."}</p>
+      <p style="color:var(--muted);font-size:13px;margin-top:14px">Preview: this form isn't connected yet, so nothing was sent.</p><a class="btn line sm" style="margin-top:18px" href="workforce.html">Back to home</a></div>`;
     icons(); window.scrollTo({ top: 0, behavior: "smooth" });
   }));
 }

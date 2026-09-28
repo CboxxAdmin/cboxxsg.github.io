@@ -1,4 +1,4 @@
-/* Relay: a rotational work programme for people between jobs. Structure follows workforce sites
+/* Seaport Workforce: a rotational work programme for people between jobs. Structure follows workforce sites
    (SWDA, e2i, Year Up, Generation, Per Scholas, Apprenticeship.gov): audience-first navigation,
    programme cards with benefits, a clear pathway, proof, events and FAQs. */
 :root {
@@ -289,3 +289,8 @@ svg.lucide { width: 18px; height: 18px; }
   .strip .wrap span:last-child { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .leg, .acard::before, .switch .ind { transition: none; } }
+
+/* Seaport logo in place of the old Relay mark */
+.logo img { width: 30px; height: 30px; object-fit: contain; }
+.logo .sub { font-weight: 600; font-size: 15px; color: var(--muted); letter-spacing: 0; margin-left: -2px; }
+.ftr .logo .sub { color: #9FB0C0; }
