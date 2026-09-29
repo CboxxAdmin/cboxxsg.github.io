@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://getseaport.com/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://getseaport.com/merchants.html</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://getseaport.com/areas.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
-  <url><loc>https://getseaport.com/about.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
-  <url><loc>https://getseaport.com/contact.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://getseaport.com/seaport-why.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://getseaport.com/seaport-solutions.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://getseaport.com/seaport-library.html</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://getseaport.com/seaport-licensing.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://getseaport.com/seaport-creatives.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://getseaport.com/seaport-contact.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://getseaport.com/seaport-join-company.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://getseaport.com/seaport-join-creative.html</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
 </urlset>
