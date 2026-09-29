@@ -24,7 +24,7 @@ if (sw) {
   const COPY = [
     { h: `Five companies. Fifteen months.<br><em>One real chance.</em>`, p: "Out of work? Seaport places you in five companies for three months each, paid the whole way. Then we train you, keep paying a basic allowance and help you land the job that fits.",
       c: `<a class="btn pri" href="workforce-apply.html#jobseeker">Apply to Seaport</a><a class="btn line" href="workforce-jobseekers.html">How it works for you</a>`, f: ["15", "months of paid work in five different companies"] },
-    { h: `See the work first.<br><em>Then decide.</em>`, p: "Host a Seaport participant for three months. Watch real work on your real tasks, score their skills, and hire the ones who fit, with no contract hire and no long commitment.",
+    { h: `See the work first.<br><em>Then decide.</em>`, p: "Host a Seaport participant for three months. Watch real work on your real tasks, score their skills, and hire them the moment you're sure, even mid-rotation, with no contract hire and no long commitment.",
       c: `<a class="btn pri" href="workforce-apply.html#host">Host a participant</a><a class="btn line" href="workforce-employers.html">How hosting works</a>`, f: ["3", "months to see someone's real skills before you hire"] },
   ];
   const tabs = [...sw.querySelectorAll("button")];
@@ -35,10 +35,10 @@ if (sw) {
 
 /* the relay: pick a leg to see what happens for the participant and the host */
 const LEGS = [
-  { t: "Rotation 1 · Months 1 to 3", h: "Find your feet", p: ["Start at a host picked for your strongest current skills", "A named buddy at the host and a Seaport coach", "First skills review at week 12"], you: "Paid from day one, with CPF where it applies.", host: "Gets a pre-screened person who's ready to work." },
+  { t: "Rotation 1 · Months 1 to 3", h: "Find your feet", p: ["Start at a host picked for your strongest current skills", "A named buddy at the host and a Seaport coach", "First skills review at week 12"], you: "Paid from day one, with CPF where it applies.", host: "Gets a pre-screened person, and can hire them at any point." },
   { t: "Rotation 2 · Months 4 to 6", h: "Stretch", p: ["A different company, and usually a different kind of team", "Take on tasks one step harder than before", "Second skills review, compared with the first"], you: "Same pay, a new reference, a wider network.", host: "Sees the first host's review before day one." },
   { t: "Rotation 3 · Months 7 to 9", h: "Try a new field", p: ["A sector you haven't worked in, chosen with your coach", "Short on-site training where the host needs it", "Mid-point check-in on the jobs you're aiming for"], you: "Finds out what you enjoy, not just what you've done.", host: "Tests someone new to the sector at no hiring risk." },
-  { t: "Rotation 4 · Months 10 to 12", h: "Go deeper", p: ["Back towards your target field, with more responsibility", "Lead a small piece of work end to end", "Fourth review: evidence for interviews"], you: "Proof you can own work, not just join it.", host: "Can make a job offer at the end of the rotation." },
+  { t: "Rotation 4 · Months 10 to 12", h: "Go deeper", p: ["Back towards your target field, with more responsibility", "Lead a small piece of work end to end", "Fourth review: evidence for interviews"], you: "Proof you can own work, not just join it.", host: "Can offer a job at any point, not only at month three." },
   { t: "Rotation 5 · Months 13 to 15", h: "Audition", p: ["Placed where a real vacancy is likely", "Work as if you already have the job", "Final review completes your Skills Passport"], you: "Five verified reviews from five employers.", host: "The closest thing to a full-length interview." },
   { t: "Cool-down · up to 3 months", h: "Train, rest and land the job", p: ["Skills training aimed at the gaps your five reviews found", "A basic training allowance while you search", "Job matching, with your five hosts getting the first look"], you: "Paid a minimum allowance while you train and apply.", host: "Hires from a pool it has already seen at work." },
 ];
