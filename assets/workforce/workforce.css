@@ -301,6 +301,24 @@ svg.lucide { width: 18px; height: 18px; }
 /* jump links land below the sticky header */
 section[id], [id].sec { scroll-margin-top: 90px; }
 
+/* phones: wide tables scroll sideways, tighter spacing, and the big hero headline fits */
+@media (max-width: 700px) {
+  .compare, .paytable { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .compare th, .compare td { min-width: 150px; padding: 14px 16px; }
+  .sec { padding: 60px 0; }
+  .wrap { width: calc(100% - 32px); }
+  .hero .wrap { padding: 40px 0 48px; gap: 32px; }
+  .band { padding: 30px 22px; border-radius: 22px; }
+  .calc .out { font-size: 36px; }
+  .strip .wrap { font-size: 12px; }
+  .legdetail { padding: 20px; }
+  .hscroll > * { flex-basis: 84%; }
+  .hdr .wrap { gap: 12px; }
+  .logo .sub { display: none; }
+}
+/* tablets: two columns where there's room */
+@media (min-width: 701px) and (max-width: 1080px) { .relay { grid-template-columns: repeat(3, 1fr); } .hero .pic { max-width: 560px; } }
+
 /* side-scrolling card rows */
 .hscroll { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 4px 4px 18px; margin: 0 -4px;
   scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 88%, transparent); mask-image: linear-gradient(90deg, #000 88%, transparent); cursor: grab; }

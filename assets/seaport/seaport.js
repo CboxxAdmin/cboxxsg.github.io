@@ -484,6 +484,22 @@ document.querySelectorAll(".dd").forEach((dd) => {
 });
 document.addEventListener("click", (e) => { if (!e.target.closest(".dd")) document.querySelectorAll(".dd.open").forEach((o) => { o.classList.remove("open"); o.querySelector(".ddtop").setAttribute("aria-expanded", "false"); }); });
 
+/* ---------- tablets and phones: ☰ opens the full menu (the top menu is hidden under 1100px) ---------- */
+(() => {
+  const hdr = document.querySelector("header.nav"), right = hdr && hdr.querySelector(".right"), menu = hdr && hdr.querySelector("nav");
+  if (!right || !menu) return;
+  menu.id = menu.id || "mainmenu";
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "navburger"; b.setAttribute("aria-controls", menu.id);
+  const set = (on) => { hdr.classList.toggle("menu-open", on); document.body.classList.toggle("menu-lock", on); b.setAttribute("aria-expanded", on); b.setAttribute("aria-label", on ? "Close menu" : "Open menu");
+    b.innerHTML = on ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>' : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'; };
+  b.onclick = () => set(!hdr.classList.contains("menu-open"));
+  right.appendChild(b); set(false);
+  menu.addEventListener("click", (e) => { if (e.target.closest("a")) set(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && hdr.classList.contains("menu-open")) { set(false); b.focus(); } });
+  matchMedia("(min-width: 1101px)").addEventListener("change", (m) => { if (m.matches) set(false); });
+})();
+
 /* ---------- light / dark toggle (the page's <head> applies the saved choice before painting) ---------- */
 function syncThemeButtons() {
   const t = document.documentElement.getAttribute("data-theme");

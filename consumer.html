@@ -25,8 +25,16 @@
   }
   select option { background: var(--surface); color: var(--ink); }
   .lang-select { color-scheme: inherit; }
-  html, body { margin: 0; padding: 0; background: var(--page); min-height: 100vh; display: flex; align-items: center; justify-content: center; transition: background 200ms ease; }
-  #root { padding: 24px 0; }
+  html, body { margin: 0; padding: 0; background: var(--page); min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; transition: background 200ms ease; }
+  /* margin:auto centres the phone frame when there's room, and never cuts off its top on short screens */
+  #root { padding: 24px 0; margin: auto 0; width: 100%; }
+  /* tablets: a slightly larger frame so it doesn't look tiny */
+  @media (min-width: 700px) and (min-height: 900px) { div[style*="solid var(--frame)"] { width: 400px !important; } }
+  /* phones: drop the mock phone frame and use the whole screen */
+  @media (max-width: 500px) {
+    #root { padding: 0; }
+    div[style*="solid var(--frame)"] { width: 100% !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; min-height: 100vh !important; min-height: 100dvh !important; }
+  }
 </style>
 </head>
 <body>

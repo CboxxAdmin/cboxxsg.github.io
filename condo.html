@@ -220,6 +220,22 @@ svg.line { width: 100%; height: 180px; overflow: visible; }
 .empty { padding: 30px; text-align: center; color: var(--muted); }
 @media (max-width: 1200px) { .k5 { grid-template-columns: repeat(3, 1fr); } .k4 { grid-template-columns: repeat(2, 1fr); } .g21, .g12, .g11 { grid-template-columns: 1fr; } }
 @media (max-width: 800px) { .app { grid-template-columns: 1fr; } .side { position: static; height: auto; } .nav { display: flex; flex-wrap: wrap; } .nav .lab { display: none; } .side .foot { display: none; } .search, .me span { display: none; } }
+/* tablets and phones: wide tables scroll sideways inside their card instead of stretching the page */
+@media (max-width: 1100px) { .card { overflow-x: auto; -webkit-overflow-scrolling: touch; } .card > table { min-width: 640px; } .rgrid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); } }
+/* tablets: a slimmer sidebar */
+@media (min-width: 801px) and (max-width: 1100px) { .app { grid-template-columns: 200px 1fr; } .top { padding: 0 18px; gap: 10px; } .top .live { display: none; } .view { padding: 18px 18px 48px; } .note { margin: 14px 18px 0; } }
+/* phones: menu as one sideways-scrolling row, tighter spacing, one-column forms */
+@media (max-width: 800px) {
+  .brand { padding: 14px 16px; } .prop { padding: 10px 16px; } .prop span:not(.plan) { display: none; }
+  .nav { flex-wrap: nowrap; overflow-x: auto; padding: 6px 8px 10px; scrollbar-width: none; } .nav::-webkit-scrollbar { display: none; }
+  .nav a { flex-shrink: 0; padding: 8px 12px; border-left: none; border-bottom: 2px solid transparent; white-space: nowrap; } .nav a.on { border-bottom-color: var(--red2); }
+  .top { padding: 0 14px; gap: 8px; height: 56px; } .top h1 { font-size: 14px; } .top .live { display: none; } .range { margin-left: auto; }
+  .view { padding: 16px 14px 48px; gap: 14px; } .note { margin: 12px 14px 0; font-size: 12px; }
+  .vhead h2 { font-size: 28px; } .card { padding: 16px; } .k3 { grid-template-columns: 1fr; }
+  .form { grid-template-columns: 1fr; } .meta3 { grid-template-columns: 1fr 1fr; } .modal { padding: 22px 18px; } .mback { padding: 12px; }
+  .ocard { width: 100%; } .hbar { grid-template-columns: 100px 1fr 50px; }
+}
+@media (max-width: 480px) { .k5, .k4 { grid-template-columns: 1fr 1fr; } .kpi b { font-size: 26px; } .me .av { width: 30px; height: 30px; } .ibtn { width: 32px; height: 32px; } .acts .btn { flex: 1; justify-content: center; } }
 @media (prefers-reduced-motion: reduce) { .dot, .fi, .modal, .mback { animation: none; } .bars .st i { transition: none; } }
 </style>
 </head>

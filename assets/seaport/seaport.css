@@ -863,3 +863,32 @@
   html[data-theme="dark"] .howit .seg-ind { background: #EDEDF0; }
   html[data-theme="dark"] .howit .seg[data-on="0"] button[aria-selected="true"], html[data-theme="dark"] .howit .seg:not([data-on]) button[aria-selected="true"] { color: #0B0B0D; }
   html[data-theme="dark"] .howit .seg[data-on="1"] .seg-ind { background: #C98A1B; }
+
+  /* ---------- tablets and phones: a ☰ menu instead of the hidden top menu (button added by seaport.js) ---------- */
+  .navburger { display: none; }
+  @media (max-width: 1100px) {
+    .navburger { display: grid; place-items: center; flex-shrink: 0; width: 42px; height: 42px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: inherit; cursor: pointer; }
+    .navburger svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+    html[data-theme="light"] .navburger { border-color: #CFCFD6; }
+    .nav .wrap { position: relative; }
+    .nav.menu-open nav { display: block; position: fixed; top: 72px; left: 0; right: 0; bottom: 0; margin: 0; overflow-y: auto; padding: 8px 24px 40px; background: #0B0B0D; border-top: 1px solid rgba(255,255,255,0.1); }
+    html[data-theme="light"] .nav.menu-open nav { background: #FFFFFF; border-color: var(--line); }
+    .nav.menu-open nav .dd { display: block; padding: 6px 0 10px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    html[data-theme="light"] .nav.menu-open nav .dd { border-color: var(--line); }
+    .nav.menu-open nav .dd[hidden] { display: none; }
+    .nav.menu-open .ddtop { font-size: 18px; font-weight: 600; padding: 12px 0 6px; background: none !important; }
+    .nav.menu-open .ddtop .chev { display: none; }
+    .nav.menu-open .mega { display: block !important; position: static; background: none; box-shadow: none; padding: 0; animation: none; }
+    .nav.menu-open .mega .mcol { padding: 4px 0; }
+    .nav.menu-open .mega a { padding: 8px 0; }
+    html[data-theme="dark"] .nav.menu-open .mega, html:not([data-theme="light"]) .nav.menu-open .mega { background: none; box-shadow: none; }
+    html:not([data-theme="light"]) .nav.menu-open .mega a { color: #EDEDF0; }
+    html:not([data-theme="light"]) .nav.menu-open .mega a span, html:not([data-theme="light"]) .nav.menu-open .mlab { color: #A1A1AA; }
+    body.menu-lock { overflow: hidden; }
+  }
+  /* phones: keep the header on one line */
+  @media (max-width: 560px) {
+    .nav .right .themebox { display: none; }
+    .nav .right { gap: 8px; }
+    .nav .logo { font-size: 18px; }
+  }
