@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /government.html
 
-Sitemap: https://cboxxsg.com/sitemap.xml
+Sitemap: https://getseaport.com/sitemap.xml
