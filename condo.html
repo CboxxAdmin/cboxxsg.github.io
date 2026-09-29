@@ -236,6 +236,7 @@ svg.line { width: 100%; height: 180px; overflow: visible; }
       <a href="#cards" data-v="cards"><i data-lucide="credit-card"></i>Cards</a>
       <a href="#access" data-v="access"><i data-lucide="door-open"></i>Access</a>
       <a href="#wallet" data-v="wallet"><i data-lucide="wallet"></i>Wallet &amp; payments</a>
+      <a href="#network" data-v="network"><i data-lucide="map"></i>Mall network</a>
       <div class="lab">Programme</div>
       <a href="#members" data-v="members"><i data-lucide="users"></i>Members</a>
       <a href="#residents" data-v="residents"><i data-lucide="building-2"></i>Residents</a>
@@ -246,6 +247,7 @@ svg.line { width: 100%; height: 180px; overflow: visible; }
       <a href="#analytics" data-v="analytics"><i data-lucide="bar-chart-3"></i>Analytics</a>
       <div class="lab">Account</div>
       <a href="#settings" data-v="settings"><i data-lucide="settings"></i>Programme settings</a>
+      <a href="#integrations" data-v="integrations"><i data-lucide="plug"></i>Integrations</a>
     </nav>
     <div class="foot"><b>One card, three jobs</b>The same card opens the lobby, gym and carpark, pays at any tenant from an e-wallet topped up through Stripe, and collects points on every payment.</div>
   </aside>
@@ -427,6 +429,23 @@ const V = {
         <td class="r"><b style="color:${t.type === "Top-up" ? "#B7B2FF" : t.type === "Refund" ? "#E9CF86" : "inherit"}">${t.type === "Payment" || t.type === "Settlement" ? "−" : "+"}${money2(t.amt)}</b></td>
         <td><span class="pill ${t.st === "Succeeded" ? "p-ok" : "p-bad"}">${t.st}</span></td><td class="muted">${ago(t.at)}</td></tr>`).join("") || `<tr><td colspan="7" class="empty">No transactions match.</td></tr>`}</tbody></table></section>`; },
 
+  network: () => { const tot = NET.reduce((a, m) => a + m.spend, 0), max = Math.max(...NET.map((m) => m.spend));
+    return head("Mall network", "Other malls near Lumina Residences where One Card works. Residents spend and earn across the network; Seaport settles between malls every week.", `<button class="btn red" data-act="add-mall"><i data-lucide="plus"></i>Invite a mall</button>`) +
+      `<div class="grid k4">${kpi("store", "Malls in the network", `${NET.filter((m) => m.st === "Home mall" || m.st === "Live partner").length}`, NET.filter((m) => m.st === "In talks").length + " more in talks")}${kpi("repeat", "Residents' spend at partner malls", money(NET.filter((m) => m.st === "Live partner").reduce((a, m) => a + m.spend, 0)), "this month")}${kpi("coins", "Points earned elsewhere", "38,400", "honoured at Lumina Square")}${kpi("arrow-right-left", "Net settlement due", money(12840), "to Linden Point, Friday")}</div>
+      <div class="grid g21"><section class="card"><div class="ch"><h3>Malls near Lumina Residences</h3><span class="muted" style="font-size:12px">Sample malls</span></div><table><thead><tr><th>Mall</th><th>Distance</th><th>Status</th><th>One Card</th><th class="r">Resident spend / month</th><th></th></tr></thead><tbody>
+      ${NET.map((m) => `<tr><td><b>${esc(m.n)}</b><small>${m.stores} stores · ${esc(m.how)}</small></td><td>${m.km ? m.km.toFixed(1) + " km" : "Home"}</td>
+        <td><span class="pill ${{ "Home mall": "p-ok", "Live partner": "p-blue", "In talks": "p-warn", "Prospect": "p-gr" }[m.st]}">${m.st}</span></td><td class="muted">${m.card}</td>
+        <td class="r"><b>${money(m.spend)}</b><span class="meter" style="display:block;margin-top:6px"><i style="width:${(m.spend / max) * 100}%"></i></span></td>
+        <td class="r">${m.st === "Prospect" || m.st === "In talks" ? `<button class="btn sm" data-act="mall-next" data-arg="${m.id}">${m.st === "Prospect" ? "Start talks" : "Mark live"}</button>` : ""}</td></tr>`).join("")}</tbody></table></section>
+      <section class="card"><div class="ch"><h3>How the network works</h3></div>
+        ${[["nfc", "Tap anywhere in the network", "Residents pay with the same card and wallet at every partner mall."], ["coins", "Points travel with them", "Points earned at a partner mall can be spent at Lumina Square, and the other way round."], ["arrow-right-left", "Weekly settlement", "Seaport nets off what each mall owes the others for points and wallet spend, and pays out once a week."], ["shield-check", "Each mall keeps its brand", "Partner malls keep their own offers and tenants; One Card is the shared rail underneath."]].map(([ic, t, d]) => `<div class="hbar" style="grid-template-columns:30px 1fr;align-items:start"><i data-lucide="${ic}"></i><span><b>${t}</b><small class="muted" style="display:block">${d}</small></span></div>`).join("")}</section></div>`; },
+
+  integrations: () => head("Integrations", "What the real One Card platform connects to. The names are examples to evaluate, not current partners; nothing below is connected in this preview.", "") +
+    `<div class="rgrid">${INTEG.map((g) => `<div class="rw"><span class="ri"><i data-lucide="${g.ic}"></i></span><b>${esc(g.n)}</b><span class="meta">${esc(g.d)}</span>
+      <span class="meta" style="margin-top:4px"><b style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--faint)">Options to evaluate</b><br>${esc(g.opts)}</span>
+      <div class="row"><span class="pill ${g.st === "Needed for pilot" ? "p-warn" : g.st === "Simulated in preview" ? "p-blue" : "p-gr"}">${g.st}</span><button class="btn sm" data-act="integ" data-arg="${esc(g.n)}">Details</button></div></div>`).join("")}</div>
+    <section class="card"><div class="ch"><h3>Licences and rules to plan for</h3></div>${[["landmark", "Stored-value wallet", "Holding members' money is regulated by MAS under the Payment Services Act. Run top-ups through a licensed payments partner until Seaport decides whether to hold its own licence."], ["lock", "Personal data", "Access logs and spend data are personal data under the PDPA. Get consent at sign-up and keep data in Singapore-region hosting."], ["door-closed", "Building access", "Door systems belong to the MCST. Integrations need the managing agent's and MCST's approval, and a fallback if the network is down."]].map(([ic, t, d]) => `<div class="hbar" style="grid-template-columns:30px 1fr;align-items:start"><i data-lucide="${ic}"></i><span><b>${t}</b><small class="muted" style="display:block">${d}</small></span></div>`).join("")}<p class="muted" style="font-size:12px;margin-top:8px">General guidance, not legal advice. Check current rules with MAS, PDPC and a lawyer before launch.</p></section>`,
+
   live: () => head("Live activity", "Every One Card tap as it happens: payments at tenants, doors in the residences, top-ups and rewards.", "") +
     `<div class="grid k4">${kpi("nfc", "Card taps today", `<span id="tapsToday">${num(S.totals.tapsToday)}</span>`, "updating live")}${kpi("clock", "Busiest hour", "12:00 to 13:00", "F&B level 2 and 3")}${kpi("wallet", "Top-ups today", String(S.wallet.topupCount), money(S.wallet.topups) + " through Stripe")}${kpi("gift", "Redemptions today", "284", "Parking is top")}</div>
     <section class="card"><div class="ch"><h3>Feed</h3><span class="live"><span class="dot"></span>New events every few seconds (sample)</span></div><div class="feed" id="feed" style="max-height:none">${feedHTML(20)}</div></section>`,
@@ -509,6 +528,23 @@ const V = {
         <div class="mact full"><button class="btn red">Save</button></div></form>
         <div class="ch" style="margin-top:24px"><h3>Tier thresholds at a glance</h3></div>${TIERS.slice().reverse().map((t) => `<div class="hbar" style="grid-template-columns:110px 1fr"><span>${tier(t)}</span><span class="muted">${t === "Bronze" ? "On joining" : "From " + money({ Silver: r.silver, Gold: r.gold, Platinum: r.plat }[t]) + " a year"}</span></div>`).join("")}</section></div>`; },
 };
+const NET = [
+  { id: "lumina", n: "Lumina Square", km: 0, stores: 12, how: "Below the residences", st: "Home mall", card: "Pay, points, access", spend: 412000 },
+  { id: "linden", n: "Linden Point", km: 1.2, stores: 140, how: "Residents' shuttle, 6 min", st: "Live partner", card: "Pay and points", spend: 96400 },
+  { id: "cove", n: "Cove Central", km: 2.6, stores: 210, how: "2 MRT stops", st: "Live partner", card: "Pay and points", spend: 71800 },
+  { id: "river", n: "Riverstone Mall", km: 4.1, stores: 95, how: "12 min drive, opens 2027", st: "In talks", card: "Planned", spend: 0 },
+  { id: "orchid", n: "Orchid Arcade", km: 5.3, stores: 60, how: "15 min drive", st: "Prospect", card: "None yet", spend: 0 },
+];
+const INTEG = [
+  { n: "Wallet top-ups", ic: "credit-card", d: "Card, PayNow, Apple Pay and Google Pay top-ups into the e-wallet.", opts: "Stripe, Adyen, 2C2P, HitPay", st: "Simulated in preview" },
+  { n: "Licensed stored value", ic: "landmark", d: "A licensed partner to hold wallet balances, or Seaport's own licence later.", opts: "Airwallex, Nium, Rapyd; local schemes NETS and EZ-Link as possible partners", st: "Needed for pilot" },
+  { n: "Door access control", ic: "door-open", d: "Link the card and phone key to lobby, lift, gym, pool and carpark readers.", opts: "HID Global, Suprema, ZKTeco, dormakaba, ASSA ABLOY, via a local security integrator", st: "Needed for pilot" },
+  { n: "Cards and phone keys", ic: "nfc", d: "NFC cards for residents, and mobile keys in Apple Wallet and Google Wallet.", opts: "NXP-based NFC cards (MIFARE DESFire), HID Mobile Access, Apple and Google wallet passes", st: "Needed for pilot" },
+  { n: "Tenant POS", ic: "monitor-smartphone", d: "Let tenants accept One Card and award points at their existing tills.", opts: "StoreHub, Qashier, Raptor POS, iChef; or a standalone NFC reader per counter", st: "Needed for pilot" },
+  { n: "Condo management", ic: "building-2", d: "Resident lists, unit linking, bookings, notices and visitor passes.", opts: "Managing agents such as Savills, Knight Frank, CBRE, JLL; condo apps such as iCondo", st: "To decide" },
+  { n: "Messaging", ic: "message-square", d: "Receipts, parcel alerts, campaign messages and one-time codes.", opts: "Twilio, WhatsApp Business Platform, SendGrid, Firebase Cloud Messaging", st: "To decide" },
+  { n: "Hosting and data", ic: "server", d: "Accounts, ledger, access logs and analytics in a Singapore region.", opts: "AWS, Google Cloud or Azure (Singapore regions); Supabase or Firebase for speed", st: "To decide" },
+];
 const ACCN = { lobby: "Lobby", lift: "Lifts", gym: "Gym", pool: "Pool", carpark: "Carpark" }, ACCI = { lobby: "door-open", lift: "arrow-up-down", gym: "dumbbell", pool: "waves", carpark: "car" };
 const M = (id) => S.members.find((m) => m.id === +id);
 function ago(ms) { const m = Math.round((Date.now() - ms) / 60000); return m < 1 ? "Just now" : m < 60 ? m + " min ago" : m < 1440 ? Math.round(m / 60) + " h ago" : Math.round(m / 1440) + " d ago"; }
@@ -630,6 +666,9 @@ const A = {
   "export-tx": () => { const rows = [["id", "type", "member", "tenant", "amount", "method", "status"], ...S.txns.map((t) => [t.id, t.type, t.m ? M(t.m).n : "", t.ten ? T(t.ten).n : "", t.amt, t.method, t.st])];
     const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([rows.map((r) => r.join(",")).join("\n")], { type: "text/csv" })); a.download = "one-card-transactions-sample.csv"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); toast("Sample transactions downloaded"); },
   stripe: () => toast("Connecting Stripe needs a server and your Stripe keys. It's part of building the real platform."),
+  "mall-next": (id) => { const m = NET.find((x) => x.id === id); m.st = m.st === "Prospect" ? "In talks" : "Live partner"; if (m.st === "Live partner") m.card = "Pay and points"; render(); toast(`${m.n}: ${m.st}`); },
+  "add-mall": () => toast("Preview: inviting a mall would send them a partnership pack. Nothing is sent."),
+  integ: (n) => { const g = INTEG.find((x) => x.n === n); modal(`<h2 id="mT">${esc(g.n)}</h2><p class="sub">${esc(g.d)}</p>${meta([["Status", esc(g.st)], ["Stage", g.st === "Needed for pilot" ? "Before the first site" : "Can follow"], ["Owner", "Seaport product team"]])}<p style="line-height:1.6"><b>Options to evaluate:</b> ${esc(g.opts)}.</p><p class="muted" style="font-size:12.5px;margin-top:10px">Examples only. None of these companies is a partner of this concept yet.</p><div class="mact"><button class="btn" data-act="close">Close</button></div>`); },
   "invite-units": () => toast("Invites queued for 134 unlinked units (preview: nothing is sent)"),
   remind: (i) => toast(`Reminder queued for ${S.events[+i].n} (preview)`),
   export: () => { const rows = [["member_id", "name", "tier", "points", "spend", "visits", "resident"], ...S.members.map((m) => [m.id, m.n, m.tier, m.pts, m.spend, m.visits, m.resident ? "yes" : "no"])];
@@ -638,7 +677,7 @@ const A = {
 };
 
 /* ---------- routing + wiring ---------- */
-const TITLES = { overview: "Overview", cards: "One Card", access: "Access", wallet: "Wallet & payments", live: "Live activity", members: "Members", residents: "Residents", tenants: "Tenants", rewards: "Rewards", campaigns: "Campaigns", analytics: "Analytics", settings: "Programme settings" };
+const TITLES = { network: "Mall network", integrations: "Integrations", overview: "Overview", cards: "One Card", access: "Access", wallet: "Wallet & payments", live: "Live activity", members: "Members", residents: "Residents", tenants: "Tenants", rewards: "Rewards", campaigns: "Campaigns", analytics: "Analytics", settings: "Programme settings" };
 function render() { $("view").innerHTML = V[cur](); icons(); grow(); bind(); }
 function bind() {
   if ($("mSort")) $("mSort").onchange = (e) => { UI.ms = e.target.value; render(); };
