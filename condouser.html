@@ -141,6 +141,23 @@ svg.lucide { width: 20px; height: 20px; stroke-width: 2; }
 .slots button[aria-pressed="true"] { background: var(--red); color: #fff; border-color: var(--red); }
 .slots button:disabled { opacity: 0.35; text-decoration: line-through; cursor: not-allowed; }
 
+/* malls near you: four big boxes */
+.malls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mall { position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 3px; min-height: 150px; padding: 14px; border: none; border-radius: 20px; text-align: left; color: #fff; cursor: pointer; overflow: hidden;
+  background: radial-gradient(circle at 85% 15%, rgba(255,255,255,0.18), transparent 45%), linear-gradient(150deg, var(--m1), var(--m2)); box-shadow: 0 12px 22px -16px rgba(0,0,0,0.6); }
+.mall:active { transform: scale(0.98); }
+.mall b { font-size: 17px; line-height: 1.15; }
+.mall .mdist { font-size: 13px; font-weight: 600; opacity: 0.9; }
+.mall .mhow { display: flex; align-items: center; gap: 5px; font-size: 12px; opacity: 0.8; }
+.mall .mhow svg { width: 13px; height: 13px; }
+.mall .mic { position: absolute; right: 12px; top: 40px; width: 34px; height: 34px; opacity: 0.35; }
+.mrank { position: absolute; left: 12px; top: 12px; width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.22); display: grid; place-items: center; font-size: 12px; font-weight: 800; }
+.mtag { position: absolute; right: 10px; top: 10px; font-size: 10px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 7px; border-radius: 6px; background: rgba(255,255,255,0.2); }
+.mtag.home { background: #F2C76B; color: #3A2412; } .mtag.partner { background: rgba(255,255,255,0.92); color: #0B1119; } .mtag.soon { background: rgba(0,0,0,0.35); }
+.mall .mtag { position: static; align-self: flex-start; margin-bottom: 6px; }
+.mhero { position: relative; margin: 0 -20px 10px; padding: 34px 20px 18px; color: #fff; background: linear-gradient(150deg, var(--m1), var(--m2)); }
+.mhero h3 { font-size: 26px; margin-top: 14px; } .mhero p { opacity: 0.85; font-size: 14px; }
+.mhero .mtag { left: 20px; right: auto; top: 14px; }
 /* rewards */
 .tierbox { border-radius: 20px; padding: 18px; color: #F4EFE8; background: linear-gradient(135deg, #2A1E08, #0B1119 70%); }
 .tierbox .pts { font-family: 'Barlow Condensed', sans-serif; font-size: 44px; line-height: 1; }
@@ -265,6 +282,17 @@ const SHOPS = [
   { id: 11, n: "FitHaus", c: "Fitness", lvl: "04-01", ic: "dumbbell", walk: 5, open: "6am to 11pm", offer: "First class free for residents", x: 1 },
   { id: 12, n: "Bloom Bakery", c: "Food", lvl: "B1-18", ic: "croissant", walk: 1, open: "Opening soon", offer: "Opening 12 Oct", x: 1, soon: true },
 ];
+const MALLS = [
+  { id: "lumina", n: "Lumina Square", km: 0, how: "1 min walk", via: "Link bridge from Tower B", st: "home", stores: 12, hours: "10am to 10pm", c: ["#8B0015", "#2A0710"], ic: "home",
+    offers: [["Kopi Corner", "Free coffee for 150 points"], ["Threadline", "3× points this weekend"], ["Umami Row", "Residents: 15% off Sunday brunch"]] },
+  { id: "linden", n: "Linden Point", km: 1.2, how: "6 min by shuttle", via: "Free residents' shuttle every 15 min", st: "partner", stores: 140, hours: "10am to 10pm", c: ["#0F5F57", "#062A26"], ic: "shopping-bag",
+    offers: [["Linden Cinemas", "Popcorn combo for 350 points"], ["FreshMart", "2× points on groceries, weekdays"], ["Book Nook", "S$5 off with One Card"]] },
+  { id: "cove", n: "Cove Central", km: 2.6, how: "2 MRT stops", via: "Exit B, sheltered walkway", st: "partner", stores: 210, hours: "10am to 10pm", c: ["#3B2A6B", "#140D2A"], ic: "store",
+    offers: [["Cove Food Hall", "10% back in points"], ["SportsLab", "Members' sale this Friday"], ["KidsZone", "Free play hour for Gold members"]] },
+  { id: "river", n: "Riverstone Mall", km: 4.1, how: "12 min drive", via: "Parking: 2 hours free with points", st: "soon", stores: 95, hours: "Opening early 2027", c: ["#7A4A12", "#2E1A04"], ic: "construction",
+    offers: [] },
+];
+const MST = { home: ["Your home mall", "g"], partner: ["One Card accepted", "b"], soon: ["Coming soon", "gr"] };
 const REWARDS = [
   { id: 1, n: "2 hours free parking", ic: "car", pts: 300 }, { id: 2, n: "S$10 mall voucher", ic: "ticket", pts: 800 },
   { id: 3, n: "Free coffee at Kopi Corner", ic: "coffee", pts: 150 }, { id: 4, n: "Priority table at Umami Row", ic: "utensils", pts: 500, tier: "Gold" },
@@ -335,7 +363,11 @@ const V = {
 
   nearby: () => { const f = UI.nf || "All", q = (UI.nq || "").toLowerCase(), cats = ["All", ...new Set(SHOPS.map((s) => s.c))];
     const list = SHOPS.filter((s) => (f === "All" || s.c === f) && (!q || (s.n + s.c + s.offer).toLowerCase().includes(q))).sort((a, b) => a.walk - b.walk);
-    return `<div class="pg"><div><h2 style="font-size:24px">Nearby</h2><p class="muted" style="margin-top:4px">Lumina Square is right below you. Every shop takes One Card.</p></div>
+    return `<div class="pg"><div><h2 style="font-size:24px">Nearby</h2><p class="muted" style="margin-top:4px">Malls near Lumina Residences, closest first. Your One Card works at every mall marked accepted.</p></div>
+      <div class="malls">${[...MALLS].sort((a, b) => a.km - b.km).map((m, i) => `<button class="mall" data-act="mall" data-arg="${m.id}" style="--m1:${m.c[0]};--m2:${m.c[1]}">
+        <span class="mrank">${i + 1}</span><span class="mtag ${m.st}">${MST[m.st][0]}</span><i data-lucide="${m.ic}" class="mic"></i>
+        <b>${esc(m.n)}</b><span class="mdist">${m.km ? m.km.toFixed(1) + " km away" : "Right below you"}</span><span class="mhow"><i data-lucide="${m.km === 0 ? "footprints" : m.how.includes("MRT") ? "train-front" : m.how.includes("shuttle") ? "bus" : "car"}"></i>${esc(m.how)}</span></button>`).join("")}</div>
+      <div class="h2" style="margin:0"><h2>Shops at Lumina Square</h2></div>
       <label class="search"><i data-lucide="search"></i><input id="nq" type="search" placeholder="Search shops and offers" value="${esc(UI.nq || "")}" aria-label="Search shops"></label>
       <div class="chips">${cats.map((c) => `<button data-act="nf" data-arg="${c}" aria-pressed="${f === c}">${c}</button>`).join("")}</div>
       <div class="grid2"><div class="stat"><small><i data-lucide="bus" style="width:14px;height:14px;vertical-align:-2px"></i> Shuttle to MRT</small><b>7 min</b><small>Tower B drop-off</small></div><div class="stat"><small><i data-lucide="car" style="width:14px;height:14px;vertical-align:-2px"></i> Mall carpark</small><b>214 lots</b><small>free for 2 hours with points</small></div></div>
@@ -404,6 +436,17 @@ const A = {
       ${s.offer ? `<div class="box" style="background:rgba(176,0,28,0.06);border-color:rgba(176,0,28,0.2);margin:6px 0 12px"><span class="tag">Offer</span><p style="margin-top:8px;font-weight:600">${esc(s.offer)}</p></div>` : ""}
       <div class="row2"><span class="muted">Opening hours</span><b>${esc(s.open)}</b></div><div class="row2"><span class="muted">You earn</span><b>${(s.x * 1.5).toString().replace(/\.0$/, "")} pts per S$1</b></div>
       <div class="grid2" style="margin-top:16px"><button class="btn ghost" data-act="directions" data-arg="${s.id}"><i data-lucide="navigation"></i>Directions</button><button class="btn red" data-act="pay" data-arg="${s.id}" ${s.soon ? "disabled" : ""}><i data-lucide="nfc"></i>Pay here</button></div>`); },
+  mall: (id) => { const m = MALLS.find((x) => x.id === id), n = S.notify || [];
+    sheet(`<div class="mhero" style="--m1:${m.c[0]};--m2:${m.c[1]}"><span class="mtag ${m.st}">${MST[m.st][0]}</span><h3 id="sT">${esc(m.n)}</h3><p>${m.km ? m.km.toFixed(1) + " km from Lumina Residences" : "Right below your home"}</p></div>
+      <div class="row2"><span class="muted">Getting there</span><b style="text-align:right">${esc(m.how)}<small class="muted" style="display:block;font-weight:500;font-size:12.5px">${esc(m.via)}</small></b></div>
+      <div class="row2"><span class="muted">Stores</span><b>${m.stores}</b></div><div class="row2"><span class="muted">Hours</span><b>${esc(m.hours)}</b></div>
+      <div class="row2"><span class="muted">One Card</span><b>${m.st === "home" ? "Pay, points and your resident bonus" : m.st === "partner" ? "Pay and earn points" : "Not yet accepted"}</b></div>
+      ${m.offers.length ? `<div class="h2" style="margin-top:14px"><h2>Offers for you</h2></div><div class="list">${m.offers.map(([a, b]) => `<div class="li" style="cursor:default"><span class="ic"><i data-lucide="tag"></i></span><span><b>${esc(a)}</b><small>${esc(b)}</small></span><span></span></div>`).join("")}</div>` : ""}
+      <div class="grid2" style="margin-top:16px">${m.st === "soon"
+        ? `<button class="btn ghost" data-act="close">Close</button><button class="btn red" data-act="notifymall" data-arg="${m.id}">${n.includes(m.id) ? "You'll be told" : "Tell me when it opens"}</button>`
+        : `<button class="btn ghost" data-act="mallgo" data-arg="${m.id}"><i data-lucide="navigation"></i>Directions</button>${m.st === "home" ? `<button class="btn red" data-act="close">See the shops</button>` : `<button class="btn red" data-act="paycard"><i data-lucide="nfc"></i>Pay here</button>`}`}</div>`); },
+  mallgo: (id) => { const m = MALLS.find((x) => x.id === id); toast(m.km ? `${m.n}: ${m.how}. ${m.via}.` : "Take the Tower B link bridge to Lumina Square"); },
+  notifymall: (id) => { S.notify = [...new Set([...(S.notify || []), id])]; save(); A.mall(id); toast("We'll let you know when it opens"); },
   directions: (id) => { const s = shop(+id); toast(`${s.n}: take the Tower B link bridge, then level ${s.lvl.startsWith("B") ? "B1" : s.lvl.slice(0, 2)}`); },
   pay: (id) => { if (S.frozen) return toast("Your card is frozen. Unfreeze it in Wallet."); const s = shop(+id);
     sheet(`<h3 id="sT">Pay ${esc(s.n)}</h3><p class="sub">Simulated payment from your One Card wallet.</p><form class="f" id="payF"><label>Amount<input name="a" type="number" inputmode="decimal" min="0.5" step="0.01" placeholder="e.g. 12.80" required></label>
