@@ -35,13 +35,15 @@ if (sw) {
 
 /* the relay: pick a leg to see what happens for the participant and the host */
 const LEGS = [
-  { t: "Rotation 1 · Months 1 to 3", h: "Find your feet", p: ["Start at a host picked for your strongest current skills", "A named buddy at the host and a Seaport coach", "First skills review at week 12"], you: "Paid from day one, with CPF where it applies.", host: "Gets a pre-screened person, and can hire them at any point." },
+  { t: "Rotation 1 · Months 1 to 3", h: "Find your feet", p: ["Start at a host picked for your strongest current skills", "A named buddy at the host and a Seaport coach", "First skills review at week 12"], you: "Paid from day one, with CPF where it applies.", host: "Gets a pre-screened person who's ready to work." },
   { t: "Rotation 2 · Months 4 to 6", h: "Stretch", p: ["A different company, and usually a different kind of team", "Take on tasks one step harder than before", "Second skills review, compared with the first"], you: "Same pay, a new reference, a wider network.", host: "Sees the first host's review before day one." },
   { t: "Rotation 3 · Months 7 to 9", h: "Try a new field", p: ["A sector you haven't worked in, chosen with your coach", "Short on-site training where the host needs it", "Mid-point check-in on the jobs you're aiming for"], you: "Finds out what you enjoy, not just what you've done.", host: "Tests someone new to the sector at no hiring risk." },
-  { t: "Rotation 4 · Months 10 to 12", h: "Go deeper", p: ["Back towards your target field, with more responsibility", "Lead a small piece of work end to end", "Fourth review: evidence for interviews"], you: "Proof you can own work, not just join it.", host: "Can offer a job at any point, not only at month three." },
+  { t: "Rotation 4 · Months 10 to 12", h: "Go deeper", p: ["Back towards your target field, with more responsibility", "Lead a small piece of work end to end", "Fourth review: evidence for interviews"], you: "Proof you can own work, not just join it.", host: "Can make a job offer at the end of the rotation." },
   { t: "Rotation 5 · Months 13 to 15", h: "Audition", p: ["Placed where a real vacancy is likely", "Work as if you already have the job", "Final review completes your Skills Passport"], you: "Five verified reviews from five employers.", host: "The closest thing to a full-length interview." },
   { t: "Cool-down · up to 3 months", h: "Train, rest and land the job", p: ["Skills training aimed at the gaps your five reviews found", "A basic training allowance while you search", "Job matching, with your five hosts getting the first look"], you: "Paid a minimum allowance while you train and apply.", host: "Hires from a pool it has already seen at work." },
 ];
+// workforce.html only: hosts can hire at any point, so the timeline says so there
+if (document.querySelector(".hirenote")) { LEGS[0].host = "Gets a pre-screened person, and can hire them at any point."; LEGS[3].host = "Can offer a job at any point, not only at month three."; }
 const relay = $("relay");
 if (relay) {
   const legs = [...relay.querySelectorAll(".leg")];
