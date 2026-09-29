@@ -315,6 +315,18 @@ section[id], [id].sec { scroll-margin-top: 90px; }
   .hscroll > * { flex-basis: 84%; }
   .hdr .wrap { gap: 12px; }
   .logo .sub { display: none; }
+  .split > *, .paygrid > *, .aud > * { min-width: 0; }
+  .score .srow { grid-template-columns: 1fr 90px 30px; }
+  .score { padding: 20px; }
+}
+/* apply page: form and side panel stack on tablets and phones */
+@media (max-width: 900px) { .wrap[style*="grid-template-columns:1.6fr"] { grid-template-columns: 1fr !important; } .wrap[style*="grid-template-columns:1.6fr"] > * { min-width: 0; } .formcard { padding: 22px 18px; } .tabs2 { display: flex; } .tabs2 button { flex: 1; padding: 0 10px; } }
+/* landscape tablets and small laptops: a tighter header so menu and buttons fit on one line */
+@media (min-width: 861px) and (max-width: 1180px) {
+  .hdr .wrap { gap: 14px; }
+  .dd > a, .nav > a { padding: 10px 8px; font-size: 14.5px; }
+  .hcta .btn.line { display: none; }
+  .logo .sub { display: none; }
 }
 /* tablets: two columns where there's room */
 @media (min-width: 701px) and (max-width: 1080px) { .relay { grid-template-columns: repeat(3, 1fr); } .hero .pic { max-width: 560px; } }

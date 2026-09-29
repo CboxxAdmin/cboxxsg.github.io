@@ -870,8 +870,8 @@
     .navburger { display: grid; place-items: center; flex-shrink: 0; width: 42px; height: 42px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.3); background: transparent; color: inherit; cursor: pointer; }
     .navburger svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
     html[data-theme="light"] .navburger { border-color: #CFCFD6; }
-    .nav .wrap { position: relative; }
-    .nav.menu-open nav { display: block; position: fixed; top: 72px; left: 0; right: 0; bottom: 0; margin: 0; overflow-y: auto; padding: 8px 24px 40px; background: #0B0B0D; border-top: 1px solid rgba(255,255,255,0.1); }
+    /* the header's backdrop blur traps position:fixed, so the panel hangs off the (sticky) header instead */
+    .nav.menu-open nav { display: block; position: absolute; top: 100%; left: 0; right: 0; height: calc(100vh - 72px); height: calc(100dvh - 72px); margin: 0; z-index: 60; overflow-y: auto; padding: 8px 24px 40px; background: #0B0B0D; border-top: 1px solid rgba(255,255,255,0.1); }
     html[data-theme="light"] .nav.menu-open nav { background: #FFFFFF; border-color: var(--line); }
     .nav.menu-open nav .dd { display: block; padding: 6px 0 10px; border-bottom: 1px solid rgba(255,255,255,0.08); }
     html[data-theme="light"] .nav.menu-open nav .dd { border-color: var(--line); }
