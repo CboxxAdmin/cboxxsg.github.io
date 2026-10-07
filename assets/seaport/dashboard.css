@@ -781,3 +781,5 @@ body.nbbody :is(button[disabled], .btn[disabled]) { cursor: not-allowed !importa
 .tvmini .tvj { width: 100%; text-align: left; }
 .tvmini .pgo { margin-top: 4px; }
 @media (max-width: 1180px) { .nbhead { grid-template-columns: 1fr; justify-items: center; } .nbhead .nbhello, .nbmini { grid-column: 1; justify-self: center; } }
+/* phones: wide tables scroll inside their card; the notice board header fits the screen */
+@media (max-width: 760px) { .dcard { overflow-x: auto; } .nbmini { width: 100%; max-width: 390px; box-sizing: border-box; } .nbhead > * { min-width: 0; max-width: 100%; } html[data-theme] .dtop.nbtop { padding: 10px 14px; gap: 10px; } .nblogout { padding: 8px; } .nblogout span { display: none; } }

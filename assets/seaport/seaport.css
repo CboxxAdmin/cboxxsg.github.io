@@ -892,3 +892,11 @@
     .nav .right { gap: 8px; }
     .nav .logo { font-size: 18px; }
   }
+  /* phones: forms in one column, so fields never push the page sideways */
+  @media (max-width: 700px) {
+    form, .contact .wrap { grid-template-columns: minmax(0, 1fr); }
+    .contact .wrap > * { min-width: 0; }
+    form > *, form input, form select, form textarea { min-width: 0; max-width: 100%; }
+    form .send { flex-wrap: wrap; }
+    .notes { grid-template-columns: minmax(0, 1fr); gap: 28px; } .notes a { overflow-wrap: anywhere; }
+  }
