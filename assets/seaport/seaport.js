@@ -219,7 +219,7 @@ document.querySelectorAll("form[data-mailto]").forEach((f) => f.addEventListener
 
 /* ---------- lifecycle tabs (home) ----------
    The floating UI cards (ui) are defined but not shown for now.
-   Photos: Unsplash (free to use, no attribution required; credited anyway). */
+   Photos: Unsplash (free to use, no attribution required; photographer names not shown on the site). */
 const u = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1100&q=75`;
 const LIFE = [
   { t: "Brief", pop: ["file-text", "Brief received"],  icon: "file-text", h: "Brief once, in your brand",
@@ -257,8 +257,7 @@ function renderLife() {
     <div class="txt"><div><div class="eb"><i data-lucide="${s.icon}"></i>${s.t}</div><h3>${s.h}</h3><p>${s.p}</p></div>
       <ul>${s.ul.map((x) => `<li><i data-lucide="check"></i>${x}</li>`).join("")}</ul></div>
     <div class="lphoto"><img src="${s.img}" alt="${esc(s.alt)}" loading="lazy" draggable="false">
-      <div class="lpop" aria-hidden="true"><span class="pic"><i data-lucide="${s.pop[0]}"></i></span><span class="type" data-text="${esc(s.pop[1])}"></span></div>
-      <span class="credit">Photo: <a href="${s.by[1]}" target="_blank" rel="noopener">${esc(s.by[0])}</a> / Unsplash</span></div></div>`).join("");
+      <div class="lpop" aria-hidden="true"><span class="pic"><i data-lucide="${s.pop[0]}"></i></span><span class="type" data-text="${esc(s.pop[1])}"></span></div></div></div>`).join("");
   icons();
   const step = () => track.children[0].offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0);
   const go = (i, focusTab) => { i = Math.max(0, Math.min(LIFE.length - 1, i)); track.scrollTo({ left: i * step(), behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); if (focusTab) tabs.children[i].focus(); };
@@ -527,7 +526,7 @@ function openChooser(from) {
   c.innerHTML = `<div class="chbox" role="dialog" aria-modal="true" aria-labelledby="chTitle"><button type="button" class="chx" aria-label="Close"><i data-lucide="x"></i></button>
     <h2 id="chTitle">How can we help?</h2><p class="sub">Pick the one that fits and we'll take you to the right team.</p>
     <div class="chgrid">${CHOICES.map(([href, t, d, mail, img, by]) => `<a class="chcard" href="${href}" style="--img:url('https://images.unsplash.com/${img}?auto=format&fit=crop&w=900&q=70')">
-      <span class="chtxt"><b>${t}</b><span>${d}</span><small>${mail}</small></span><span class="go"><i data-lucide="arrow-up-right"></i></span><span class="pc">Photo: ${by} / Unsplash</span></a>`).join("")}</div></div>`;
+      <span class="chtxt"><b>${t}</b><span>${d}</span><small>${mail}</small></span><span class="go"><i data-lucide="arrow-up-right"></i></span></a>`).join("")}</div></div>`;
   document.body.appendChild(c); document.body.style.overflow = "hidden"; icons();
   c.addEventListener("mousedown", (e) => { if (e.target === c) closeChooser(); });
   c.querySelector(".chx").onclick = closeChooser;

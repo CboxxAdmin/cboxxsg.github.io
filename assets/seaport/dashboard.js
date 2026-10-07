@@ -27,7 +27,7 @@ if ($("loginForm")) {
     $("authFoot").innerHTML = R.foot;
     // swap the photo and the line over it
     const art = $("authArt"); art.classList.add("swap");
-    setTimeout(() => { art.style.setProperty("--img", `url('https://images.unsplash.com/${R.img}?auto=format&fit=crop&w=1600&q=75')`); $("authQuote").textContent = R.q; $("authBy").textContent = R.by; $("authCredit").textContent = R.credit; art.classList.remove("swap"); }, 180);
+    setTimeout(() => { art.style.setProperty("--img", `url('https://images.unsplash.com/${R.img}?auto=format&fit=crop&w=1600&q=75')`); $("authQuote").textContent = R.q; $("authBy").textContent = R.by; art.classList.remove("swap"); }, 180);
     $("lErr").textContent = "";
     icons();
   };
