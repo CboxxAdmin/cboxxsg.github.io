@@ -1,0 +1,22 @@
+# Seaport
+
+> Seaport (Seaport Pte. Ltd., Singapore, UEN 202619369N) is the contract and licensing bridge between large organisations and the creative industries. Creatives keep the copyright in their work; Seaport holds the right to license it to companies, on written terms the creative has signed, and handles contracts, licences and payments. Headquartered in Singapore, working with creatives and companies worldwide.
+
+Key facts:
+- Seaport never takes ownership of a creative's work. It holds licensing rights under a signed agreement.
+- Companies buy creative work in five ways: commissioned projects, a dedicated creative team, library licensing, exclusive licences, and bringing their own suppliers onto Seaport contracts.
+- The library holds creative frameworks (reusable templates such as campaign kits, film formats and report layouts) that many companies can license. Creatives earn a royalty on every licence.
+- Library examples, creatives and prices shown on the website are samples; the site is a preview build.
+- Contact: info@getseaport.com (general), sales@getseaport.com (companies), team@getseaport.com (creatives).
+
+## Pages
+
+- [Home](https://getseaport.com/): what Seaport does, for companies and creatives
+- [Why Seaport](https://getseaport.com/seaport-why.html): working with Seaport compared with going direct
+- [Solutions](https://getseaport.com/seaport-solutions.html): the five ways to buy creative work
+- [Library](https://getseaport.com/seaport-library.html): creative frameworks available to license
+- [Licensing](https://getseaport.com/seaport-licensing.html): how rights and money move, and the licence types
+- [For creatives](https://getseaport.com/seaport-creatives.html): briefs and royalties for studios and independents
+- [Contact and FAQ](https://getseaport.com/seaport-contact.html): questions, pricing, IP ownership, data protection
+- [Company sign-up](https://getseaport.com/seaport-join-company.html)
+- [Join as a creative](https://getseaport.com/seaport-join-creative.html)
