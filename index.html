@@ -183,6 +183,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 </style>
 
 </head><body>
+<script>
+/* always open the home page at the top */
+try{if("scrollRestoration" in history)history.scrollRestoration="manual"}catch(e){}
+if(location.hash){try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}}
+scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));
+</script>
 <canvas id="ink" aria-hidden="true"></canvas>
 <div id="intro" role="presentation">
   <div id="field"></div>
