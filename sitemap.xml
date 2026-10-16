@@ -2,6 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://getseaport.com/</loc><lastmod>2026-10-17</lastmod><priority>1.0</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://getseaport.com/creators.html</loc><lastmod>2026-10-17</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://getseaport.com/services.html</loc><lastmod>2026-10-17</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://getseaport.com/seaport-why.html</loc><lastmod>2026-10-08</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://getseaport.com/seaport-solutions.html</loc><lastmod>2026-10-08</lastmod><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://getseaport.com/seaport-library.html</loc><lastmod>2026-10-08</lastmod><priority>0.8</priority><changefreq>weekly</changefreq></url>
