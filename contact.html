@@ -261,14 +261,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 .ct-role legend{float:left;margin-right:6px;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--sand)}
 .ct-role label{cursor:pointer}
 .ct-role input{position:absolute;opacity:0;pointer-events:none}
-.ct-role span{display:inline-block;padding:8px 16px;border:1.5px solid var(--band-line);border-radius:999px;font-family:var(--display);font-weight:500;transition:all .2s}
+.ct-role span{display:inline-block;padding:8px 16px;border:1.5px solid rgba(236,237,239,.35);border-radius:999px;font-family:var(--display);font-weight:500;transition:all .2s}
 .ct-role input:checked+span{background:var(--accent);border-color:var(--accent);color:#fff}
 .ct-role input:focus-visible+span{outline:2px solid var(--band-fg);outline-offset:2px}
 .ct-row{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .ct-field{display:flex;flex-direction:column;gap:8px;min-width:0}
-.ct-field span{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--sand)}
-.ct-field input,.ct-field textarea{font:inherit;font-size:18px;color:var(--band-fg);background:transparent;border:0;border-bottom:1.5px solid var(--band-line);padding:10px 0;outline:none;resize:vertical;transition:border-color .2s}
-.ct-field input:focus,.ct-field textarea:focus{border-color:var(--accent)}
+.ct-field span{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--band-fg)}
+.ct-field input,.ct-field textarea{font:inherit;font-size:18px;color:var(--band-fg);background:rgba(236,237,239,.07);border:1.5px solid rgba(236,237,239,.28);border-radius:6px;padding:14px 16px;outline:none;resize:vertical;transition:border-color .2s,background .2s,box-shadow .2s}
+.ct-field input:hover,.ct-field textarea:hover{border-color:rgba(236,237,239,.5)}
+.ct-field input:focus,.ct-field textarea:focus{border-color:var(--accent);background:rgba(236,237,239,.1);box-shadow:0 0 0 3px rgba(255,47,125,.25)}
 .ct-field.bad input,.ct-field.bad textarea{border-color:#ff6b6b}
 .ct-send{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:8px}
 .ct-btn{all:unset;cursor:pointer;font-family:var(--poster);font-size:22px;letter-spacing:.02em;text-transform:uppercase;background:var(--accent);color:#fff;padding:14px 34px;transition:transform .2s}
