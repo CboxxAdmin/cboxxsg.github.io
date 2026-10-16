@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /government.html
+
+Sitemap: https://getseaport.com/sitemap.xml
