@@ -186,8 +186,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 <script>
 /* always open the home page at the top */
 try{if("scrollRestoration" in history)history.scrollRestoration="manual"}catch(e){}
-if(location.hash){try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}}
-scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));
+var seaportHash=location.hash;
+if(seaportHash){try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}}
+scrollTo(0,0);
+addEventListener("load",()=>{var el=null;try{el=seaportHash&&document.querySelector(seaportHash)}catch(e){}
+  if(el)setTimeout(()=>el.scrollIntoView(),60);else scrollTo(0,0)});
 </script>
 <canvas id="ink" aria-hidden="true"></canvas>
 <div id="intro" role="presentation">
@@ -200,7 +203,7 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));
 <main id="main">
   <header class="head" id="head">
     <nav class="links" id="nav">
-      <div class="dd"><button type="button" class="ddb" aria-expanded="false" aria-controls="m-why">[why seaport ▾]</button>
+      <div class="dd"><button type="button" class="ddb" data-href="#why" aria-expanded="false" aria-controls="m-why">[why seaport ▾]</button>
         <div class="panel" id="m-why" hidden>
           <div><h4>Why Seaport</h4>
             <a href="#why"><b>Built for local brands, made by creators</b><span>What Seaport is and who it's for</span></a>
@@ -211,7 +214,7 @@ scrollTo(0,0);addEventListener("load",()=>scrollTo(0,0));
             <a href="#creators"><b>Creators</b><span>Paid local gigs, no joining fee, no exclusivity</span></a>
             <a href="services.html"><b>Studios and creatives</b><span>Keep your IP and earn from licences (coming)</span></a></div>
         </div></div>
-      <div class="dd"><button type="button" class="ddb" aria-expanded="false" aria-controls="m-svc">[services ▾]</button>
+      <div class="dd"><button type="button" class="ddb" data-href="services.html" aria-expanded="false" aria-controls="m-svc">[services ▾]</button>
         <div class="panel" id="m-svc" hidden>
           <div><h4>Now</h4>
             <a href="services.html"><b>Creator videos</b><span>Short-form TikTok and Instagram content</span></a>
@@ -394,7 +397,7 @@ addEventListener("scroll",whyScroll,{passive:true});
 const dds=[...document.querySelectorAll(".ddb")];
 function closeAll(except){dds.forEach(b=>{if(b!==except){b.setAttribute("aria-expanded","false");document.getElementById(b.getAttribute("aria-controls")).hidden=true}})}
 dds.forEach(b=>{const pnl=document.getElementById(b.getAttribute("aria-controls"));
-  b.addEventListener("click",e=>{e.stopPropagation();const open=b.getAttribute("aria-expanded")!=="true";closeAll(b);b.setAttribute("aria-expanded",open);pnl.hidden=!open});
+  b.addEventListener("click",e=>{e.stopPropagation();const wasOpen=b.getAttribute("aria-expanded")==="true";if(b.dataset.href&&(matchMedia("(hover:hover)").matches||wasOpen)){location.href=b.dataset.href;return}const open=!wasOpen;closeAll(b);b.setAttribute("aria-expanded",open);pnl.hidden=!open});
   pnl.addEventListener("click",e=>{if(e.target.closest("a"))closeAll()});
   if(matchMedia("(hover:hover)").matches){const dd=b.parentElement;let t;dd.addEventListener("mouseenter",()=>{clearTimeout(t);closeAll(b);b.setAttribute("aria-expanded","true");pnl.hidden=false});dd.addEventListener("mouseleave",()=>{t=setTimeout(()=>{b.setAttribute("aria-expanded","false");pnl.hidden=true},180)})}});
 document.addEventListener("click",e=>{if(!e.target.closest(".dd"))closeAll()});
