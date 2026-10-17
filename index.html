@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Seaport</title>
+<script>(function(){try{var t=localStorage.getItem("seaport-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})();</script>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/seaport/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/seaport/apple-touch-icon.png">
@@ -184,6 +185,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 .sv-pill:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .sv-ar{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#ececef;color:#141416;transition:background .2s,color .2s}
 .sv-pill:hover .sv-ar{background:var(--accent);color:#fff}
+.theme-btn{all:unset;cursor:pointer;padding:2px 6px;color:var(--ink);font-family:var(--mono);font-size:13px}
+.theme-btn:hover{background:var(--accent);color:#fff}
+.theme-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 </style>
 
 </head><body>
@@ -230,6 +234,7 @@ addEventListener("load",()=>{var el=null;try{el=seaportHash&&document.querySelec
             <a href="services.html#industries"><b>Industries we serve</b><span>From cafes to creative studios</span></a></div>
         </div></div>
       <a href="#work">[work]</a><a href="creators.html">[creators]</a><a href="contact.html">[contact]</a>
+      <button type="button" class="theme-btn" id="themeBtn" aria-label="Switch between light and dark mode">[dark]</button>
     </nav>
     <h1 class="word" id="word"><a href="index.html" style="color:inherit;text-decoration:none" aria-label="Seaport home">Seaport</a></h1>
     <p class="intro-copy" id="copy">Built in Singapore, shaped by local creators. We put <b>TikTok creators</b> in front of <b>neighbourhood businesses</b> and count every customer who walks in.</p>
@@ -470,4 +475,14 @@ if(reduce){reveal()}else{
 }
 </script>
 
+<script>
+/* light / dark switch, remembered per visitor */
+(function(){var b=document.getElementById("themeBtn");if(!b)return;var r=document.documentElement;
+  function cur(){return r.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")}
+  function label(){b.textContent=cur()==="dark"?"[light]":"[dark]"}
+  label();
+  b.addEventListener("click",function(e){e.stopPropagation();var n=cur()==="dark"?"light":"dark";r.setAttribute("data-theme",n);try{localStorage.setItem("seaport-theme",n)}catch(x){}label()});
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change",label);
+})();
+</script>
 </body></html>
