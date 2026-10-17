@@ -1,0 +1,24 @@
+/* Site-wide light/dark switch for pages without their own dark design.
+   Dark mode inverts the page, then re-inverts photos and media so they keep their real colours. */
+html[data-theme="dark"]{filter:invert(1) hue-rotate(180deg);background:#fff}
+html[data-theme="dark"] img,
+html[data-theme="dark"] video,
+html[data-theme="dark"] picture,
+html[data-theme="dark"] canvas,
+html[data-theme="dark"] iframe,
+html[data-theme="dark"] svg image,
+html[data-theme="dark"] [style*="url("],
+html[data-theme="dark"] [style*="--img"],
+html[data-theme="dark"] .photo-hawker::before,html[data-theme="dark"] .photo-storefront::before,
+html[data-theme="dark"] .photo-cafe::before,html[data-theme="dark"] .photo-brand::before,
+html[data-theme="dark"] .photo-team::before,html[data-theme="dark"] .photo-street::before,
+html[data-theme="dark"] .photo-app::before,html[data-theme="dark"] .gate-left::before,
+html[data-theme="dark"] .gate-right::before{filter:invert(1) hue-rotate(180deg)}
+html[data-theme="dark"] [style*="url("] img,html[data-theme="dark"] [style*="--img"] img{filter:none}
+.sp-theme{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:9999;
+  font:600 13px/1 ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;padding:10px 14px;border-radius:999px;cursor:pointer;
+  background:#141416;color:#ecedef;border:1px solid rgba(255,255,255,.18);box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.sp-theme:hover{background:#ff2f7d;color:#fff}
+.sp-theme:focus-visible{outline:2px solid #ff2f7d;outline-offset:3px}
+html[data-theme="dark"] .sp-theme{filter:invert(1) hue-rotate(180deg)}
+@media print{.sp-theme{display:none}}
