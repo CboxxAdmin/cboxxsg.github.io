@@ -286,6 +286,31 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 .theme-btn{all:unset;cursor:pointer;padding:2px 6px;color:var(--ink);font-family:var(--mono);font-size:13px}
 .theme-btn:hover{background:var(--accent);color:#fff}
 .theme-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---------- phone layout ---------- */
+.m-menu-btn,.m-bar{display:none}
+.m-menu-btn{position:absolute;top:12px;right:max(16px,env(safe-area-inset-right,0px));z-index:3;align-items:center;gap:8px;border:1.5px solid var(--ink);background:var(--bg);color:var(--ink);border-radius:999px;padding:8px 16px;font:600 14px var(--mono);cursor:pointer}
+.m-nav{position:fixed;inset:0;z-index:90;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;padding:calc(20px + env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px))}
+.m-nav[hidden]{display:none!important}
+.m-nav-top{display:flex;justify-content:space-between;align-items:center}
+.m-nav-top b{font-family:var(--poster);font-size:30px;font-weight:400}
+.m-nav-close{border:1.5px solid var(--ink);background:none;color:var(--ink);border-radius:999px;padding:8px 16px;font:600 14px var(--mono)}
+.m-nav ul{list-style:none;margin:auto 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.m-nav ul a{display:block;font-family:var(--poster);font-size:44px;line-height:1.1;color:var(--ink);text-decoration:none;padding:6px 0;border-bottom:1px solid var(--rule)}
+.m-nav ul a span{display:block;font:500 14px var(--display);color:var(--muted);margin-top:2px}
+.m-nav-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;font:13px var(--mono);color:var(--muted)}
+.m-nav-foot button{border:1.5px solid var(--rule);background:none;color:var(--ink);border-radius:999px;padding:8px 14px;font:600 13px var(--mono)}
+.m-bar{position:fixed;left:0;right:0;bottom:0;z-index:70;gap:10px;padding:10px max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);border-top:1px solid var(--rule)}
+.m-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:999px;font:700 15px var(--display);text-decoration:none}
+.m-bar .wa{background:#25D366;color:#06210f}
+.m-bar .go{background:var(--accent);color:#fff}
+@media (max-width:720px){
+  .links{display:none!important}
+  .m-menu-btn{display:inline-flex}
+  .m-bar{display:flex}
+  main{padding-bottom:84px}
+  .sv-cta{min-height:auto}
+}
 </style>
 
 </head><body>
@@ -319,6 +344,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
       <a href="creators.html">[creators]</a><a href="contact.html" class="on">[contact]</a>
       <button type="button" class="theme-btn" id="themeBtn" aria-label="Switch between light and dark mode">[dark]</button>
     </nav>
+    <button type="button" class="m-menu-btn" id="mMenuBtn" aria-controls="mNav" aria-expanded="false">Menu</button>
     <h1 class="word" id="word"><a href="index.html" class="home-link" aria-label="Seaport home">Seaport</a></h1>
   </header>
   <div class="spacer" id="top"></div>
@@ -659,6 +685,29 @@ if(!intro){main.classList.add("in")}else if(reduce){reveal()}else{
   label();
   b.addEventListener("click",function(e){e.stopPropagation();var n=cur()==="dark"?"light":"dark";r.setAttribute("data-theme",n);try{localStorage.setItem("seaport-theme",n)}catch(x){}label()});
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change",label);
+})();
+</script>
+<nav class="m-nav" id="mNav" hidden aria-label="Menu">
+  <div class="m-nav-top"><b>Seaport</b><button type="button" class="m-nav-close" id="mNavClose">Close</button></div>
+  <ul>
+    <li><a href="index.html#why">Why Seaport<span>How we work, step by step</span></a></li>
+    <li><a href="services.html">Services<span>Creator videos, ads boost, industries</span></a></li>
+    <li><a href="creators.html">Creators<span>Join and get paid for local gigs</span></a></li>
+    <li><a href="contact.html">Contact<span>Talk to us</span></a></li>
+  </ul>
+  <div class="m-nav-foot"><span>one-north, Singapore</span><button type="button" id="mTheme">Light / dark</button></div>
+</nav>
+<div class="m-bar" role="navigation" aria-label="Quick actions">
+  <a class="wa" href="contact.html">WhatsApp us</a>
+  <a class="go" href="#ctForm">Send a message</a>
+</div>
+<script>
+(function(){var nav=document.getElementById("mNav"),btn=document.getElementById("mMenuBtn");if(!nav||!btn)return;
+  function set(o){nav.hidden=!o;btn.setAttribute("aria-expanded",o);document.body.style.overflow=o?"hidden":""}
+  btn.addEventListener("click",function(){set(true)});document.getElementById("mNavClose").addEventListener("click",function(){set(false)});
+  nav.addEventListener("click",function(e){if(e.target.closest("a"))set(false)});
+  addEventListener("keydown",function(e){if(e.key==="Escape")set(false)});
+  document.getElementById("mTheme").addEventListener("click",function(){var t=document.getElementById("themeBtn");t&&t.click()});
 })();
 </script>
 </body></html>
