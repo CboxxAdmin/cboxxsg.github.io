@@ -219,6 +219,24 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   .intro-copy{display:none}
   .sv-cta{min-height:auto}
 }
+
+/* phone: process becomes a side-swipe carousel */
+.why-cap{display:none}
+@media (max-width:720px){
+  .why-left{display:none}
+  .why-grid{display:block}
+  .why-imgs{display:flex!important;flex-direction:row!important;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:10px;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
+  .why-imgs figure{flex:0 0 82vw;height:auto!important;aspect-ratio:3/4;scroll-snap-align:center;position:relative;border-radius:14px;overflow:hidden}
+  .why-imgs figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,12,0) 35%,rgba(10,10,12,.88) 100%)}
+  .why-cap{display:block;position:absolute;left:0;right:0;bottom:0;z-index:2;padding:20px;color:#fff}
+  .why-cap .n{font:600 12px var(--mono);letter-spacing:.1em;color:var(--accent)}
+  .why-cap h3{margin:4px 0 6px;font-family:var(--display);font-weight:800;font-size:26px}
+  .why-cap p{margin:0;font-size:15px;line-height:1.45;color:rgba(255,255,255,.9)}
+  .why-dots{display:flex;justify-content:center;gap:6px;margin-top:10px}
+  .why-dots i{width:7px;height:7px;border-radius:50%;background:var(--rule);transition:background .2s,width .2s}
+  .why-dots i.on{background:var(--accent);width:20px;border-radius:4px}
+}
+@media (min-width:721px){.why-dots{display:none}}
 </style>
 
 </head><body>
@@ -539,6 +557,16 @@ if(MOB.matches){intro.remove();main.classList.add("in")}else if(reduce){reveal()
   nav.addEventListener("click",function(e){if(e.target.closest("a"))set(false)});
   addEventListener("keydown",function(e){if(e.key==="Escape")set(false)});
   document.getElementById("mTheme").addEventListener("click",function(){var t=document.getElementById("themeBtn");t&&t.click()});
+})();
+</script>
+<script>
+(function(){var imgs=document.getElementById("whyImgs");if(!imgs||typeof WHY==="undefined")return;
+  [...imgs.children].forEach(function(f,i){var c=document.createElement("div");c.className="why-cap";
+    c.innerHTML='<span class="n">STEP '+String(i+1).padStart(2,"0")+' / '+String(WHY.length).padStart(2,"0")+'</span><h3>'+WHY[i][0]+'</h3><p>'+WHY[i][1]+'</p>';f.appendChild(c)});
+  var dots=document.createElement("div");dots.className="why-dots";WHY.forEach(function(){dots.appendChild(document.createElement("i"))});
+  imgs.after(dots);
+  function upd(){var w=imgs.firstElementChild?imgs.firstElementChild.offsetWidth+12:1,i=Math.round(imgs.scrollLeft/w);[...dots.children].forEach(function(d,k){d.classList.toggle("on",k===i)})}
+  imgs.addEventListener("scroll",upd,{passive:true});upd();
 })();
 </script>
 </body></html>
