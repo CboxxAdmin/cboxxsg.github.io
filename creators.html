@@ -271,6 +271,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
   .m-menu-btn{display:inline-flex}
   .sv-cta{min-height:auto}
 }
+@media (max-width:720px){
+  .static .cr-stage{grid-template-columns:1fr 1fr;padding:32px 16px}
+  .static .cr-title{margin-bottom:8px}
+  .cr-card .ph{box-shadow:none}
+  .cg-card{transform:none!important}
+  .cg-grid{grid-template-columns:1fr 1fr!important;gap:20px 12px}
+  .cg-card b{font-size:16px}
+  .cg-card span{font-size:13px}
+  .cg-head .b{transform:none!important;font-size:clamp(40px,14vw,64px)}
+}
 </style>
 
 </head><body>
@@ -405,8 +415,9 @@ const CR_IMG=["1611784728558-6c7d9b409cdf","1664277497087-51787d2b9d15","1560785
 crCards.forEach((c,i)=>setBg(c.querySelector(".ph"),U(CR_IMG[i]),img(i+30,480,480)));
 const SCAT=[[-.36,-.2,-14,1.15],[-.26,.22,9,1.2],[.3,-.24,12,1.1],[.34,.2,-9,1.2]];
 const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const CRMOB=matchMedia("(max-width:720px)").matches;
 function heroScroll(){
-  if(!crStage)return;
+  if(!crStage||CRMOB)return;
   const W=crStage.clientWidth,H=crStage.clientHeight,narrow=W<760;
   const cw=narrow?Math.min(W*.4,220):Math.min((W-120)/4,280);crStage.style.setProperty("--cw",cw+"px");
   const span=crWrap.offsetHeight-crStage.offsetHeight,top=crWrap.getBoundingClientRect().top-HMIN;
@@ -495,7 +506,7 @@ const cgGrid=document.getElementById("cgGrid");
 if(cgGrid)CG.forEach(([t,tags,id],i)=>{const f=document.createElement("figure");f.className="cg-card";f.innerHTML=`<div class="ph" role="img" aria-label="${t}"></div><figcaption><b>${t}</b><span>${tags}</span></figcaption>`;setBg(f.firstChild,U(id),img(i+40,480,480));cgGrid.appendChild(f)});
 const cgHeadB=document.querySelector("#cgHead .b");
 function cgScroll(){
-  if(reduce||!cgGrid)return;
+  if(reduce||!cgGrid||CRMOB)return;
   const h=document.getElementById("cgHead").getBoundingClientRect(),hp=clamp01((innerHeight-h.top)/(innerHeight+h.height));
   cgHeadB.style.transform=`translateX(${(.5-hp)*18}vw)`;
   [...cgGrid.children].forEach((c,i)=>{const r=c.getBoundingClientRect(),k=clamp01((innerHeight-r.top)/(innerHeight*.45));c.style.transform=`translateY(${(1-k)*(60+(i%3)*30)}px)`});
@@ -581,7 +592,7 @@ function onScroll(){
   rail.querySelectorAll(".img").forEach((el,i)=>{const r=el.getBoundingClientRect();const c=(r.left+r.width/2)/innerWidth-.5;el.style.backgroundPosition=`${50+c*30}% 50%`});}
   procScroll(y);bandScroll();if(typeof whyScroll==="function")whyScroll();
 }
-if(reduce)document.body.classList.add("static");
+if(reduce||CRMOB)document.body.classList.add("static");
 addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",measure);
 addEventListener("load",measure);measure();
 
