@@ -6,7 +6,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/seaport/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/seaport/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Contact Seaport: businesses, creators and everyone else. Email sales@, team@ or info@getseaport.com.">
+<meta name="description" content="Contact Seaport: businesses, creators and everyone else. Email team@getseaport.com.">
 <link rel="canonical" href="https://getseaport.com/contact.html">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -260,6 +260,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
 .ct-mail{all:unset;cursor:pointer;font-family:var(--display);font-weight:800;font-size:clamp(17px,1.6vw,21px);border-bottom:1.5px solid var(--band-line);padding-bottom:2px;transition:color .2s,border-color .2s;overflow-wrap:anywhere}
 .ct-mail:hover,.ct-mail:focus-visible{color:var(--accent);border-color:var(--accent)}
 .ct-mail.copied::after{content:"  copied";font-family:var(--mono);font-weight:400;font-size:12px;color:var(--accent)}
+.ct-for{margin-top:6px!important;font-size:15px!important;color:var(--sand)}
 .ct-hint{font-family:var(--mono);font-size:12px!important;color:var(--sand)}
 .ct-form{display:flex;flex-direction:column;gap:22px;min-width:0}
 .ct-role{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
@@ -359,9 +360,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
     </div>
     <div class="ct-grid">
       <aside class="ct-info">
-        <div><h3>Businesses and brands</h3><button type="button" class="ct-mail" data-copy="sales@getseaport.com">sales@getseaport.com</button></div>
-        <div><h3>Creators joining</h3><button type="button" class="ct-mail" data-copy="team@getseaport.com">team@getseaport.com</button></div>
-        <div><h3>Everything else</h3><button type="button" class="ct-mail" data-copy="info@getseaport.com">info@getseaport.com</button></div>
+        <div><h3>Email us</h3><button type="button" class="ct-mail" data-copy="team@getseaport.com">team@getseaport.com</button><p class="ct-for">Businesses, creators and everything else.</p></div>
         <div><h3>Office</h3><p>one-north, Singapore</p></div>
         <p class="ct-hint">Click an address to copy it.</p>
       </aside>
@@ -590,7 +589,7 @@ function whyScroll(){if(!whyList)return;let best=0,bd=1e9;[...whyImgs.children].
   document.querySelectorAll(".ct-mail").forEach(b=>b.addEventListener("click",()=>{const t=b.dataset.copy;
     const done=()=>{b.classList.add("copied");setTimeout(()=>b.classList.remove("copied"),1600)};
     try{navigator.clipboard.writeText(t).then(done,()=>{const r=document.createRange();r.selectNodeContents(b);const s=getSelection();s.removeAllRanges();s.addRange(r)})}catch(e){}}));
-  const TO={business:"sales@getseaport.com",creator:"team@getseaport.com",other:"info@getseaport.com"};
+  const TO={business:"team@getseaport.com",creator:"team@getseaport.com",other:"team@getseaport.com"};
   const LBL={business:"What do you sell, and who do you want through the door?",creator:"What do you make? Drop your TikTok or Instagram handle.",other:"How can we help?"};
   const lbl=document.getElementById("msgLabel"),st=document.getElementById("ctStatus");
   f.addEventListener("change",e=>{if(e.target.name==="role")lbl.textContent=LBL[e.target.value]});
