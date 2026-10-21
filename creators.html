@@ -283,6 +283,33 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
   .cg-card span{font-size:13px}
   .cg-head .b{transform:none!important;font-size:clamp(40px,14vw,64px)}
 }
+
+/* contract options */
+.ct{padding-block:24px 72px}
+.ct-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.ct-head h2{font-family:var(--poster);font-weight:400;font-size:clamp(44px,7vw,96px);line-height:.88;margin:0;color:var(--band-fg);text-transform:uppercase}
+.ct-head h2 em{font-style:normal;color:var(--accent)}
+.ct-head p{font-family:var(--mono);font-size:13px;color:var(--band-fg);opacity:.7;margin:0;max-width:34ch}
+.ct-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.ct-tab{font-family:var(--poster);font-size:18px;letter-spacing:.02em;text-transform:uppercase;padding:10px 20px;background:transparent;color:var(--band-fg);border:1.5px solid var(--band-fg);cursor:pointer;min-height:44px}
+.ct-tab[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--band)}
+.ct-tab:focus-visible,.ct-go:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.ct-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ct-table{width:100%;min-width:620px;border-collapse:collapse;font-family:var(--display);color:var(--band-fg)}
+.ct-table th,.ct-table td{padding:14px 16px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(236,237,239,.16);font-size:15px;line-height:1.4;transition:background .25s,opacity .25s,color .25s}
+.ct-table thead th{font-family:var(--poster);font-weight:400;font-size:clamp(24px,3vw,36px);text-transform:uppercase;letter-spacing:.01em;border-bottom:1.5px solid var(--band-fg)}
+.ct-table thead th small{display:block;font-family:var(--mono);font-size:12px;text-transform:none;letter-spacing:0;opacity:.7;margin-top:4px}
+.ct-table tbody th{font-family:var(--mono);font-weight:400;font-size:12px;text-transform:uppercase;letter-spacing:.04em;opacity:.7;width:20%}
+.ct-table .yes{color:var(--accent);font-weight:800}
+.ct-table .no{opacity:.45}
+.ct-table.has-pick td[data-col],.ct-table.has-pick thead th[data-col]{opacity:.38}
+.ct-table.has-pick .on{opacity:1!important;background:rgba(255,77,143,.12)}
+.ct-table.has-pick thead th.on{color:var(--accent)}
+.ct-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:20px}
+.ct-foot p{font-family:var(--hand);font-size:22px;color:var(--band-fg);margin:0}
+.ct-go{font-family:var(--poster);font-size:18px;letter-spacing:.02em;text-transform:uppercase;background:var(--accent);color:var(--band);padding:12px 24px;text-decoration:none;display:inline-block}
+@media (prefers-reduced-motion:reduce){.ct-table th,.ct-table td{transition:none}}
+@media (max-width:700px){.ct-table{min-width:0}.ct-table.has-pick [data-col]:not(.on){display:none}.ct-table.has-pick .on{background:transparent}.ct-table tbody th{width:42%}.ct-tab{flex:1}}
 </style>
 
 </head><body>
@@ -337,7 +364,7 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
         <svg class="smile" id="smile" viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="28" fill="var(--accent)"/><circle cx="21" cy="24" r="3.4" fill="var(--band)"/><circle cx="39" cy="24" r="3.4" fill="var(--band)"/><path id="mouth" d="M18 40 Q30 30 42 40" fill="none" stroke="var(--band)" stroke-width="4" stroke-linecap="round"/></svg>
         <svg class="sig" id="sig" viewBox="0 0 180 114" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 70 C20 40 40 40 38 62 S20 86 34 74 S62 30 70 52 S60 84 78 70 S104 34 110 56 S102 82 120 68 S146 40 150 58 S140 80 160 64 C166 58 170 52 174 46"/><path d="M14 96 C60 86 120 84 172 92"/><path d="M150 14 l3.5 9 l9 3.5 l-9 3.5 l-3.5 9 l-3.5 -9 l-9 -3.5 l9 -3.5 z"/></svg>
       </div>
-      <p class="cr-big">Creators, local or international, choose how they work with us: one gig at a time, a 6 month partnership, or a 12 month signing. We bring the paid briefs. That's why we built Seaport.</p>
+      <p class="cr-big">Gig, partner or signed. You choose. We bring the paid briefs.</p>
       <span class="cr-note" id="crNote">that's us</span>
       <div class="cr-lower">
         <svg class="loop" viewBox="0 0 640 300" preserveAspectRatio="xMinYMin meet" aria-hidden="true"><path class="draw arrow" d="M96 14 C34 74 26 160 92 182 C156 204 196 132 150 108 C104 86 90 178 160 214 C236 252 360 214 470 220 C530 223 578 232 622 244" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"/><path class="draw arrow" d="M590 214 L624 244 L586 262" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path class="draw arrow" d="M596 274 L634 252" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/></svg>
@@ -345,6 +372,38 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
           <div class="cr-photo" id="crPhoto" role="img" aria-label="A photographer leaning on a wall"></div>
           <svg class="scribble" id="scribble" viewBox="0 0 400 480" preserveAspectRatio="none" aria-hidden="true"></svg>
         </div>
+      </div>
+    </div>
+
+    <div class="wrap ct" id="contracts" aria-labelledby="ctTitle">
+      <div class="ct-head">
+        <h2 id="ctTitle">Your contract. <em>Your call.</em></h2>
+        <p>Every option comes with paid briefs and no joining fee. Pick one to compare.</p>
+      </div>
+      <div class="ct-tabs" role="group" aria-label="Compare contract options">
+        <button type="button" class="ct-tab" data-pick="gig" aria-pressed="false">Gig</button>
+        <button type="button" class="ct-tab" data-pick="partner" aria-pressed="false">Partner</button>
+        <button type="button" class="ct-tab" data-pick="signed" aria-pressed="false">Signed</button>
+      </div>
+      <div class="ct-scroll">
+      <table class="ct-table" id="ctTable">
+        <caption class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Seaport creator contract options</caption>
+        <thead><tr><th scope="col"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Feature</span></th><th scope="col" data-col="gig">Gig<small>One job at a time</small></th><th scope="col" data-col="partner">Partner<small>Short term</small></th><th scope="col" data-col="signed">Signed<small>Long term</small></th></tr></thead>
+        <tbody>
+        <tr><th scope="row">Term</th><td data-col="gig">Per job, no lock in</td><td data-col="partner">6 months</td><td data-col="signed">12 months</td></tr>
+        <tr><th scope="row">Exclusivity</th><td data-col="gig">None</td><td data-col="partner">None, work anywhere</td><td data-col="signed">Brand deals in your category</td></tr>
+        <tr><th scope="row">Paid briefs</th><td data-col="gig"><span class="yes" aria-label="Included">&#10003;</span></td><td data-col="partner"><span class="yes" aria-label="Included">&#10003;</span></td><td data-col="signed"><span class="yes" aria-label="Included">&#10003;</span></td></tr>
+        <tr><th scope="row">Priority on briefs</th><td data-col="gig"><span class="no" aria-label="Not included">&mdash;</span></td><td data-col="partner"><span class="yes" aria-label="Included">&#10003;</span></td><td data-col="signed"><span class="yes" aria-label="Included">&#10003;</span></td></tr>
+        <tr><th scope="row">Portfolio support</th><td data-col="gig"><span class="no" aria-label="Not included">&mdash;</span></td><td data-col="partner"><span class="yes" aria-label="Included">&#10003;</span></td><td data-col="signed"><span class="yes" aria-label="Included">&#10003;</span></td></tr>
+        <tr><th scope="row">Full management and growth plan</th><td data-col="gig"><span class="no" aria-label="Not included">&mdash;</span></td><td data-col="partner"><span class="no" aria-label="Not included">&mdash;</span></td><td data-col="signed"><span class="yes" aria-label="Included">&#10003;</span></td></tr>
+        <tr><th scope="row">Bigger brand deals negotiated for you</th><td data-col="gig"><span class="no" aria-label="Not included">&mdash;</span></td><td data-col="partner"><span class="no" aria-label="Not included">&mdash;</span></td><td data-col="signed"><span class="yes" aria-label="Included">&#10003;</span></td></tr>
+        <tr><th scope="row">Best for</th><td data-col="gig">Trying us out</td><td data-col="partner">Creators building a track record</td><td data-col="signed">Creators ready to grow with us</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="ct-foot">
+        <p id="ctPickNote">Not sure? Start with a gig.</p>
+        <a class="ct-go" id="ctGo" href="contact.html">Join as a creator</a>
       </div>
     </div>
     <div class="wrap cg" id="create">
@@ -675,6 +734,17 @@ if(!intro){main.classList.add("in")}else if(reduce){reveal()}else{
   nav.addEventListener("click",function(e){if(e.target.closest("a"))set(false)});
   addEventListener("keydown",function(e){if(e.key==="Escape")set(false)});
   document.getElementById("mTheme").addEventListener("click",function(){var t=document.getElementById("themeBtn");t&&t.click()});
+})();
+</script>
+<script>
+(function(){var t=document.getElementById("ctTable");if(!t)return;var tabs=document.querySelectorAll(".ct-tab"),note=document.getElementById("ctPickNote"),cur=null;
+var NOTES={gig:"Gig: one job, no strings. Try us out.",partner:"Partner: 6 months of priority briefs, still free to work anywhere.",signed:"Signed: 12 months of full management and bigger deals."};
+var mq=window.matchMedia("(max-width:700px)");function pick(k){cur=(cur===k&&!mq.matches)?null:k;t.classList.toggle("has-pick",!!cur);
+t.querySelectorAll("[data-col]").forEach(function(c){c.classList.toggle("on",c.getAttribute("data-col")===cur)});
+tabs.forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-pick")===cur))});
+note.textContent=cur?NOTES[cur]:"Not sure? Start with a gig.";}
+tabs.forEach(function(b){b.addEventListener("click",function(){pick(b.getAttribute("data-pick"))})});if(mq.matches)pick("gig");mq.addEventListener&&mq.addEventListener("change",function(e){if(e.matches&&!cur)pick("gig")});
+t.querySelectorAll("thead th[data-col]").forEach(function(h){h.style.cursor="pointer";h.addEventListener("click",function(){pick(h.getAttribute("data-col"))})});
 })();
 </script>
 </body></html>
