@@ -313,32 +313,32 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
 @media (max-width:700px){.ct-table{min-width:0}.ct-table.has-pick [data-col]:not(.on){display:none}.ct-table.has-pick .on{background:transparent}.ct-table tbody th{width:42%}.ct-tab{flex:1}}
 
 /* team showcase (hidden until launch; preview with ?preview=team) */
-.kv{position:relative;height:100vh;height:100svh;width:100%;overflow:hidden;font-family:"Geist",system-ui,sans-serif;color:#fff;background:#d9d9dc}
+.kv{position:relative;height:100vh;height:100svh;width:100%;overflow:hidden;font-family:"Geist",system-ui,sans-serif;color:#141416;background:#fafafa}
 .kv[hidden]{display:none}
 .kv-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .7s ease-out}
 .kv-bg.on{opacity:1}
-.kv-grad{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.2),rgba(0,0,0,.05),rgba(0,0,0,.25))}
-.kv-in{position:relative;z-index:10;display:flex;height:100%;flex-direction:column;justify-content:space-between;padding:40px 24px 24px;box-sizing:border-box}
+.kv-grad{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(250,250,250,.9),rgba(250,250,250,.6) 25%,rgba(250,250,250,0) 45%,rgba(250,250,250,0) 60%,rgba(250,250,250,.85))}
+.kv-in{position:relative;z-index:10;display:flex;height:100%;flex-direction:column;justify-content:space-between;padding:calc(var(--hmin,64px) + 24px) 24px 24px;box-sizing:border-box}
 .kv-top{display:flex;flex-direction:column;gap:32px}
-.kv-h{max-width:36rem;margin:0;font-family:inherit;font-size:30px;font-weight:400;line-height:1.1;letter-spacing:-.025em;color:#fff}
-.kv-desc{max-width:20rem;margin:0;font-size:14px;font-weight:500;line-height:1.625;color:rgba(255,255,255,.8)}
+.kv-h{max-width:36rem;margin:0;font-family:inherit;font-size:30px;font-weight:400;line-height:1.1;letter-spacing:-.025em;color:#141416}
+.kv-desc{max-width:20rem;margin:0;font-size:14px;font-weight:500;line-height:1.625;color:rgba(20,20,22,.75)}
 .kv-bot{display:flex;flex-direction:column;gap:32px}
 .kv-row{display:flex;align-items:flex-end;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
 .kv-row::-webkit-scrollbar{display:none}
 .kv-av{display:flex;flex-shrink:0;flex-direction:column;align-items:center;gap:8px;background:none;border:0;padding:0;cursor:pointer;color:inherit}
-.kv-av:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:999px}
-.kv-dot{height:4px;width:4px;border-radius:999px;background:#fff;opacity:0;transition:opacity .3s}
+.kv-av:focus-visible{outline:2px solid #141416;outline-offset:4px;border-radius:999px}
+.kv-dot{height:4px;width:4px;border-radius:999px;background:#141416;opacity:0;transition:opacity .3s}
 .kv-av.on .kv-dot{opacity:1}
 .kv-th{display:block;height:40px;width:40px;overflow:hidden;border-radius:999px}
 .kv-th img{height:100%;width:100%;object-fit:cover;display:block}
-.kv-meta{border-top:1px solid rgba(255,255,255,.2);padding-top:20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;font-size:14px;font-weight:500}
-.kv-role,.kv-ten{display:none;color:rgba(255,255,255,.7)}
-.kv-meta a{color:#fff;text-decoration:underline;text-underline-offset:4px;transition:color .2s}
-.kv-meta a:hover{color:rgba(255,255,255,.7)}
+.kv-meta{border-top:1px solid rgba(20,20,22,.2);padding-top:20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;font-size:14px;font-weight:500}
+.kv-role,.kv-ten{display:none;color:rgba(20,20,22,.65)}
+.kv-meta a{color:#141416;text-decoration:underline;text-underline-offset:4px;transition:color .2s}
+.kv-meta a:hover{color:rgba(20,20,22,.6)}
 .kv-fade{animation:kvFadeIn .5s ease}
 @keyframes kvFadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-@media (min-width:640px){.kv-in{padding:56px 40px 32px}.kv-h{font-size:48px}.kv-desc{font-size:16px}.kv-row{gap:12px;overflow:visible;padding-bottom:0}.kv-th{height:56px;width:56px}.kv-role{display:inline}}
-@media (min-width:768px){.kv-top{flex-direction:row;align-items:flex-start;justify-content:space-between;gap:64px}.kv-desc{padding-top:8px}.kv-ten{display:inline}}
+@media (min-width:640px){.kv-in{padding:calc(var(--hmin,64px) + 32px) 40px 32px}.kv-h{font-size:48px}.kv-desc{font-size:16px}.kv-row{gap:12px;overflow:visible;padding-bottom:0}.kv-th{height:56px;width:56px}.kv-role{display:inline}}
+@media (min-width:768px){.kv-bg{background-size:auto 100%;background-repeat:no-repeat;background-position:center bottom;-webkit-mask-image:linear-gradient(to right,transparent calc(50% - 34vh),#000 calc(50% - 24vh),#000 calc(50% + 24vh),transparent calc(50% + 34vh));mask-image:linear-gradient(to right,transparent calc(50% - 34vh),#000 calc(50% - 24vh),#000 calc(50% + 24vh),transparent calc(50% + 34vh))}.kv-top{flex-direction:row;align-items:flex-start;justify-content:space-between;gap:64px}.kv-desc{padding-top:8px}.kv-ten{display:inline}}
 @media (min-width:1024px){.kv-in{padding-left:64px;padding-right:64px}.kv-h{font-size:72px}}
 @media (prefers-reduced-motion:reduce){.kv-bg,.kv-dot{transition:none}.kv-fade{animation:none}}
 </style>
@@ -802,7 +802,7 @@ t.querySelectorAll("thead th[data-col]").forEach(function(h){h.style.cursor="poi
 <script>
 (function(){var sec=document.getElementById("team");if(!sec)return;
 var q=location.search+location.hash;if(!/preview=team/.test(q))return;sec.hidden=false;
-var P=[{"name": "Andrei Baranov", "role": "Design Chief", "img": "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260727_225202_f9e684f3-dc19-469a-8142-eb391bfc601b.png&w=1280&q=85", "desc": "Andrei sets the visual direction of every project. He turns rough ideas into clear, confident design languages that feel effortless yet leave a lasting impression."}, {"name": "Daria Lebedeva", "role": "Interface Expert", "img": "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260727_225149_7937e8ea-3b0a-46ab-919f-775627695a23.png&w=1280&q=85", "desc": "Daria crafts interfaces people understand at first glance. Every screen she designs balances clarity and character, making complex products feel simple and warm."}, {"name": "Ivan Sorokin", "role": "Concept Chief", "img": "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260727_225153_f2b1fc04-776a-4f2e-879b-b764ea762e77.png&w=1280&q=85", "desc": "Ivan shapes the ideas behind the work. He digs into every brief until the core story emerges, then builds concepts that give each project its reason to exist."}, {"name": "Anna Fedorova", "role": "Brand Consultant", "img": "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260727_225847_f456fd9c-8938-4103-836d-51b0e88a9510.png&w=1280&q=85", "desc": "Anna helps brands find their voice. From positioning to tone, she builds identities that stay consistent everywhere and grow stronger with every appearance."}, {"name": "Pavel Smirnov", "role": "Movement Artist", "img": "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260727_225854_3958a522-6203-4f84-a7fa-3b3f1dcd7256.png&w=1280&q=85", "desc": "Pavel brings stillness to life. His motion work adds rhythm and personality to every product, guiding attention with transitions that feel natural and precise."}, {"name": "Olga Kravtsova", "role": "UX Specialist", "img": "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260727_231111_fcefaa07-6851-4fdc-ac7b-98754ac9d5c4.png&w=1280&q=85", "desc": "Olga studies how people actually use what we make. Her research keeps every decision grounded in real behavior, so the work serves users and not assumptions."}, {"name": "Igor Zakharenko", "role": "Graphic Creator", "img": "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260727_231124_9a1505aa-8c44-4046-aff8-1aa0bc7b3ef3.png&w=1280&q=85", "desc": "Igor gives every project its finishing touch. From typography to illustration, he sweats the visual details that separate good work from unforgettable work."}, {"name": "Ksenia Romanova", "role": "Studio Head", "img": "https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260727_230413_62e8b331-89be-4d35-84fe-330ba9b1b64f.png&w=1280&q=85", "desc": "Ksenia keeps the studio moving as one. She connects people, plans, and priorities so every project ships on time without losing the craft it deserves."}];
+var P=[{"name": "Hakim Osman", "role": "Creator and Livestreamer · @kimoz03", "img": "assets/img/founder-hakim-osman.jpg", "desc": "Hakim has been creating and livestreaming on TikTok as @kimoz03 for years, with brand partnerships along the way. He knows what makes people stop scrolling, and he founded Seaport so more creators get paid for it."}];
 var bgs=document.getElementById("kvBgs"),row=document.getElementById("kvRow"),desc=document.getElementById("kvDesc"),nm=document.getElementById("kvName"),rl=document.getElementById("kvRole"),cur=-1;
 P.forEach(function(p,i){var d=document.createElement("div");d.className="kv-bg";d.style.backgroundImage="url('"+p.img+"')";bgs.appendChild(d);
 var b=document.createElement("button");b.type="button";b.className="kv-av";b.setAttribute("aria-label","Show "+p.name);
