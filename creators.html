@@ -324,6 +324,8 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
 .kv-desc{max-width:20rem;margin:0;font-size:14px;font-weight:500;line-height:1.625;color:rgba(20,20,22,.88)}
 .kv-bot{display:flex;flex-direction:column;gap:32px}
 .kv-side{max-width:20rem}
+.kv-logo{display:block;width:36px;height:auto;margin-bottom:20px}
+@media (min-width:640px){.kv-logo{width:44px;margin-bottom:28px}}
 .kv-looks{display:flex;align-items:center;gap:14px;margin-top:20px;font-size:13px;font-weight:500;letter-spacing:.02em}
 .kv-looks[hidden]{display:none}
 .kv-looks span{color:rgba(20,20,22,.7)}
@@ -458,7 +460,10 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
     <div class="kv-grad"></div>
     <div class="kv-in">
       <div class="kv-top">
-        <h2 class="kv-h">Seaport is the talent you build with each&nbsp;day</h2>
+        <div class="kv-lead">
+          <img class="kv-logo" src="assets/img/logo-icon.png" alt="Seaport" width="44" height="47">
+          <h2 class="kv-h">Seaport is the talent you build with each&nbsp;day</h2>
+        </div>
         <div class="kv-side">
           <p class="kv-desc" id="kvDesc"></p>
           <div class="kv-looks" id="kvLooks" role="group" aria-label="Looks" hidden></div>
