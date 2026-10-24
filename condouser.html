@@ -229,7 +229,7 @@ svg.lucide { width: 20px; height: 20px; stroke-width: 2; }
 
   <!-- login -->
   <section class="screen login" id="login" aria-label="Sign in">
-    <div class="lhero"><img src="assets/seaport/logo.png" alt=""><h1>Your home,<br>your mall,<br>one card.</h1><p>Open the doors at Lumina Residences, pay at every shop in Lumina Square, and collect points as you go.</p></div>
+    <div class="lhero"><svg class="sp-mark" viewBox="0 0 332 222" width="39" height="26" aria-hidden="true" focusable="false" style="flex:none;display:block"><g transform="translate(8,8) translate(-40,-20)"><g fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round"><path d="M300,20 C196,22 106,30 104,58 C102,88 224,114 224,150 C224,186 124,200 40,214"/><path transform="translate(56,12)" d="M300,20 C196,22 106,30 104,58 C102,88 224,114 224,150 C224,186 124,200 40,214"/></g><circle cx="224" cy="150" r="17" fill="currentColor"/><circle cx="280" cy="162" r="17" fill="#D2231C"/></g></svg><h1>Your home,<br>your mall,<br>one card.</h1><p>Open the doors at Lumina Residences, pay at every shop in Lumina Square, and collect points as you go.</p></div>
     <form class="lform" id="lform" novalidate>
       <label>Email or unit number<input type="text" name="user" id="luser" autocomplete="username" placeholder="you@email.com or B-12-04" required></label>
       <label>Password<span class="pw"><input type="password" name="pass" id="lpass" autocomplete="current-password" required><button type="button" id="leye" aria-label="Show password"><i data-lucide="eye"></i></button></span></label>
@@ -342,7 +342,7 @@ function qr(code) { const n = 21; let h = 0; for (const c of code) h = (h * 31 +
 const code6 = () => Array.from({ length: 6 }, () => "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[Math.floor(Math.random() * 32)]).join("");
 
 /* ---------- views ---------- */
-const cardHTML = () => `<div class="ocard ${S.frozen ? "frozen" : ""}"><div class="oc1"><img src="assets/seaport/logo.png" alt=""><span>ONE CARD · LUMINA</span></div>
+const cardHTML = () => `<div class="ocard ${S.frozen ? "frozen" : ""}"><div class="oc1"><svg class="sp-mark" viewBox="0 0 332 222" width="39" height="26" aria-hidden="true" focusable="false" style="flex:none;display:block"><g transform="translate(8,8) translate(-40,-20)"><g fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round"><path d="M300,20 C196,22 106,30 104,58 C102,88 224,114 224,150 C224,186 124,200 40,214"/><path transform="translate(56,12)" d="M300,20 C196,22 106,30 104,58 C102,88 224,114 224,150 C224,186 124,200 40,214"/></g><circle cx="224" cy="150" r="17" fill="currentColor"/><circle cx="280" cy="162" r="17" fill="#D2231C"/></g></svg><span>ONE CARD · LUMINA</span></div>
   <div class="ocbal"><small>Wallet balance</small><b>${money(S.wallet)}</b></div>
   <div class="oc3"><span><small>Points</small><b>${num(S.pts)}</b></span><span class="tierchip">★ ${S.tier}</span><span style="text-align:right"><small>Card</small><b>•••• 0482</b></span></div></div>`;
 const txLi = (t) => { const s = t.shop ? shop(t.shop) : null;

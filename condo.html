@@ -244,7 +244,7 @@ svg.line { width: 100%; height: 180px; overflow: visible; }
 <body>
 <div class="app">
   <aside class="side">
-    <a class="brand" href="#overview"><img src="assets/seaport/logo.png" alt=""><div><b>SEAPORT</b><span>Loyalty</span></div></a>
+    <a class="brand" href="#overview"><svg class="sp-mark" viewBox="0 0 332 222" width="39" height="26" aria-hidden="true" focusable="false" style="flex:none;display:block"><g transform="translate(8,8) translate(-40,-20)"><g fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round"><path d="M300,20 C196,22 106,30 104,58 C102,88 224,114 224,150 C224,186 124,200 40,214"/><path transform="translate(56,12)" d="M300,20 C196,22 106,30 104,58 C102,88 224,114 224,150 C224,186 124,200 40,214"/></g><circle cx="224" cy="150" r="17" fill="currentColor"/><circle cx="280" cy="162" r="17" fill="#D2231C"/></g></svg><div><b>SEAPORT</b><span>Loyalty</span></div></a>
     <div class="prop"><small>Property</small><b>Lumina Square</b><span>Mall + Lumina Residences (620 units)</span><span class="plan">Operator · Enterprise</span></div>
     <nav class="nav" aria-label="Dashboard">
       <div class="lab">Main</div>
@@ -566,7 +566,7 @@ const INTEG = [
 const ACCN = { lobby: "Lobby", lift: "Lifts", gym: "Gym", pool: "Pool", carpark: "Carpark" }, ACCI = { lobby: "door-open", lift: "arrow-up-down", gym: "dumbbell", pool: "waves", carpark: "car" };
 const M = (id) => S.members.find((m) => m.id === +id);
 function ago(ms) { const m = Math.round((Date.now() - ms) / 60000); return m < 1 ? "Just now" : m < 60 ? m + " min ago" : m < 1440 ? Math.round(m / 60) + " h ago" : Math.round(m / 1440) + " d ago"; }
-function ocardHTML(m) { return `<div class="ocard ${m.cardSt === "Blocked" ? "blocked" : ""}" aria-label="One Card ending ${m.card}"><div class="oc-top"><img src="assets/seaport/logo.png" alt=""><span>ONE CARD · LUMINA</span></div>
+function ocardHTML(m) { return `<div class="ocard ${m.cardSt === "Blocked" ? "blocked" : ""}" aria-label="One Card ending ${m.card}"><div class="oc-top"><svg class="sp-mark" viewBox="0 0 332 222" width="39" height="26" aria-hidden="true" focusable="false" style="flex:none;display:block"><g transform="translate(8,8) translate(-40,-20)"><g fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round"><path d="M300,20 C196,22 106,30 104,58 C102,88 224,114 224,150 C224,186 124,200 40,214"/><path transform="translate(56,12)" d="M300,20 C196,22 106,30 104,58 C102,88 224,114 224,150 C224,186 124,200 40,214"/></g><circle cx="224" cy="150" r="17" fill="currentColor"/><circle cx="280" cy="162" r="17" fill="#D2231C"/></g></svg><span>ONE CARD · LUMINA</span></div>
   <div class="chip"></div><i class="nfc" data-lucide="nfc"></i><div class="no">•••• •••• •••• ${m.card}</div>
   <div class="bot"><span><small>Holder</small><b>${esc(m.n)}</b></span><span><small>${m.tower ? "Residence" : "Member"}</small><b>${m.tower || "Mall"}</b></span><span><small>Wallet</small><b>${money2(m.wallet)}</b></span></div></div>`; }
 function fmtD(d) { return new Date(d + "T00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short" }); }
