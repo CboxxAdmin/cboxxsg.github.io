@@ -8,7 +8,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/seaport/favicon-32.png?v=3">
 <link rel="apple-touch-icon" href="/assets/seaport/apple-touch-icon.png?v=3">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Seaport services: creator videos that bring in real customers for SMEs and corporates now, a marketplace for every kind of creative next.">
+<meta name="description" content="Seaport services: creator marketing that brings in real customers for SMEs and corporates across Singapore and Malaysia, with plans from S$350.">
 <link rel="canonical" href="https://getseaport.com/services.html">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -340,6 +340,35 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
   main{padding-bottom:84px}
   .sv-cta{min-height:auto}
 }
+
+/* plans and pricing */
+.sv-plans .wrap{padding-block:0 112px}
+.pl-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-bottom:40px}
+.pl-head h2{margin:0;font-family:var(--display);font-weight:500;font-size:clamp(30px,4vw,54px);line-height:1.14;letter-spacing:-.02em;max-width:22ch}
+.pl-head h2 span{color:var(--muted)}
+.pl-head p{margin:0;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted);max-width:36ch}
+.pl-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.pl-card{background:#fff;color:#141416;padding:32px 28px;display:flex;flex-direction:column;gap:10px;border-top:4px solid #c9cbd0}
+.pl-card.hot{border-top-color:var(--accent)}
+.pl-card .pl-k{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686a71}
+.pl-card .pl-k em{font-style:normal;color:var(--accent);margin-left:6px}
+.pl-card h3{margin:0;font-family:var(--display);font-weight:500;font-size:26px;letter-spacing:-.015em}
+.pl-price{margin:6px 0 4px;font-family:var(--display);font-weight:500;font-size:40px;letter-spacing:-.02em;line-height:1}
+.pl-price small{font-size:15px;color:#686a71;letter-spacing:0;margin-left:4px}
+.pl-card ul{list-style:none;margin:8px 0 0;padding:0;border-top:1px solid #d6d7db}
+.pl-card li{padding:10px 0;border-bottom:1px solid #d6d7db;font-size:14px;line-height:1.4}
+.pl-more{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:16px;margin-top:16px}
+.pl-box{background:var(--ink);color:var(--bg);padding:32px 28px}
+.pl-box h3{margin:0 0 10px;font-family:var(--display);font-weight:500;font-size:26px}
+.pl-box p{margin:0 0 20px;font-size:15px;line-height:1.5;opacity:.85}
+.pl-add{background:#fff;color:#141416;padding:32px 28px}
+.pl-add h3{margin:0 0 14px;font-family:var(--display);font-weight:500;font-size:22px}
+.pl-add ul{list-style:none;margin:0;padding:0;border-top:1px solid #d6d7db;display:grid;grid-template-columns:1fr 1fr;column-gap:28px}
+.pl-add li{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #d6d7db;font-size:14px}
+.pl-add li b{font-weight:500;white-space:nowrap}
+.pl-note{margin:18px 0 0;font-size:13px;color:var(--muted)}
+@media (max-width:1000px){.pl-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pl-more{grid-template-columns:1fr}}
+@media (max-width:600px){.pl-grid{grid-template-columns:1fr}.pl-add ul{grid-template-columns:1fr}.pl-card,.pl-box,.pl-add{padding:26px 22px}}
 </style>
 
 </head><body>
@@ -351,9 +380,9 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
       <div class="dd"><button type="button" class="ddb" data-href="index.html#why" aria-expanded="false" aria-controls="m-why">[why seaport ▾]</button>
         <div class="panel" id="m-why" hidden>
           <div><h4>Why Seaport</h4>
-            <a href="index.html#why"><b>A creator studio, built in Singapore</b><span>Who we are and who we work with</span></a>
+            <a href="index.html#why"><b>An international creator marketing agency</b><span>Who we are and who we work with</span></a>
             <a href="index.html#why"><b>Our process, step by step</b><span>Brief, match, create, count, repeat</span></a>
-            <a href="contact.html"><b>Plans and pricing</b><span>From a S$350 trial to monthly content</span></a></div>
+            <a href="services.html#pricing"><b>Plans and pricing</b><span>From a S$350 trial to monthly content</span></a></div>
           <div><h4>By role</h4>
             <a href="#industries"><b>Businesses and brands</b><span>Creator videos that bring in real customers</span></a>
             <a href="creators.html#create"><b>Creators</b><span>Paid briefs, contracts that fit you, no joining fee</span></a>
@@ -382,7 +411,7 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
     <img class="sv-bg" src="https://images.unsplash.com/photo-1784308992726-1d2a19a364ce?w=2000&q=72&auto=format&fit=crop" alt="" loading="eager">
     <div class="wrap sv-hero-in">
       <h1>Creator content now.<br>Every kind of creative next.</h1>
-      <p>Local and international creators for SMEs and corporates today, and a marketplace for every creative industry tomorrow.</p>
+      <p>Creator marketing for SMEs and corporates across Singapore and Malaysia today, and a marketplace for every creative industry tomorrow.</p>
       <a class="sv-pill" href="contact.html">Book a trial<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
   </section>
@@ -402,19 +431,19 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
   <section class="sv-grid"><div class="wrap">
     <div class="sv-pair" id="now">
       <figure class="sv-img"><img src="https://images.unsplash.com/photo-1632187989763-c9c620420b4d?w=1000&q=72&auto=format&fit=crop" alt="A creator crew setting up a camera" loading="lazy"></figure>
-      <div class="sv-card"><p class="sv-tag">Now · creator studio</p><h3>Creator videos</h3><ul><li><span>Short-form creator videos</span><span class="n">01</span></li><li><span>Creator sourcing and vetting</span><span class="n">02</span></li><li><span>Offer-code tracking</span><span class="n">03</span></li><li><span>Ads boost</span><span class="n">04</span></li><li><span>Contracts and payouts</span><span class="n">05</span></li><li><span>Redo guarantee</span><span class="n">06</span></li></ul>
+      <div class="sv-card"><p class="sv-tag">Now · creator marketing</p><h3>Creator videos</h3><ul><li><span>Short-form creator videos</span><span class="n">01</span></li><li><span>Creator sourcing and vetting</span><span class="n">02</span></li><li><span>Offer-code tracking</span><span class="n">03</span></li><li><span>Ads boost</span><span class="n">04</span></li><li><span>Contracts and payouts</span><span class="n">05</span></li><li><span>Redo guarantee</span><span class="n">06</span></li></ul>
         <p class="sv-foot">TikTok and Instagram videos by vetted international and local creators, posted to their followers and yours to reuse, with contracts, payouts and results handled by us.</p></div>
     </div>
     <div class="sv-pair rev" id="next">
       <figure class="sv-img"><img src="https://images.unsplash.com/photo-1753161618037-e6a8f740fd47?w=1000&q=72&auto=format&fit=crop" alt="A designer working on a laptop among clothing samples" loading="lazy"></figure>
       <div class="sv-card"><p class="sv-tag">Next · creative marketplace <em>coming later</em></p><h3>Every kind of creative</h3><ul><li><span>Hire any creative</span><span class="n">01</span></li><li><span>IP licensing</span><span class="n">02</span></li><li><span>One agreement, one invoice</span><span class="n">03</span></li><li><span>Creator management</span><span class="n">04</span></li><li><span>Discovery feed</span><span class="n">05</span></li></ul>
-        <p class="sv-foot">Photographers, videographers, designers, musicians, dancers, livestreamers and more, from Singapore and around the world, hired and licensed through one agreement and one invoice.</p></div>
+        <p class="sv-foot">Photographers, videographers, designers, musicians, dancers, livestreamers and more, from Singapore, Malaysia and around the world, hired and licensed through one agreement and one invoice.</p></div>
     </div>
     <div class="sv-pair" id="industries">
       <figure class="sv-img"><img src="https://images.unsplash.com/photo-1687422808278-d17b09489ed1?w=1000&q=72&auto=format&fit=crop" alt="A cafe owner holding a phone in his kitchen" loading="lazy"></figure>
       <div class="sv-card"><p class="sv-tag">Industries we serve</p><h3>Built for SMEs and corporates</h3>
-        <div class="sv-two"><ul><li><span>Food and beverage</span><span class="n">01</span></li><li><span>Fitness and sports</span><span class="n">02</span></li><li><span>Beauty and wellness</span><span class="n">03</span></li><li><span>Fashion and streetwear</span><span class="n">04</span></li><li><span>Retail</span><span class="n">05</span></li></ul><ul class="off"><li><span>Health</span><span class="n">01</span></li><li><span>Services</span><span class="n">02</span></li><li><span>Entertainment</span><span class="n">03</span></li><li><span>New openings</span><span class="n">04</span></li><li><span>Creative industries</span><span class="n">05</span></li></ul></div>
-        <p class="sv-foot">From cafes, gyms and salons to clinics, retail chains, corporates and the creative industries themselves.</p></div>
+        <div class="sv-two"><ul><li><span>Food and beverage</span><span class="n">01</span></li><li><span>Fitness and sports</span><span class="n">02</span></li><li><span>Beauty and wellness</span><span class="n">03</span></li><li><span>Fashion and streetwear</span><span class="n">04</span></li><li><span>Retail</span><span class="n">05</span></li><li><span>Tourism and attractions</span><span class="n">06</span></li></ul><ul class="off"><li><span>Health</span><span class="n">01</span></li><li><span>Services</span><span class="n">02</span></li><li><span>Entertainment</span><span class="n">03</span></li><li><span>New openings</span><span class="n">04</span></li><li><span>Agriculture and farms</span><span class="n">05</span></li><li><span>Creative industries</span><span class="n">06</span></li></ul></div>
+        <p class="sv-foot">From cafes and salons in Singapore to tourism attractions and farms in Sabah, plus clinics, retail chains, corporates and the creative industries themselves.</p></div>
     </div>
   </div></section>
 
@@ -429,13 +458,39 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
   <section class="sv-proc"><div class="wrap">
     <div class="sv-proc-head">
       <h2>How it works. <span>A simple, measured process for businesses of any size.</span></h2>
-      <a class="sv-pill ghost" href="contact.html">See plans<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a class="sv-pill ghost" href="#pricing">See plans<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
     <div class="sv-steps">
       <article class="sv-step"><img src="https://images.unsplash.com/photo-1753161029436-de996df41ab2?w=900&q=72&auto=format&fit=crop" alt="" loading="lazy"><div><h4>Brief and match</h4><p>Tell us what you sell. We shortlist three vetted creators and you pick one.</p></div></article>
       <article class="sv-step"><img src="https://images.unsplash.com/photo-1605501492805-f5699f0718d5?w=900&q=72&auto=format&fit=crop" alt="" loading="lazy"><div><h4>Film and post</h4><p>Three short videos with an offer code. One round of changes before anything goes live.</p></div></article>
       <article class="sv-step"><img src="https://images.unsplash.com/photo-1753161029695-f1d1e6881257?w=900&q=72&auto=format&fit=crop" alt="" loading="lazy"><div><h4>Count and repeat</h4><p>Views and code redemptions after 7 days. Under 1,000 views, we remake it free.</p></div></article>
     </div>
+  </div></section>
+
+  <section class="sv-plans" id="pricing" aria-labelledby="plTitle"><div class="wrap">
+    <div class="pl-head">
+      <h2 id="plTitle">Plans and pricing. <span>Start small, then scale what works.</span></h2>
+      <p>Every video comes with its own offer code and a results report.</p>
+    </div>
+    <div class="pl-grid">
+      <article class="pl-card hot"><p class="pl-k">Start here</p><h3>Trial</h3><p class="pl-price">S$350</p>
+        <ul><li>1 video from a vetted nano creator (1k to 10k followers)</li><li>Its own offer code</li><li>7 day results report</li></ul></article>
+      <article class="pl-card"><p class="pl-k">Most popular</p><h3>Starter</h3><p class="pl-price">S$1,100</p>
+        <ul><li>3 nano creator videos over 2 to 3 weeks</li><li>Offer code tracking on every video</li><li>Free redo under 1,000 views in 7 days</li></ul></article>
+      <article class="pl-card"><p class="pl-k">More reach</p><h3>Micro Starter</h3><p class="pl-price">S$3,200</p>
+        <ul><li>3 videos from micro creators (10k to 50k followers)</li><li>Offer code tracking on every video</li><li>Results report after 7 days</li></ul></article>
+      <article class="pl-card"><p class="pl-k">Always on</p><h3>Monthly</h3><p class="pl-price">S$1,800<small>/ month</small></p>
+        <ul><li>4 videos a month from 2 nano creators</li><li>Fresh content every week</li><li>Monthly results report</li></ul></article>
+    </div>
+    <div class="pl-more">
+      <div class="pl-box"><h3>Campaigns</h3><p>Bigger creators, batches of 10 or more creators, launches and campaigns across Singapore and Malaysia. Quoted per project.</p>
+        <a class="sv-pill" href="contact.html">Ask for a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
+      <div class="pl-add"><h3>Add-ons</h3>
+        <ul><li><span>Ad usage rights, 30 days</span><b>from S$150 / video</b></li><li><span>Boost management</span><b>15% of ad spend</b></li>
+        <li><span>Exclusivity, 30 days</span><b>+25%</b></li><li><span>Rush, under 5 days</span><b>+20%</b></li>
+        <li><span>Extra platform</span><b>+S$100 / video</b></li><li><span>Ad spend</span><b>paid by you</b></li></ul></div>
+    </div>
+    <p class="pl-note">Prices in SGD. Clients in Malaysia can be quoted in MYR. Ad usage rights for micro creator videos start from S$400.</p>
   </div></section>
 
   <section class="sv-cta">
@@ -453,7 +508,7 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
     <div class="sf-top">
       <div class="sf-lead">
         <a href="index.html" class="sf-logo"><svg class="sp-mark" viewBox="0 0 332 222" width="39" height="26" aria-hidden="true" focusable="false" style="flex:none;display:block"><g transform="translate(8,8) translate(-40,-20)"><g fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round"><path d="M300,20 C196,22 106,30 104,58 C102,88 224,114 224,150 C224,186 124,200 40,214"/><path transform="translate(56,12)" d="M300,20 C196,22 106,30 104,58 C102,88 224,114 224,150 C224,186 124,200 40,214"/></g><circle cx="224" cy="150" r="17" fill="currentColor"/><circle cx="280" cy="162" r="17" fill="#D2231C"/></g></svg>Seaport</a>
-        <p>A creator studio connecting local and international creators with SMEs and corporates. Built in Singapore. Porting your brand.</p>
+        <p>An international creator marketing agency connecting local and international creators with SMEs and corporates across Singapore and Malaysia. Porting your brand.</p>
         <p class="sf-mail">Contact us: <a href="mailto:team@getseaport.com">team@getseaport.com</a></p>
         <div class="ft-social"><a href="https://www.instagram.com/getseaport/" target="_blank" rel="noopener" aria-label="Seaport on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor"/></svg></a><a href="https://www.facebook.com/profile.php?id=61592977871526" target="_blank" rel="noopener" aria-label="Seaport on Facebook" id="ftFb"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8v3h2.6V21z"/></svg></a><span class="soon" title="TikTok coming soon" aria-label="TikTok coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.6 3c.3 2.2 1.6 3.6 3.9 3.8v3c-1.4.1-2.6-.3-3.9-1.1v5.6c0 3.7-3.2 6.2-6.6 5.4-3.6-.8-4.9-5.4-2.3-8 1.1-1.1 2.6-1.6 4.4-1.4v3.1c-.8-.2-1.8-.1-2.4.5-1.2 1.2-.5 3.4 1.3 3.6 1.4.2 2.6-.8 2.6-2.4V3z"/></svg><small>soon</small></span></div>
       </div>
@@ -464,7 +519,7 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
       </nav>
     </div>
     <div class="sf-promise"><span class="sf-badge">Our promise</span>Free redo if a video gets under 1,000 views in 7 days.</div>
-    <div class="sf-bottom"><span>&copy; 2026 Seaport Pte. Ltd. All rights reserved. UEN 202619369N</span><span>one-north, Singapore</span><a href="privacy.html">Privacy policy</a></div>
+    <div class="sf-bottom"><span>&copy; 2026 Seaport Pte. Ltd. All rights reserved. UEN 202619369N</span><span>one-north, Singapore · Working across Singapore and Malaysia</span><a href="privacy.html">Privacy policy</a></div>
   </div></footer>
 </main>
 
@@ -571,7 +626,7 @@ function quoteScroll(){
 }
 
 /* process is driven by scroll: each step owns a third of the pinned scroll distance */
-const STEPS=[["Trial · S$350","One video from a vetted nano creator, with its own offer code. The easiest yes for a first-time business."],["Starter Pack · S$900","Three videos from one creator over two to three weeks, offer-code tracking, and the 1,000-view redo guarantee."],["Monthly · S$1,500 a month","Four videos a month from two creators, rights to reuse them as ads, and a simple results report every month."]];
+const STEPS=[["Trial · S$350","One video from a vetted nano creator, with its own offer code. The easiest yes for a first-time business."],["Starter · S$1,100","Three videos from nano creators over two to three weeks, offer-code tracking, and the 1,000-view redo guarantee."],["Monthly · S$1,800 a month","Four videos a month from two creators and a simple results report every month. Ad usage rights available as an add-on."]];
 const scenes=STEPS.map((_,i)=>makeScene(i));
 const bars=document.getElementById("bars"),scene=document.getElementById("scene"),st=document.getElementById("stepTitle"),sp=document.getElementById("stepText");
 let cur=-1;const proc=document.getElementById("plans");
