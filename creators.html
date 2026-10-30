@@ -365,7 +365,7 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
           <div><h4>Why Seaport</h4>
             <a href="index.html#why"><b>An international creative marketing company</b><span>Who we are and what we do</span></a>
             <a href="index.html#why"><b>Our process, step by step</b><span>Brief, match, create, count, repeat</span></a>
-            <a href="services.html#pricing"><b>Plans and pricing</b><span>From a S$350 trial to monthly content</span></a></div>
+            <a href="services.html#pricing"><b>Plans</b><span>From a first trial to monthly content</span></a></div>
           <div><h4>By role</h4>
             <a href="services.html#industries"><b>Businesses and brands</b><span>Creator videos that bring in real customers</span></a>
             <a href="#create"><b>Creators</b><span>Paid briefs, contracts that fit you, no joining fee</span></a>
@@ -605,7 +605,7 @@ function quoteScroll(){
 }
 
 /* process is driven by scroll: each step owns a third of the pinned scroll distance */
-const STEPS=[["Trial · S$350","One video from a vetted nano creator, with its own offer code. The easiest yes for a first-time business."],["Starter · S$1,100","Three videos from nano creators over two to three weeks, offer-code tracking, and the 1,000-view redo guarantee."],["Monthly · S$1,800 a month","Four videos a month from two creators and a simple results report every month. Ad usage rights available as an add-on."]];
+const STEPS=[["Trial","One video from a vetted nano creator, with its own offer code. The easiest yes for a first-time business."],["Starter","Three videos from nano creators over two to three weeks, offer-code tracking, and the 1,000-view redo guarantee."],["Monthly","Four videos a month from two creators and a simple results report every month. Ad usage rights available as an add-on."]];
 const scenes=STEPS.map((_,i)=>makeScene(i));
 const bars=document.getElementById("bars"),scene=document.getElementById("scene"),st=document.getElementById("stepTitle"),sp=document.getElementById("stepText");
 let cur=-1;const proc=document.getElementById("plans");
