@@ -327,7 +327,7 @@ addEventListener("load",()=>{var el=null;try{el=seaportHash&&document.querySelec
   </section>
 
   <section class="sv-cta" id="contact">
-    <img class="sv-bg" src="https://images.unsplash.com/photo-1493966936727-e9e3da7326ea?w=2000&q=72&auto=format&fit=crop" alt="" loading="lazy">
+    <img class="sv-bg" src="https://images.unsplash.com/photo-1790563289705-06e26f8bc0a5?w=2000&q=72&auto=format&fit=crop" alt="" loading="lazy">
     <div class="wrap sv-cta-in">
       <h2>Get your first creator video live this month.</h2>
       <p>We handle the creators. You handle the customers.</p>
@@ -358,9 +358,9 @@ addEventListener("load",()=>{var el=null;try{el=seaportHash&&document.querySelec
    Swap any of these for your own, e.g. "img/kim1.jpg". If a photo can't load, a placeholder shows instead. ===== */
 const MOB=matchMedia("(max-width:720px)");
 const U=id=>`https://images.unsplash.com/photo-${id}?w=${MOB.matches?600:900}&q=70&auto=format&fit=crop`;
-const WORK_IMG=["1604276920301-3b5c20bf00b2","1731955139061-5d251fe4e03c","1563170446-9c3c0622d8a9","1648279563425-fa3151d5f585","1529139574466-a303027c1d8b","1750595372219-6af70d767e81"].map(U);
-const SCENE_IMG=["1516197370049-569c4eaba1d6","1611672585731-fa10603fb9e0","1542181961-9590d0c79dab"].map(U);
-const TILE_IMG=["1601597565151-70c4020dc0e1","1606143412458-acc5f86de897","1581841064838-a470c740e8ee","1517462964-21fdcec3f25b","1587987746776-302404b98970","1571513722275-4b41940f54b8","1653152707179-125e4e184a0b","1681404141874-633aa2de7c76","1597573783009-4b9c914107da","1751456357793-9f626e986113","1719239163092-d53ba8ff2a00","1641337221253-fdc7237f6b61","1750595372538-d1147e25352e","1763621470208-efe14b618119","1669322779651-5ca89652492e","1615393120732-f20d2d15a9ad","1587337657836-5084db88308c","1665340826138-1df7c7dd6f8d","1633381521050-26bb467d9d5a","1727341557146-4abab94d0812","1659522761084-79196b64abe4","1649810703076-55cc1293a9f7","1718963892337-b6729c302b8f","1718963904731-7e6300b3db72","1533392151650-269f96231f65","1618754580230-dc55ba127aa2","1613552465135-e5bdaada10bc","1536163713675-42cf53cbd4f5","1751456357787-fe644b095838","1581009137042-c552e485697a","1644072267078-62d6ea9a5a14","1731955138724-e4c5b7df6961","1554344728-77cf90d9ed26","1532029837206-abbe2b7620e3","1607613982330-4acfb339788b","1590741861173-85035e8af62c","1601813913455-118810e79277","1574374752751-f511f816b69b","1708094101770-30be12181c39","1660203861072-318f2c468d94"].map(id=>`https://images.unsplash.com/photo-${id}?w=320&q=60&auto=format&fit=crop`);
+const WORK_IMG=["1533630757306-cbadb934bcb1","1611403119860-57c4937ef987","1758600587839-56ba05596c69","1681262392875-eab4e1f2e79e","1730727523979-c6f800e0bec9","1756969600753-f2669c43d38d"].map(U);
+const SCENE_IMG=["1600405733205-ad7312113e2c","1656360542295-e6b25b4e40e6","1581601442673-c3370bb99d8d"].map(U);
+const TILE_IMG=["1600405733205-ad7312113e2c","1656360542295-e6b25b4e40e6","1581601442673-c3370bb99d8d","1505538034984-f4cdc7503011","1552838333-b415b58a4c2b","1681262392875-eab4e1f2e79e","1533630757306-cbadb934bcb1","1763621470208-efe14b618119","1770184428372-ad4d28b9aef4","1583927568895-182bd6edd65f","1609252599143-3cad38389d67","1526139334526-f591a54b477c","1762674462401-2e0792d7bbed","1552912470-ee2e96439539","1603031682537-ea6729c9d1bc","1772320484451-4412bcd01ec4","1779597260274-e1a2af6e6116","1752985741380-c264be3d8517","1544168190-79c17527004f","1540569014015-19a7be504e3a","1611403119860-57c4937ef987","1552168212-9ceb61083ba0","1761963108315-739eb365d446","1758600587839-56ba05596c69","1780396700817-2ec700591808","1515734674582-29010bb37906","1594546325110-a530729c3f99","1664245804956-e3b4da196832","1726591383658-37fc19442523","1730727384555-35318cb80600","1730727523979-c6f800e0bec9","1647235617723-6b2b7de8c608","1557153730-57fbae1cfae4","1714426533676-f9d8f35dfece","1613053341193-2b7f654c155f","1756969600753-f2669c43d38d","1756969608811-4664973c92f5","1597349789235-c8e2c85880d1","1496116218417-1a781b1c416c","1585032226651-759b368d7246"].map(id=>`https://images.unsplash.com/photo-${id}?w=320&q=60&auto=format&fit=crop`);
 const IMAGES = [];
 /* show placeholder now, swap in the real photo once it loads */
 function setBg(el,real,fallback){el.style.backgroundImage=`url(${fallback})`;if(!real)return;const im=new Image();im.onload=()=>{el.style.backgroundImage=`url(${real})`};im.src=real}
@@ -429,13 +429,13 @@ function procScroll(y){
 }
 if(proc){show(0);fill(0,reduce?1:0);}
 /* why seaport: photo nearest the middle of the screen sets the active step */
-const WHY=[["Brief","Tell us what you sell, who you want to reach, and the offer you can give.","1534683251650-3fd64cd1561a"],
-["Match","We shortlist three vetted creators, local or international, whose followers match your customers. You pick one.","1664277497095-424e085175e8"],
-["Agree","One agreement with Seaport and a 50% deposit to start. Creators work under contract with us, so you deal with one team.","1753164597612-5e71b83fda91"],
-["Film","Three short videos, tagged to your store or location, each with its own offer code and a limited-time deal.","1695408247109-3bf125ad0538"],
-["Review","You see every draft first and get one round of changes before anything goes live.","1673767298248-b128f17f89af"],
-["Post and boost","The creator posts to their followers. Add an optional Spark Ads boost to reach more of the right people.","1610016799660-9186ac63b50f"],
-["Count and repeat","After 7 days we report views and code redemptions. Under 1,000 views, we remake it free.","1739857554154-80c15b7b1af7"]];
+const WHY=[["Brief","Tell us what you sell, who you want to reach, and the offer you can give.","1765294661150-130e24807964"],
+["Match","We shortlist three vetted creators, local or international, whose followers match your customers. You pick one.","1544168190-79c17527004f"],
+["Agree","One agreement with Seaport and a 50% deposit to start. Creators work under contract with us, so you deal with one team.","1540569014015-19a7be504e3a"],
+["Film","Three short videos, tagged to your store or location, each with its own offer code and a limited-time deal.","1505538034984-f4cdc7503011"],
+["Review","You see every draft first and get one round of changes before anything goes live.","1594546325110-a530729c3f99"],
+["Post and boost","The creator posts to their followers. Add an optional Spark Ads boost to reach more of the right people.","1597349789235-c8e2c85880d1"],
+["Count and repeat","After 7 days we report views and code redemptions. Under 1,000 views, we remake it free.","1763621470208-efe14b618119"]];
 const whyList=document.getElementById("whyList"),whyDesc=document.getElementById("whyDesc"),whyImgs=document.getElementById("whyImgs");let whyCur=-1;
 WHY.forEach(([t,d,id],i)=>{const li=document.createElement("li");li.textContent=t;li.tabIndex=0;
   const go=()=>whyImgs.children[i].scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"});li.onclick=go;li.onkeydown=e=>{if(e.key==="Enter")go()};whyList.appendChild(li);
