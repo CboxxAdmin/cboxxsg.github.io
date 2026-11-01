@@ -542,7 +542,7 @@ const img=(i,w,h)=>IMAGES.length?IMAGES[i%IMAGES.length]:makeTile(i,w,h);
 const WORK=[["Kopi & Co","cafe launch"],["Iron Lab","gym membership push"],["Glow Clinic","skincare promo"],["Tiong Bahru Bakes","weekend queue"],["Street Supply","streetwear drop"],["Boba Bros","new flavour"]];
 const rail=document.getElementById("rail");
 if(rail)WORK.forEach(([t,tag],i)=>{const f=document.createElement("figure");f.className="card";
-  f.innerHTML=`<div class="img"></div><figcaption><span class="n">${String(i+1).padStart(2,"0")}</span><span class="t">${t}</span><span class="tag">[sample work · ${tag}]</span></figcaption>`;setBg(f.firstChild,WORK_IMG[i],img(i+1,480,600));rail.appendChild(f)});
+  f.innerHTML=`<div class="img"></div><figcaption><span class="n">${String(i+1).padStart(2,"0")}</span><span class="t">${t}</span><span class="tag">[campaign idea · ${tag}]</span></figcaption>`;setBg(f.firstChild,WORK_IMG[i],img(i+1,480,600));rail.appendChild(f)});
 
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 

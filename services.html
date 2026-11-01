@@ -449,7 +449,7 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
   </div></section>
 
   <section class="sv-band">
-    <img class="sv-bg" src="https://images.unsplash.com/photo-1555217851-6141535bd771?w=2000&q=72&auto=format&fit=crop" alt="" loading="lazy">
+    <img class="sv-bg" src="https://images.unsplash.com/photo-1526139334526-f591a54b477c?w=2000&q=72&auto=format&fit=crop" alt="" loading="lazy">
     <div class="wrap sv-band-in">
       <p class="sv-dot">Our promise</p>
       <blockquote>We only want to be judged on one thing: the customers our videos bring you. Every video gets its own offer code, so you see exactly what it brought in.</blockquote>
@@ -565,7 +565,7 @@ const img=(i,w,h)=>IMAGES.length?IMAGES[i%IMAGES.length]:makeTile(i,w,h);
 const WORK=[["Kopi & Co","cafe launch"],["Iron Lab","gym membership push"],["Glow Clinic","skincare promo"],["Tiong Bahru Bakes","weekend queue"],["Street Supply","streetwear drop"],["Boba Bros","new flavour"]];
 const rail=document.getElementById("rail");
 if(rail)WORK.forEach(([t,tag],i)=>{const f=document.createElement("figure");f.className="card";
-  f.innerHTML=`<div class="img"></div><figcaption><span class="n">${String(i+1).padStart(2,"0")}</span><span class="t">${t}</span><span class="tag">[sample work · ${tag}]</span></figcaption>`;setBg(f.firstChild,WORK_IMG[i],img(i+1,480,600));rail.appendChild(f)});
+  f.innerHTML=`<div class="img"></div><figcaption><span class="n">${String(i+1).padStart(2,"0")}</span><span class="t">${t}</span><span class="tag">[campaign idea · ${tag}]</span></figcaption>`;setBg(f.firstChild,WORK_IMG[i],img(i+1,480,600));rail.appendChild(f)});
 
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 
