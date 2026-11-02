@@ -543,7 +543,8 @@ const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const set=o=>{pl.classList.toggle("open",o);bt.setAttribute("aria-expanded",o);bt.setAttribute("aria-label",o?"Close menu":"Open menu")};
 bt.addEventListener("click",e=>{e.stopPropagation();set(!pl.classList.contains("open"))});
 document.addEventListener("click",e=>{if(!pl.contains(e.target))set(false)});
-addEventListener("keydown",e=>{if(e.key==="Escape"&&pl.classList.contains("open")){set(false);bt.focus()}})})();
+addEventListener("keydown",e=>{if(e.key==="Escape"&&pl.classList.contains("open")){set(false);bt.focus()}});
+if(matchMedia("(hover:hover) and (pointer:fine)").matches){let t;pl.addEventListener("mouseenter",()=>{clearTimeout(t);set(true)});pl.addEventListener("mouseleave",()=>{t=setTimeout(()=>set(false),180)})}})();
 /* pd section: reveal, count up, photo drift */
 const pd=document.getElementById("creators"),pdPhoto=pd.querySelector(".pd-photo");
 function pdCount(){pd.querySelectorAll("[data-count]").forEach(el=>{const n=+el.dataset.count;if(reduce){el.textContent=n;return}const t0=performance.now();const tick=t=>{const k=Math.min(1,(t-t0)/1400);el.textContent=Math.round(n*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(tick)};el.textContent=0;requestAnimationFrame(tick)})}
