@@ -325,7 +325,7 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
 .hud.tl,.hud.br,.word,.story h2,.cta h2,.kline.hot span,.marq,.cr-title .b,.cr-btn,.cr-big,.cg-head .b,.ct-title,.ct-btn,.m-nav-top b,.m-nav ul a{font-weight:800!important;letter-spacing:-.035em!important}
 </style>
 
-</head><body>
+<style>/* face-safe crops */ img[src*="unsplash"],img[src*="assets/img/creators"]{object-position:50% 25%!important}</style></head><body>
 <canvas id="ink" aria-hidden="true"></canvas>
 
 <main id="main" data-page="creators">
@@ -738,4 +738,4 @@ if(!intro){main.classList.add("in")}else if(reduce){reveal()}else{
   document.getElementById("mTheme").addEventListener("click",function(){var t=document.getElementById("themeBtn");t&&t.click()});
 })();
 </script>
-</body></html>
+<script>/* face-safe crops */(function(){var P="50% 25%";function fix(r){(r||document).querySelectorAll('[style*="background-image"]').forEach(function(e){var b=e.style.backgroundImage||"";if(/unsplash|assets\/img\/creators/.test(b)&&e.dataset.fp!==b){e.style.backgroundPosition=P;e.dataset.fp=b}})}fix();new MutationObserver(function(){fix()}).observe(document.documentElement,{subtree:true,attributes:true,attributeFilter:["style"],childList:true})})();</script></body></html>
