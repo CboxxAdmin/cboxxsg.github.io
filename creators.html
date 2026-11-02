@@ -68,7 +68,7 @@ main.in{opacity:1;transform:none}
 .pin{position:sticky;top:calc(var(--hmin,64px) + env(safe-area-inset-top,0px));height:calc(100vh - var(--hmin,64px) - env(safe-area-inset-top,0px));overflow:hidden;display:flex;align-items:center}
 .rail{display:flex;gap:16px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));will-change:transform;transform-origin:left center}
 .card{flex:0 0 auto;width:min(calc((100vh - var(--hmin,64px) - 90px) * .8),78vw);display:flex;flex-direction:column;gap:12px;margin:0}
-.card .img{aspect-ratio:4/5;max-width:100%;background-size:130% auto;background-position:50% 50%;background-repeat:no-repeat;transition:transform .5s ease}
+.card .img{aspect-ratio:4/5;max-width:100%;background-size:cover;background-position:50% 25%;background-repeat:no-repeat;transition:transform .5s ease}
 .card:hover .img{transform:scale(.985)}
 .static #work .pin{position:static;height:auto;overflow-x:auto}
 .card figcaption{display:grid;grid-template-columns:3ch 1fr;gap:4px 12px;font-family:var(--mono);font-size:12px}
