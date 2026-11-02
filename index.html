@@ -260,6 +260,8 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
 .head{transition:transform .35s ease,visibility .35s}
 .head.hide{transform:translateY(-100%);visibility:hidden}
 #top.spacer{height:0!important}
+.sv-bg-mono{filter:grayscale(1) contrast(1.05);object-position:50% 30%}
+.sv-cta:has(.sv-bg-mono){background:#0b0b0b}
 /* big wordmark section (second on the page) */
 .bw{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;padding:56px max(16px,env(safe-area-inset-right,0px)) 40px max(16px,env(safe-area-inset-left,0px));background:var(--bg);color:var(--ink)}
 .bw-word{margin:0;font-family:var(--poster);font-weight:800!important;font-size:clamp(84px,19vw,280px);line-height:.82;letter-spacing:-.035em!important}
@@ -449,7 +451,7 @@ addEventListener("load",()=>{var el=null;try{el=seaportHash&&document.querySelec
 
 
   <section class="sv-cta" id="contact">
-    <img class="sv-bg" src="https://images.unsplash.com/photo-1790563289705-06e26f8bc0a5?w=2000&q=72&auto=format&fit=crop" alt="" loading="lazy">
+    <img class="sv-bg sv-bg-mono" src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/a9d3641f-d629-46e5-8d2d-5f75386b803d.webp" alt="" loading="lazy">
     <div class="wrap sv-cta-in">
       <h2>Get your first creator video live this month.</h2>
       <p>We handle the creators. You handle the customers.</p>
