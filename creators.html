@@ -282,9 +282,14 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
   .cg-grid{grid-template-columns:1fr 1fr!important;gap:20px 12px}
   .cg-card b{font-size:16px}
   .cg-card span{font-size:13px}
-  .cg-head .b{transform:none!important;font-size:clamp(40px,14vw,64px)}
+  .cg-head{overflow:hidden;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+  .cg-head .b{font-size:clamp(40px,14vw,64px);display:block;width:max-content;align-self:flex-start}
+  .cg-head .b.run{animation:cgRun 10s linear infinite}
+  .cg-head .b.run span{display:inline-block;padding-right:.3em}
 }
 
+@keyframes cgRun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.cg-head .b.run{animation:none}}
 /* contract options */
 .ct{padding-block:24px 72px}
 .ct-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
@@ -657,6 +662,7 @@ const CG=[["Food and cafes","Lifestyle video · Reviews","1581601442673-c3370bb9
 const cgGrid=document.getElementById("cgGrid");
 if(cgGrid)CG.forEach(([t,tags,id],i)=>{const f=document.createElement("figure");f.className="cg-card";f.innerHTML=`<div class="ph" role="img" aria-label="${t}"></div><figcaption><b>${t}</b><span>${tags}</span></figcaption>`;setBg(f.firstChild,U(id),img(i+40,480,480));cgGrid.appendChild(f)});
 const cgHeadB=document.querySelector("#cgHead .b");
+if(cgHeadB&&CRMOB){const seg="CREATE CREATE CREATE";cgHeadB.innerHTML=`<span>${seg}</span><span aria-hidden="true">${seg}</span>`;cgHeadB.classList.add("run")}
 function cgScroll(){
   if(reduce||!cgGrid||CRMOB)return;
   const h=document.getElementById("cgHead").getBoundingClientRect(),hp=clamp01((innerHeight-h.top)/(innerHeight+h.height));
