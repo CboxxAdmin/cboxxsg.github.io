@@ -344,6 +344,8 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
 .pd-why{list-style:none;margin:0 0 calc(16*var(--u));padding:0;display:grid;gap:calc(7*var(--u))}
 .pd-why li{display:flex;gap:calc(8*var(--u));align-items:flex-start;font-size:calc(13*var(--u));font-weight:600;line-height:1.4}
 .pd-why svg{flex:none;color:var(--accent,#d2231c);margin-top:calc(2*var(--u))}
+.pd-hero:has(.pd-pill.open) .pd-out,.pd-hero:has(.pd-pill.open) .pd-avail{opacity:0!important;transition:opacity .3s ease}
+@media (max-width:760px){.pd-hero:has(.pd-pill.open) .pd-out,.pd-hero:has(.pd-pill.open) .pd-avail{opacity:1!important}}
 .pd-pop-cta{height:calc(42*var(--u));font-size:calc(13.5*var(--u))}
 .pd-avail{position:absolute;right:calc(57*var(--u));top:calc(442*var(--u));text-align:right;font-size:calc(15*var(--u));font-weight:600;line-height:1.35}
 .pd-avail span{color:#555;font-weight:500}
