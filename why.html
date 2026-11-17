@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Why Seaport | Our process</title>
-<script>(function(){try{var t=localStorage.getItem("seaport-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})();</script>
+<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("seaport-theme")}catch(e){}</script><style>#themeBtn,#mTheme{display:none!important}</style>
 <meta property="og:image" content="https://getseaport.com/assets/seaport/og-image.png?v=3">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -53,7 +53,7 @@ main.in{opacity:1;transform:none}
 .head .wrap{position:relative;height:100%}
 .links{position:absolute;top:14px;right:max(16px,env(safe-area-inset-right,0px));display:flex;gap:16px;flex-wrap:wrap;justify-content:flex-end;font-family:var(--mono);font-size:13px;z-index:2}
 .links a{color:var(--ink);text-decoration:none;padding:2px 6px}
-.links a:hover,.links a.on{background:var(--accent);color:#fff}
+.links a:hover,.links a.on{background:none;color:var(--ink);text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:6px}
 .links a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .word{position:absolute;left:max(16px,env(safe-area-inset-left,0px));bottom:12px;font-family:var(--poster);font-weight:400;font-size:clamp(84px,19vw,280px);line-height:.82;letter-spacing:-.01em;margin:0;transform-origin:left bottom;will-change:transform}
 .intro-copy{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:16px;font-size:18px;line-height:1.45;color:var(--muted);max-width:30ch;font-weight:500;margin:0}
