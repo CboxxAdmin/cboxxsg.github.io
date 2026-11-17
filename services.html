@@ -377,6 +377,31 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
 .ct-note,.cr-note{transform:none!important;font-weight:600!important;font-size:14px!important;letter-spacing:.08em!important;text-transform:uppercase}
 .cr-title .h,.cg-head .h,.ct-foot p{font-weight:600!important;letter-spacing:-.01em}
 .hud.tl,.hud.br,.word,.story h2,.cta h2,.kline.hot span,.marq,.cr-title .b,.cr-btn,.cr-big,.cg-head .b,.m-nav-top b,.m-nav ul a{font-weight:800!important;letter-spacing:-.035em!important}
+
+/* plans, editorial */
+.pr-list{border-top:2px solid var(--ink)}
+.pr-row{display:grid;grid-template-columns:56px minmax(0,1.1fr) minmax(0,1.6fr) auto;align-items:center;gap:28px;padding:34px 0;border-bottom:1px solid var(--rule);transition:padding .25s,background .25s}
+.pr-row:hover{background:rgba(255,255,255,.35);padding-inline:20px}
+.pr-n{font-family:var(--mono);font-size:13px;color:var(--muted);align-self:start;padding-top:8px}
+.pr-k{margin:0 0 6px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.pr-name h3{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(34px,4.4vw,60px);line-height:.95;letter-spacing:-.04em}
+.pr-feat{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.pr-feat li{position:relative;padding-left:20px;font-size:15px;line-height:1.4}
+.pr-feat li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.pr-row.hot{background:var(--ink);color:var(--bg);padding-inline:28px;border-bottom-color:transparent}
+.pr-row.hot .pr-n{color:rgba(236,237,239,.55)}
+.pr-row.hot .pr-k{color:#ff5a50}
+.pr-row.hot .pr-name h3::after{content:"";display:inline-block;width:.18em;height:.18em;margin-left:.08em;border-radius:50%;background:var(--accent)}
+.pr-more{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:0;margin-top:56px;border-top:2px solid var(--ink)}
+.pr-camp{padding:36px 40px 40px 0;border-right:1px solid var(--rule)}
+.pr-camp h3,.pr-add h3{margin:0 0 12px;font-family:var(--display);font-weight:700;font-size:clamp(30px,3.4vw,46px);letter-spacing:-.035em;line-height:1}
+.pr-camp p:not(.pr-k){margin:0 0 24px;font-size:15px;line-height:1.5;color:var(--muted);max-width:40ch}
+.pr-camp .sv-pill{background:var(--ink);color:var(--bg)}
+.pr-add{padding:36px 0 40px 40px}
+.pr-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.pr-chips span{padding:10px 16px;border:1px solid var(--ink);border-radius:999px;font-size:14px;transition:background .2s,color .2s}
+.pr-chips span:hover{background:var(--ink);color:var(--bg)}
+@media (max-width:860px){.pr-row{grid-template-columns:40px 1fr;gap:14px 16px;padding:26px 0}.pr-row:hover{padding-inline:0;background:none}.pr-row.hot,.pr-row.hot:hover{padding-inline:18px}.pr-feat,.pr-row .sv-pill{grid-column:2}.pr-row .sv-pill{justify-self:start}.pr-more{grid-template-columns:1fr}.pr-camp{padding:28px 0;border-right:0;border-bottom:1px solid var(--rule)}.pr-add{padding:28px 0}}
 </style>
 
 <style>/* face-safe crops */ img[src*="unsplash"],img[src*="assets/img/creators"]{object-position:50% 25%!important}</style></head><body>
@@ -486,23 +511,24 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
       <h2 id="plTitle">Plans. <span>Start small, then scale what works.</span></h2>
       <p>Every video comes with its own offer code and a results report. Pricing is quoted to fit your brief.</p>
     </div>
-    <div class="pl-grid">
-      <article class="pl-card hot"><p class="pl-k">Start here</p><h3>Trial</h3><p class="pl-price">On request</p>
-        <ul><li>1 video from a vetted nano creator (1k to 10k followers)</li><li>Its own offer code</li><li>7 day results report</li></ul></article>
-      <article class="pl-card"><p class="pl-k">Most popular</p><h3>Starter</h3><p class="pl-price">On request</p>
-        <ul><li>3 nano creator videos over 2 to 3 weeks</li><li>Offer code tracking on every video</li><li>Free redo under 1,000 views in 7 days</li></ul></article>
-      <article class="pl-card"><p class="pl-k">More reach</p><h3>Micro Starter</h3><p class="pl-price">On request</p>
-        <ul><li>3 videos from micro creators (10k to 50k followers)</li><li>Offer code tracking on every video</li><li>Results report after 7 days</li></ul></article>
-      <article class="pl-card"><p class="pl-k">Always on</p><h3>Monthly</h3><p class="pl-price">On request</p>
-        <ul><li>4 videos a month from 2 nano creators</li><li>Fresh content every week</li><li>Monthly results report</li></ul></article>
+    <div class="pr-list">
+      <article class="pr-row"><span class="pr-n">01</span><div class="pr-name"><p class="pr-k">Start here</p><h3>Trial</h3></div>
+        <ul class="pr-feat"><li>1 video from a vetted nano creator (1k to 10k followers)</li><li>Its own offer code</li><li>7 day results report</li></ul>
+        <a class="sv-pill ghost" href="contact.html">Get a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></article>
+      <article class="pr-row hot"><span class="pr-n">02</span><div class="pr-name"><p class="pr-k">Most popular</p><h3>Starter</h3></div>
+        <ul class="pr-feat"><li>3 nano creator videos over 2 to 3 weeks</li><li>Offer code tracking on every video</li><li>Free redo under 1,000 views in 7 days</li></ul>
+        <a class="sv-pill " href="contact.html">Get a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></article>
+      <article class="pr-row"><span class="pr-n">03</span><div class="pr-name"><p class="pr-k">More reach</p><h3>Micro Starter</h3></div>
+        <ul class="pr-feat"><li>3 videos from micro creators (10k to 50k followers)</li><li>Offer code tracking on every video</li><li>Results report after 7 days</li></ul>
+        <a class="sv-pill ghost" href="contact.html">Get a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></article>
+      <article class="pr-row"><span class="pr-n">04</span><div class="pr-name"><p class="pr-k">Always on</p><h3>Monthly</h3></div>
+        <ul class="pr-feat"><li>4 videos a month from 2 nano creators</li><li>Fresh content every week</li><li>Monthly results report</li></ul>
+        <a class="sv-pill ghost" href="contact.html">Get a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></article>
     </div>
-    <div class="pl-more">
-      <div class="pl-box"><h3>Campaigns</h3><p>Bigger creators, batches of 10 or more creators, launches and multi-country campaigns. Quoted per project.</p>
+    <div class="pr-more">
+      <div class="pr-camp"><p class="pr-k">05 · Bigger</p><h3>Campaigns</h3><p>Bigger creators, batches of 10 or more creators, launches and multi-country campaigns. Quoted per project.</p>
         <a class="sv-pill" href="contact.html">Ask for a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
-      <div class="pl-add"><h3>Add-ons</h3>
-        <ul><li><span>Ad usage rights, 30 days</span></li><li><span>Boost management</span></li>
-        <li><span>Exclusivity, 30 days</span></li><li><span>Rush, under 5 days</span></li>
-        <li><span>Extra platform</span></li><li><span>Multi-country campaigns</span></li></ul></div>
+      <div class="pr-add"><p class="pr-k">Add to any plan</p><h3>Add-ons</h3><div class="pr-chips"><span>+ Ad usage rights, 30 days</span><span>+ Boost management</span><span>+ Exclusivity, 30 days</span><span>+ Rush, under 5 days</span><span>+ Extra platform</span><span>+ Multi-country campaigns</span></div></div>
     </div>
     <p class="pl-note">Pricing depends on the creators, scope and markets involved. Tell us what you need and we will send a quote, in your local currency if you prefer. <a href="contact.html">Request a quote</a></p>
   </div></section>
