@@ -338,7 +338,7 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
 .pd-ch li{display:flex;gap:calc(12*var(--u));padding:calc(10*var(--u)) 0;border-top:1px solid rgba(0,0,0,.12)}
 .pd-ch .n{flex:none;font-size:calc(11*var(--u));font-weight:700;color:#777;padding-top:calc(3*var(--u))}
 .pd-ch b{font-weight:800;font-size:calc(16*var(--u));letter-spacing:-.02em;text-transform:uppercase}
-.pd-ch em{margin-left:calc(8*var(--u));font-style:normal;font-size:calc(10.5*var(--u));font-weight:600;padding:calc(2*var(--u)) calc(8*var(--u));border:1px solid rgba(0,0,0,.2);border-radius:999px;vertical-align:calc(2*var(--u));white-space:nowrap}
+.pd-ch em{margin-left:calc(8*var(--u));font-style:normal;font-size:calc(10.5*var(--u));font-weight:600;padding:calc(2*var(--u)) calc(8*var(--u));border-radius:999px;vertical-align:calc(2*var(--u));white-space:nowrap;color:#0f7a3d;background:rgba(22,163,74,.14);border:1px solid rgba(22,163,74,.35);display:inline-flex;align-items:center;gap:calc(5*var(--u))}.pd-ch em::before{content:"";width:calc(6*var(--u));height:calc(6*var(--u));border-radius:50%;background:#16a34a;box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:pdLive 1.8s ease-out infinite}.pd-ch em.lim{color:#b91c1c;background:rgba(210,35,28,.12);border-color:rgba(210,35,28,.35)}.pd-ch em.lim::before{background:#D2231C;animation:none}@keyframes pdLive{0%{box-shadow:0 0 0 0 rgba(22,163,74,.5)}100%{box-shadow:0 0 0 calc(6*var(--u)) rgba(22,163,74,0)}}@media (prefers-reduced-motion:reduce){.pd-ch em::before{animation:none}}
 .pd-ch p{font-size:calc(13*var(--u));line-height:1.45;color:#444;margin-top:calc(5*var(--u))!important}
 .pd-pop-s{margin:calc(6*var(--u)) 0 calc(8*var(--u))!important;padding-top:calc(12*var(--u));border-top:1px solid rgba(0,0,0,.12);font-size:calc(12*var(--u));font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .pd-why{list-style:none;margin:0 0 calc(16*var(--u));padding:0;display:grid;gap:calc(7*var(--u))}
@@ -493,7 +493,7 @@ addEventListener("load",()=>{var el=null;try{el=seaportHash&&document.querySelec
           <p class="pd-pop-h"><span>Launch 2026</span>Three ways to reach customers, one creator team. Limited spots each month.</p>
           <ol class="pd-ch">
             <li><span class="n">01</span><div><b>Creator videos</b><em>Now open</em><p>Short videos by vetted local and international creators on TikTok and Instagram. Every video has its own code, so you see the customers it brings in.</p></div></li>
-            <li><span class="n">02</span><div><b>Livestream marketing</b><em>Limited brands</em><p>Creators go live for your brand and wear it on screen, like F1 merch for livestreams. Be one of the first brands to try it.</p></div></li>
+            <li><span class="n">02</span><div><b>Livestream marketing</b><em class="lim">Limited brands</em><p>Creators go live for your brand and wear it on screen, like F1 merch for livestreams. Be one of the first brands to try it.</p></div></li>
             <li><span class="n">03</span><div><b>Deals marketing</b><em>Now open</em><p>Coupon deals that bring new customers through your door, free for shops during our launch. Creators share your offer, customers buy the coupon and bring it to your shop, and every visit is counted.</p></div></li>
           </ol>
           <p class="pd-pop-s">Why join now</p>
