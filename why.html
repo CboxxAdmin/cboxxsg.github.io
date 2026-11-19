@@ -1,7 +1,23 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Why Seaport | How our creator marketing works</title>
-<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("seaport-theme")}catch(e){}</script><style>#themeBtn,#mTheme{display:none!important}</style>
+<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("seaport-theme")}catch(e){}</script><style>#themeBtn,#mTheme{display:none!important}
+/* process list: editorial, not pills */
+@media (min-width:721px){
+#why .why-pin{background:var(--bg)!important;color:var(--ink)!important;border-right:1px solid var(--rule)}
+#why .why-pin .lbl{text-align:left;padding:28px 40px 0;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.12em;color:var(--muted)!important;text-align:left!important}
+#why .why-list{align-items:stretch;text-align:left;padding:0 40px;margin:auto 0 0}
+#why .why-list li{width:100%;margin:0!important;padding:10px 0!important;border:0!important;border-top:1px solid var(--rule)!important;border-radius:0!important;background:none!important;transform:none!important;color:var(--muted)!important;font-family:var(--display);font-weight:600;font-size:17px!important;letter-spacing:-.01em;text-transform:none!important;transition:color .3s,font-size .3s,padding .3s}
+#why .why-list li:last-child{border-bottom:1px solid var(--rule)!important}
+#why .why-list li::before,.why-list li::after{display:none!important}
+#why .why-list li .n{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:0;opacity:1;color:var(--muted);width:3em}
+#why .why-list li.done{color:var(--ink)!important}
+#why .why-list li.on{color:var(--ink)!important;font-size:30px!important;font-weight:800;letter-spacing:-.03em;padding:16px 0!important}
+#why .why-list li.on .n{color:var(--accent)}
+#why .why-desc{text-align:left;margin:0;padding:20px 40px 0;max-width:40ch;font-family:var(--body,inherit);font-weight:400;font-size:16px;letter-spacing:0;text-transform:none;line-height:1.55!important;color:var(--muted)!important;min-height:7em;font-size:16px!important;text-transform:none!important;letter-spacing:0!important;font-weight:400!important;text-align:left!important}
+#why .why-tab{display:none!important}
+}
+</style>
 <meta property="og:image" content="https://getseaport.com/assets/seaport/og-image.png?v=3">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="any">
