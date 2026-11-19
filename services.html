@@ -15,6 +15,9 @@
 .sv-step img{filter:grayscale(.75) contrast(1.03)}
 .sv-step img.keep,.sv-live img{filter:none}
 .sv-step img.keep{object-position:50% 75%}.sv-step:has(img.keep)::after{background:linear-gradient(180deg,rgba(10,10,12,.9) 0%,rgba(10,10,12,.6) 28%,rgba(10,10,12,0) 58%)}
+
+/* service pairs: photo fills the row instead of setting its height */
+@media (min-width:861px){.sv-pair .sv-img{position:relative;min-height:0}.sv-pair .sv-img img{position:absolute;inset:0;width:100%;height:100%}.sv-pair{min-height:520px}}
 </style>
 <meta property="og:image" content="https://getseaport.com/assets/seaport/og-image.png?v=3">
 <meta name="twitter:card" content="summary_large_image">
