@@ -226,6 +226,7 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
   #work .pin{position:static;height:auto;overflow:visible;padding-block:16px 8px}
   #work .rail{transform:none!important;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:12px}
   #work .card{width:80vw;scroll-snap-align:center}
+  #work .card .img{transform:translateZ(0);-webkit-backface-visibility:hidden;backface-visibility:hidden;background-position:50% 30%!important;transition:none}
   .intro-copy{display:none}
   .sv-cta{min-height:auto}
 }
@@ -626,7 +627,7 @@ function onScroll(){
   rail.style.transform=MOB.matches?"none":`translate3d(${-e*innerWidth*.12}px,0,0) scale(${1-e*.3})`;
   head.classList.toggle("hide",y<pd.offsetTop+pd.offsetHeight-HMIN-4);
   procScroll(y);bandScroll();
-  rail.querySelectorAll(".img").forEach((el,i)=>{const r=el.getBoundingClientRect();const c=(r.left+r.width/2)/innerWidth-.5;el.style.backgroundPosition=`${50+c*30}% 25%`});
+  if(!MOB.matches)rail.querySelectorAll(".img").forEach((el,i)=>{const r=el.getBoundingClientRect();const c=(r.left+r.width/2)/innerWidth-.5;el.style.backgroundPosition=`${50+c*30}% 25%`});
 }
 if(reduce)document.body.classList.add("static");
 addEventListener("scroll",onScroll,{passive:true});addEventListener("resize",measure);
