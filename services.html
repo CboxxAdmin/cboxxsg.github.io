@@ -18,6 +18,13 @@
 
 /* service pairs: photo fills the row instead of setting its height */
 @media (min-width:861px){.sv-pair .sv-img{position:relative;min-height:0}.sv-pair .sv-img img{position:absolute;inset:0;width:100%;height:100%}.sv-pair{min-height:520px}}
+
+.pr-chips .pr-chip{font:inherit;font-size:14px;padding:10px 16px;border:1px solid var(--ink);border-radius:999px;background:transparent;color:var(--ink);cursor:pointer;transition:background .2s,color .2s}
+.pr-chips .pr-chip[aria-pressed="false"]:hover{background:rgba(0,0,0,.06)}
+.pr-chips .pr-chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.pr-chips .pr-chip[aria-pressed="true"]::after{content:" \2713"}
+.pr-chips .pr-chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pr-pick{margin:14px 0 0;font-size:13px;color:var(--muted)}
 </style>
 <meta property="og:image" content="https://getseaport.com/assets/seaport/og-image.png?v=3">
 <meta name="twitter:card" content="summary_large_image">
@@ -537,23 +544,23 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
     <div class="pr-list">
       <article class="pr-row"><span class="pr-n">01</span><div class="pr-name"><p class="pr-k">Start here</p><h3>Trial</h3></div>
         <ul class="pr-feat"><li>1 video from a vetted nano creator (1k to 10k followers)</li><li>Its own offer code</li><li>7 day results report</li></ul>
-        <a class="sv-pill ghost" href="contact.html">Get a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></article>
+        <a class="sv-pill ghost" href="contact.html" data-quote="Trial">Get a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></article>
       <article class="pr-row hot"><span class="pr-n">02</span><div class="pr-name"><p class="pr-k">Most popular</p><h3>Starter</h3></div>
         <ul class="pr-feat"><li>3 nano creator videos over 2 to 3 weeks</li><li>Offer code tracking on every video</li><li>Free redo under 1,000 views in 7 days</li></ul>
-        <a class="sv-pill " href="contact.html">Get a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></article>
+        <a class="sv-pill " href="contact.html" data-quote="Starter">Get a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></article>
       <article class="pr-row"><span class="pr-n">03</span><div class="pr-name"><p class="pr-k">More reach</p><h3>Micro Starter</h3></div>
         <ul class="pr-feat"><li>3 videos from micro creators (10k to 50k followers)</li><li>Offer code tracking on every video</li><li>Results report after 7 days</li></ul>
-        <a class="sv-pill ghost" href="contact.html">Get a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></article>
+        <a class="sv-pill ghost" href="contact.html" data-quote="Micro Starter">Get a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></article>
       <article class="pr-row"><span class="pr-n">04</span><div class="pr-name"><p class="pr-k">Always on</p><h3>Monthly</h3></div>
         <ul class="pr-feat"><li>4 videos a month from 2 nano creators</li><li>Fresh content every week</li><li>Monthly results report</li></ul>
-        <a class="sv-pill ghost" href="contact.html">Get a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></article>
+        <a class="sv-pill ghost" href="contact.html" data-quote="Monthly">Get a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></article>
     </div>
     <div class="pr-more">
       <div class="pr-camp"><p class="pr-k">05 · Bigger</p><h3>Campaigns</h3><p>Bigger creators, batches of 10 or more creators, launches and multi-country campaigns. Quoted per project.</p>
-        <a class="sv-pill" href="contact.html">Ask for a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
-      <div class="pr-add"><p class="pr-k">Add to any plan</p><h3>Add-ons</h3><div class="pr-chips"><span>+ Ad usage rights, 30 days</span><span>+ Boost management</span><span>+ Exclusivity, 30 days</span><span>+ Rush, under 5 days</span><span>+ Extra platform</span><span>+ Multi-country campaigns</span></div></div>
+        <a class="sv-pill" href="contact.html" data-quote="Campaigns">Ask for a quote<span class="sv-ar" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
+      <div class="pr-add"><p class="pr-k">Add to any plan</p><h3>Add-ons</h3><div class="pr-chips" role="group" aria-label="Add-ons"><button type="button" class="pr-chip" aria-pressed="false" data-addon="Ad usage rights, 30 days">+ Ad usage rights, 30 days</button><button type="button" class="pr-chip" aria-pressed="false" data-addon="Boost management">+ Boost management</button><button type="button" class="pr-chip" aria-pressed="false" data-addon="Exclusivity, 30 days">+ Exclusivity, 30 days</button><button type="button" class="pr-chip" aria-pressed="false" data-addon="Rush, under 5 days">+ Rush, under 5 days</button><button type="button" class="pr-chip" aria-pressed="false" data-addon="Extra platform">+ Extra platform</button><button type="button" class="pr-chip" aria-pressed="false" data-addon="Multi-country campaigns">+ Multi-country campaigns</button></div><p class="pr-pick" id="prPick" aria-live="polite">Tap the add-ons you want. They are added to your quote request.</p></div>
     </div>
-    <p class="pl-note">Pricing depends on the creators, scope and markets involved. Tell us what you need and we will send a quote, in your local currency if you prefer. <a href="contact.html">Request a quote</a></p>
+    <p class="pl-note">Pricing depends on the creators, scope and markets involved. Tell us what you need and we will send a quote, in your local currency if you prefer. <a href="contact.html" data-quote="">Request a quote</a></p>
   </div></section>
 
   <section class="sv-cta">
@@ -893,4 +900,7 @@ if(!intro){main.classList.add("in")}else if(reduce){reveal()}else{
   document.getElementById("mTheme").addEventListener("click",function(){var t=document.getElementById("themeBtn");t&&t.click()});
 })();
 </script>
-<script>/* face-safe crops */(function(){var P="50% 25%";function fix(r){(r||document).querySelectorAll('[style*="background-image"]').forEach(function(e){var b=e.style.backgroundImage||"";if(/unsplash|assets\/img\/creators/.test(b)&&e.dataset.fp!==b){e.style.backgroundPosition=P;e.dataset.fp=b}})}fix();new MutationObserver(function(){fix()}).observe(document.documentElement,{subtree:true,attributes:true,attributeFilter:["style"],childList:true})})();</script></body></html>
+<script>/* face-safe crops */(function(){var P="50% 25%";function fix(r){(r||document).querySelectorAll('[style*="background-image"]').forEach(function(e){var b=e.style.backgroundImage||"";if(/unsplash|assets\/img\/creators/.test(b)&&e.dataset.fp!==b){e.style.backgroundPosition=P;e.dataset.fp=b}})}fix();new MutationObserver(function(){fix()}).observe(document.documentElement,{subtree:true,attributes:true,attributeFilter:["style"],childList:true})})();</script><script>(function(){const sel=new Set(),pick=document.getElementById("prPick");
+function upd(){pick.textContent=sel.size?("Added to your quote: "+[...sel].join(", ")+"."):"Tap the add-ons you want. They are added to your quote request.";
+document.querySelectorAll("a[data-quote]").forEach(a=>{const q=new URLSearchParams();if(a.dataset.quote)q.set("plan",a.dataset.quote);if(sel.size)q.set("addons",[...sel].join("|"));const qs=q.toString();a.href="contact.html"+(qs?"?"+qs:"")+"#ctForm"})}
+document.querySelectorAll(".pr-chip").forEach(b=>b.addEventListener("click",()=>{const v=b.dataset.addon,on=!sel.has(v);on?sel.add(v):sel.delete(v);b.setAttribute("aria-pressed",on);upd()}));upd()})();</script></body></html>

@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Contact Seaport | Creative marketing company in Singapore</title>
-<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("seaport-theme")}catch(e){}</script><style>#themeBtn,#mTheme{display:none!important}</style>
+<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("seaport-theme")}catch(e){}</script><style>#themeBtn,#mTheme{display:none!important}.ct-picked{margin:0 0 18px;padding:12px 16px;border-left:3px solid var(--accent,#d2231c);background:rgba(255,255,255,.6);font-size:14.5px;line-height:1.5}
+</style>
 <meta property="og:image" content="https://getseaport.com/assets/seaport/og-image.png?v=3">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -659,6 +660,10 @@ function whyScroll(){if(!whyList)return;let best=0,bd=1e9;[...whyImgs.children].
   const TO={business:"team@getseaport.com",creator:"team@getseaport.com",other:"team@getseaport.com"};
   const LBL={business:"What do you sell, and who do you want to reach?",creator:"What do you make? Drop your TikTok or Instagram handle.",other:"How can we help?"};
   const lbl=document.getElementById("msgLabel"),st=document.getElementById("ctStatus");
+  const P=new URLSearchParams(location.search),Q={plan:P.get("plan")||"",addons:(P.get("addons")||"").split("|").filter(Boolean)};
+  if(Q.plan||Q.addons.length){const m=document.getElementById("ct-msg");const lines=[];if(Q.plan)lines.push("Plan: "+Q.plan);if(Q.addons.length)lines.push("Add-ons: "+Q.addons.join(", "));m.value=lines.join("\n")+"\n\nAbout my business: ";
+    const box=document.createElement("p");box.className="ct-picked";box.textContent="Your quote request: "+lines.join(" · ");f.insertBefore(box,f.firstChild);
+    setTimeout(()=>{f.scrollIntoView({block:"start"});},300)}
   f.addEventListener("change",e=>{if(e.target.name==="role")lbl.textContent=LBL[e.target.value]});
   f.addEventListener("submit",e=>{e.preventDefault();
     const role=f.role.value,name=f.name.value.trim(),email=f.email.value.trim(),msg=f.message.value.trim();let ok=true;
@@ -667,7 +672,7 @@ function whyScroll(){if(!whyList)return;let best=0,bd=1e9;[...whyImgs.children].
     const subj=`${role==="creator"?"Creator":role==="business"?"Business":"Enquiry"}: ${name}`;
     const btn=f.querySelector(".ct-btn");btn.disabled=true;btn.textContent="Sending...";st.textContent="";
     fetch("https://formspree.io/f/xdeajnjp",{method:"POST",headers:{"Accept":"application/json","Content-Type":"application/json"},
-      body:JSON.stringify({name:name,email:email,role:role,message:msg,_subject:subj,_replyto:email})})
+      body:JSON.stringify({name:name,email:email,role:role,plan:Q.plan||"",addons:Q.addons.join(", "),message:msg,_subject:subj+(Q.plan?" ("+Q.plan+")":""),_replyto:email})})
     .then(r=>{if(!r.ok)throw 0;f.reset();lbl.textContent=LBL.business;btn.textContent="Sent";st.textContent="Thanks "+name.split(" ")[0]+". We got your message and will reply to "+email+" soon.";setTimeout(()=>{btn.disabled=false;btn.textContent="Send message"},4000)})
     .catch(()=>{btn.disabled=false;btn.textContent="Send message";st.textContent="That didn't go through. Try again, or email team@getseaport.com directly."})});
 })();
