@@ -1,22 +1,20 @@
 # Seaport
 
-> Seaport (Seaport Pte. Ltd., Singapore, UEN 202619369N) is the contract and licensing bridge between large organisations and the creative industries. Creatives keep the copyright in their work; Seaport holds the right to license it to companies, on written terms the creative has signed, and handles contracts, licences and payments. Headquartered in Singapore, working with creatives and companies worldwide.
+> Seaport (Seaport Pte. Ltd., UEN 202619369N) is an international creative marketing company based in Singapore. It brings real customers to businesses using conventional and unconventional marketing: TikTok and Instagram creator videos, livestream marketing, and coupon deals handed out in person. Every view, coupon and visit is tracked. Tagline: Porting your brands.
 
 Key facts:
-- Seaport never takes ownership of a creative's work. It holds licensing rights under a signed agreement.
-- Companies buy creative work in five ways: commissioned projects, a dedicated creative team, library licensing, exclusive licences, and bringing their own suppliers onto Seaport contracts.
-- The library holds creative frameworks (reusable templates such as campaign kits, film formats and report layouts) that many companies can license. Creatives earn a royalty on every licence.
-- Library examples, creatives and prices shown on the website are samples; the site is a preview build.
-- Contact: info@getseaport.com (general), sales@getseaport.com (companies), team@getseaport.com (creatives).
+- Who it is for: SMEs and corporates in Singapore, Southeast Asia and worldwide, including cafes, restaurants, salons, gyms, retail, fashion, tourism and attractions.
+- Creator videos: short TikTok and Instagram videos by vetted local and international creators. Each video has its own offer code so the business sees the customers it brings in. Any video that gets under 1,000 views in 7 days is remade free.
+- Livestream marketing: creators go live on TikTok with the brand on screen and a live offer code.
+- Coupon deals: coupon deals handed out in person near the shop. Free for shops during launch; customers buy the coupon and redeem it at the shop.
+- Process: brief and match (three vetted creators shortlisted, the business picks one), film and post (one round of changes), count and repeat (results report after 7 days).
+- Plans: Trial, Starter, Micro Starter, Monthly, plus custom campaigns. Prices are quoted on request.
+- Contact: team@getseaport.com, WhatsApp +65 8498 8225. Instagram: https://www.instagram.com/getseaport/
 
 ## Pages
 
-- [Home](https://getseaport.com/): what Seaport does, for companies and creatives
-- [Why Seaport](https://getseaport.com/seaport-why.html): working with Seaport compared with going direct
-- [Solutions](https://getseaport.com/seaport-solutions.html): the five ways to buy creative work
-- [Library](https://getseaport.com/seaport-library.html): creative frameworks available to license
-- [Licensing](https://getseaport.com/seaport-licensing.html): how rights and money move, and the licence types
-- [For creatives](https://getseaport.com/seaport-creatives.html): briefs and royalties for studios and independents
-- [Contact and FAQ](https://getseaport.com/seaport-contact.html): questions, pricing, IP ownership, data protection
-- [Company sign-up](https://getseaport.com/seaport-join-company.html)
-- [Join as a creative](https://getseaport.com/seaport-join-creative.html)
+- [Home](https://getseaport.com/): what Seaport does
+- [Services](https://getseaport.com/services.html): creator videos, livestream marketing, coupon deals, plans and industries
+- [Why Seaport](https://getseaport.com/why.html): how the process works
+- [Creators](https://getseaport.com/creators.html): join as a creator for paid briefs
+- [Contact](https://getseaport.com/contact.html): get in touch
