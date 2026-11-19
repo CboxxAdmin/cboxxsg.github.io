@@ -9,6 +9,25 @@
 .pd-mk-t>span{display:inline-block;padding-right:0}
 @keyframes pdTick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.pd-mk-t{animation:none}}
+
+/* mobile popup: dark, softer */
+@media (max-width:720px){
+.pd-pop{background:rgba(22,22,24,.9)!important;color:#ececec;border:1px solid rgba(255,255,255,.08)}
+.pd-pop .pd-pop-h{color:#d6d6d6!important}
+.pd-pop .pd-pop-h span{color:#ff5a50!important}
+.pd-pop-s{color:#fff;border-top-color:rgba(255,255,255,.12)}
+.pd-ch li{border-top-color:rgba(255,255,255,.12)}
+.pd-pop .pd-ch b{color:#fff!important}
+.pd-ch .n{color:#8a8a8e}
+.pd-pop .pd-ch p{color:#a9a9ad!important}
+.pd-pop .pd-ch em{color:#5ee08f!important;background:rgba(74,222,128,.14)!important;border-color:rgba(74,222,128,.4)!important}
+.pd-ch em::before{background:#4ade80}
+.pd-pop .pd-ch em.lim{color:#ff8a82!important;background:rgba(255,90,80,.14)!important;border-color:rgba(255,90,80,.4)!important}
+.pd-ch em.lim::before{background:#ff5a50}
+.pd-pop .pd-why li{color:#ececec!important}
+.pd-why svg{color:#ff5a50}
+.pd-pop .pd-btn,.pd-pop-cta{background:#ececef!important;color:#141416!important}
+}
 </style>
 <meta property="og:image" content="https://getseaport.com/assets/seaport/og-image.png?v=3">
 <meta name="twitter:card" content="summary_large_image">
