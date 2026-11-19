@@ -1,7 +1,15 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Seaport Services</title>
-<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("seaport-theme")}catch(e){}</script><style>#themeBtn,#mTheme{display:none!important}</style>
+<script>document.documentElement.setAttribute("data-theme","light");try{localStorage.removeItem("seaport-theme")}catch(e){}</script><style>#themeBtn,#mTheme{display:none!important}
+/* livestream photo */
+.sv-live{position:relative;background:#dadada}
+.sv-live img{object-position:74% 38%}
+.sv-live-tag{position:absolute;top:18px;left:18px;display:inline-flex;align-items:center;gap:7px;padding:6px 12px 6px 10px;border-radius:6px;background:#D2231C;color:#fff;font:700 12px/1 var(--display,Inter,sans-serif);letter-spacing:.12em}
+.sv-live-tag i{width:7px;height:7px;border-radius:50%;background:#fff;animation:svLive 1.4s ease-in-out infinite}
+@keyframes svLive{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.sv-live-tag i{animation:none}}
+</style>
 <meta property="og:image" content="https://getseaport.com/assets/seaport/og-image.png?v=3">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -468,7 +476,7 @@ footer.sf{margin-top:72px;font-family:var(--display);color:var(--ink)}.sf-bar{he
         <p class="sv-foot">For brands that want steady content and new customers. You get a creator shortlist, a brief, filming, posting and a results report after 7 days. Prices on request.</p></div>
     </div>
     <div class="sv-pair rev" id="next">
-      <figure class="sv-img"><img src="https://images.unsplash.com/photo-1730727384555-35318cb80600?w=1000&q=72&auto=format&fit=crop" alt="A designer working on a laptop among clothing samples" loading="lazy"></figure>
+      <figure class="sv-img sv-live"><img src="assets/img/seaport-livestream-creator.jpg" alt="A creator in all-black streetwear seated on a studio chair" loading="lazy"><span class="sv-live-tag"><i></i>LIVE</span></figure>
       <div class="sv-card"><p class="sv-tag">02 · Now open <em>limited brands</em></p><h3>Livestream marketing</h3><ul><li><span>Creator live session</span><span class="n">01</span></li><li><span>Your brand on screen</span><span class="n">02</span></li><li><span>Branded merch, like F1 merch</span><span class="n">03</span></li><li><span>Live offer code</span><span class="n">04</span></li><li><span>Results after the live</span><span class="n">05</span></li></ul>
         <p class="sv-foot">For brands launching a product or running a promotion. You get a creator live session, your brand on screen, and a live offer code. Ask us for founding brand terms.</p></div>
     </div>
