@@ -414,7 +414,7 @@ addEventListener("load",()=>{var el=null;try{el=seaportHash&&document.querySelec
         <div class="panel" id="m-why" hidden>
           <div><h4>Why Seaport</h4>
             <a href="why.html"><b>A creative marketing company</b><span>Who we are and what we do</span></a>
-            <a href="why.html"><b>Our process, step by step</b><span>Brief, match, create, count, repeat</span></a>
+            <a href="why.html"><b>Our process, step by step</b><span>Brief, plan, create, launch, count</span></a>
             <a href="services.html#pricing"><b>Plans</b><span>From a first trial to monthly content</span></a></div>
           <div><h4>By role</h4>
             <a href="services.html#industries"><b>Businesses and brands</b><span>Creator videos that bring in real customers</span></a>
@@ -449,8 +449,8 @@ addEventListener("load",()=>{var el=null;try{el=seaportHash&&document.querySelec
   <div hidden aria-hidden="true"><section id="work"><div id="rail"></div></section><section class="pd" id="creators"><img class="pd-photo" alt=""></section></div>
   <section class="why" id="why">
     <div class="wrap why-head">
-      <div><p class="eyebrow">Why Seaport</p><h2>International and local TikTok and Instagram creators, measured like ads.</h2></div>
-      <p>Seaport is a creative marketing company based in Singapore. We use creative ways to bring customers to your business, starting with creator marketing: brands get short-form videos from vetted creators who already reach their customers. We find the creator, write the brief, handle the contracts and payments, and report on the customers each video brings in. Creators sign with us on terms that fit them, from one-off gigs to long-term management.</p>
+      <div><p class="eyebrow">Why Seaport</p><h2>We don&rsquo;t just sell a service. We sell growth.</h2></div>
+      <p>Most agencies sell one thing: a video, an ad, a post. We start from your goal and pick the mix that gets you there: creator videos, livestreams, coupon deals or our team on the ground. One team, every customer counted.</p>
     </div>
     <div class="why-full"><div class="why-grid">
       <div class="why-left"><div class="why-pin">
@@ -563,13 +563,13 @@ function procScroll(y){
 }
 if(proc){show(0);fill(0,reduce?1:0);}
 /* why seaport: photo nearest the middle of the screen sets the active step */
-const WHY=[["Brief","Tell us what you sell, who you want to reach, and the offer you can give.","1765294661150-130e24807964"],
-["Match","We shortlist three vetted creators, local or international, whose followers match your customers. You pick one.","1544168190-79c17527004f"],
-["Agree","One agreement with Seaport and a 50% deposit to start. Creators work under contract with us, so you deal with one team.","1540569014015-19a7be504e3a"],
-["Film","Three short videos, tagged to your store or location, each with its own offer code and a limited-time deal.","1505538034984-f4cdc7503011"],
-["Review","You see every draft first and get one round of changes before anything goes live.","1594546325110-a530729c3f99"],
-["Post and boost","The creator posts to their followers. Add an optional Spark Ads boost to reach more of the right people.","1597349789235-c8e2c85880d1"],
-["Count and repeat","After 7 days we report views and code redemptions. Under 1,000 views, we remake it free.","1763621470208-efe14b618119"]];
+const WHY=[["Brief","Tell us what you sell, who you want to reach, and your goal: more walk-ins, more online sales or more people knowing your name.","1765294661150-130e24807964"],
+["Plan the mix","We pick what fits you: creator videos, livestreams, coupon deals or on-the-ground promotion. Use one or combine them, with one clear quote.","1544168190-79c17527004f"],
+["Agree","One agreement with Seaport and a 50% deposit to start. Creators and our team work under contract with us, so you deal with one team.","1540569014015-19a7be504e3a"],
+["Create","Creators film your videos, we set up your livestream, or we design your coupon deals. Each one gets its own code so we can track it.","1505538034984-f4cdc7503011"],
+["Review","You approve every video, livestream plan and coupon before anything goes live.","1594546325110-a530729c3f99"],
+["Launch","Videos go live, livestreams run, and our team shares your deals online and hands them out in person.","1597349789235-c8e2c85880d1"],
+["Count and repeat","We report views, coupon redemptions and visits, then improve the next round. Creator videos under 1,000 views in 7 days get a free remake.","1763621470208-efe14b618119"]];
 const whyList=document.getElementById("whyList"),whyDesc=document.getElementById("whyDesc"),whyImgs=document.getElementById("whyImgs");let whyCur=-1;
 WHY.forEach(([t,d,id],i)=>{const li=document.createElement("li");li.innerHTML=`<span class="n">${String(i+1).padStart(2,"0")}</span><span class="t"></span>`;li.querySelector(".t").textContent=t;li.tabIndex=0;
   const go=()=>whyImgs.children[i].scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"});li.onclick=go;li.onkeydown=e=>{if(e.key==="Enter")go()};whyList.appendChild(li);
