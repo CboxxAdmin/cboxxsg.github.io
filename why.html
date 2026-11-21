@@ -587,7 +587,7 @@ const WHY=[["Brief","Tell us what you sell, who you want to reach, and your goal
 ["Create","Creators film your videos, we set up your livestream, or we design your coupon deals. Each one gets its own code so we can track it.","assets/img/seaport-creator-filming.jpg"],
 ["Review","You approve every video, livestream plan and coupon before anything goes live.","1758600432874-04ce2aa2d2e4"],
 ["Launch","Videos go live, livestreams run, and our team shares your deals online and hands them out in person.","assets/img/hero-hawker-singapore.jpg"],
-["Count and repeat","We report views, coupon redemptions and visits, then improve the next round. Creator videos under 1,000 views in 7 days get a free remake.","1551288049-bebda4e38f71"]];
+["Count and repeat","We report views, coupon redemptions and visits, then improve the next round. Creator videos under 1,000 views in 7 days get a free remake.","1763038311036-6d18805537e5"]];
 const whyList=document.getElementById("whyList"),whyDesc=document.getElementById("whyDesc"),whyImgs=document.getElementById("whyImgs");let whyCur=-1;
 WHY.forEach(([t,d,id],i)=>{const li=document.createElement("li");li.innerHTML=`<span class="n">${String(i+1).padStart(2,"0")}</span><span class="t"></span>`;li.querySelector(".t").textContent=t;li.tabIndex=0;
   const go=()=>whyImgs.children[i].scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"});li.onclick=go;li.onkeydown=e=>{if(e.key==="Enter")go()};whyList.appendChild(li);
