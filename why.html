@@ -17,6 +17,24 @@
 #why .why-desc{text-align:left;margin:0;padding:20px 40px 0;max-width:40ch;font-family:var(--body,inherit);font-weight:400;font-size:16px;letter-spacing:0;text-transform:none;line-height:1.55!important;color:var(--muted)!important;min-height:7em;font-size:16px!important;text-transform:none!important;letter-spacing:0!important;font-weight:400!important;text-align:left!important}
 #why .why-tab{display:none!important}
 }
+
+/* process: calm card grid on desktop, no pinned scroll */
+@media (min-width:721px){
+#why .why-left,#why .why-dots{display:none!important}
+#why .why-full{padding:0 max(32px,4vw) 96px}
+#why .why-grid{display:block!important}
+#why .why-imgs{display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px;flex-direction:initial!important}
+#why .why-imgs figure{grid-column:span 3}
+#why .why-imgs figure:nth-child(n+5){grid-column:span 4;aspect-ratio:5/4}
+#why .why-imgs figure{height:auto!important;aspect-ratio:4/5;position:relative;border-radius:14px;overflow:hidden;background-size:cover;background-position:center;transition:transform .35s ease}
+#why .why-imgs figure:hover{transform:translateY(-4px)}
+#why .why-imgs figure::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,12,0) 30%,rgba(10,10,12,.9) 100%)}
+#why .why-cap{display:block!important;position:absolute;left:0;right:0;bottom:0;z-index:2;padding:20px;color:#fff}
+#why .why-cap .n{font:600 11px var(--mono);letter-spacing:.1em;color:#ff6b63}
+#why .why-cap h3{margin:4px 0 6px;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.01em}
+#why .why-cap p{margin:0;font-size:14px;line-height:1.45;color:rgba(255,255,255,.88)}
+}
+@media (min-width:721px) and (max-width:1100px){#why .why-imgs{grid-template-columns:repeat(2,minmax(0,1fr))}#why .why-imgs figure,#why .why-imgs figure:nth-child(n+5){grid-column:auto;aspect-ratio:4/5}#why .why-imgs figure:last-child{grid-column:1/-1;aspect-ratio:2/1}}
 </style>
 <meta property="og:image" content="https://getseaport.com/assets/seaport/og-image.png?v=3">
 <meta name="twitter:card" content="summary_large_image">
