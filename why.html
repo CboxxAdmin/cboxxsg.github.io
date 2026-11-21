@@ -563,17 +563,17 @@ function procScroll(y){
 }
 if(proc){show(0);fill(0,reduce?1:0);}
 /* why seaport: photo nearest the middle of the screen sets the active step */
-const WHY=[["Brief","Tell us what you sell, who you want to reach, and your goal: more walk-ins, more online sales or more people knowing your name.","1516197370049-569c4eaba1d6"],
-["Plan the mix","We pick what fits you: creator videos, livestreams, coupon deals or on-the-ground promotion. Use one or combine them, with one clear quote.","1758691736872-61a1f75fe2d5"],
-["Agree","One agreement with Seaport and a 50% deposit to start. Creators and our team work under contract with us, so you deal with one team.","1672380135241-c024f7fbfa13"],
-["Create","Creators film your videos, we set up your livestream, or we design your coupon deals. Each one gets its own code so we can track it.","1764162051225-a5fa111c5ce1"],
-["Review","You approve every video, livestream plan and coupon before anything goes live.","1764664281859-36f1b637b6a8"],
-["Launch","Videos go live, livestreams run, and our team shares your deals online and hands them out in person.","1778790508237-3c6cb00f152a"],
+const WHY=[["Brief","Tell us what you sell, who you want to reach, and your goal: more walk-ins, more online sales or more people knowing your name.","1577415124269-fc1140a69e91"],
+["Plan the mix","We pick what fits you: creator videos, livestreams, coupon deals or on-the-ground promotion. Use one or combine them, with one clear quote.","1754531976828-69e42ce4e0d9"],
+["Agree","One agreement with Seaport and a 50% deposit to start. Creators and our team work under contract with us, so you deal with one team.","1681569685386-b7bda397672e"],
+["Create","Creators film your videos, we set up your livestream, or we design your coupon deals. Each one gets its own code so we can track it.","assets/img/seaport-creator-filming.jpg"],
+["Review","You approve every video, livestream plan and coupon before anything goes live.","1758600432874-04ce2aa2d2e4"],
+["Launch","Videos go live, livestreams run, and our team shares your deals online and hands them out in person.","assets/img/hero-hawker-singapore.jpg"],
 ["Count and repeat","We report views, coupon redemptions and visits, then improve the next round. Creator videos under 1,000 views in 7 days get a free remake.","1551288049-bebda4e38f71"]];
 const whyList=document.getElementById("whyList"),whyDesc=document.getElementById("whyDesc"),whyImgs=document.getElementById("whyImgs");let whyCur=-1;
 WHY.forEach(([t,d,id],i)=>{const li=document.createElement("li");li.innerHTML=`<span class="n">${String(i+1).padStart(2,"0")}</span><span class="t"></span>`;li.querySelector(".t").textContent=t;li.tabIndex=0;
   const go=()=>whyImgs.children[i].scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"});li.onclick=go;li.onkeydown=e=>{if(e.key==="Enter")go()};whyList.appendChild(li);
-  const f=document.createElement("figure");f.setAttribute("role","img");f.setAttribute("aria-label",t);setBg(f,U(id),img(i+20,480,600));whyImgs.appendChild(f)});
+  const f=document.createElement("figure");f.setAttribute("role","img");f.setAttribute("aria-label",t);setBg(f,id.includes("/")?id:U(id),img(i+20,480,600));whyImgs.appendChild(f)});
 function whySet(i){if(i===whyCur)return;whyCur=i;[...whyList.children].forEach((li,k)=>{li.classList.toggle("on",k===i);li.classList.toggle("done",k<i)});whyDesc.textContent=WHY[i][1]}
 whySet(0);
 function whyScroll(){let best=0,bd=1e9;[...whyImgs.children].forEach((f,i)=>{const r=f.getBoundingClientRect(),d=Math.abs(r.top+r.height/2-innerHeight/2);if(d<bd){bd=d;best=i}});whySet(best)}
