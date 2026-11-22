@@ -779,7 +779,7 @@ function cgScroll(){
 /* why seaport: photo nearest the middle of the screen sets the active step */
 const WHY=[["Brief","Tell us what you sell, who you want to reach, and the offer you can give.","1765294661150-130e24807964"],
 ["Match","We shortlist three vetted creators, local or international, whose followers match your customers. You pick one.","1544168190-79c17527004f"],
-["Agree","One agreement with Seaport and a 50% deposit to start. Creators work under contract with us, so you deal with one team.","1540569014015-19a7be504e3a"],
+["Agree","One agreement with Seaport and a 50% deposit to start. Creators work under contract with us, so you deal with one team.","assets/img/seaport-agree-loi.jpg"],
 ["Film","Three short videos, tagged to your store or location, each with its own offer code and a limited-time deal.","1505538034984-f4cdc7503011"],
 ["Review","You see every draft first and get one round of changes before anything goes live.","1594546325110-a530729c3f99"],
 ["Post and boost","The creator posts to their followers. Add an optional Spark Ads boost to reach more of the right people.","1597349789235-c8e2c85880d1"],
@@ -787,7 +787,7 @@ const WHY=[["Brief","Tell us what you sell, who you want to reach, and the offer
 const whyList=document.getElementById("whyList"),whyDesc=document.getElementById("whyDesc"),whyImgs=document.getElementById("whyImgs");let whyCur=-1;
 if(whyList){WHY.forEach(([t,d,id],i)=>{const li=document.createElement("li");li.textContent=t;li.tabIndex=0;
   const go=()=>whyImgs.children[i].scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"});li.onclick=go;li.onkeydown=e=>{if(e.key==="Enter")go()};whyList.appendChild(li);
-  const f=document.createElement("figure");f.setAttribute("role","img");f.setAttribute("aria-label",t);setBg(f,U(id),img(i+20,480,600));whyImgs.appendChild(f)});}
+  const f=document.createElement("figure");f.setAttribute("role","img");f.setAttribute("aria-label",t);setBg(f,id.includes("/")?id:U(id),img(i+20,480,600));whyImgs.appendChild(f)});}
 function whySet(i){if(i===whyCur)return;whyCur=i;[...whyList.children].forEach((li,k)=>li.classList.toggle("on",k===i));whyDesc.textContent=WHY[i][1]}
 if(whyList)whySet(0);
 function whyScroll(){if(!whyList)return;let best=0,bd=1e9;[...whyImgs.children].forEach((f,i)=>{const r=f.getBoundingClientRect(),d=Math.abs(r.top+r.height/2-innerHeight/2);if(d<bd){bd=d;best=i}});whySet(best)}
